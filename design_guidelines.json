@@ -1,0 +1,255 @@
+{
+  "app_name": "IA Match",
+  "theme": "Light Theme",
+  "archetype": "Archetype 1 (Organic & Earthy) blended with Archetype 5 (Jewel & Luxury) - Premium Editorial Style",
+  "description": "A Steve Jobs-style elegant mobile app designed to help users find the best AI tool for their specific needs. Features high-contrast editorial typography, massive negative space, and premium visual layout.",
+  "colors": {
+    "background": {
+      "primary": "#FDFBF7",
+      "secondary": "#FFF8F0"
+    },
+    "surface": {
+      "darkCard": "#12151C",
+      "lightCard": "#FFFFFF",
+      "bottomSheet": "#FFFFFF"
+    },
+    "text": {
+      "primary": "#111217",
+      "secondary": "#5E636E",
+      "inverse": "#FDFBF7"
+    },
+    "accent": {
+      "pink": "#F43F7A",
+      "coral": "#FF5A45",
+      "gradientPrimary": "linear-gradient(135deg, #F43F7A 0%, #FF5A45 100%)"
+    },
+    "feedback": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
+    },
+    "border": {
+      "subtle": "rgba(17, 18, 23, 0.05)",
+      "dark": "rgba(255, 255, 255, 0.1)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "heading": "Playfair Display, Lora, serif",
+      "body": "Inter, Source Sans Pro, sans-serif"
+    },
+    "scales": {
+      "h1": {
+        "fontSize": 48,
+        "lineHeight": 52,
+        "fontFamily": "Playfair Display",
+        "letterSpacing": -1,
+        "fontWeight": "700"
+      },
+      "h2": {
+        "fontSize": 32,
+        "lineHeight": 36,
+        "fontFamily": "Playfair Display",
+        "letterSpacing": -0.5,
+        "fontWeight": "600"
+      },
+      "h3": {
+        "fontSize": 24,
+        "lineHeight": 28,
+        "fontFamily": "Playfair Display",
+        "fontWeight": "600"
+      },
+      "bodyLarge": {
+        "fontSize": 18,
+        "lineHeight": 26,
+        "fontFamily": "Inter",
+        "fontWeight": "400"
+      },
+      "bodyMedium": {
+        "fontSize": 16,
+        "lineHeight": 24,
+        "fontFamily": "Inter",
+        "fontWeight": "400"
+      },
+      "bodySmall": {
+        "fontSize": 14,
+        "lineHeight": 20,
+        "fontFamily": "Inter",
+        "fontWeight": "400"
+      },
+      "label": {
+        "fontSize": 12,
+        "lineHeight": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "600",
+        "letterSpacing": 1,
+        "textTransform": "uppercase"
+      }
+    }
+  },
+  "spacing": {
+    "2": 8,
+    "4": 16,
+    "6": 24,
+    "8": 32,
+    "12": 48,
+    "16": 64,
+    "20": 80,
+    "24": 96
+  },
+  "layout": {
+    "containerPadding": 24,
+    "borderRadius": {
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "pill": 9999
+    },
+    "shadows": {
+      "soft": "0 8px 30px rgba(17, 18, 23, 0.04)",
+      "medium": "0 12px 40px rgba(17, 18, 23, 0.08)",
+      "darkCard": "0 16px 48px rgba(0, 0, 0, 0.2)"
+    }
+  },
+  "components": {
+    "navigation": {
+      "bottomTab": {
+        "backgroundColor": "#FDFBF7",
+        "borderTopWidth": 1,
+        "borderTopColor": "rgba(17, 18, 23, 0.05)",
+        "activeColor": "#F43F7A",
+        "inactiveColor": "#5E636E",
+        "height": 80,
+        "paddingBottom": 24
+      }
+    },
+    "cards": {
+      "aiCard": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "padding": 16,
+        "shadow": "soft",
+        "elements": [
+          "Thumbnail (BorderRadius 16)",
+          "Title (Playfair Display)",
+          "Category Badge",
+          "Match Score (Circular Progress)",
+          "Compare & Rate Actions"
+        ]
+      },
+      "darkHeroCard": {
+        "backgroundColor": "#12151C",
+        "borderRadius": 32,
+        "padding": 24,
+        "shadow": "darkCard",
+        "textColor": "#FDFBF7"
+      }
+    },
+    "buttons": {
+      "primary": {
+        "backgroundColor": "#FF5A45",
+        "borderRadius": 9999,
+        "paddingVertical": 16,
+        "paddingHorizontal": 32,
+        "textColor": "#FFFFFF",
+        "fontFamily": "Inter",
+        "fontWeight": "600"
+      },
+      "secondary": {
+        "backgroundColor": "transparent",
+        "borderWidth": 1,
+        "borderColor": "rgba(17, 18, 23, 0.1)",
+        "borderRadius": 9999,
+        "paddingVertical": 16,
+        "paddingHorizontal": 32,
+        "textColor": "#111217"
+      },
+      "ratingModifier": {
+        "backgroundColor": "rgba(17, 18, 23, 0.05)",
+        "borderRadius": 16,
+        "width": 64,
+        "height": 64,
+        "alignItems": "center",
+        "justifyContent": "center"
+      }
+    },
+    "inputs": {
+      "search": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 16,
+        "padding": 16,
+        "borderWidth": 1,
+        "borderColor": "rgba(17, 18, 23, 0.05)",
+        "fontSize": 16,
+        "fontFamily": "Inter"
+      }
+    },
+    "custom": {
+      "matchScoreRing": {
+        "trackColor": "rgba(244, 63, 122, 0.1)",
+        "progressColor": "#F43F7A",
+        "strokeWidth": 6
+      },
+      "benchmarkTable": {
+        "rowBorderColor": "rgba(17, 18, 23, 0.05)",
+        "headerTextColor": "#5E636E",
+        "valueTextColor": "#111217",
+        "paddingVertical": 16
+      }
+    }
+  },
+  "motion": {
+    "pageTransition": {
+      "type": "fade",
+      "duration": 300
+    },
+    "cardPress": {
+      "scale": 0.97,
+      "duration": 150
+    },
+    "bottomSheet": {
+      "springDamping": 0.8,
+      "springStiffness": 200
+    },
+    "ratingFeedback": {
+      "animation": "bounce",
+      "scale": 1.2,
+      "duration": 400
+    }
+  },
+  "icons": {
+    "library": "lucide-react-native",
+    "strokeWidth": 2,
+    "size": {
+      "sm": 16,
+      "md": 24,
+      "lg": 32
+    }
+  },
+  "image_urls": {
+    "heroBackground": {
+      "url": "https://images.unsplash.com/photo-1739785891796-7fd9028e1930?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMG1pbmltYWwlMjBlbGVnYW50JTIwb2ZmLXdoaXRlJTIwcGluayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc3Mzg5MjI3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract pink geometric background for the Onboarding/Hero section."
+    },
+    "aiCategoryTech": {
+      "url": "https://images.pexels.com/photos/8386437/pexels-photo-8386437.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Futuristic AI representation for 'Tech / Coding' tools category."
+    },
+    "aiCategoryProductivity": {
+      "url": "https://images.unsplash.com/photo-1736066331155-c95740b0bd6c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwY2xlYW4lMjBtb2Rlcm4lMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzc3Mzg5MjI3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Minimalist modern laptop workspace for 'Productivity / Document' AI category."
+    }
+  },
+  "instructions_to_main_agent": [
+    "This is a React Native Expo application. Use standard React Native components (View, Text, ScrollView, TouchableOpacity, StyleSheet) or styled-components/NativeWind if configured.",
+    "CRITICAL: Do not use HTML tags like <div> or <span>. Use <View> and <Text>.",
+    "Navigation: Implement a mobile-first Bottom Tab Navigation (Home, Search, Compare, Benchmarks, Profile).",
+    "Use react-native-reanimated for all motion (animated cards on press, rating feedback +10/-10 popups, and visual progress bars).",
+    "Implement bottom sheet modals (e.g., using @gorhom/bottom-sheet) for detailed AI filters and deep-dive comparisons.",
+    "Typography: Import 'Playfair Display' and 'Inter' via expo-font. Ensure all titles use the Serif font, and body text uses Inter.",
+    "Use 'lucide-react-native' for all icons. Emojis are explicitly forbidden by the user.",
+    "Ensure large touch targets (min 48x48) for mobile usability.",
+    "All interactive elements MUST have a testID (e.g., testID='match-submit-button') for automated testing, adhering to the data-testid equivalent on mobile."
+  ]
+}
