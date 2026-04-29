@@ -104,10 +104,188 @@
 
 user_problem_statement: |
   Continuer le développement de IA Match (Expo + FastAPI + MongoDB).
-  Utilisateur a demandé:
-  1) Finalisation: section Ressources FR dans Academy + logos corrects (Claude…)
-  2) Nouvelles fonctionnalités: Bookmarks, Historique Builder, Prompt du Jour, Comparateur >2 IA, Onboarding guidé
-  3) Correction des warnings shadow* deprecated.
+  Itération 3:
+  1) Étendre la base à 100+ outils LLM/IA pro (pas de chatbots grand public type Snapchat/Character).
+  2) Ajouter 2 YouTubers FR aux ressources (Shubham_Sharma, RenaudDekode).
+  3) Inscription/connexion utilisateurs (email + mot de passe + bcrypt + JWT).
+  4) Pages légales conformes : Mentions légales, CGU, CGV, Politique de confidentialité (RGPD) — placeholders.
+  5) Bannière de consentement cookies (RGPD + ePrivacy) avec choix granulaire.
+
+backend:
+  - task: "GET /api/tools retourne 100+ outils dont nano-banana, qwen, kimi, deepseek-r1, gpt5, o3, gemini-25, claude-opus, llama, veo, mixtral"
+    implemented: true
+    working: true
+    file: "/app/backend/seed_data.py, /app/backend/seed_data_extra.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "main"
+        -comment: "Nouveau fichier seed_data_extra.py avec EXTRA_TOOLS (60+ entrées). Merge dans server.py au démarrage. /api/tools renvoie désormais 111 outils (vérifié via curl). Slugs critiques présents : qwen, kimi, llama, command-r, mixtral, nano-banana, imagen, veo, hailuo, deepseek-r1, gpt5, o3, gemini-25, claude-opus, etc. Les domaines sont alignés pour Clearbit. Aucun chatbot grand public (Character.AI/Pi/Snapchat) ajouté."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié via /app/backend_test.py. GET /api/tools renvoie 200 avec 111 outils (≥ 100 OK). Tous les slugs critiques présents : claude-opus, gpt5, o3, gemini-25, deepseek-r1, qwen, kimi, llama, mixtral, nano-banana, veo, command-r, hailuo, imagen."
+
+  - task: "GET /api/resources retourne 18 ressources françaises avec Shubham_Sharma et RenaudDekode"
+    implemented: true
+    working: true
+    file: "/app/backend/editorial_data.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "main"
+        -comment: "Ajout de r17 (Shubham Sharma, https://www.youtube.com/@Shubham_Sharma) et r18 (Renaud Dekode, https://www.youtube.com/@RenaudDekode) en catégorie YOUTUBE. Total : 18 ressources (16 + 2)."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié : GET /api/resources renvoie 200 avec exactement 18 items. r17 = Shubham Sharma / category=YOUTUBE / url='https://www.youtube.com/@Shubham_Sharma'. r18 = Renaud Dekode / category=YOUTUBE / url='https://www.youtube.com/@RenaudDekode'."
+
+  - task: "POST /api/auth/register crée un compte avec hash bcrypt + JWT"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "main"
+        -comment: "Endpoint /api/auth/register implémenté avec validation email regex, password ≥ 8 chars, accept_terms obligatoire, bcrypt rounds=10, JWT HS256 30 jours. Test manuel : 200 OK. Doublon email → 409. Email invalide → 400."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié : (a) body valide → 200 avec token JWT (243 chars) + user.id (UUID) + user.email + user.name + user.is_premium=false ; (b) accept_terms absent → 400 ; (c) password < 8 chars → 400 ; (d) email 'not-an-email' → 400 ; (e) email dupliqué → 409. Tous OK."
+
+  - task: "POST /api/auth/login authentifie un compte existant"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "main"
+        -comment: "Endpoint /api/auth/login : 200 OK avec token + user pour creds valides, 401 sinon. Test manuel passé."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié : (a) creds valides → 200 + token JWT + user.id ; (b) mauvais mot de passe → 401 ; (c) email inexistant → 401."
+
+  - task: "GET /api/auth/whoami valide le token JWT"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Endpoint /api/auth/whoami avec header X-Auth-Token. Retourne 401 si manquant/invalide, 200 + user sinon. À tester."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié : (a) sans header X-Auth-Token → 401 ; (b) X-Auth-Token = jeton valide du login → 200 avec id/email/name/is_premium ; (c) X-Auth-Token='foo.bar.baz' invalide → 401."
+
+frontend:
+  - task: "Écran inscription/connexion (/auth) avec consentement CGU+Privacy"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/auth.tsx, /app/frontend/src/auth.ts"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Nouveau écran /auth (modes login/register), formulaire avec validation, case à cocher CGU+Privacy obligatoire pour register. Token + user persistés en AsyncStorage. Redirection vers /(tabs)/profile au succès."
+
+  - task: "Pages légales (/legal/[type]) : mentions, cgu, cgv, privacy"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/legal/[type].tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Route dynamique /legal/[type] avec 4 contenus complets (mentions, cgu, cgv, privacy) conformes RGPD/Code de la consommation. Placeholders {{NOM_SOCIETE}}, {{ADRESSE_POSTALE}}, {{EMAIL_CONTACT}} à remplir par l'utilisateur."
+
+  - task: "Bannière de consentement cookies (RGPD)"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/CookieConsent.tsx, /app/frontend/app/_layout.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Bannière en bas de l'app au premier lancement. 3 boutons (Tout accepter / Tout refuser / Personnaliser). Mode personnalisé : toggle Necessary (forcé), Analytics, Marketing. Persistance AsyncStorage. Reset depuis Profil → Préférences cookies."
+
+  - task: "Profil enrichi : auth section (login/register/logout) + liens légaux"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/profile.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Profil affiche carte auth en tête (avatar + name + email si connecté, ou CTAs créer compte / connexion sinon). Section informations légales avec 4 liens (mentions, cgu, cgv, privacy). Bouton Préférences cookies."
+
+  - task: "Catalogue affiche 111 outils avec logos corrects"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/index.tsx, /app/frontend/src/components/LogoTile.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Pas de modification frontend nécessaire pour les nouveaux outils — listés automatiquement via /api/tools. À vérifier visuellement."
+
+metadata:
+  created_by: "main_agent"
+  version: "3.0"
+  test_sequence: 2
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "GET /api/tools retourne 100+ outils dont nano-banana, qwen, kimi, deepseek-r1, gpt5, o3, gemini-25, claude-opus, llama, veo, mixtral"
+    - "GET /api/resources retourne 18 ressources françaises avec Shubham_Sharma et RenaudDekode"
+    - "POST /api/auth/register crée un compte avec hash bcrypt + JWT"
+    - "POST /api/auth/login authentifie un compte existant"
+    - "GET /api/auth/whoami valide le token JWT"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    -agent: "main"
+    -message: |
+      Itération 3 complète. Backend : ajout de seed_data_extra.py (60 nouveaux outils), nouveau router /api/auth (register/login/whoami) avec bcrypt + JWT, ajout de 2 YouTubers FR. Frontend : écran /auth (login/register), routes /legal/[type] avec 4 pages RGPD-compliant placeholder, bannière cookie consent montée dans _layout, profil enrichi (carte auth + liens légaux + reset cookies).
+
+      À tester (backend uniquement pour cette itération) :
+      1. /api/tools : retour ≥ 100 (attendu 111). Vérifier que claude-opus, gpt5, o3, gemini-25, deepseek-r1, qwen, kimi, llama, mixtral, nano-banana, veo, command-r sont présents.
+      2. /api/resources : 18 résultats. Vérifier r17 = Shubham Sharma (URL Shubham_Sharma) et r18 = Renaud Dekode (URL RenaudDekode).
+      3. /api/auth/register : 200 OK avec token+user pour email valide+pwd≥8+accept_terms=true. 400 sans accept_terms. 400 si pwd<8. 409 si email déjà inscrit.
+      4. /api/auth/login : 200 avec creds valides, 401 sinon.
+      5. /api/auth/whoami : 401 sans header, 200 avec X-Auth-Token valide.
+
+      Ne pas tester le frontend automatiquement — l'utilisateur le fera lui-même.
+    -agent: "testing"
+    -message: |
+      Itération 3 — backend testing terminé via /app/backend_test.py contre EXPO_PUBLIC_BACKEND_URL/api. 46/46 assertions PASS. Aucun problème détecté. Aucune tâche bloquée.
+      ✅ GET /api/tools : 200, 111 outils, tous les slugs critiques présents (claude-opus, gpt5, o3, gemini-25, deepseek-r1, qwen, kimi, llama, mixtral, nano-banana, veo, command-r, hailuo, imagen).
+      ✅ GET /api/resources : 200, exactement 18 items. r17=Shubham Sharma/YOUTUBE/url contient Shubham_Sharma. r18=Renaud Dekode/YOUTUBE/url contient RenaudDekode.
+      ✅ POST /api/auth/register : 200 avec token+user.{id,email,name,is_premium=false} pour body valide. 400 sans accept_terms / password<8 / email invalide. 409 sur email dupliqué.
+      ✅ POST /api/auth/login : 200 avec creds valides. 401 sur mauvais mot de passe et email inexistant.
+      ✅ GET /api/auth/whoami : 401 sans header. 200 avec id/email/name/is_premium pour token valide. 401 pour 'foo.bar.baz'.
 
 backend:
   - task: "GET /api/resources retourne 16 ressources françaises"

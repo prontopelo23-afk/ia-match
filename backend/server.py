@@ -14,8 +14,20 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from seed_data import TOOLS, CATEGORIES
+from seed_data_extra import EXTRA_TOOLS
 from editorial_data import NEWS, LESSONS, TEMPLATES, RESOURCES
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+
+# Merge EXTRA_TOOLS into TOOLS (decorate with logo)
+def _logo(domain: str) -> str:
+    return f"https://logo.clearbit.com/{domain}"
+
+_existing_slugs = {t["slug"] for t in TOOLS}
+for _et in EXTRA_TOOLS:
+    if _et["slug"] in _existing_slugs:
+        continue
+    _et["image"] = _logo(_et["domain"])
+    TOOLS.append(_et)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -368,6 +380,139 @@ async def builder_run(req: BuilderRunRequest):
 
 
 app.include_router(api_router)
+
+# ---------- Auth router ----------
+import bcrypt
+import jwt as pyjwt
+
+JWT_SECRET = os.environ.get("JWT_SECRET", "ia-match-dev-secret-change-me-in-prod")
+JWT_ALGO = "HS256"
+JWT_EXPIRES_DAYS = 30
+
+auth_router = APIRouter(prefix="/api/auth")
+
+
+class RegisterReq(BaseModel):
+    email: str
+    password: str
+    name: Optional[str] = None
+    accept_terms: bool = False
+
+
+class LoginReq(BaseModel):
+    email: str
+    password: str
+
+
+def _hash_pw(pw: str) -> str:
+    return bcrypt.hashpw(pw.encode("utf-8"), bcrypt.gensalt(rounds=10)).decode("utf-8")
+
+
+def _check_pw(pw: str, hashed: str) -> bool:
+    try:
+        return bcrypt.checkpw(pw.encode("utf-8"), hashed.encode("utf-8"))
+    except Exception:
+        return False
+
+
+def _make_token(user_id: str, email: str) -> str:
+    payload = {
+        "sub": user_id,
+        "email": email,
+        "iat": int(datetime.now(timezone.utc).timestamp()),
+        "exp": int(datetime.now(timezone.utc).timestamp()) + JWT_EXPIRES_DAYS * 86400,
+    }
+    return pyjwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGO)
+
+
+def _decode_token(token: str) -> Optional[dict]:
+    try:
+        return pyjwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGO])
+    except Exception:
+        return None
+
+
+EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+
+
+@auth_router.post("/register")
+async def register(req: RegisterReq):
+    email = (req.email or "").strip().lower()
+    if not EMAIL_RE.match(email):
+        raise HTTPException(400, "Email invalide")
+    if not req.password or len(req.password) < 8:
+        raise HTTPException(400, "Mot de passe trop court (min 8 caractères)")
+    if not req.accept_terms:
+        raise HTTPException(400, "Tu dois accepter les CGU et la politique de confidentialité")
+    existing = await db.users.find_one({"email": email})
+    if existing:
+        raise HTTPException(409, "Un compte existe déjà avec cet email")
+    user_id = str(uuid.uuid4())
+    user = {
+        "id": user_id,
+        "email": email,
+        "name": (req.name or email.split("@")[0]).strip(),
+        "password_hash": _hash_pw(req.password),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "is_premium": False,
+        "consent": {"terms": True, "privacy": True, "marketing": False},
+    }
+    await db.users.insert_one(user)
+    token = _make_token(user_id, email)
+    return {
+        "token": token,
+        "user": {"id": user_id, "email": email, "name": user["name"], "is_premium": False},
+    }
+
+
+@auth_router.post("/login")
+async def login(req: LoginReq):
+    email = (req.email or "").strip().lower()
+    if not email or not req.password:
+        raise HTTPException(400, "Email et mot de passe requis")
+    user = await db.users.find_one({"email": email})
+    if not user or not _check_pw(req.password, user.get("password_hash", "")):
+        raise HTTPException(401, "Email ou mot de passe incorrect")
+    token = _make_token(user["id"], email)
+    return {
+        "token": token,
+        "user": {
+            "id": user["id"],
+            "email": user["email"],
+            "name": user.get("name", ""),
+            "is_premium": user.get("is_premium", False),
+        },
+    }
+
+
+@auth_router.get("/me")
+async def me(authorization: Optional[str] = None):
+    # Read header via dependency-style — Starlette passes headers via Header()
+    raise HTTPException(501, "Use /me with X-Auth-Token header instead")
+
+
+from fastapi import Header
+
+
+@auth_router.get("/whoami")
+async def whoami(x_auth_token: Optional[str] = Header(default=None)):
+    if not x_auth_token:
+        raise HTTPException(401, "Token manquant")
+    payload = _decode_token(x_auth_token)
+    if not payload:
+        raise HTTPException(401, "Token invalide ou expiré")
+    user = await db.users.find_one({"id": payload["sub"]})
+    if not user:
+        raise HTTPException(404, "Utilisateur introuvable")
+    return {
+        "id": user["id"],
+        "email": user["email"],
+        "name": user.get("name", ""),
+        "is_premium": user.get("is_premium", False),
+    }
+
+
+app.include_router(auth_router)
 
 app.add_middleware(
     CORSMiddleware,

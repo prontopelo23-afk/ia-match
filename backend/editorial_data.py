@@ -299,4 +299,10 @@ RESOURCES = [
     {"id": "r16", "category": "OUTIL", "title": "Hugging Face France", "author": "Hugging Face",
      "summary": "La plateforme open-source mondiale, avec une forte communauté française.",
      "url": "https://huggingface.co"},
+    {"id": "r17", "category": "YOUTUBE", "title": "Shubham Sharma", "author": "Shubham Sharma",
+     "summary": "Chaîne tech avec démonstrations pratiques d'outils IA, tutos no-code et workflows IA appliqués.",
+     "url": "https://www.youtube.com/@Shubham_Sharma"},
+    {"id": "r18", "category": "YOUTUBE", "title": "Renaud Dekode", "author": "Renaud Dekode",
+     "summary": "Décryptage clair des outils IA et tutos en français : prompt engineering, automatisations et productivité.",
+     "url": "https://www.youtube.com/@RenaudDekode"},
 ]

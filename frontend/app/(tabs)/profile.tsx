@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
-import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight } from "lucide-react-native";
+import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight, LogIn, LogOut, FileText, Cookie, User as UserIcon } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import {
@@ -15,6 +15,7 @@ import {
   bookmarkNews,
   onboardingStore,
 } from "../../src/api";
+import { auth, AuthUser, consent } from "../../src/auth";
 import LogoTile from "../../src/components/LogoTile";
 
 export default function ProfileScreen() {
@@ -24,6 +25,11 @@ export default function ProfileScreen() {
   const [items, setItems] = useState<HistoryItem[]>([]);
   const [savedTools, setSavedTools] = useState<Tool[]>([]);
   const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  const loadAuth = useCallback(async () => {
+    setUser(await auth.getUser());
+  }, []);
 
   const loadBookmarks = useCallback(async () => {
     const [toolSlugs, newsIds] = await Promise.all([bookmarkTools.list(), bookmarkNews.list()]);
@@ -45,8 +51,28 @@ export default function ProfileScreen() {
     useCallback(() => {
       history.list().then(setItems);
       loadBookmarks();
-    }, [loadBookmarks])
+      loadAuth();
+    }, [loadBookmarks, loadAuth])
   );
+
+  const handleLogout = () => {
+    Alert.alert("Se déconnecter ?", "", [
+      { text: "Annuler", style: "cancel" },
+      {
+        text: "Déconnexion",
+        style: "destructive",
+        onPress: async () => {
+          await auth.logout();
+          setUser(null);
+        },
+      },
+    ]);
+  };
+
+  const resetCookieConsent = async () => {
+    await consent.clear();
+    Alert.alert("Préférences cookies", "Tes préférences ont été réinitialisées. La bannière apparaîtra au prochain démarrage.");
+  };
 
   const clear = () => {
     Alert.alert("Effacer l'historique ?", "Cette action est irréversible.", [
@@ -64,6 +90,64 @@ export default function ProfileScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: spacing.lg, paddingBottom: 100 }}>
         <Text style={[styles.title, { color: colors.textPrimary }]}>Mon profil</Text>
+
+        {/* Auth card */}
+        <View style={[styles.authCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+          {user ? (
+            <>
+              <View style={styles.authRow}>
+                <View style={[styles.avatar, { backgroundColor: colors.coral }]}>
+                  <Text style={styles.avatarText}>
+                    {(user.name || user.email).charAt(0).toUpperCase()}
+                  </Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.authName, { color: colors.textPrimary }]} numberOfLines={1}>{user.name || "Utilisateur"}</Text>
+                  <Text style={[styles.authEmail, { color: colors.textSecondary }]} numberOfLines={1}>{user.email}</Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={handleLogout}
+                style={[styles.authBtn, { borderColor: colors.borderSubtle }]}
+                testID="profile-logout"
+              >
+                <LogOut size={14} color={colors.textPrimary} strokeWidth={2.5} />
+                <Text style={[styles.authBtnText, { color: colors.textPrimary }]}>Se déconnecter</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <View style={styles.authRow}>
+                <View style={[styles.avatar, { backgroundColor: colors.coralSoft }]}>
+                  <UserIcon size={22} color={colors.coral} strokeWidth={2.5} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.authName, { color: colors.textPrimary }]}>Crée ton compte</Text>
+                  <Text style={[styles.authEmail, { color: colors.textSecondary }]} numberOfLines={2}>
+                    Sauvegarde tes favoris, ton historique Builder et synchronise ton plan.
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.authBtnRow}>
+                <TouchableOpacity
+                  onPress={() => router.push({ pathname: "/auth", params: { mode: "register" } })}
+                  style={[styles.authBtnPrimary, { backgroundColor: colors.coral }]}
+                  testID="profile-signup"
+                >
+                  <Text style={styles.authBtnPrimaryText}>Créer un compte</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => router.push({ pathname: "/auth", params: { mode: "login" } })}
+                  style={[styles.authBtn, { borderColor: colors.borderSubtle }]}
+                  testID="profile-login"
+                >
+                  <LogIn size={14} color={colors.textPrimary} strokeWidth={2.5} />
+                  <Text style={[styles.authBtnText, { color: colors.textPrimary }]}>Connexion</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+        </View>
 
         {/* Plan card */}
         <View style={[styles.planCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
@@ -115,6 +199,40 @@ export default function ProfileScreen() {
             </View>
             <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
           </TouchableOpacity>
+          <View style={[styles.divider, { backgroundColor: colors.borderSubtle }]} />
+          <TouchableOpacity onPress={resetCookieConsent} style={styles.settingRow} testID="profile-reset-cookies">
+            <View style={styles.settingLeft}>
+              <Cookie size={18} color={colors.textPrimary} strokeWidth={2} />
+              <Text style={[styles.settingText, { color: colors.textPrimary }]}>Préférences cookies</Text>
+            </View>
+            <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Legal links */}
+        <View style={[styles.legalCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+          <Text style={[styles.legalTitle, { color: colors.textSecondary }]}>INFORMATIONS LÉGALES</Text>
+          {[
+            { type: "mentions", label: "Mentions légales" },
+            { type: "cgu", label: "CGU" },
+            { type: "cgv", label: "CGV" },
+            { type: "privacy", label: "Politique de confidentialité (RGPD)" },
+          ].map((l, i, arr) => (
+            <React.Fragment key={l.type}>
+              <TouchableOpacity
+                onPress={() => router.push(`/legal/${l.type}`)}
+                style={styles.legalRow}
+                testID={`legal-link-${l.type}`}
+              >
+                <View style={styles.settingLeft}>
+                  <FileText size={16} color={colors.textPrimary} strokeWidth={2} />
+                  <Text style={[styles.settingText, { color: colors.textPrimary }]}>{l.label}</Text>
+                </View>
+                <ArrowRight size={14} color={colors.textSecondary} strokeWidth={2} />
+              </TouchableOpacity>
+              {i < arr.length - 1 ? <View style={[styles.divider, { backgroundColor: colors.borderSubtle }]} /> : null}
+            </React.Fragment>
+          ))}
         </View>
 
         {/* CTA new match */}
@@ -223,6 +341,26 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   title: { fontFamily: fonts.serif, fontSize: 32, marginBottom: spacing.lg, letterSpacing: -0.5 },
+  authCard: { borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, marginBottom: spacing.md },
+  authRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, marginBottom: spacing.md },
+  avatar: { width: 48, height: 48, borderRadius: 24, alignItems: "center", justifyContent: "center" },
+  avatarText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 20 },
+  authName: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24 },
+  authEmail: { fontFamily: fonts.body, fontSize: 12, marginTop: 2, lineHeight: 16 },
+  authBtnRow: { flexDirection: "row", gap: 8 },
+  authBtn: {
+    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6,
+    paddingHorizontal: 14, paddingVertical: 11, borderRadius: radius.pill, borderWidth: 1,
+  },
+  authBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  authBtnPrimary: {
+    flex: 1, alignItems: "center", justifyContent: "center",
+    paddingVertical: 12, borderRadius: radius.pill,
+  },
+  authBtnPrimaryText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
+  legalCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: spacing.lg },
+  legalTitle: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: spacing.sm },
+  legalRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
   planCard: { borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, marginBottom: spacing.md },
   planRow: { marginBottom: spacing.md },
   planLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2 },

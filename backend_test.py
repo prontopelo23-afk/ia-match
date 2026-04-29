@@ -1,205 +1,240 @@
-"""Backend smoke tests for IA Match.
+"""Backend test for IA Match - Iteration 3 endpoints.
 
-Tests three critical endpoints:
-1) GET /api/resources -> 16 French resources (with YouTube, Blog, Podcast, Newsletter)
-2) GET /api/tools -> 48 tools, claude has correct domain + image
-3) POST /api/builder/run -> non-empty French output
+Tests the 5 endpoints listed in test_plan:
+1. GET /api/tools (>=100 tools, critical slugs)
+2. GET /api/resources (18 resources, r17/r18)
+3. POST /api/auth/register (success + 4 error cases)
+4. POST /api/auth/login (success + 2 error cases)
+5. GET /api/auth/whoami (success + 2 error cases)
 """
-import os
+import random
+import string
 import sys
-import json
-import re
 from pathlib import Path
 
 import requests
 
-# Read backend URL from frontend .env (EXPO_PUBLIC_BACKEND_URL)
+# Read EXPO_PUBLIC_BACKEND_URL from /app/frontend/.env
 FRONTEND_ENV = Path("/app/frontend/.env")
-BACKEND_URL = None
+BASE_URL = None
 for line in FRONTEND_ENV.read_text().splitlines():
     if line.startswith("EXPO_PUBLIC_BACKEND_URL="):
-        BACKEND_URL = line.split("=", 1)[1].strip().strip('"').strip("'")
+        BASE_URL = line.split("=", 1)[1].strip().strip('"')
         break
+assert BASE_URL, "EXPO_PUBLIC_BACKEND_URL not found in /app/frontend/.env"
+API = f"{BASE_URL}/api"
+print(f"[INFO] Using API base: {API}\n")
 
-assert BACKEND_URL, "EXPO_PUBLIC_BACKEND_URL not found"
-API = f"{BACKEND_URL}/api"
-print(f"[INFO] Using API base: {API}")
-
-results = {"passed": [], "failed": []}
+results = []
 
 
 def record(name, ok, detail=""):
-    if ok:
-        results["passed"].append(name)
-        print(f"[PASS] {name} {detail}")
-    else:
-        results["failed"].append((name, detail))
-        print(f"[FAIL] {name} -> {detail}")
+    status = "PASS" if ok else "FAIL"
+    print(f"[{status}] {name} :: {detail}")
+    results.append((name, ok, detail))
 
 
-# ---------------------------------------------------------------------------
-# 1) GET /api/resources
-# ---------------------------------------------------------------------------
-try:
-    r = requests.get(f"{API}/resources", timeout=30)
-    assert r.status_code == 200, f"status={r.status_code} body={r.text[:200]}"
-    data = r.json()
-    assert isinstance(data, list), "Resources response is not a list"
-    record(
-        "GET /api/resources status 200 + list",
-        True,
-        f"({len(data)} items)",
-    )
-
-    # Count check
-    if len(data) == 16:
-        record("Resources count == 16", True)
-    else:
-        record("Resources count == 16", False, f"got {len(data)}")
-
-    # Required fields
-    required_fields = {"id", "category", "title", "author", "summary", "url"}
-    missing_field_items = []
-    for idx, item in enumerate(data):
-        miss = required_fields - set(item.keys())
-        if miss:
-            missing_field_items.append((idx, miss))
-    if not missing_field_items:
-        record("Resources fields (id, category, title, author, summary, url)", True)
-    else:
-        record(
-            "Resources fields (id, category, title, author, summary, url)",
-            False,
-            f"missing fields: {missing_field_items[:3]}",
-        )
-
-    # Category presence
-    cats_lower = [str(it.get("category", "")).lower() for it in data]
-    titles_authors = " | ".join(
-        [
-            f"{it.get('title','')} - {it.get('author','')}"
-            for it in data
-        ]
-    ).lower()
-
-    has_youtube = any("youtube" in c for c in cats_lower)
-    has_blog = any("blog" in c for c in cats_lower)
-    has_podcast = any("podcast" in c for c in cats_lower)
-    has_newsletter = any("newsletter" in c for c in cats_lower)
-
-    record("Resources contain YouTube category", has_youtube)
-    record("Resources contain Blog category", has_blog)
-    record("Resources contain Podcast category", has_podcast)
-    record("Resources contain Newsletter category", has_newsletter)
-
-    # Specific authors
-    has_underscore = "underscore" in titles_authors
-    has_korben = "korben" in titles_authors
-    record("Resources contain Underscore_", has_underscore)
-    record("Resources contain Korben", has_korben)
-
-    # French content (look for accented chars or French words in summaries)
-    summary_blob = " ".join([str(it.get("summary", "")) for it in data]).lower()
-    fr_indicators = ["é", "è", "à", "ç", " le ", " la ", " des ", " et ", "ia"]
-    fr_hits = sum(1 for ind in fr_indicators if ind in summary_blob)
-    record(
-        "Resources summaries appear to be in French",
-        fr_hits >= 3,
-        f"french-indicator hits={fr_hits}",
-    )
-except Exception as e:
-    record("GET /api/resources", False, str(e))
+def rand_email():
+    suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=10))
+    return f"new_user_{suffix}@iamatch.fr"
 
 
-# ---------------------------------------------------------------------------
-# 2) GET /api/tools
-# ---------------------------------------------------------------------------
+# ---------- 1. GET /api/tools ----------
+print("=" * 70)
+print("1. GET /api/tools")
+print("=" * 70)
 try:
     r = requests.get(f"{API}/tools", timeout=30)
-    assert r.status_code == 200, f"status={r.status_code} body={r.text[:200]}"
-    tools = r.json()
-    assert isinstance(tools, list), "Tools response is not a list"
-    record("GET /api/tools status 200 + list", True, f"({len(tools)} items)")
-
-    if len(tools) == 48:
-        record("Tools count == 48", True)
-    else:
-        record("Tools count == 48", False, f"got {len(tools)}")
-
-    claude = next((t for t in tools if t.get("slug") == "claude"), None)
-    if not claude:
-        record("Tool slug 'claude' present", False)
-    else:
-        record("Tool slug 'claude' present", True)
-        if claude.get("domain") == "claude.ai":
-            record("claude.domain == 'claude.ai'", True)
-        else:
-            record("claude.domain == 'claude.ai'", False, f"got {claude.get('domain')!r}")
-        expected_img = "https://logo.clearbit.com/claude.ai"
-        if claude.get("image") == expected_img:
-            record(f"claude.image == '{expected_img}'", True)
-        else:
-            record(
-                f"claude.image == '{expected_img}'",
-                False,
-                f"got {claude.get('image')!r}",
-            )
+    record("GET /api/tools status 200", r.status_code == 200, f"got {r.status_code}")
+    tools = r.json() if r.status_code == 200 else []
+    record(
+        "GET /api/tools returns >= 100 tools",
+        len(tools) >= 100,
+        f"count={len(tools)}",
+    )
+    slugs = {t["slug"] for t in tools}
+    expected_slugs = [
+        "claude-opus", "gpt5", "o3", "gemini-25", "deepseek-r1",
+        "qwen", "kimi", "llama", "mixtral", "nano-banana",
+        "veo", "command-r", "hailuo", "imagen",
+    ]
+    for s in expected_slugs:
+        record(
+            f"slug present: {s}",
+            s in slugs,
+            "" if s in slugs else f"missing in {len(slugs)} slugs",
+        )
 except Exception as e:
-    record("GET /api/tools", False, str(e))
+    record("GET /api/tools", False, f"exception: {e}")
 
 
-# ---------------------------------------------------------------------------
-# 3) POST /api/builder/run
-# ---------------------------------------------------------------------------
+# ---------- 2. GET /api/resources ----------
+print("\n" + "=" * 70)
+print("2. GET /api/resources")
+print("=" * 70)
 try:
-    payload = {"prompt": "Résume en 2 lignes ce qu'est IA Match."}
-    r = requests.post(f"{API}/builder/run", json=payload, timeout=120)
-    if r.status_code != 200:
-        record(
-            "POST /api/builder/run status 200",
-            False,
-            f"status={r.status_code} body={r.text[:300]}",
-        )
+    r = requests.get(f"{API}/resources", timeout=15)
+    record("GET /api/resources status 200", r.status_code == 200, f"got {r.status_code}")
+    resources = r.json() if r.status_code == 200 else []
+    record(
+        "GET /api/resources returns exactly 18 items",
+        len(resources) == 18,
+        f"count={len(resources)}",
+    )
+    by_id = {res.get("id"): res for res in resources}
+    r17 = by_id.get("r17")
+    r18 = by_id.get("r18")
+    if r17:
+        ok_title = r17.get("title") == "Shubham Sharma"
+        ok_cat = (r17.get("category") or "").upper() == "YOUTUBE"
+        ok_url = "Shubham_Sharma" in (r17.get("url") or "")
+        record("r17 title=Shubham Sharma", ok_title, f"got title={r17.get('title')!r}")
+        record("r17 category=YOUTUBE", ok_cat, f"got category={r17.get('category')!r}")
+        record("r17 url contains 'Shubham_Sharma'", ok_url, f"got url={r17.get('url')!r}")
     else:
-        record("POST /api/builder/run status 200", True)
-        body = r.json()
-        output = body.get("output", "")
-        if isinstance(output, str) and output.strip():
-            record(
-                "Builder output non-empty string",
-                True,
-                f"(len={len(output)}, preview={output[:120]!r})",
-            )
-        else:
-            record(
-                "Builder output non-empty string",
-                False,
-                f"output={output!r}",
-            )
-
-        # French check (very lenient): contains accented char OR a common FR word
-        text_lower = output.lower() if isinstance(output, str) else ""
-        fr_words = [" le ", " la ", " les ", " des ", " et ", " est ", " une ", " un ", " pour ", "ia"]
-        has_accent = bool(re.search(r"[éèàùçâêîôûëïü]", text_lower))
-        has_fr_word = any(w in f" {text_lower} " for w in fr_words)
-        record(
-            "Builder output appears to be in French",
-            has_accent or has_fr_word,
-            f"(accent={has_accent}, fr_word={has_fr_word})",
-        )
+        record("r17 exists", False, "id=r17 not found")
+    if r18:
+        ok_title = r18.get("title") == "Renaud Dekode"
+        ok_cat = (r18.get("category") or "").upper() == "YOUTUBE"
+        ok_url = "RenaudDekode" in (r18.get("url") or "")
+        record("r18 title=Renaud Dekode", ok_title, f"got title={r18.get('title')!r}")
+        record("r18 category=YOUTUBE", ok_cat, f"got category={r18.get('category')!r}")
+        record("r18 url contains 'RenaudDekode'", ok_url, f"got url={r18.get('url')!r}")
+    else:
+        record("r18 exists", False, "id=r18 not found")
 except Exception as e:
-    record("POST /api/builder/run", False, str(e))
+    record("GET /api/resources", False, f"exception: {e}")
 
 
-# ---------------------------------------------------------------------------
-# Summary
-# ---------------------------------------------------------------------------
-print("\n========== SUMMARY ==========")
-print(f"PASSED: {len(results['passed'])}")
-for n in results["passed"]:
-    print(f"  ✅ {n}")
-print(f"FAILED: {len(results['failed'])}")
-for n, d in results["failed"]:
-    print(f"  ❌ {n} -> {d}")
+# ---------- 3. POST /api/auth/register ----------
+print("\n" + "=" * 70)
+print("3. POST /api/auth/register")
+print("=" * 70)
+test_email = rand_email()
+test_password = "abcdef12345"
+test_name = "Test"
+saved_token = None
 
-sys.exit(0 if not results["failed"] else 1)
+try:
+    body = {"email": test_email, "password": test_password, "name": test_name, "accept_terms": True}
+    r = requests.post(f"{API}/auth/register", json=body, timeout=15)
+    record("register valid -> 200", r.status_code == 200, f"got {r.status_code} body={r.text[:200]}")
+    if r.status_code == 200:
+        data = r.json()
+        token = data.get("token")
+        user = data.get("user") or {}
+        record("register response has non-empty token", bool(token), f"token len={len(token) if token else 0}")
+        record("user.id present", bool(user.get("id")), f"user={user}")
+        record("user.email matches", user.get("email") == test_email, f"got {user.get('email')}")
+        record("user.name present", bool(user.get("name")), f"got {user.get('name')!r}")
+        record("user.is_premium == False", user.get("is_premium") is False, f"got {user.get('is_premium')!r}")
+        saved_token = token
+except Exception as e:
+    record("register valid", False, f"exception: {e}")
+
+try:
+    body = {"email": rand_email(), "password": "abcdef12345", "name": "T", "accept_terms": False}
+    r = requests.post(f"{API}/auth/register", json=body, timeout=15)
+    record("register without accept_terms -> 400", r.status_code == 400, f"got {r.status_code}")
+except Exception as e:
+    record("register without accept_terms", False, f"exception: {e}")
+
+try:
+    body = {"email": rand_email(), "password": "abc", "name": "T", "accept_terms": True}
+    r = requests.post(f"{API}/auth/register", json=body, timeout=15)
+    record("register short password -> 400", r.status_code == 400, f"got {r.status_code}")
+except Exception as e:
+    record("register short password", False, f"exception: {e}")
+
+try:
+    body = {"email": "not-an-email", "password": "abcdef12345", "name": "T", "accept_terms": True}
+    r = requests.post(f"{API}/auth/register", json=body, timeout=15)
+    record("register invalid email -> 400", r.status_code == 400, f"got {r.status_code}")
+except Exception as e:
+    record("register invalid email", False, f"exception: {e}")
+
+try:
+    body = {"email": test_email, "password": test_password, "name": test_name, "accept_terms": True}
+    r = requests.post(f"{API}/auth/register", json=body, timeout=15)
+    record("register duplicate email -> 409", r.status_code == 409, f"got {r.status_code}")
+except Exception as e:
+    record("register duplicate email", False, f"exception: {e}")
+
+
+# ---------- 4. POST /api/auth/login ----------
+print("\n" + "=" * 70)
+print("4. POST /api/auth/login")
+print("=" * 70)
+login_token = None
+try:
+    body = {"email": test_email, "password": test_password}
+    r = requests.post(f"{API}/auth/login", json=body, timeout=15)
+    record("login valid -> 200", r.status_code == 200, f"got {r.status_code} body={r.text[:200]}")
+    if r.status_code == 200:
+        data = r.json()
+        login_token = data.get("token")
+        record("login response has token", bool(login_token), f"token len={len(login_token) if login_token else 0}")
+        record("login response has user.id", bool((data.get("user") or {}).get("id")), f"user={data.get('user')}")
+except Exception as e:
+    record("login valid", False, f"exception: {e}")
+
+try:
+    body = {"email": test_email, "password": "wrong-password-xyz"}
+    r = requests.post(f"{API}/auth/login", json=body, timeout=15)
+    record("login wrong password -> 401", r.status_code == 401, f"got {r.status_code}")
+except Exception as e:
+    record("login wrong password", False, f"exception: {e}")
+
+try:
+    body = {"email": rand_email(), "password": "abcdef12345"}
+    r = requests.post(f"{API}/auth/login", json=body, timeout=15)
+    record("login unknown email -> 401", r.status_code == 401, f"got {r.status_code}")
+except Exception as e:
+    record("login unknown email", False, f"exception: {e}")
+
+
+# ---------- 5. GET /api/auth/whoami ----------
+print("\n" + "=" * 70)
+print("5. GET /api/auth/whoami")
+print("=" * 70)
+try:
+    r = requests.get(f"{API}/auth/whoami", timeout=15)
+    record("whoami no header -> 401", r.status_code == 401, f"got {r.status_code}")
+except Exception as e:
+    record("whoami no header", False, f"exception: {e}")
+
+try:
+    headers = {"X-Auth-Token": login_token or saved_token or ""}
+    r = requests.get(f"{API}/auth/whoami", headers=headers, timeout=15)
+    record("whoami valid token -> 200", r.status_code == 200, f"got {r.status_code} body={r.text[:200]}")
+    if r.status_code == 200:
+        data = r.json()
+        record("whoami response has id", bool(data.get("id")), str(data))
+        record("whoami response email matches", data.get("email") == test_email, f"got {data.get('email')}")
+        record("whoami response has name", "name" in data, str(data))
+        record("whoami response has is_premium", "is_premium" in data, str(data))
+except Exception as e:
+    record("whoami valid token", False, f"exception: {e}")
+
+try:
+    headers = {"X-Auth-Token": "foo.bar.baz"}
+    r = requests.get(f"{API}/auth/whoami", headers=headers, timeout=15)
+    record("whoami invalid token -> 401", r.status_code == 401, f"got {r.status_code}")
+except Exception as e:
+    record("whoami invalid token", False, f"exception: {e}")
+
+
+# ---------- Summary ----------
+print("\n" + "=" * 70)
+print("SUMMARY")
+print("=" * 70)
+passed = sum(1 for _, ok, _ in results if ok)
+failed = sum(1 for _, ok, _ in results if not ok)
+print(f"PASSED: {passed}")
+print(f"FAILED: {failed}")
+if failed:
+    print("\nFailing assertions:")
+    for name, ok, detail in results:
+        if not ok:
+            print(f"  - {name} :: {detail}")
+sys.exit(0 if failed == 0 else 1)

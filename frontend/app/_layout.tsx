@@ -16,6 +16,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider, PremiumProvider, useTheme } from "../src/theme-context";
 import { onboardingStore } from "../src/api";
+import CookieConsent from "../src/components/CookieConsent";
 
 function StackContent() {
   const { colors, mode } = useTheme();
@@ -49,10 +50,13 @@ function StackContent() {
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="onboarding" options={{ animation: "fade" }} />
+        <Stack.Screen name="auth" options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="legal/[type]" options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="match" options={{ presentation: "modal", animation: "slide_from_bottom" }} />
         <Stack.Screen name="tool/[slug]" options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="news/[id]" options={{ animation: "slide_from_right" }} />
       </Stack>
+      <CookieConsent />
     </>
   );
 }
