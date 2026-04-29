@@ -38,6 +38,39 @@ export type BenchmarkRow = {
   languages: string[];
 };
 
+export type NewsItem = {
+  id: string;
+  category: string;
+  title: string;
+  summary: string;
+  publishedAt: string;
+  readMinutes: number;
+  tag: string;
+  highlight?: string;
+};
+
+export type Lesson = {
+  id: string;
+  order: number;
+  level: string;
+  minutes: number;
+  title: string;
+  intro: string;
+  body: string;
+  framework: string;
+  steps: string[];
+  before: string;
+  after: string;
+};
+
+export type Template = {
+  id: string;
+  level: string;
+  title: string;
+  body: string;
+  variables: string[];
+};
+
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${API}/api${path}`);
   if (!res.ok) throw new Error(`GET ${path} ${res.status}`);
@@ -71,6 +104,9 @@ export const api = {
     post<{ id: string }>(`/ratings`, { tool_slug, score, note }),
   ratings: (slug: string) => get<RatingSummary>(`/ratings/${slug}`),
   allRatings: () => get<RatingSummary[]>(`/ratings`),
+  listNews: () => get<NewsItem[]>(`/news`),
+  listLessons: () => get<Lesson[]>(`/lessons`),
+  listTemplates: () => get<Template[]>(`/templates`),
 };
 
 // Local history (AsyncStorage)

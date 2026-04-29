@@ -1,0 +1,45 @@
+{
+  "summary": "Iteration 2 — full re-test after restructure (Catalogue + Actue + Academy + Builder + Profil; Compare/Benchmarks moved to nested routes; catalog expanded 20→48 tools with Clearbit logos; 7 news, 5 lessons, 8 templates added). Backend: 25/25 pytest passed. Frontend: all new screens render, all expected testIDs found, live preview / reset / copy / sub-tabs / lesson detail / template list work. Match wizard, ratings, benchmarks, compare nav all green.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "global", "issues": [
+        "Persistent React Native Web deprecation warnings: 'shadow*' style props (use boxShadow), 'props.pointerEvents' (use style.pointerEvents). Same as iter 1, cosmetic only.",
+        "Console warning: '[Layout children]: No route named \"search\" exists in nested children'. The (tabs)/_layout.tsx likely still references a removed `search` Tabs.Screen entry — should be cleaned up to remove the warning."
+      ]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_ia_match_v2.py",
+    "/app/test_reports/pytest/iter2.xml"
+  ],
+  "action_items": [
+    "Remove the stale `search` Tabs.Screen reference in app/(tabs)/_layout.tsx (file was deleted but layout still mentions it, producing a console warning on every screen).",
+    "Optional cosmetic: migrate StyleSheet shadow* props to boxShadow and pointerEvents prop to style.pointerEvents (carry-over from iter 1)."
+  ],
+  "critical_code_review_comments": [
+    "All 9 new endpoints (/api/news, /api/news/{id}, /api/lessons, /api/lessons/{id}, /api/templates, /api/templates/{id}) return correct shapes and 404 on missing ids.",
+    "Catalog now serves 48 tools, each with `image: https://logo.clearbit.com/{domain}` — verified via /api/tools and via DOM rendering (48 tool-card-* nodes in Catalogue).",
+    "Lessons returned sorted by `order` ascending as specified.",
+    "Builder live preview correctly reactive: typing in builder-field-role updates builder-preview text, and builder-reset clears the field.",
+    "Academy sub-tabs swap content correctly (5 lessons / 8 templates).",
+    "Match wizard end-to-end: cta-start-match → match-need-input ('faire un cv') → match-step-next-1 → priority-balanced → match-submit → 8 result cards rendered.",
+    "Tool detail rating flow still works: rating-plus → rating-submit shows 'Merci pour ta note !' and persists in MongoDB (verified via /api/ratings/chatgpt count incremented).",
+    "Header icons in Catalogue (open-benchmarks, open-compare) successfully navigate to /benchmarks (48 rows) and /compare (two empty slots) — Expo Router nested routes working as designed.",
+    "NOTE on DNS errors observed in browser console: many ERR_NAME_NOT_RESOLVED logs come from Playwright's Chromium failing to resolve logo.clearbit.com from inside the test container's egress-restricted network. Real end-users on the public internet will resolve Clearbit fine — this is an infra artefact, not an app bug. Could not visually verify logos render in test env but URLs are correct in API payload."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_ia_match_v2.py (new pytest suite, 25 tests)",
+    "/app/test_reports/iteration_2.json",
+    "/app/test_reports/pytest/iter2.xml"
+  ],
+  "success_rate": {"backend": "100% (25/25)", "frontend": "100% (all flows + new screens)"},
+  "seed_data_creation": "One TEST_pytest rating row in db.ratings for slug=chatgpt (cumulative — also created in iter 1).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All 5 tabs verified: tab-catalogue, tab-actue, tab-academy, tab-builder, tab-profile. Verified testIDs (new): hero-section, search-input, filter-cat-image, sort-score, filter-free-only, cta-start-match, open-benchmarks, open-compare, news-featured, news-row-n2..n7, academy-tab-fundamentals, academy-tab-templates, lesson-l1..l5, copy-t1 (8 templates with copy-tN), builder-field-role, builder-field-objective, builder-preview, builder-copy, builder-reset, profile-new-match. Backend endpoints verified: /api/news (7), /api/lessons (5 sorted), /api/templates (8, filterable by level), /api/tools (48 with Clearbit logos). DNS warning: Clearbit logos can't load inside Playwright test container — does NOT affect end-users.",
+  "rca_of_issue": "N/A — no failures. Only cleanup item: stale `search` Tabs.Screen entry in (tabs)/_layout.tsx generates a benign console warning."
+}

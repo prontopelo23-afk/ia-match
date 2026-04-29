@@ -1,103 +1,212 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  TextInput,
   ActivityIndicator,
   Image,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Sparkles, ArrowRight, Wand2 } from "lucide-react-native";
+import {
+  Search as SearchIcon,
+  X,
+  Sparkles,
+  ArrowRight,
+  Wand2,
+  GitCompare,
+  BarChart3,
+} from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
-import { api, Category, Tool } from "../../src/api";
+import { api, Category, Tool, compareStore } from "../../src/api";
 import ToolCard from "../../src/components/ToolCard";
 
-export default function HomeScreen() {
+export default function Catalogue() {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | undefined>(undefined);
+  const [freeOnly, setFreeOnly] = useState(false);
+  const [sort, setSort] = useState<"score" | "speed" | "accuracy" | "price">("score");
   const [tools, setTools] = useState<Tool[]>([]);
   const [cats, setCats] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [compareList, setCompareList] = useState<string[]>([]);
+
+  const load = useCallback(() => {
+    setLoading(true);
+    api
+      .listTools({ search, category: activeCategory, free_only: freeOnly, sort })
+      .then(setTools)
+      .catch(() => setTools([]))
+      .finally(() => setLoading(false));
+  }, [search, activeCategory, freeOnly, sort]);
 
   useEffect(() => {
-    Promise.all([api.listTools({ sort: "score" }), api.listCategories()])
-      .then(([t, c]) => {
-        setTools(t.slice(0, 6));
-        setCats(c);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    api.listCategories().then(setCats).catch(() => {});
+    compareStore.get().then(setCompareList);
   }, []);
+  useEffect(() => {
+    const id = setTimeout(load, 250);
+    return () => clearTimeout(id);
+  }, [load]);
+
+  const toggleCompare = async (slug: string) => {
+    const next = await compareStore.toggle(slug);
+    setCompareList(next);
+  };
+
+  const totalCount = tools.length;
+  const filtersActive = !!search || !!activeCategory || freeOnly;
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text style={styles.brandSmall}>IA MATCH</Text>
-        </View>
-
-        <View style={styles.hero} testID="hero-section">
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1739785891796-7fd9028e1930?w=1200&q=80",
-            }}
-            style={styles.heroBg}
-          />
-          <View style={styles.heroOverlay} />
-          <View style={styles.heroContent}>
-            <View style={styles.heroBadge}>
-              <Sparkles size={14} color={colors.pink} strokeWidth={2.5} />
-              <Text style={styles.heroBadgeText}>Trouve ton IA idéale</Text>
+        {/* TOP BAR */}
+        <View style={styles.topBar}>
+          <View style={styles.brandLockup}>
+            <View style={styles.brandIcon}>
+              <Text style={styles.brandIconText}>M</Text>
             </View>
-            <Text style={styles.heroTitle}>
-              L'IA{"\n"}qui te{" "}
-              <Text style={styles.heroTitleAccent}>correspond</Text>.
-            </Text>
-            <Text style={styles.heroSub}>
-              Réponds à 3 questions et découvre la meilleure IA pour ton besoin précis.
-            </Text>
+            <View>
+              <Text style={styles.brandName}>IA Match</Text>
+              <Text style={styles.brandSub}>SEED · {totalCount} IA</Text>
+            </View>
+          </View>
+          <View style={styles.topActions}>
             <TouchableOpacity
-              style={styles.ctaPrimary}
-              onPress={() => router.push("/match")}
-              testID="cta-start-match"
+              style={styles.iconBtn}
+              onPress={() => router.push("/benchmarks")}
+              testID="open-benchmarks"
             >
-              <Wand2 size={18} color="#fff" strokeWidth={2.5} />
-              <Text style={styles.ctaPrimaryText}>Lancer le Match</Text>
-              <ArrowRight size={18} color="#fff" strokeWidth={2.5} />
+              <BarChart3 size={18} color={colors.textPrimary} strokeWidth={2} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconBtn}
+              onPress={() => router.push("/compare")}
+              testID="open-compare"
+            >
+              <GitCompare size={18} color={colors.textPrimary} strokeWidth={2} />
+              {compareList.length > 0 ? (
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{compareList.length}</Text>
+                </View>
+              ) : null}
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>EXPLORER</Text>
-          <Text style={styles.sectionTitle}>Catégories</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -spacing.lg }}>
-            <View style={styles.catRow}>
-              {cats.map((c) => (
-                <TouchableOpacity
-                  key={c.slug}
-                  style={styles.catChip}
-                  onPress={() => router.push(`/search?category=${c.slug}`)}
-                  testID={`cat-${c.slug}`}
-                >
-                  <Text style={styles.catText}>{c.name}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
+        {/* HERO */}
+        <View style={styles.hero} testID="hero-section">
+          <Text style={styles.heroLabel}>WORKSPACE · CATALOGUE</Text>
+          <Text style={styles.heroTitle}>
+            Trouve l'IA{"\n"}
+            <Text style={styles.heroTitleAccent}>idéale</Text> pour ton besoin.
+          </Text>
+          <Text style={styles.heroSub}>
+            48 IA testées, classées et notées. 3 questions et tu sais laquelle utiliser.
+          </Text>
+          <TouchableOpacity
+            style={styles.cta}
+            onPress={() => router.push("/match")}
+            testID="cta-start-match"
+          >
+            <Wand2 size={16} color="#fff" strokeWidth={2.5} />
+            <Text style={styles.ctaText}>Lancer le Match</Text>
+            <ArrowRight size={16} color="#fff" strokeWidth={2.5} />
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>TOP IA</Text>
-          <Text style={styles.sectionTitle}>Les plus performantes</Text>
-          {loading ? (
-            <ActivityIndicator color={colors.pink} style={{ marginTop: spacing.lg }} />
-          ) : (
-            tools.map((t) => <ToolCard key={t.slug} tool={t} />)
-          )}
+        {/* SEARCH */}
+        <View style={styles.searchBox}>
+          <SearchIcon size={18} color={colors.textSecondary} strokeWidth={2} />
+          <TextInput
+            value={search}
+            onChangeText={setSearch}
+            placeholder="Mot-clé, IA, besoin..."
+            placeholderTextColor={colors.textSecondary}
+            style={styles.searchInput}
+            testID="search-input"
+          />
+          {search ? (
+            <TouchableOpacity onPress={() => setSearch("")} testID="search-clear">
+              <X size={16} color={colors.textSecondary} strokeWidth={2} />
+            </TouchableOpacity>
+          ) : null}
         </View>
+
+        {/* CATEGORIES */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipsRow}>
+          <TouchableOpacity
+            onPress={() => setActiveCategory(undefined)}
+            style={[styles.chip, !activeCategory && styles.chipActive]}
+            testID="filter-cat-all"
+          >
+            <Text style={[styles.chipText, !activeCategory && styles.chipTextActive]}>Tout</Text>
+          </TouchableOpacity>
+          {cats.map((c) => (
+            <TouchableOpacity
+              key={c.slug}
+              onPress={() => setActiveCategory(activeCategory === c.slug ? undefined : c.slug)}
+              style={[styles.chip, activeCategory === c.slug && styles.chipActive]}
+              testID={`filter-cat-${c.slug}`}
+            >
+              <Text style={[styles.chipText, activeCategory === c.slug && styles.chipTextActive]}>
+                {c.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* SORT + FREE */}
+        <View style={styles.filtersRow}>
+          <View style={styles.sortRow}>
+            {(["score", "speed", "accuracy", "price"] as const).map((k) => (
+              <TouchableOpacity
+                key={k}
+                onPress={() => setSort(k)}
+                style={[styles.sortBtn, sort === k && styles.sortBtnActive]}
+                testID={`sort-${k}`}
+              >
+                <Text style={[styles.sortText, sort === k && styles.sortTextActive]}>
+                  {k === "score" ? "Score" : k === "speed" ? "Vitesse" : k === "accuracy" ? "Précision" : "Prix"}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity
+            onPress={() => setFreeOnly((v) => !v)}
+            style={[styles.freeChip, freeOnly && styles.freeChipActive]}
+            testID="filter-free-only"
+          >
+            <Text style={[styles.freeText, freeOnly && styles.freeTextActive]}>
+              {freeOnly ? "Gratuit ✓" : "Gratuit"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* RESULTS */}
+        <View style={styles.resultHeader}>
+          <Text style={styles.resultLabel}>{filtersActive ? "RÉSULTATS" : "TOUTES LES IA"}</Text>
+          <Text style={styles.resultCount}>{totalCount}</Text>
+        </View>
+
+        {loading ? (
+          <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} />
+        ) : tools.length === 0 ? (
+          <Text style={styles.empty}>Aucune IA ne correspond à ces critères.</Text>
+        ) : (
+          tools.map((t) => (
+            <ToolCard
+              key={t.slug}
+              tool={t}
+              onCompare={() => toggleCompare(t.slug)}
+              inCompare={compareList.includes(t.slug)}
+            />
+          ))
+        )}
 
         <View style={{ height: 40 }} />
       </ScrollView>
@@ -108,89 +217,157 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
-  header: { paddingVertical: spacing.sm },
-  brandSmall: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 12,
-    letterSpacing: 4,
-    color: colors.textPrimary,
+  topBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: spacing.sm,
   },
+  brandLockup: { flexDirection: "row", alignItems: "center", gap: 10 },
+  brandIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: colors.coral,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brandIconText: { color: "#fff", fontFamily: fonts.serif, fontSize: 22, lineHeight: 26 },
+  brandName: { fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, lineHeight: 20 },
+  brandSub: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1.5, color: colors.textSecondary },
+  topActions: { flexDirection: "row", gap: 8 },
+  iconBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: radius.md,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  badge: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: colors.coral,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 4,
+  },
+  badgeText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 10 },
+
   hero: {
     backgroundColor: colors.darkCard,
     borderRadius: radius.xl,
-    overflow: "hidden",
+    padding: spacing.lg,
+    paddingVertical: spacing.xl,
     marginTop: spacing.sm,
     ...shadow.dark,
-    minHeight: 360,
   },
-  heroBg: { ...StyleSheet.absoluteFillObject, opacity: 0.35 },
-  heroOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(18, 21, 28, 0.55)",
+  heroLabel: {
+    fontFamily: fonts.bodySemi,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: colors.coral,
+    marginBottom: spacing.sm,
   },
-  heroContent: { padding: spacing.lg, paddingVertical: spacing.xl },
-  heroBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    backgroundColor: "rgba(244, 63, 122, 0.15)",
-    alignSelf: "flex-start",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: radius.pill,
-    marginBottom: spacing.md,
-  },
-  heroBadgeText: { color: colors.pink, fontFamily: fonts.bodySemi, fontSize: 12 },
   heroTitle: {
     fontFamily: fonts.serif,
-    fontSize: 44,
-    lineHeight: 50,
+    fontSize: 38,
+    lineHeight: 44,
     color: colors.textInverse,
     letterSpacing: -1,
   },
-  heroTitleAccent: { color: colors.pink, fontStyle: "italic" },
+  heroTitleAccent: { color: colors.coral, fontStyle: "italic" },
   heroSub: {
     fontFamily: fonts.body,
-    fontSize: 16,
-    lineHeight: 24,
-    color: "rgba(253, 251, 247, 0.75)",
-    marginTop: spacing.md,
-    marginBottom: spacing.lg,
+    fontSize: 14,
+    lineHeight: 20,
+    color: "rgba(253,251,247,0.7)",
+    marginTop: spacing.sm,
+    marginBottom: spacing.md,
   },
-  ctaPrimary: {
+  cta: {
     flexDirection: "row",
     alignItems: "center",
-    gap: spacing.sm,
+    gap: 8,
     backgroundColor: colors.coral,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: 16,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 12,
     borderRadius: radius.pill,
     alignSelf: "flex-start",
   },
-  ctaPrimaryText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 16 },
-  section: { marginTop: spacing.xl },
-  sectionLabel: {
-    fontFamily: fonts.bodySemi,
-    fontSize: 11,
-    letterSpacing: 2,
-    color: colors.pink,
-    marginBottom: 6,
-  },
-  sectionTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
-    color: colors.textPrimary,
-    marginBottom: spacing.md,
-    letterSpacing: -0.5,
-  },
-  catRow: { flexDirection: "row", paddingHorizontal: spacing.lg, gap: spacing.sm },
-  catChip: {
+  ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
+
+  searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
     backgroundColor: colors.surface,
+    borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
     paddingHorizontal: spacing.md,
     paddingVertical: 12,
-    borderRadius: radius.pill,
+    marginTop: spacing.lg,
   },
-  catText: { fontFamily: fonts.bodySemi, fontSize: 14, color: colors.textPrimary },
+  searchInput: { flex: 1, fontFamily: fonts.body, fontSize: 15, color: colors.textPrimary, outlineWidth: 0 } as any,
+
+  chipsRow: { paddingVertical: spacing.sm, gap: 8 },
+  chip: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: radius.pill,
+    marginRight: 8,
+  },
+  chipActive: { backgroundColor: colors.darkCard, borderColor: colors.darkCard },
+  chipText: { fontFamily: fonts.bodySemi, fontSize: 13, color: colors.textPrimary },
+  chipTextActive: { color: colors.textInverse },
+
+  filtersRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 6,
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  sortRow: { flexDirection: "row", alignItems: "center", gap: 6, flexWrap: "wrap" },
+  sortBtn: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: radius.pill },
+  sortBtnActive: { backgroundColor: "rgba(255,90,69,0.12)" },
+  sortText: { fontFamily: fonts.bodyMd, fontSize: 12, color: colors.textSecondary },
+  sortTextActive: { color: colors.coral, fontFamily: fonts.bodySemi },
+  freeChip: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+  },
+  freeChipActive: { backgroundColor: colors.coral, borderColor: colors.coral },
+  freeText: { fontFamily: fonts.bodySemi, fontSize: 12, color: colors.textPrimary },
+  freeTextActive: { color: "#fff" },
+
+  resultHeader: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    marginTop: spacing.lg,
+    marginBottom: spacing.sm,
+  },
+  resultLabel: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 2, color: colors.coral },
+  resultCount: { fontFamily: fonts.serif, fontSize: 14, color: colors.textSecondary },
+  empty: {
+    fontFamily: fonts.body,
+    color: colors.textSecondary,
+    textAlign: "center",
+    marginTop: spacing.xl,
+  },
 });

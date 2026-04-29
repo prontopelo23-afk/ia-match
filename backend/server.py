@@ -14,6 +14,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from seed_data import TOOLS, CATEGORIES
+from editorial_data import NEWS, LESSONS, TEMPLATES
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -278,6 +279,51 @@ async def all_ratings():
     return [
         ToolRatingSummary(tool_slug=i["_id"], average=round(i["average"], 1), count=i["count"]) for i in items
     ]
+
+
+@api_router.get("/news")
+async def list_news(category: Optional[str] = None):
+    items = list(NEWS)
+    if category:
+        items = [n for n in items if n["category"].lower() == category.lower()]
+    return items
+
+
+@api_router.get("/news/{news_id}")
+async def get_news(news_id: str):
+    for n in NEWS:
+        if n["id"] == news_id:
+            return n
+    raise HTTPException(404, "Article not found")
+
+
+@api_router.get("/lessons")
+async def list_lessons():
+    return sorted(LESSONS, key=lambda l: l["order"])
+
+
+@api_router.get("/lessons/{lesson_id}")
+async def get_lesson(lesson_id: str):
+    for l in LESSONS:
+        if l["id"] == lesson_id:
+            return l
+    raise HTTPException(404, "Lesson not found")
+
+
+@api_router.get("/templates")
+async def list_templates(level: Optional[str] = None):
+    items = list(TEMPLATES)
+    if level:
+        items = [t for t in items if t["level"].lower() == level.lower()]
+    return items
+
+
+@api_router.get("/templates/{template_id}")
+async def get_template(template_id: str):
+    for t in TEMPLATES:
+        if t["id"] == template_id:
+            return t
+    raise HTTPException(404, "Template not found")
 
 
 app.include_router(api_router)

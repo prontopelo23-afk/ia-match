@@ -1,7 +1,7 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { Home, Search, GitCompare, BarChart3, User } from "lucide-react-native";
-import { Platform, View } from "react-native";
+import { LayoutGrid, Newspaper, GraduationCap, Wand2, User } from "lucide-react-native";
+import { Platform } from "react-native";
 import { colors, fonts } from "../../src/theme";
 
 export default function TabsLayout() {
@@ -9,7 +9,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.pink,
+        tabBarActiveTintColor: colors.coral,
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: {
           backgroundColor: colors.bg,
@@ -25,33 +25,33 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Accueil",
-          tabBarIcon: ({ color, size }) => <Home color={color} size={size} strokeWidth={2} />,
-          tabBarButtonTestID: "tab-home",
+          title: "Catalogue",
+          tabBarIcon: ({ color, size }) => <LayoutGrid color={color} size={size} strokeWidth={2} />,
+          tabBarButtonTestID: "tab-catalogue",
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="actue"
         options={{
-          title: "Recherche",
-          tabBarIcon: ({ color, size }) => <Search color={color} size={size} strokeWidth={2} />,
-          tabBarButtonTestID: "tab-search",
+          title: "Actue",
+          tabBarIcon: ({ color, size }) => <Newspaper color={color} size={size} strokeWidth={2} />,
+          tabBarButtonTestID: "tab-actue",
         }}
       />
       <Tabs.Screen
-        name="compare"
+        name="academy"
         options={{
-          title: "Comparer",
-          tabBarIcon: ({ color, size }) => <GitCompare color={color} size={size} strokeWidth={2} />,
-          tabBarButtonTestID: "tab-compare",
+          title: "Academy",
+          tabBarIcon: ({ color, size }) => <GraduationCap color={color} size={size} strokeWidth={2} />,
+          tabBarButtonTestID: "tab-academy",
         }}
       />
       <Tabs.Screen
-        name="benchmarks"
+        name="builder"
         options={{
-          title: "Benchmarks",
-          tabBarIcon: ({ color, size }) => <BarChart3 color={color} size={size} strokeWidth={2} />,
-          tabBarButtonTestID: "tab-benchmarks",
+          title: "Builder",
+          tabBarIcon: ({ color, size }) => <Wand2 color={color} size={size} strokeWidth={2} />,
+          tabBarButtonTestID: "tab-builder",
         }}
       />
       <Tabs.Screen
@@ -62,6 +62,10 @@ export default function TabsLayout() {
           tabBarButtonTestID: "tab-profile",
         }}
       />
+      {/* Hidden routes still navigable but not in the tab bar */}
+      <Tabs.Screen name="search" options={{ href: null }} />
+      <Tabs.Screen name="compare" options={{ href: null }} />
+      <Tabs.Screen name="benchmarks" options={{ href: null }} />
     </Tabs>
   );
 }

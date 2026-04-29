@@ -25,7 +25,9 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
       testID={testID || `tool-card-${tool.slug}`}
     >
       <View style={styles.row}>
-        <Image source={{ uri: tool.image }} style={styles.thumb} />
+        <View style={[styles.thumbWrap, { backgroundColor: tool.color }]}>
+          <Image source={{ uri: tool.image }} style={styles.thumb} />
+        </View>
         <View style={styles.info}>
           <Text style={styles.vendor} numberOfLines={1}>
             {tool.vendor.toUpperCase()}
@@ -88,7 +90,15 @@ const styles = StyleSheet.create({
     ...shadow.soft,
   },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  thumb: { width: 56, height: 56, borderRadius: radius.md, backgroundColor: "#eee" },
+  thumbWrap: {
+    width: 56,
+    height: 56,
+    borderRadius: radius.md,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  thumb: { width: 36, height: 36, borderRadius: 6 },
   info: { flex: 1, marginHorizontal: spacing.sm },
   vendor: {
     fontFamily: fonts.bodySemi,
