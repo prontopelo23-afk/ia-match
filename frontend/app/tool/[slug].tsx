@@ -92,7 +92,7 @@ export default function ToolDetail() {
             style={styles.headerLogoWrap}
             testID="tool-logo-link"
           >
-            <LogoTile uri={tool.image} name={tool.name} bg="#fff" size={96} rounded={24} />
+            <LogoTile uri={tool.image} name={tool.name} bg="#fff" size={96} rounded={24} domain={tool.domain} />
             <View style={styles.openBadge}>
               <ExternalLink size={14} color="#fff" strokeWidth={2.5} />
             </View>

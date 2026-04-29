@@ -69,12 +69,10 @@ export default function Catalogue() {
         {/* TOP BAR */}
         <View style={styles.topBar}>
           <View style={styles.brandLockup}>
-            <View style={styles.brandIcon}>
-              <Text style={styles.brandIconText}>M</Text>
-            </View>
+            <Image source={require("../../assets/brand/ia-match-logo.png")} style={styles.brandLogo} resizeMode="contain" />
             <View>
-              <Text style={styles.brandName}>IA Match</Text>
-              <Text style={styles.brandSub}>SEED · {totalCount} IA</Text>
+              <Text style={[styles.brandName, { color: theme.textPrimary }]}>IA Match</Text>
+              <Text style={[styles.brandSub, { color: theme.textSecondary }]}>SEED · {totalCount} IA</Text>
             </View>
           </View>
           <View style={styles.topActions}>
@@ -226,6 +224,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   brandLockup: { flexDirection: "row", alignItems: "center", gap: 10 },
+  brandLogo: { width: 44, height: 44, borderRadius: 8 },
   brandIcon: {
     width: 36,
     height: 36,

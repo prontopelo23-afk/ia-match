@@ -14,6 +14,7 @@ export default function AcademyScreen() {
   const { colors } = useTheme();
   const { isPremium } = usePremium();
   const [tab, setTab] = useState<Tab>("fundamentals");
+  const [levelFilter, setLevelFilter] = useState<"ALL" | "BEGINNER" | "INTERMEDIATE" | "ADVANCED">("ALL");
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
@@ -164,7 +165,30 @@ export default function AcademyScreen() {
           </View>
         ) : (
           <View style={styles.templatesGrid}>
-            {templates.map((t) => (
+            <View style={styles.levelRow}>
+              {(["ALL", "BEGINNER", "INTERMEDIATE", "ADVANCED"] as const).map((lv) => (
+                <TouchableOpacity
+                  key={lv}
+                  onPress={() => setLevelFilter(lv)}
+                  style={[
+                    styles.levelChip,
+                    { borderColor: colors.borderSubtle },
+                    levelFilter === lv && { backgroundColor: colors.coralSoft, borderColor: colors.coral },
+                  ]}
+                  testID={`level-${lv}`}
+                >
+                  <Text
+                    style={[
+                      styles.levelChipText,
+                      { color: levelFilter === lv ? colors.coral : colors.textSecondary },
+                    ]}
+                  >
+                    {lv === "ALL" ? "Tous" : lv === "BEGINNER" ? "Débutant" : lv === "INTERMEDIATE" ? "Intermédiaire" : "Avancé"}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {templates.filter((t) => levelFilter === "ALL" || t.level === levelFilter).map((t) => (
               <View
                 key={t.id}
                 style={[styles.templateCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
@@ -240,6 +264,9 @@ const styles = StyleSheet.create({
   baLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: 6 },
   baText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
   templatesGrid: { gap: spacing.md },
+  levelRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: spacing.sm },
+  levelChip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: radius.pill, borderWidth: 1 },
+  levelChipText: { fontFamily: fonts.bodySemi, fontSize: 12, letterSpacing: 0.5 },
   templateCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1 },
   templateHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   templateLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },

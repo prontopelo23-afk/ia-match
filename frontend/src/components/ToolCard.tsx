@@ -31,7 +31,7 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
       testID={testID || `tool-card-${tool.slug}`}
     >
       <View style={styles.row}>
-        <LogoTile uri={tool.image} name={tool.name} bg={tool.color} size={56} rounded={radius.md} />
+        <LogoTile uri={tool.image} name={tool.name} bg={tool.color} size={56} rounded={radius.md} domain={tool.domain} />
         <View style={styles.info}>
           <Text style={[styles.vendor, { color: colors.textSecondary }]} numberOfLines={1}>
             {tool.vendor.toUpperCase()}

@@ -1,0 +1,47 @@
+{
+  "summary": "Iteration 4 — IA Match v4 (10 articles + 10 lessons + 15 templates + IA Match logo + Google Favicons fallback). Backend: 12/13 pytest passed (1 minor word-count miss on n2/n4). Frontend: blocking Metro syntax error fixed (duplicate Image import removed in app/(tabs)/index.tsx); after restart all v4 flows verified — IA Match logo renders in Catalogue header, Actue lists 1 featured (n1 GPT-5.5) + 9 rows for 10 total, /news/n1 detail renders markdown body with GPT-5.5 content, Academy Fundamentals shows 10 lessons l1–l10, Academy Templates shows 15 templates with level filter (level-ALL/BEGINNER/INTERMEDIATE/ADVANCED) restricting BEGINNER to 5 items. Tool logos fall through to Google Favicons (Clearbit DNS fails → chained fallback active as designed).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/news", "issue": "Articles n2 (GPT Image 2.0) = 250 words and n4 (Mistral) = 282 words — both below the 300-word target stated in the spec. n1=327, n3=407, n5=304, n6=360 meet target. Pre-existing n7/n8/n9/n10 are short by design. Content edit only, no functional issue."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "global", "issues": ["Persistent React Native Web 'shadow*' / 'props.pointerEvents' deprecation warnings in expo logs (cosmetic, carried from prior iterations).", "Console shows many ERR_NAME_NOT_RESOLVED entries — these are Clearbit logo URLs that fail DNS in this environment, which is exactly why LogoTile falls back to Google Favicons. Fallback chain is functioning as specified; the noisy errors are inherent to the chain being exercised on every tile."]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_ia_match_v4.py",
+    "/app/test_reports/pytest/iter4.xml"
+  ],
+  "action_items": [
+    "Optional: lengthen body of n2 (GPT Image 2.0) from 250 → 300+ words and n4 (Mistral) from 282 → 300+ words to fully satisfy the spec's 300-word minimum on the 5 hero articles.",
+    "Optional: silence Clearbit 404s by skipping Clearbit attempt entirely (use Google Favicons as primary) since Clearbit is unreachable in this environment — would clean the console and slightly reduce LCP."
+  ],
+  "critical_code_review_comments": [
+    "BLOCKER FIXED: /app/frontend/app/(tabs)/index.tsx had a duplicate `import { Image } from 'react-native'` on line 14 (already imported on line 10), causing Metro bundling to fail with `SyntaxError: Identifier 'Image' has already been declared (14:9)` — the entire app rendered the red error screen. Removed the duplicate import; bundler now compiles cleanly.",
+    "Backend GET /api/news returns 10 items as required; n1='GPT-5.5 …', n2='GPT Image 2.0 …', n3='Modèle américain, chinois, européen …', n4='Mistral, fierté française …', n5='Highfield et la nouvelle vague IA …'. All have markdown body with `## ` headers and intro/author/body fields.",
+    "Backend GET /api/lessons returns 10 lessons (l1 modèle, l2 tokens, l3 hallucinations, l5 choisir le bon modèle, l10 chain-of-thought) with required fields (intro, body, framework, steps, before, after).",
+    "Backend GET /api/templates returns 15 items split exactly 5 BEGINNER / 5 INTERMEDIATE / 5 ADVANCED. ?level= filter returns exactly 5 each.",
+    "Frontend Catalogue testID hero-section visible with require()-loaded IA Match logo asset (/assets/?unstable_path=./assets/brand/ia-match-logo.png).",
+    "Frontend Actue: 1 news-featured (n1) + 9 news-row-n2..n10 = 10 total. Tap news-featured navigates to /news/n1 which renders markdown content (GPT-5.5 visible).",
+    "Frontend Academy (premium activated): testID academy-tab-fundamentals shows lesson-l1..lesson-l10. testID academy-tab-templates shows level-ALL / level-BEGINNER / level-INTERMEDIATE / level-ADVANCED segments and template-t1..template-t15. Tapping level-BEGINNER restricts visible templates to 5.",
+    "Frontend Tool detail (/tool/chatgpt) successfully renders logo via Google Favicons (https://www.google.com/s2/favicons?domain=openai.com&sz=128) — Clearbit fails DNS in this env, chain falls back to Google as designed."
+  ],
+  "updated_files": [
+    "/app/frontend/app/(tabs)/index.tsx (removed duplicate Image import, line 14)",
+    "/app/backend/tests/test_ia_match_v4.py (new)",
+    "/app/test_reports/iteration_4.json (this file)",
+    "/app/test_reports/pytest/iter4.xml"
+  ],
+  "success_rate": {"backend": "92% (12/13 — 1 content miss)", "frontend": "100% after blocker fix"},
+  "seed_data_creation": "None new. Only Mongo writes are existing test rating rows from prior iterations.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "v4 testIDs verified: hero-section, tab-catalogue/actue/academy/builder/profile, news-featured, news-row-n2..n10, profile-toggle-premium, academy-tab-fundamentals, academy-tab-templates, lesson-l1..l10, level-ALL/BEGINNER/INTERMEDIATE/ADVANCED, template-t1..t15, tool-card-{slug}, tool-logo-link, tool-visit-website. LogoTile fallback chain: Clearbit→Google Favicons→initials; Clearbit unreachable in this preview env so Google fallback always wins (still meets spec). Premium and theme persist via AsyncStorage keys ia_match_premium_v1 and ia_match_theme_v1. Backend /api/news 10 items / /api/lessons 10 / /api/templates 15 (5-5-5). Word counts: n1=327 n2=250* n3=407 n4=282* n5=304 n6=360 (n2,n4 short of 300 target). Real LLM call POST /api/builder/run still works (verified previously, not re-tested).",
+  "rca_of_issue": "Root cause of red-screen blocker: a stray `import { Image } from 'react-native'` at line 14 of /app/frontend/app/(tabs)/index.tsx duplicated the named Image already imported in the multi-line block at lines 2–11, producing a `SyntaxError: Identifier 'Image' has already been declared`. Reproduction: open the web preview before fix → Metro red error screen with the SyntaxError stack. Mitigation: deleted line 14 and restarted expo via `sudo supervisorctl restart expo`; bundler now compiles and the Catalogue (with new IA Match logo) renders correctly."
+}
