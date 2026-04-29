@@ -103,6 +103,7 @@ class Tool(BaseModel):
     categoryScores: dict = {}
     color: str
     image: str
+    lastUpdated: Optional[str] = None
 
 
 class Category(BaseModel):
@@ -443,6 +444,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # --- JWT secret: generate cryptographically strong random if not set in env ---
@@ -463,6 +465,7 @@ ACCOUNT_LOCK_MINUTES = 15
 limiter = Limiter(key_func=get_remote_address, default_limits=["120/minute"])
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 
 # --- Security headers middleware ---
