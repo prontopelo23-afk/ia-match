@@ -1,45 +1,41 @@
 # IA Match — Product Requirements Document
 
 ## Overview
-"IA Match" is a Steve Jobs-style premium mobile app (Expo + React Native) that helps users find the best AI tool for their specific needs and learn how to prompt them.
+"IA Match" — app mobile premium (Expo + React Native) qui aide les utilisateurs à trouver la meilleure IA pour leurs besoins, à apprendre à prompter, à exécuter de vrais prompts via Claude Haiku 4.5, et à se tenir à jour sur l'écosystème.
 
 ## Stack
-- Frontend: Expo Router (React Native, web preview, SSR), Lucide icons, Playfair Display (serif) + Inter (sans), react-native-reanimated, react-native-svg, AsyncStorage, expo-clipboard.
-- Backend: FastAPI with `/api/*` prefix, MongoDB for ratings storage. 48 AIs curated catalog with real Clearbit logos.
+- Frontend: Expo Router (SSR), Lucide icons, Playfair + Inter, react-native-reanimated, react-native-svg, AsyncStorage, expo-clipboard, Linking.
+- Backend: FastAPI + MongoDB (ratings). Claude Haiku 4.5 via `emergentintegrations` + `EMERGENT_LLM_KEY`.
 
-## Pages / Screens (5 main tabs + nested routes)
-- `(tabs)/index` (Catalogue) — brand top-bar, hero, search, category/sort/free filters, full results list. Header icons → /benchmarks and /compare.
-- `(tabs)/actue` (Actue) — dark editorial news feed: featured article with figure highlight + 6 article rows.
-- `(tabs)/academy` (Academy) — 2 sub-tabs: Fondamentaux (5 lessons with framework, steps, before/after) + Templates (8 copyable prompt templates).
-- `(tabs)/builder` (Builder) — Prompt Builder 7-block form (Rôle, Objectif, Audience, Contexte, Contraintes, Format, Critères) with live preview + copy.
-- `(tabs)/profile` (Profil) — local match history + new match CTA.
-- `(tabs)/compare` & `(tabs)/benchmarks` — hidden from tab bar, opened from Catalogue header icons.
-- `match` (modal) — 3-step matching wizard.
-- `tool/[slug]` — full detail with stats, features, ratings (+10/-10), compare toggle.
+## Theme & Premium
+- Light/Dark theme via `ThemeProvider` (toggle dans Profil, persisté AsyncStorage `ia_match_theme_v1`). Tous les écrans partagent le même `bg`.
+- Plan freemium :
+  - **Découverte (gratuit)** : Catalogue, Actue, Profil.
+  - **Premium (9,99€/mois — démo)** : Academy, Builder, Comparateur, Benchmarks. Toggle dans Profil ou paywall (PremiumGate). Persisté AsyncStorage `ia_match_premium_v1`.
+  - **MOCKED**: pas de Stripe — activation simulée.
+
+## Tabs (5)
+- **Catalogue** : 48 IA, recherche, filtres, top, header icons → Compare/Benchmarks (premium).
+- **Actue** : 7 articles pédagogiques complets (~700 mots), featured + 6 brèves. Détail navigable `/news/[id]` avec markdown rendering (h2, bullets, numbered, bold).
+- **Academy** (premium) : 5 leçons + 8 templates copiables.
+- **Builder** (premium) : 7 blocs + preview + **exécution réelle Claude Haiku 4.5** + copie.
+- **Profil** : plan, toggle thème, toggle premium, historique, 12 ressources externes (YouTubers, blogs, podcasts, newsletters, outils), CTA new match.
+
+## Tool detail
+- Logo cliquable (clearbit + fallback initiales LogoTile) → ouvre `https://${domain}` via Linking.
+- Bouton "Visiter ${domain}" en bas.
+- Stats, features, use cases, notation +10/-10 communautaire avec submit, compare toggle.
 
 ## Backend API (FastAPI, prefix `/api`)
-- `GET /tools` — filters: category, search, free_only, min_score, sort. Returns 48 tools.
-- `GET /tools/{slug}`, `GET /categories` (7 categories).
-- `GET /benchmarks?sort=`, `POST /match`, `POST /ratings`, `GET /ratings/{slug}`, `GET /ratings`.
-- `GET /news` (7 articles), `GET /news/{id}`.
-- `GET /lessons` (5 lessons), `GET /lessons/{id}`.
-- `GET /templates` (8 templates), `GET /templates/{id}`, filterable by `level`.
+- `GET /tools`, `/tools/{slug}`, `/categories`, `/benchmarks`, `POST /match`, `POST /ratings`, `GET /ratings/{slug}`, `GET /ratings`.
+- `GET /news` (7), `GET /news/{id}` (full body), `GET /lessons` (5), `GET /templates` (8), `GET /resources` (12).
+- **`POST /builder/run`** : Claude Haiku 4.5 via Emergent LLM Key — single-shot.
 
-## Design
-- Light theme: Bg `#FDFBF7`, dark editorial sections `#12151C`, accents coral `#FF5A45` (primary) & pink `#F43F7A`.
-- 24/32 px radius, soft shadows, Playfair italic accents in titles.
-- Bottom tab bar with 5 tabs (lucide icons).
-- Real brand logos via Clearbit (`https://logo.clearbit.com/{domain}`).
-
-## Local data (AsyncStorage)
-- `ia_match_history_v1` — last 30 matches.
-- `ia_match_compare_v1` — selected slugs for comparator (max 2).
-
-## Auth
-- None for MVP (history & compare local; ratings anonymous).
+## Local data
+- `ia_match_history_v1`, `ia_match_compare_v1`, `ia_match_theme_v1`, `ia_match_premium_v1`.
 
 ## V2 ideas
-- Stripe Premium plan (PDF reports, real-time API comparator).
-- LLM-powered smart matching (Emergent LLM key).
-- Article detail view + bookmarks.
-- Multi-language interface.
+- Vraie intégration Stripe pour Premium.
+- Recommender engine LLM contextualisé.
+- Bookmark articles + notifications éditoriales.
+- Build & save mes prompts perso.
