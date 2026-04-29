@@ -14,7 +14,8 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from seed_data import TOOLS, CATEGORIES
-from editorial_data import NEWS, LESSONS, TEMPLATES
+from editorial_data import NEWS, LESSONS, TEMPLATES, RESOURCES
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -32,6 +33,7 @@ class Tool(BaseModel):
     slug: str
     name: str
     vendor: str
+    domain: Optional[str] = None
     tagline: str
     description: str
     categorySlugs: List[str]
@@ -324,6 +326,45 @@ async def get_template(template_id: str):
         if t["id"] == template_id:
             return t
     raise HTTPException(404, "Template not found")
+
+
+@api_router.get("/resources")
+async def list_resources(category: Optional[str] = None):
+    items = list(RESOURCES)
+    if category:
+        items = [r for r in items if r["category"].lower() == category.lower()]
+    return items
+
+
+class BuilderRunRequest(BaseModel):
+    prompt: str
+    model: Optional[str] = "claude-haiku-4-5-20251001"
+
+
+@api_router.post("/builder/run")
+async def builder_run(req: BuilderRunRequest):
+    if not req.prompt or not req.prompt.strip():
+        raise HTTPException(400, "prompt is required")
+    api_key = os.environ.get("EMERGENT_LLM_KEY")
+    if not api_key:
+        raise HTTPException(500, "LLM key not configured")
+    session_id = f"builder-{uuid.uuid4()}"
+    try:
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=session_id,
+            system_message=(
+                "Tu es un assistant expert. Exécute fidèlement le brief fourni par l'utilisateur. "
+                "Si le brief précise un format de sortie, respecte-le strictement. "
+                "Sois concis, précis et concret. Réponds en français sauf instruction contraire."
+            ),
+        ).with_model("anthropic", req.model or "claude-haiku-4-5-20251001")
+        message = UserMessage(text=req.prompt.strip())
+        text = await chat.send_message(message)
+        return {"output": text, "model": req.model, "session_id": session_id}
+    except Exception as e:
+        logger.exception("builder_run failed")
+        raise HTTPException(500, f"LLM error: {e}")
 
 
 app.include_router(api_router)

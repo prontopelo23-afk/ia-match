@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Sparkles, Zap, Target } from "lucide-react-native";
-import { colors, fonts, radius, shadow, spacing } from "../theme";
+import { fonts, radius, spacing } from "../theme";
+import { useTheme } from "../theme-context";
 import ScoreRing from "./ScoreRing";
+import LogoTile from "./LogoTile";
 import type { Tool } from "../api";
 
 type Props = {
@@ -16,46 +18,48 @@ type Props = {
 
 export default function ToolCard({ tool, matchScore, onCompare, inCompare, testID }: Props) {
   const router = useRouter();
+  const { colors } = useTheme();
   const score = matchScore ?? tool.score;
   return (
     <TouchableOpacity
       activeOpacity={0.85}
       onPress={() => router.push(`/tool/${tool.slug}`)}
-      style={styles.card}
+      style={[
+        styles.card,
+        { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
+      ]}
       testID={testID || `tool-card-${tool.slug}`}
     >
       <View style={styles.row}>
-        <View style={[styles.thumbWrap, { backgroundColor: tool.color }]}>
-          <Image source={{ uri: tool.image }} style={styles.thumb} />
-        </View>
+        <LogoTile uri={tool.image} name={tool.name} bg={tool.color} size={56} rounded={radius.md} />
         <View style={styles.info}>
-          <Text style={styles.vendor} numberOfLines={1}>
+          <Text style={[styles.vendor, { color: colors.textSecondary }]} numberOfLines={1}>
             {tool.vendor.toUpperCase()}
           </Text>
-          <Text style={styles.name} numberOfLines={1}>
+          <Text style={[styles.name, { color: colors.textPrimary }]} numberOfLines={1}>
             {tool.name}
           </Text>
-          <Text style={styles.tagline} numberOfLines={2}>
+          <Text style={[styles.tagline, { color: colors.textSecondary }]} numberOfLines={2}>
             {tool.tagline}
           </Text>
         </View>
         <ScoreRing score={score} size={56} />
       </View>
 
-      <View style={styles.statsRow}>
+      <View style={[styles.statsRow, { borderTopColor: colors.borderSubtle }]}>
         <View style={styles.stat}>
           <Zap size={14} color={colors.textSecondary} strokeWidth={2} />
-          <Text style={styles.statText}>
+          <Text style={[styles.statText, { color: colors.textSecondary }]}>
             {tool.speedMs < 1000 ? `${tool.speedMs}ms` : `${(tool.speedMs / 1000).toFixed(1)}s`}
           </Text>
         </View>
         <View style={styles.stat}>
           <Target size={14} color={colors.textSecondary} strokeWidth={2} />
-          <Text style={styles.statText}>{tool.accuracyPct}%</Text>
+          <Text style={[styles.statText, { color: colors.textSecondary }]}>{tool.accuracyPct}%</Text>
         </View>
         <View style={styles.stat}>
           <Sparkles size={14} color={colors.textSecondary} strokeWidth={2} />
-          <Text style={styles.statText}>
+          <Text style={[styles.statText, { color: colors.textSecondary }]}>
             {tool.freeTier ? "Gratuit" : `${tool.monthlyPrice.toFixed(0)}€/m`}
           </Text>
         </View>
@@ -67,10 +71,20 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
             e.stopPropagation?.();
             onCompare();
           }}
-          style={[styles.compareBtn, inCompare && styles.compareBtnActive]}
+          style={[
+            styles.compareBtn,
+            { borderColor: colors.borderSubtle },
+            inCompare && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
+          ]}
           testID={`compare-toggle-${tool.slug}`}
         >
-          <Text style={[styles.compareText, inCompare && styles.compareTextActive]}>
+          <Text
+            style={[
+              styles.compareText,
+              { color: colors.textPrimary },
+              inCompare && { color: colors.coral },
+            ]}
+          >
             {inCompare ? "Retirer du comparatif" : "Ajouter au comparatif"}
           </Text>
         </TouchableOpacity>
@@ -81,59 +95,31 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
     marginBottom: spacing.md,
     borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    ...shadow.soft,
   },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  thumbWrap: {
-    width: 56,
-    height: 56,
-    borderRadius: radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  thumb: { width: 36, height: 36, borderRadius: 6 },
   info: { flex: 1, marginHorizontal: spacing.sm },
-  vendor: {
-    fontFamily: fonts.bodySemi,
-    color: colors.textSecondary,
-    fontSize: 10,
-    letterSpacing: 1,
-    marginBottom: 2,
-  },
-  name: { fontFamily: fonts.serif, fontSize: 20, color: colors.textPrimary, lineHeight: 24 },
-  tagline: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 18,
-    marginTop: 2,
-  },
+  vendor: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1, marginBottom: 2 },
+  name: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24 },
+  tagline: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 2 },
   statsRow: {
     flexDirection: "row",
     gap: spacing.md,
     marginTop: spacing.sm,
     paddingTop: spacing.sm,
     borderTopWidth: 1,
-    borderTopColor: colors.borderSubtle,
   },
   stat: { flexDirection: "row", alignItems: "center", gap: 4 },
-  statText: { fontFamily: fonts.bodyMd, fontSize: 12, color: colors.textSecondary },
+  statText: { fontFamily: fonts.bodyMd, fontSize: 12 },
   compareBtn: {
     marginTop: spacing.sm,
     paddingVertical: 10,
     borderRadius: radius.pill,
     borderWidth: 1,
-    borderColor: colors.borderSubtle,
     alignItems: "center",
   },
-  compareBtnActive: { borderColor: colors.pink, backgroundColor: colors.pinkSoft },
-  compareText: { fontFamily: fonts.bodySemi, fontSize: 13, color: colors.textPrimary },
-  compareTextActive: { color: colors.pink },
+  compareText: { fontFamily: fonts.bodySemi, fontSize: 13 },
 });

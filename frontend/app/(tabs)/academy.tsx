@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Clock, Copy, Check } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
-import { colors, fonts, radius, spacing } from "../../src/theme";
+import { fonts, radius, spacing } from "../../src/theme";
+import { useTheme, usePremium } from "../../src/theme-context";
 import { api, Lesson, Template } from "../../src/api";
+import PremiumGate from "../../src/components/PremiumGate";
 
 type Tab = "fundamentals" | "templates";
 
 export default function AcademyScreen() {
+  const { colors } = useTheme();
+  const { isPremium } = usePremium();
   const [tab, setTab] = useState<Tab>("fundamentals");
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -34,6 +31,23 @@ export default function AcademyScreen() {
       .finally(() => setLoading(false));
   }, []);
 
+  if (!isPremium) {
+    return (
+      <SafeAreaView style={[{ flex: 1 }, { backgroundColor: colors.bg }]} edges={["top"]}>
+        <PremiumGate
+          feature="Academy"
+          description="Apprends à prompter comme un pro avec des leçons illustrées et des templates copiables prêts à l'emploi."
+          benefits={[
+            "5 leçons fondamentales avec framework et avant/après",
+            "8 templates de prompts copiables (CV, recherche, code, pitch…)",
+            "Mises à jour mensuelles synchronisées avec les nouveaux modèles",
+            "Accès au Builder IA et au Comparateur avancé",
+          ]}
+        />
+      </SafeAreaView>
+    );
+  }
+
   const activeLesson = lessons.find((l) => l.id === activeLessonId) || lessons[0];
 
   const copy = async (id: string, body: string) => {
@@ -45,32 +59,44 @@ export default function AcademyScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={styles.crumb}>Workspace · Academy</Text>
-        <Text style={styles.eyebrow}>PROMPT ACADEMY</Text>
-        <Text style={styles.title}>
-          Apprends à <Text style={styles.titleAccent}>prompter</Text> comme un pro.
+        <Text style={[styles.crumb, { color: colors.textSecondary }]}>Workspace · Academy</Text>
+        <Text style={[styles.eyebrow, { color: colors.coral }]}>PROMPT ACADEMY</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>
+          Apprends à <Text style={[styles.titleAccent, { color: colors.coral }]}>prompter</Text> comme un pro.
         </Text>
 
-        <View style={styles.tabs}>
+        <View style={[styles.tabs, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
           <TouchableOpacity
             onPress={() => setTab("fundamentals")}
-            style={[styles.tab, tab === "fundamentals" && styles.tabActive]}
+            style={[styles.tab, tab === "fundamentals" && { backgroundColor: colors.coralSoft }]}
             testID="academy-tab-fundamentals"
           >
-            <Text style={[styles.tabText, tab === "fundamentals" && styles.tabTextActive]}>
+            <Text
+              style={[
+                styles.tabText,
+                { color: tab === "fundamentals" ? colors.coral : colors.textSecondary },
+              ]}
+            >
               Fondamentaux
             </Text>
-            <Text style={[styles.tabCount, tab === "fundamentals" && styles.tabCountActive]}>{lessons.length}</Text>
+            <Text style={[styles.tabCount, { color: colors.textSecondary }]}>{lessons.length}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setTab("templates")}
-            style={[styles.tab, tab === "templates" && styles.tabActive]}
+            style={[styles.tab, tab === "templates" && { backgroundColor: colors.coralSoft }]}
             testID="academy-tab-templates"
           >
-            <Text style={[styles.tabText, tab === "templates" && styles.tabTextActive]}>Templates</Text>
-            <Text style={[styles.tabCount, tab === "templates" && styles.tabCountActive]}>{templates.length}</Text>
+            <Text
+              style={[
+                styles.tabText,
+                { color: tab === "templates" ? colors.coral : colors.textSecondary },
+              ]}
+            >
+              Templates
+            </Text>
+            <Text style={[styles.tabCount, { color: colors.textSecondary }]}>{templates.length}</Text>
           </TouchableOpacity>
         </View>
 
@@ -78,52 +104,59 @@ export default function AcademyScreen() {
           <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.xl }} />
         ) : tab === "fundamentals" ? (
           <View>
-            {/* Lesson list */}
             {lessons.map((l) => (
               <TouchableOpacity
                 key={l.id}
                 onPress={() => setActiveLessonId(l.id)}
-                style={[styles.lessonRow, activeLessonId === l.id && styles.lessonRowActive]}
+                style={[
+                  styles.lessonRow,
+                  { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
+                  activeLessonId === l.id && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
+                ]}
                 testID={`lesson-${l.id}`}
               >
                 <View style={styles.lessonHeadRow}>
-                  <Text style={styles.lessonOrder}>0{l.order} · {l.level}</Text>
+                  <Text style={[styles.lessonOrder, { color: colors.textSecondary }]}>0{l.order} · {l.level}</Text>
                   <View style={styles.minRow}>
                     <Clock size={11} color={colors.textSecondary} strokeWidth={2} />
-                    <Text style={styles.lessonMin}>{l.minutes}M</Text>
+                    <Text style={[styles.lessonMin, { color: colors.textSecondary }]}>{l.minutes}M</Text>
                   </View>
                 </View>
-                <Text style={styles.lessonTitle}>{l.title}</Text>
+                <Text style={[styles.lessonTitle, { color: colors.textPrimary }]}>{l.title}</Text>
               </TouchableOpacity>
             ))}
 
-            {/* Active lesson detail */}
             {activeLesson ? (
-              <View style={styles.lessonDetail} testID="lesson-detail">
-                <Text style={styles.detailEyebrow}>LEÇON · {activeLesson.level} · {activeLesson.minutes} MIN</Text>
-                <Text style={styles.detailTitle}>{activeLesson.title}</Text>
-                <Text style={styles.detailIntro}>{activeLesson.intro}</Text>
-                <Text style={styles.detailBody}>{activeLesson.body}</Text>
+              <View
+                style={[styles.lessonDetail, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
+                testID="lesson-detail"
+              >
+                <Text style={[styles.detailEyebrow, { color: colors.textSecondary }]}>
+                  LEÇON · {activeLesson.level} · {activeLesson.minutes} MIN
+                </Text>
+                <Text style={[styles.detailTitle, { color: colors.textPrimary }]}>{activeLesson.title}</Text>
+                <Text style={[styles.detailIntro, { color: colors.textPrimary }]}>{activeLesson.intro}</Text>
+                <Text style={[styles.detailBody, { color: colors.textSecondary }]}>{activeLesson.body}</Text>
 
-                <View style={styles.frameworkBox}>
-                  <Text style={styles.frameworkLabel}>FRAMEWORK</Text>
-                  <Text style={styles.frameworkText}>{activeLesson.framework}</Text>
+                <View style={[styles.frameworkBox, { borderColor: colors.coral }]}>
+                  <Text style={[styles.frameworkLabel, { color: colors.coral }]}>FRAMEWORK</Text>
+                  <Text style={[styles.frameworkText, { color: colors.coral }]}>{activeLesson.framework}</Text>
                   {activeLesson.steps.map((s, i) => (
                     <View key={i} style={styles.stepRow}>
-                      <Text style={styles.stepNum}>0{i + 1}</Text>
-                      <Text style={styles.stepText}>{s}</Text>
+                      <Text style={[styles.stepNum, { color: colors.textSecondary }]}>0{i + 1}</Text>
+                      <Text style={[styles.stepText, { color: colors.textPrimary }]}>{s}</Text>
                     </View>
                   ))}
                 </View>
 
                 <View style={styles.beforeAfter}>
-                  <View style={styles.baBlock}>
-                    <Text style={styles.baLabel}>AVANT</Text>
-                    <Text style={styles.baText}>{activeLesson.before}</Text>
+                  <View style={[styles.baBlock, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+                    <Text style={[styles.baLabel, { color: colors.coral }]}>AVANT</Text>
+                    <Text style={[styles.baText, { color: colors.textPrimary }]}>{activeLesson.before}</Text>
                   </View>
-                  <View style={styles.baBlock}>
-                    <Text style={styles.baLabel}>APRÈS</Text>
-                    <Text style={styles.baText}>{activeLesson.after}</Text>
+                  <View style={[styles.baBlock, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+                    <Text style={[styles.baLabel, { color: colors.coral }]}>APRÈS</Text>
+                    <Text style={[styles.baText, { color: colors.textPrimary }]}>{activeLesson.after}</Text>
                   </View>
                 </View>
               </View>
@@ -132,22 +165,28 @@ export default function AcademyScreen() {
         ) : (
           <View style={styles.templatesGrid}>
             {templates.map((t) => (
-              <View key={t.id} style={styles.templateCard} testID={`template-${t.id}`}>
+              <View
+                key={t.id}
+                style={[styles.templateCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
+                testID={`template-${t.id}`}
+              >
                 <View style={styles.templateHeader}>
-                  <Text style={styles.templateLevel}>{t.level}</Text>
+                  <Text style={[styles.templateLevel, { color: colors.coral }]}>{t.level}</Text>
                   <TouchableOpacity onPress={() => copy(t.id, t.body)} style={styles.copyBtn} testID={`copy-${t.id}`}>
                     {copiedId === t.id ? (
                       <Check size={16} color={colors.success} strokeWidth={2.5} />
                     ) : (
-                      <Copy size={16} color="rgba(253,251,247,0.5)" strokeWidth={2} />
+                      <Copy size={16} color={colors.textSecondary} strokeWidth={2} />
                     )}
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.templateTitle}>{t.title}</Text>
-                <Text style={styles.templateBody} numberOfLines={6}>{t.body}</Text>
+                <Text style={[styles.templateTitle, { color: colors.textPrimary }]}>{t.title}</Text>
+                <Text style={[styles.templateBody, { color: colors.textSecondary }]} numberOfLines={6}>
+                  {t.body}
+                </Text>
                 <View style={styles.varsRow}>
                   {t.variables.slice(0, 5).map((v) => (
-                    <Text key={v} style={styles.varTag}>{`{${v}}`}</Text>
+                    <Text key={v} style={[styles.varTag, { color: colors.textSecondary }]}>{`{${v}}`}</Text>
                   ))}
                 </View>
               </View>
@@ -162,124 +201,51 @@ export default function AcademyScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.darkCard },
+  container: { flex: 1 },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
-  crumb: { fontFamily: fonts.body, fontSize: 12, color: "rgba(253,251,247,0.5)", marginBottom: spacing.md },
-  eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, color: colors.coral, marginBottom: spacing.sm },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 36,
-    lineHeight: 42,
-    color: colors.textInverse,
-    letterSpacing: -1,
-    marginBottom: spacing.lg,
-  },
-  titleAccent: { color: colors.coral, fontStyle: "italic" },
+  crumb: { fontFamily: fonts.body, fontSize: 12, marginBottom: spacing.md },
+  eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
+  title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1, marginBottom: spacing.lg },
+  titleAccent: { fontStyle: "italic" },
   tabs: {
     flexDirection: "row",
-    backgroundColor: "#0A0D14",
     borderRadius: radius.pill,
     padding: 4,
     alignSelf: "flex-start",
     marginBottom: spacing.lg,
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.06)",
   },
-  tab: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: radius.pill,
-  },
-  tabActive: { backgroundColor: colors.surface },
-  tabText: { fontFamily: fonts.bodySemi, fontSize: 13, color: "rgba(253,251,247,0.6)" },
-  tabTextActive: { color: colors.textPrimary },
-  tabCount: { fontFamily: fonts.bodyBold, fontSize: 11, color: "rgba(253,251,247,0.4)" },
-  tabCountActive: { color: colors.coral },
-
-  lessonRow: {
-    backgroundColor: "#0A0D14",
-    padding: spacing.md,
-    borderRadius: radius.md,
-    marginBottom: spacing.sm,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.06)",
-  },
-  lessonRowActive: { borderColor: colors.coral, backgroundColor: "rgba(255,90,69,0.08)" },
+  tab: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 16, paddingVertical: 8, borderRadius: radius.pill },
+  tabText: { fontFamily: fonts.bodySemi, fontSize: 13 },
+  tabCount: { fontFamily: fonts.bodyBold, fontSize: 11 },
+  lessonRow: { padding: spacing.md, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1 },
   lessonHeadRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6 },
-  lessonOrder: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: "rgba(253,251,247,0.5)" },
+  lessonOrder: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
   minRow: { flexDirection: "row", alignItems: "center", gap: 4 },
-  lessonMin: { fontFamily: fonts.bodyMd, fontSize: 11, color: "rgba(253,251,247,0.5)" },
-  lessonTitle: { fontFamily: fonts.serif, fontSize: 18, color: colors.textInverse, lineHeight: 22 },
-
-  lessonDetail: {
-    marginTop: spacing.lg,
-    padding: spacing.lg,
-    backgroundColor: "#0A0D14",
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.06)",
-  },
-  detailEyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: "rgba(253,251,247,0.5)" },
-  detailTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
-    lineHeight: 34,
-    color: colors.textInverse,
-    letterSpacing: -0.5,
-    marginTop: spacing.sm,
-  },
-  detailIntro: { fontFamily: fonts.body, fontSize: 15, color: "rgba(253,251,247,0.85)", marginTop: spacing.md, lineHeight: 22 },
-  detailBody: { fontFamily: fonts.body, fontSize: 14, color: "rgba(253,251,247,0.7)", marginTop: spacing.sm, lineHeight: 20 },
-
-  frameworkBox: {
-    backgroundColor: "#12151C",
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginTop: spacing.lg,
-    borderWidth: 1,
-    borderColor: "rgba(255,90,69,0.2)",
-  },
-  frameworkLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral },
-  frameworkText: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1, color: colors.coral, marginTop: 4, marginBottom: spacing.sm },
+  lessonMin: { fontFamily: fonts.bodyMd, fontSize: 11 },
+  lessonTitle: { fontFamily: fonts.serif, fontSize: 18, lineHeight: 22 },
+  lessonDetail: { marginTop: spacing.lg, padding: spacing.lg, borderRadius: radius.lg, borderWidth: 1 },
+  detailEyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  detailTitle: { fontFamily: fonts.serif, fontSize: 28, lineHeight: 34, letterSpacing: -0.5, marginTop: spacing.sm },
+  detailIntro: { fontFamily: fonts.body, fontSize: 15, marginTop: spacing.md, lineHeight: 22 },
+  detailBody: { fontFamily: fonts.body, fontSize: 14, marginTop: spacing.sm, lineHeight: 20 },
+  frameworkBox: { borderRadius: radius.md, padding: spacing.md, marginTop: spacing.lg, borderWidth: 1.5 },
+  frameworkLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  frameworkText: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1, marginTop: 4, marginBottom: spacing.sm },
   stepRow: { flexDirection: "row", gap: 10, paddingVertical: 6 },
-  stepNum: { fontFamily: fonts.body, fontSize: 12, color: "rgba(253,251,247,0.5)", width: 22 },
-  stepText: { fontFamily: fonts.body, fontSize: 13, color: colors.textInverse, lineHeight: 18, flex: 1 },
-
+  stepNum: { fontFamily: fonts.body, fontSize: 12, width: 22 },
+  stepText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, flex: 1 },
   beforeAfter: { flexDirection: "row", gap: 8, marginTop: spacing.md },
-  baBlock: {
-    flex: 1,
-    backgroundColor: "#12151C",
-    padding: spacing.md,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.06)",
-  },
-  baLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral, marginBottom: 6 },
-  baText: { fontFamily: fonts.body, fontSize: 12, color: "rgba(253,251,247,0.85)", lineHeight: 18 },
-
+  baBlock: { flex: 1, padding: spacing.md, borderRadius: radius.md, borderWidth: 1 },
+  baLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: 6 },
+  baText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
   templatesGrid: { gap: spacing.md },
-  templateCard: {
-    backgroundColor: "#0A0D14",
-    borderRadius: radius.lg,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.06)",
-  },
+  templateCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1 },
   templateHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  templateLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral },
+  templateLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
   copyBtn: { padding: 4 },
-  templateTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 20,
-    color: colors.textInverse,
-    marginTop: 8,
-    marginBottom: spacing.sm,
-    lineHeight: 24,
-  },
-  templateBody: { fontFamily: fonts.body, fontSize: 13, color: "rgba(253,251,247,0.7)", lineHeight: 18 },
+  templateTitle: { fontFamily: fonts.serif, fontSize: 20, marginTop: 8, marginBottom: spacing.sm, lineHeight: 24 },
+  templateBody: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18 },
   varsRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: spacing.md },
-  varTag: { fontFamily: fonts.body, fontSize: 11, color: "rgba(253,251,247,0.5)" },
+  varTag: { fontFamily: fonts.body, fontSize: 11 },
 });

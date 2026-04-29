@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View, ActivityIndicator } from "react-native";
 import {
   useFonts,
   PlayfairDisplay_700Bold,
@@ -14,10 +13,24 @@ import {
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { colors } from "../src/theme";
+import { ThemeProvider, PremiumProvider, useTheme } from "../src/theme-context";
+
+function StackContent() {
+  const { colors, mode } = useTheme();
+  return (
+    <>
+      <StatusBar style={mode === "light" ? "dark" : "light"} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="match" options={{ presentation: "modal", animation: "slide_from_bottom" }} />
+        <Stack.Screen name="tool/[slug]" options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="news/[id]" options={{ animation: "slide_from_right" }} />
+      </Stack>
+    </>
+  );
+}
 
 export default function RootLayout() {
-  // Non-blocking: app renders with fallback fonts while these load.
   useFonts({
     PlayfairDisplay_700Bold,
     PlayfairDisplay_600SemiBold,
@@ -29,12 +42,11 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="match" options={{ presentation: "modal", animation: "slide_from_bottom" }} />
-        <Stack.Screen name="tool/[slug]" options={{ animation: "slide_from_right" }} />
-      </Stack>
+      <ThemeProvider>
+        <PremiumProvider>
+          <StackContent />
+        </PremiumProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

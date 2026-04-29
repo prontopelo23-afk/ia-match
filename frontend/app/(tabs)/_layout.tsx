@@ -2,9 +2,11 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { LayoutGrid, Newspaper, GraduationCap, Wand2, User } from "lucide-react-native";
 import { Platform } from "react-native";
-import { colors, fonts } from "../../src/theme";
+import { fonts } from "../../src/theme";
+import { useTheme } from "../../src/theme-context";
 
 export default function TabsLayout() {
+  const { colors } = useTheme();
   return (
     <Tabs
       screenOptions={{
@@ -62,7 +64,6 @@ export default function TabsLayout() {
           tabBarButtonTestID: "tab-profile",
         }}
       />
-      {/* Hidden routes still navigable but not in the tab bar */}
       <Tabs.Screen name="compare" options={{ href: null }} />
       <Tabs.Screen name="benchmarks" options={{ href: null }} />
     </Tabs>

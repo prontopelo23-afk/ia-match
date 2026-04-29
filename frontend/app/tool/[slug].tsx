@@ -4,21 +4,24 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   TouchableOpacity,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring, withSequence } from "react-native-reanimated";
-import { ChevronLeft, Plus, Minus, Zap, Target, DollarSign, Globe, GitCompare } from "lucide-react-native";
+import { ChevronLeft, Plus, Minus, Zap, Target, DollarSign, Globe, GitCompare, ExternalLink } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
+import { useTheme } from "../../src/theme-context";
 import { api, Tool, RatingSummary, compareStore } from "../../src/api";
 import ScoreRing from "../../src/components/ScoreRing";
+import LogoTile from "../../src/components/LogoTile";
 
 export default function ToolDetail() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
+  const { colors: theme } = useTheme();
   const [tool, setTool] = useState<Tool | null>(null);
   const [summary, setSummary] = useState<RatingSummary | null>(null);
   const [userScore, setUserScore] = useState(50);
@@ -78,12 +81,21 @@ export default function ToolDetail() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
-        <View style={styles.headerImg}>
-          <Image source={{ uri: tool.image }} style={StyleSheet.absoluteFill as any} />
-          <View style={styles.headerOverlay} />
+      <ScrollView contentContainerStyle={{ paddingBottom: 80, backgroundColor: theme.bg }}>
+        <View style={[styles.headerImg, { backgroundColor: tool.color }]}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backBtn} testID="tool-back">
             <ChevronLeft size={24} color="#fff" strokeWidth={2.5} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => tool.domain && Linking.openURL(`https://${tool.domain}`).catch(() => {})}
+            activeOpacity={0.8}
+            style={styles.headerLogoWrap}
+            testID="tool-logo-link"
+          >
+            <LogoTile uri={tool.image} name={tool.name} bg="#fff" size={96} rounded={24} />
+            <View style={styles.openBadge}>
+              <ExternalLink size={14} color="#fff" strokeWidth={2.5} />
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -162,6 +174,19 @@ export default function ToolDetail() {
               {inCompare ? "Dans le comparatif" : "Ajouter au comparatif"}
             </Text>
           </TouchableOpacity>
+
+          {tool.domain ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`https://${tool.domain}`).catch(() => {})}
+              style={[styles.visitBtn, { borderColor: theme.borderSubtle }]}
+              testID="tool-visit-website"
+            >
+              <ExternalLink size={16} color={theme.textPrimary} strokeWidth={2} />
+              <Text style={[styles.visitText, { color: theme.textPrimary }]}>
+                Visiter {tool.domain}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -180,7 +205,26 @@ function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; va
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
-  headerImg: { height: 220, backgroundColor: colors.darkCard, position: "relative" },
+  headerImg: {
+    height: 220,
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  headerLogoWrap: { position: "relative" },
+  openBadge: {
+    position: "absolute",
+    bottom: -4,
+    right: -4,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: "rgba(0,0,0,0.55)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "rgba(255,255,255,0.6)",
+  },
   headerOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(18,21,28,0.35)" },
   backBtn: {
     position: "absolute",
@@ -286,4 +330,15 @@ const styles = StyleSheet.create({
   },
   compareBtnActive: { backgroundColor: colors.pink, borderColor: colors.pink },
   compareText: { fontFamily: fonts.bodyBold, fontSize: 15, color: colors.textPrimary },
+  visitBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 14,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    marginTop: spacing.sm,
+  },
+  visitText: { fontFamily: fonts.bodySemi, fontSize: 14 },
 });

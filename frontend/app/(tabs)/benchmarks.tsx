@@ -10,12 +10,16 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
+import { useTheme, usePremium } from "../../src/theme-context";
 import { api, BenchmarkRow } from "../../src/api";
+import PremiumGate from "../../src/components/PremiumGate";
 
 type SortKey = "score" | "speed" | "accuracy" | "price";
 
 export default function BenchmarksScreen() {
   const router = useRouter();
+  const { colors: theme } = useTheme();
+  const { isPremium } = usePremium();
   const [sort, setSort] = useState<SortKey>("score");
   const [rows, setRows] = useState<BenchmarkRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +32,23 @@ export default function BenchmarksScreen() {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [sort]);
+
+  if (!isPremium) {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
+        <PremiumGate
+          feature="Benchmarks"
+          description="Visualise les performances de toutes les IA dans un tableau dynamique : score, vitesse, précision, prix. Trie selon le critère qui compte pour toi."
+          benefits={[
+            "Tableau benchmark avec 48 IA et 4 critères",
+            "Tri dynamique par score, vitesse, précision, prix",
+            "Barres de progression visuelles",
+            "Accès à l'Academy, Builder et Comparateur",
+          ]}
+        />
+      </SafeAreaView>
+    );
+  }
 
   const fmtSpeed = (ms: number) => (ms < 1000 ? `${ms}ms` : `${(ms / 1000).toFixed(1)}s`);
   const sorts: { key: SortKey; label: string }[] = [

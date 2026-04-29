@@ -21,11 +21,13 @@ import {
   BarChart3,
 } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
+import { useTheme } from "../../src/theme-context";
 import { api, Category, Tool, compareStore } from "../../src/api";
 import ToolCard from "../../src/components/ToolCard";
 
 export default function Catalogue() {
   const router = useRouter();
+  const { colors: theme } = useTheme();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | undefined>(undefined);
   const [freeOnly, setFreeOnly] = useState(false);
@@ -62,7 +64,7 @@ export default function Catalogue() {
   const filtersActive = !!search || !!activeCategory || freeOnly;
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         {/* TOP BAR */}
         <View style={styles.topBar}>

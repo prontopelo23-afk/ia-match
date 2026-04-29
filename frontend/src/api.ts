@@ -6,6 +6,7 @@ export type Tool = {
   slug: string;
   name: string;
   vendor: string;
+  domain?: string;
   tagline: string;
   description: string;
   categorySlugs: string[];
@@ -47,6 +48,9 @@ export type NewsItem = {
   readMinutes: number;
   tag: string;
   highlight?: string;
+  author?: string;
+  intro?: string;
+  body?: string;
 };
 
 export type Lesson = {
@@ -105,8 +109,20 @@ export const api = {
   ratings: (slug: string) => get<RatingSummary>(`/ratings/${slug}`),
   allRatings: () => get<RatingSummary[]>(`/ratings`),
   listNews: () => get<NewsItem[]>(`/news`),
+  getNews: (id: string) => get<NewsItem>(`/news/${id}`),
   listLessons: () => get<Lesson[]>(`/lessons`),
   listTemplates: () => get<Template[]>(`/templates`),
+  listResources: () => get<Resource[]>(`/resources`),
+  builderRun: (prompt: string) => post<{ output: string; model: string }>(`/builder/run`, { prompt }),
+};
+
+export type Resource = {
+  id: string;
+  category: string;
+  title: string;
+  author: string;
+  summary: string;
+  url: string;
 };
 
 // Local history (AsyncStorage)

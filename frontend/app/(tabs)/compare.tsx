@@ -12,11 +12,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
 import { Plus, GitCompare } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
+import { useTheme, usePremium } from "../../src/theme-context";
 import { api, Tool, compareStore } from "../../src/api";
 import ScoreRing from "../../src/components/ScoreRing";
+import PremiumGate from "../../src/components/PremiumGate";
 
 export default function CompareScreen() {
   const router = useRouter();
+  const { colors: theme } = useTheme();
+  const { isPremium } = usePremium();
   const [tools, setTools] = useState<(Tool | null)[]>([null, null]);
   const [loading, setLoading] = useState(true);
 
@@ -44,8 +48,25 @@ export default function CompareScreen() {
 
   const rows = tools[0] && tools[1] ? buildRows(tools[0], tools[1]) : [];
 
+  if (!isPremium) {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
+        <PremiumGate
+          feature="Comparateur"
+          description="Mets deux IA face à face avec un comparatif détaillé : score, vitesse, précision, tarif, langues. Détection du gagnant pour chaque critère."
+          benefits={[
+            "Comparatif détaillé avec mise en évidence du gagnant",
+            "Score global, vitesse, précision, tarif, couverture langues",
+            "Accès à l'Academy et au Builder",
+            "Accès aux Benchmarks complets",
+          ]}
+        />
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
       <View style={styles.header}>
         <Text style={styles.title}>Comparer</Text>
         <Text style={styles.subtitle}>Compare deux IA côte à côte.</Text>
