@@ -15,11 +15,40 @@ export type AuthUser = {
   is_premium: boolean;
 };
 
-async function postJson(path: string, body: any): Promise<any> {
+async function postJson(path: string, body: any, token?: string | null): Promise<any> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers["X-Auth-Token"] = token;
   const res = await fetch(`${API}/api${path}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify(body),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const detail = json?.detail || `Erreur ${res.status}`;
+    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+  }
+  return json;
+}
+
+async function patchJson(path: string, body: any, token: string): Promise<any> {
+  const res = await fetch(`${API}/api${path}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", "X-Auth-Token": token },
+    body: JSON.stringify(body),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const detail = json?.detail || `Erreur ${res.status}`;
+    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+  }
+  return json;
+}
+
+async function deleteJson(path: string, token: string): Promise<any> {
+  const res = await fetch(`${API}/api${path}`, {
+    method: "DELETE",
+    headers: { "X-Auth-Token": token },
   });
   const json = await res.json().catch(() => ({}));
   if (!res.ok) {
@@ -57,6 +86,36 @@ export const auth = {
   async logout(): Promise<void> {
     await AsyncStorage.removeItem(TOKEN_KEY);
     await AsyncStorage.removeItem(USER_KEY);
+  },
+  async updateProfile(name: string): Promise<AuthUser> {
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    if (!token) throw new Error("Pas connecté");
+    const u = await patchJson("/auth/me", { name }, token);
+    await AsyncStorage.setItem(USER_KEY, JSON.stringify(u));
+    return u;
+  },
+  async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    if (!token) throw new Error("Pas connecté");
+    await postJson("/auth/password/change", { current_password: currentPassword, new_password: newPassword }, token);
+  },
+  async deleteAccount(): Promise<void> {
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    if (!token) throw new Error("Pas connecté");
+    await deleteJson("/auth/account", token);
+    await AsyncStorage.removeItem(TOKEN_KEY);
+    await AsyncStorage.removeItem(USER_KEY);
+  },
+  async requestPasswordReset(email: string): Promise<{ ok: boolean; reset_link?: string }> {
+    return postJson("/auth/password/reset", { email });
+  },
+  async confirmPasswordReset(token: string, newPassword: string): Promise<void> {
+    await postJson("/auth/password/reset/confirm", { token, new_password: newPassword });
+  },
+  async requestEmailVerify(): Promise<{ ok: boolean; verify_link?: string; already?: boolean }> {
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    if (!token) throw new Error("Pas connecté");
+    return postJson("/auth/email/verify", {}, token);
   },
 };
 

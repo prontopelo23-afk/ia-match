@@ -114,7 +114,7 @@ export default function AuthScreen() {
               <TextInput
                 value={password}
                 onChangeText={setPassword}
-                placeholder={mode === "register" ? "Mot de passe (min. 8 caractères)" : "Mot de passe"}
+                placeholder={mode === "register" ? "Mot de passe (min. 10 car., 1 lettre, 1 chiffre)" : "Mot de passe"}
                 placeholderTextColor={colors.textSecondary}
                 style={[styles.input, { color: colors.textPrimary }]}
                 secureTextEntry={!showPwd}

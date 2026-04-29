@@ -138,6 +138,12 @@ export default function ToolDetail() {
 
           <CategoryScoreBars scores={tool.categoryScores || {}} generalScore={tool.score} />
 
+          {tool.lastUpdated ? (
+            <Text style={{ fontFamily: fonts.body, fontSize: 11, color: colors.textSecondary, fontStyle: "italic", marginTop: -8, marginBottom: spacing.md }}>
+              ⓘ Notes mises à jour le {new Date(tool.lastUpdated).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })} · agrégat de benchmarks publics (LMSys Arena, MMLU, HumanEval) et tests internes
+            </Text>
+          ) : null}
+
           <Text style={styles.section}>Points forts</Text>
           <View style={styles.featureRow}>
             {tool.features.map((f) => (

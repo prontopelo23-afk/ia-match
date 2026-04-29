@@ -21,15 +21,15 @@ def _logo(domain: str) -> str:
 TOOLS = [
     # Conversational / Text generalists
     {"slug": "chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "domain": "openai.com",
-     "tagline": "L'assistant conversationnel polyvalent",
-     "description": "Modèle GPT polyvalent pour rédaction, brainstorming, code et analyse de documents.",
-     "categorySlugs": ["texte", "productivite", "recherche", "code"], "speedMs": 180, "accuracyPct": 92,
+     "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial",
+     "description": "Assistant conversationnel OpenAI propulsé par GPT-5.5. Rédaction, brainstorming, code, analyse de documents, vision, navigation web et GPTs personnalisés.",
+     "categorySlugs": ["texte", "productivite", "recherche", "code"], "speedMs": 180, "accuracyPct": 95,
      "costPerPrompt": 0.002, "monthlyPrice": 20.0, "freeTier": True,
      "languages": ["fr", "en", "es", "de", "it", "ja", "zh"],
-     "features": ["Multimodal", "Vision", "Browsing", "Custom GPTs"],
+     "features": ["GPT-5.5", "Multimodal", "Vision", "Navigation web", "Custom GPTs"],
      "useCases": ["Rédiger un CV", "Résumer un document", "Brainstorming", "Apprendre"],
-     "keywords": ["cv", "resume", "résumé", "lettre", "motivation", "email", "écrire", "rédiger", "brainstorm"],
-     "score": 94, "color": "#10A37F"},
+     "keywords": ["cv", "resume", "résumé", "lettre", "motivation", "email", "écrire", "rédiger", "brainstorm", "gpt5", "gpt-5"],
+     "score": 96, "color": "#10A37F"},
 
     {"slug": "claude", "name": "Claude", "vendor": "Anthropic", "domain": "claude.ai",
      "tagline": "Le rédacteur long format au raisonnement profond",

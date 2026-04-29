@@ -660,17 +660,6 @@ EXTRA_TOOLS = [
      "keywords": ["claude", "opus", "anthropic", "raisonnement"],
      "score": 96, "color": "#CC785C"},
 
-    {"slug": "gpt5", "name": "GPT-5.5", "vendor": "OpenAI", "domain": "openai.com",
-     "tagline": "Le modèle de référence OpenAI",
-     "description": "Mémoire continue, raisonnement natif, multimodal d'origine — état de l'art.",
-     "categorySlugs": ["texte", "code", "recherche", "image"], "speedMs": 250, "accuracyPct": 95,
-     "costPerPrompt": 0.01, "monthlyPrice": 200.0, "freeTier": False,
-     "languages": ["fr", "en", "es", "de", "ja", "zh"],
-     "features": ["Mémoire continue", "Raisonnement", "Multimodal"],
-     "useCases": ["Tâches complexes", "Pro avancé"],
-     "keywords": ["gpt5", "gpt-5", "openai", "raisonnement"],
-     "score": 96, "color": "#10A37F"},
-
     {"slug": "o3", "name": "o3", "vendor": "OpenAI", "domain": "openai.com",
      "tagline": "Le raisonneur frontière",
      "description": "Modèle reasoning OpenAI o3 — chaîne de pensée extrême, math/code/sciences.",

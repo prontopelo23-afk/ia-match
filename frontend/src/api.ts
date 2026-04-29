@@ -22,6 +22,7 @@ export type Tool = {
   categoryScores?: Record<string, number>;
   color: string;
   image: string;
+  lastUpdated?: string;
 };
 
 export type Category = { slug: string; name: string; description: string };

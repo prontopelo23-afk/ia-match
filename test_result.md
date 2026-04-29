@@ -485,23 +485,134 @@ metadata:
   test_sequence: 1
   run_ui: false
 
+backend:
+  - task: "Security: rate limiting, account lockout, strong password, security headers, CORS allowlist"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: false
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter5.py against EXPO_PUBLIC_BACKEND_URL/api.
+          ✅ Strong password validation OK :
+             - register password "weak" -> 400 with message mentioning "10 caractères"
+             - register password "abcdefghij" (no digit) -> 400 with message mentioning "chiffre"
+             - register password "abc1234567" -> 200 with token + user
+          ✅ Account lockout login OK : after 5 consecutive bad logins, 6th attempt with CORRECT password returns 429 with French message "Compte temporairement verrouillé. Réessaye dans 13 minute(s)."
+          ✅ Security headers all present on GET /api/tools :
+             - X-Content-Type-Options: nosniff
+             - X-Frame-Options: DENY
+             - Strict-Transport-Security: max-age=63072000; includeSubDomains
+             - Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+             - Referrer-Policy: strict-origin-when-cross-origin
+          ❌ IP-based rate limiting on /api/auth/register NOT working : 6 consecutive register calls from same client all returned 200 (expected 429 on the 6th since limiter is set to "5/minute"). The slowapi Limiter is attached to app.state.limiter and the exception handler is registered, BUT SlowAPIMiddleware is NOT added to the app — recent slowapi versions require this middleware for decorator-based limiting to work. Account-level lockout still protects /login (different mechanism) but the IP rate-limit layer is silently bypassed for /register, /login, /password/change, /password/reset and DELETE /account. This is a real security gap.
+
+  - task: "Auth: register/login/whoami/PATCH me/password change/reset/account delete"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter5.py.
+          ✅ POST /auth/register valid body -> 200 with token (232 chars JWT) + user.{id,email,name,is_premium=false,email_verified=false}
+          ✅ PATCH /auth/me with X-Auth-Token + {"name":"Modifié"} -> 200, user.name="Modifié"
+          ✅ POST /auth/password/change with wrong current_password -> 401 ("Mot de passe actuel incorrect")
+          ✅ POST /auth/password/change with correct current + new "newpass1234" -> 200 {"ok":true}
+          ✅ POST /auth/password/reset with existing email -> 200 with reset_link "/auth/reset?token=..."
+          ✅ POST /auth/password/reset with ghost email "ghost@nope.fr" -> 200 (no leak, no reset_link)
+          ✅ DELETE /auth/account with valid X-Auth-Token -> 200, then GET /auth/whoami with same token -> 404 "Utilisateur introuvable"
+          All auth flows working.
+
+  - task: "Data freshness: lastUpdated, news rotation, admin endpoints guarded"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: false
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter5.py.
+          ✅ POST /api/admin/news/refresh without X-Admin-Token -> 401 "Admin token requis"
+          ✅ GET /api/news -> 200, 10 articles (>=8), every item has "publishedAt" field (created_at present in dynamic items, publishedAt always present in static fallback). Daily-deterministic shuffle confirmed.
+          ❌ GET /api/tools/cursor : the response does NOT contain `lastUpdated` field. The server-side dict has `lastUpdated` set via `_t.setdefault("lastUpdated", _BOOT_ISO)` (line 847), but the Pydantic `Tool` model (line 85) does NOT declare `lastUpdated` as a field, so it is silently stripped from the response by `Tool(**t)`. Frontend cannot show "last updated" timestamps. Fix: add `lastUpdated: Optional[str] = None` to the Tool Pydantic model.
+
+  - task: "Cleanup: gpt5 removed, chatgpt updated to GPT-5.5"
+    implemented: true
+    working: true
+    file: "/app/backend/seed_data.py, /app/backend/seed_data_extra.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter5.py.
+          ✅ GET /api/tools/chatgpt -> 200, tagline = "Powered by GPT-5.5 — l'assistant IA n°1 mondial" (contains "GPT-5.5"), score = 96.
+          ✅ GET /api/tools/gpt5 -> 404 (correctly removed; no longer in dataset).
+
 test_plan:
   current_focus:
-    - "GET /api/resources retourne 16 ressources françaises"
-    - "GET /api/tools retourne 48 outils avec domaine Claude correct"
-    - "POST /api/builder/run avec Claude Haiku 4.5"
+    - "Security: rate limiting, account lockout, strong password, security headers, CORS allowlist"
+    - "Data freshness: lastUpdated, news rotation, admin endpoints guarded"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
-    -agent: "main"
-    -message: |
-      J'ai ajouté de grosses fonctionnalités frontend (onboarding, bookmarks, historique builder, comparateur 4 IA, prompt du jour, ressources FR dans Academy) et corrigé les shadow* dans theme.ts. Aucune modification backend cette session — seulement vérifier que les 3 endpoints critiques sont OK (GET /api/resources, GET /api/tools, POST /api/builder/run avec un prompt simple). Pas besoin de tester le frontend cette fois — l'utilisateur le testera lui-même ou validera plus tard.
     -agent: "testing"
     -message: |
-      Backend smoke testing terminé via /app/backend_test.py contre EXPO_PUBLIC_BACKEND_URL/api. 3/3 endpoints critiques OK (18/18 assertions passées).
-      ✅ GET /api/resources : 200, exactement 16 ressources, tous les champs requis présents (id, category, title, author, summary, url), catégories YouTube/Blog/Podcast/Newsletter présentes, Underscore_ et Korben présents, contenu en français.
-      ✅ GET /api/tools : 200, exactement 48 outils, slug='claude' a domain='claude.ai' et image='https://logo.clearbit.com/claude.ai'.
-      ✅ POST /api/builder/run : 200 avec output non vide en français (Claude Haiku 4.5 via Emergent LLM Key fonctionne — confirmé par les logs LiteLLM côté backend).
-      Aucun problème backend détecté. Pas de tâche bloquée.
+      Itération 5 — backend testing terminé via /app/backend_test_iter5.py contre EXPO_PUBLIC_BACKEND_URL/api. 35/37 assertions PASS. 2 vrais bugs identifiés.
+
+      ✅ PASS (35) :
+        - Strong password : "weak" -> 400 "10 caractères", "abcdefghij" -> 400 "chiffre", "abc1234567" -> 200 + token
+        - Account lockout : 5 bad logins -> 429 "Compte temporairement verrouillé. Réessaye dans 13 minute(s)" même avec bon mdp
+        - Security headers complets : X-Content-Type-Options=nosniff, X-Frame-Options=DENY, Strict-Transport-Security max-age, Permissions-Policy, Referrer-Policy
+        - PATCH /auth/me, password/change (bad+ok), password/reset (existing+ghost no-leak), DELETE /auth/account + whoami=404
+        - /tools/chatgpt tagline GPT-5.5 + score 96, /tools/gpt5 -> 404
+        - /admin/news/refresh sans token -> 401
+        - /news : 10 items, publishedAt présent
+
+      ❌ FAIL (2) — à corriger par main agent :
+        1. **Rate limiting register/auth IP cassé** : 6 register consécutifs depuis la même IP → tous 200 (attendu 6e=429 car @limiter.limit("5/minute")). Le décorateur slowapi ne déclenche pas. Cause probable : la version récente de slowapi exige `SlowAPIMiddleware` ajouté à l'app (pas seulement `app.state.limiter` + exception handler). Affecte aussi /login, /password/change, /password/reset, /account. La protection lockout par compte fonctionne, mais la rate-limit IP est bypassée.
+           FIX suggéré :
+             ```python
+             from slowapi.middleware import SlowAPIMiddleware
+             app.add_middleware(SlowAPIMiddleware)
+             ```
+        2. **`lastUpdated` absent dans la réponse de /api/tools/{slug}** : le champ est bien posé sur le dict (`_t.setdefault("lastUpdated", _BOOT_ISO)`) mais le modèle Pydantic `Tool` ne le déclare pas, donc il est strippé à la sérialisation. /tools/cursor renvoie `lastUpdated: None` (clef absente du JSON).
+           FIX suggéré : ajouter `lastUpdated: Optional[str] = None` dans la classe Tool.
+
+      Pas d'autre régression.
+
+agent_communication:
+    -agent: "main"
+    -message: |
+      Itération 5 — Sécurité hardening + auto-refresh + cleanup. Voir handoff complet ci-dessus.
+      Tests à exécuter :
+      1. POST /api/auth/register : password "weak" → 400, "abcdefghij" sans chiffre → 400, "abc1234567" → 200. 6 register/min depuis même IP → 6e doit être 429.
+      2. POST /api/auth/login 5x mauvais mdp → lockout (429) puis bon mdp → toujours 429 pendant 15 min.
+      3. GET /api/tools : headers présents X-Content-Type-Options=nosniff, X-Frame-Options=DENY, Strict-Transport-Security, Permissions-Policy.
+      4. PATCH /api/auth/me avec token valide + {"name":"Nouveau"} → 200 et name mis à jour.
+      5. POST /api/auth/password/change : current incorrect → 401, correct → 200.
+      6. POST /api/auth/password/reset {"email":"x"} → toujours 200 (pas de leak).
+      7. DELETE /api/auth/account avec token → 200, whoami suivant → 401/404.
+      8. GET /api/news : ≥ 8 articles, présence d'un champ created_at ou similaire.
+      9. GET /api/tools/chatgpt → tagline mentionne "GPT-5.5", score=96.
+      10. GET /api/tools/gpt5 → 404 (supprimé).
+      11. GET /api/tools/cursor → champ lastUpdated présent (ISO date).
+      12. POST /api/admin/news/refresh sans X-Admin-Token → 401.
+
+      Mettre à jour test_result.md avec working: true/false.

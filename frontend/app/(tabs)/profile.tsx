@@ -69,6 +69,29 @@ export default function ProfileScreen() {
     ]);
   };
 
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      "Supprimer définitivement mon compte ?",
+      "Toutes tes données (favoris, historique, paramètres) seront effacées sans possibilité de récupération. Cette action est conforme au RGPD (droit à l'effacement).",
+      [
+        { text: "Annuler", style: "cancel" },
+        {
+          text: "Supprimer",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await auth.deleteAccount();
+              setUser(null);
+              Alert.alert("Compte supprimé", "Tes données ont été effacées.");
+            } catch (e: any) {
+              Alert.alert("Erreur", e?.message || "Impossible de supprimer pour l'instant.");
+            }
+          },
+        },
+      ]
+    );
+  };
+
   const resetCookieConsent = async () => {
     await consent.clear();
     Alert.alert("Préférences cookies", "Tes préférences ont été réinitialisées. La bannière apparaîtra au prochain démarrage.");
@@ -113,6 +136,14 @@ export default function ProfileScreen() {
               >
                 <LogOut size={14} color={colors.textPrimary} strokeWidth={2.5} />
                 <Text style={[styles.authBtnText, { color: colors.textPrimary }]}>Se déconnecter</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleDeleteAccount}
+                style={[styles.authBtn, { borderColor: colors.error, marginTop: 8 }]}
+                testID="profile-delete-account"
+              >
+                <Trash2 size={14} color={colors.error} strokeWidth={2.5} />
+                <Text style={[styles.authBtnText, { color: colors.error }]}>Supprimer mon compte (RGPD)</Text>
               </TouchableOpacity>
             </>
           ) : (
