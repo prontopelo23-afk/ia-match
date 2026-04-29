@@ -15,6 +15,7 @@ import { ChevronLeft, Plus, Minus, Zap, Target, DollarSign, Globe, GitCompare, E
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { api, Tool, RatingSummary, compareStore, bookmarkTools } from "../../src/api";
+import CategoryScoreBars from "../../src/components/CategoryScoreBars";
 import ScoreRing from "../../src/components/ScoreRing";
 import LogoTile from "../../src/components/LogoTile";
 
@@ -134,6 +135,8 @@ export default function ToolDetail() {
 
           <Text style={styles.section}>À propos</Text>
           <Text style={styles.desc}>{tool.description}</Text>
+
+          <CategoryScoreBars scores={tool.categoryScores || {}} generalScore={tool.score} />
 
           <Text style={styles.section}>Points forts</Text>
           <View style={styles.featureRow}>

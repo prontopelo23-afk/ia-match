@@ -29,6 +29,44 @@ for _et in EXTRA_TOOLS:
     _et["image"] = _logo(_et["domain"])
     TOOLS.append(_et)
 
+
+# ---------- Per-category scores ----------
+def _hash_int(s: str, mod: int) -> int:
+    h = 0
+    for ch in s:
+        h = (h * 131 + ord(ch)) & 0xFFFFFFFF
+    return h % mod
+
+
+def _compute_category_scores(tool: dict) -> dict:
+    """For each category the tool belongs to, compute a specialty score 0-99.
+
+    - Primary category (first slug) is weighted toward base score + accuracy.
+    - Secondary categories are penalized by 5 (~secondary specialty).
+    - Tertiary+ categories are penalized by ~10.
+    A small deterministic variance per (slug, category) ensures distinct scores.
+    """
+    cats = tool.get("categorySlugs", []) or []
+    base = int(tool.get("score", 70))
+    acc = int(tool.get("accuracyPct", 75))
+    out: dict = {}
+    for i, c in enumerate(cats):
+        var = _hash_int(tool["slug"] + ":" + c, 5)
+        if i == 0:
+            v = int(base * 0.55 + acc * 0.45) + (var - 2)
+            out[c] = max(60, min(99, v))
+        elif i == 1:
+            penalty = 4 + _hash_int(tool["slug"] + c + "s", 5)
+            out[c] = max(55, min(94, base - penalty + (var - 2)))
+        else:
+            penalty = 9 + _hash_int(tool["slug"] + c + "t", 6)
+            out[c] = max(45, min(90, base - penalty + (var - 2)))
+    return out
+
+
+for _t in TOOLS:
+    _t["categoryScores"] = _compute_category_scores(_t)
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 
@@ -59,6 +97,7 @@ class Tool(BaseModel):
     useCases: List[str]
     keywords: List[str] = []
     score: int
+    categoryScores: dict = {}
     color: str
     image: str
 
@@ -213,7 +252,15 @@ async def list_tools(
     elif sort == "price":
         items.sort(key=lambda t: (not t["freeTier"], t["monthlyPrice"]))
     else:
-        items.sort(key=lambda t: t["score"], reverse=True)
+        # When a category is selected, rank by per-category score so each
+        # specialty has its own ranking. Otherwise use the global score.
+        if category:
+            items.sort(
+                key=lambda t: (t.get("categoryScores", {}).get(category, t["score"]), t["score"]),
+                reverse=True,
+            )
+        else:
+            items.sort(key=lambda t: t["score"], reverse=True)
 
     return [Tool(**t) for t in items]
 

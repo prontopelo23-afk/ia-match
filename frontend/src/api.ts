@@ -19,6 +19,7 @@ export type Tool = {
   features: string[];
   useCases: string[];
   score: number;
+  categoryScores?: Record<string, number>;
   color: string;
   image: string;
 };

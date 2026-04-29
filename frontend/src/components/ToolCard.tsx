@@ -13,13 +13,16 @@ type Props = {
   matchScore?: number;
   onCompare?: () => void;
   inCompare?: boolean;
+  activeCategory?: string;
+  rank?: number;
   testID?: string;
 };
 
-export default function ToolCard({ tool, matchScore, onCompare, inCompare, testID }: Props) {
+export default function ToolCard({ tool, matchScore, onCompare, inCompare, activeCategory, rank, testID }: Props) {
   const router = useRouter();
   const { colors } = useTheme();
-  const score = matchScore ?? tool.score;
+  const categoryScore = activeCategory ? tool.categoryScores?.[activeCategory] : undefined;
+  const score = matchScore ?? categoryScore ?? tool.score;
   return (
     <TouchableOpacity
       activeOpacity={0.85}
@@ -30,6 +33,21 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
       ]}
       testID={testID || `tool-card-${tool.slug}`}
     >
+      {rank && rank <= 3 ? (
+        <View
+          style={[
+            styles.rankBadge,
+            {
+              backgroundColor: rank === 1 ? colors.coral : colors.coralSoft,
+              borderColor: colors.coral,
+            },
+          ]}
+        >
+          <Text style={[styles.rankText, { color: rank === 1 ? "#fff" : colors.coral }]}>
+            #{rank}
+          </Text>
+        </View>
+      ) : null}
       <View style={styles.row}>
         <LogoTile uri={tool.image} name={tool.name} bg={tool.color} size={56} rounded={radius.md} domain={tool.domain} />
         <View style={styles.info}>
@@ -43,7 +61,16 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, testI
             {tool.tagline}
           </Text>
         </View>
-        <ScoreRing score={score} size={56} />
+        <View style={{ alignItems: "center", gap: 4 }}>
+          <ScoreRing score={score} size={56} />
+          {activeCategory && categoryScore !== undefined ? (
+            <Text style={[styles.scoreLabel, { color: colors.coral }]}>
+              {activeCategory.toUpperCase()}
+            </Text>
+          ) : (
+            <Text style={[styles.scoreLabel, { color: colors.textSecondary }]}>GÉNÉRAL</Text>
+          )}
+        </View>
       </View>
 
       <View style={[styles.statsRow, { borderTopColor: colors.borderSubtle }]}>
@@ -99,7 +126,20 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     marginBottom: spacing.md,
     borderWidth: 1,
+    position: "relative",
   },
+  rankBadge: {
+    position: "absolute",
+    top: -10,
+    left: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    zIndex: 2,
+  },
+  rankText: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 0.5 },
+  scoreLabel: { fontFamily: fonts.bodyBold, fontSize: 9, letterSpacing: 1 },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   info: { flex: 1, marginHorizontal: spacing.sm },
   vendor: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1, marginBottom: 2 },

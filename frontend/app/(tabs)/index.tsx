@@ -127,7 +127,7 @@ export default function Catalogue() {
             <Text style={styles.heroTitleAccent}>idéale</Text> pour ton besoin.
           </Text>
           <Text style={styles.heroSub}>
-            48 IA testées, classées et notées. 3 questions et tu sais laquelle utiliser.
+            111 IA testées, classées et notées par spécialité. 3 questions et tu sais laquelle utiliser.
           </Text>
           <TouchableOpacity
             style={styles.cta}
@@ -138,6 +138,44 @@ export default function Catalogue() {
             <Text style={styles.ctaText}>Lancer le Match</Text>
             <ArrowRight size={16} color="#fff" strokeWidth={2.5} />
           </TouchableOpacity>
+        </View>
+
+        {/* HOW IT WORKS — pédagogie 3 étapes */}
+        <View style={[styles.howCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]} testID="how-it-works">
+          <Text style={[styles.howTitle, { color: theme.textPrimary }]}>Comment ça marche ?</Text>
+          <View style={styles.howStep}>
+            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
+              <Text style={styles.howNumText}>1</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Choisis ta spécialité</Text>
+              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
+                Texte, image, code… filtre par catégorie pour voir le top 3 par spécialité (badge #1).
+              </Text>
+            </View>
+          </View>
+          <View style={styles.howStep}>
+            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
+              <Text style={styles.howNumText}>2</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Compare les scores</Text>
+              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
+                Note générale (toutes spécialités) et note par catégorie. Une IA peut être 88/100 en général mais 95/100 en image.
+              </Text>
+            </View>
+          </View>
+          <View style={styles.howStep}>
+            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
+              <Text style={styles.howNumText}>3</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Teste sans risque</Text>
+              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
+                Touche une carte pour la fiche détaillée, ou lance le Match si tu hésites.
+              </Text>
+            </View>
+          </View>
         </View>
 
         {/* PROMPT DU JOUR */}
@@ -249,12 +287,14 @@ export default function Catalogue() {
         ) : tools.length === 0 ? (
           <Text style={styles.empty}>Aucune IA ne correspond à ces critères.</Text>
         ) : (
-          tools.map((t) => (
+          tools.map((t, i) => (
             <ToolCard
               key={t.slug}
               tool={t}
               onCompare={() => toggleCompare(t.slug)}
               inCompare={compareList.includes(t.slug)}
+              activeCategory={activeCategory || undefined}
+              rank={activeCategory ? i + 1 : undefined}
             />
           ))
         )}
@@ -377,6 +417,26 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   potdCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
+
+  howCard: {
+    marginTop: spacing.md,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+  },
+  howTitle: { fontFamily: fonts.serif, fontSize: 20, marginBottom: spacing.sm },
+  howStep: { flexDirection: "row", gap: spacing.sm, marginTop: spacing.sm },
+  howNum: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  howNumText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
+  howStepTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  howStepDesc: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 2 },
 
   searchBox: {
     flexDirection: "row",

@@ -254,16 +254,77 @@ metadata:
   test_sequence: 2
   run_ui: false
 
+backend:
+  - task: "Tool model exposes categoryScores Dict[str,int] per tool"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Calcul déterministe à l'init de server.py: primary cat = 0.55*score + 0.45*accuracy +/- variance ; secondary -5..-9 ; tertiary -10..-15. Champ Tool.categoryScores: dict ajouté."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié via /app/backend_test_iter4.py contre EXPO_PUBLIC_BACKEND_URL/api. (a) GET /api/tools/cursor : categoryScores={'code':92,'agent':91}, dict, valeurs int dans [45,99], couvre les 2 categorySlugs. (b) GET /api/tools/gpt5 : categoryScores={'texte':96,'code':86,'recherche':80,'image':80}, 'texte' présent, texte=96 >= général(96)-5 OK. (c) 5 outils aléatoires (devin, llama, o3, pixverse, copilot-365) : tous ont categoryScores non vide ET couvrent toutes leurs categorySlugs."
+
+  - task: "GET /api/tools?category=X sorts by category-specific score"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "list_tools trie par categoryScores[category] desc quand un filtre catégorie est actif, sinon par score général."
+        -working: true
+        -agent: "testing"
+        -comment: "Vérifié via /app/backend_test_iter4.py. (a) GET /api/tools?category=code : 35 résultats, triés desc par categoryScores.code (92,90,88,88,86,...), Cursor en #1 (top 3 = cursor/github-copilot/v0), GPT-5 (général 96) ranked #6 avec code=86 vs Cursor #1 code=92 — découplage général/spécialité confirmé. (b) GET /api/tools?category=image : top 5 = Midjourney(95), Nano Banana 2(95), Flux(92), Imagen 3(91), Magnific(91) — 5/5 spécialistes image. (c) GET /api/tools sans filtre : trié par score général desc, premier = Claude Opus 4 (96), top scores 96,96,95,95,94,... Sortie correcte. 30/30 assertions PASS."
+
 test_plan:
-  current_focus:
-    - "GET /api/tools retourne 100+ outils dont nano-banana, qwen, kimi, deepseek-r1, gpt5, o3, gemini-25, claude-opus, llama, veo, mixtral"
-    - "GET /api/resources retourne 18 ressources françaises avec Shubham_Sharma et RenaudDekode"
-    - "POST /api/auth/register crée un compte avec hash bcrypt + JWT"
-    - "POST /api/auth/login authentifie un compte existant"
-    - "GET /api/auth/whoami valide le token JWT"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
+
+agent_communication:
+    -agent: "testing"
+    -message: |
+      Itération 4 — backend testing terminé via /app/backend_test_iter4.py contre EXPO_PUBLIC_BACKEND_URL/api. 30/30 assertions PASS. Aucune régression.
+      ✅ GET /api/tools/cursor : categoryScores={'code':92,'agent':91}, valeurs int [45,99], couvre categorySlugs.
+      ✅ GET /api/tools/gpt5 : categoryScores['texte']=96, général=96 → diff=0 (>= -5 OK).
+      ✅ GET /api/tools?category=code : trié desc par score code, Cursor #1 (code=92), GPT-5 #6 (général 96 mais code 86) — découplage validé.
+      ✅ GET /api/tools?category=image : top 5 = Midjourney/Nano Banana 2/Flux/Imagen 3/Magnific (5 spécialistes).
+      ✅ GET /api/tools sans filtre : trié par score général desc, premier = Claude Opus 4 (96).
+      ✅ 5 outils aléatoires (devin, llama, o3, pixverse, copilot-365) : categoryScores non vide et couvre toutes les categorySlugs.
+
+agent_communication:
+    -agent: "main"
+    -message: |
+      Itération 4 — Découplage scores général/spécialité + pédagogie.
+
+      Backend ajoute :
+      - `Tool.categoryScores: Dict[str,int]` calculé au démarrage (formule déterministe, primary cat = 0.55*score + 0.45*accuracy + variance ; secondary -5..-9 ; tertiary -10..-15).
+      - `list_tools` trie désormais par `categoryScores[category]` quand un filtre catégorie est actif (vs score général sinon).
+      - Validation manuelle OK : pour category=code, Cursor (général 93, code 92) bat GPT-5.5 (général 96, code 86).
+
+      Frontend ajoute (pas à tester ici) :
+      - Tool type a categoryScores
+      - ToolCard affiche le score de la catégorie active + badge #1/#2/#3 quand filtre actif, sinon score général
+      - Fiche outil affiche un composant `CategoryScoreBars` avec barres horizontales par spécialité + explication pédagogique
+      - Bandeau "Comment ça marche ?" 3 étapes sur le Catalogue
+
+      À tester (backend uniquement) :
+      1. GET /api/tools/cursor → champ categoryScores présent, valeurs entre 45 et 99, ≥ 1 entrée par categorySlug
+      2. GET /api/tools/gpt5 → categoryScores contient "texte" et celui-ci est >= score général-5
+      3. GET /api/tools?category=code → ordonné par categoryScores.code desc (Cursor en tête, GPT-5.5 plus bas que sa note générale)
+      4. GET /api/tools?category=image → top 3 contient Midjourney, Nano Banana 2, Flux ou Imagen (tous spécialistes image)
+      5. GET /api/tools (sans filtre) → continue de trier par score général desc
+      6. Tous les outils ont categoryScores avec au moins 1 entrée non vide (vérifier sur 5 outils aléatoires).
 
 agent_communication:
     -agent: "main"
