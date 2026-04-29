@@ -63,7 +63,6 @@ export default function TabsLayout() {
         }}
       />
       {/* Hidden routes still navigable but not in the tab bar */}
-      <Tabs.Screen name="search" options={{ href: null }} />
       <Tabs.Screen name="compare" options={{ href: null }} />
       <Tabs.Screen name="benchmarks" options={{ href: null }} />
     </Tabs>

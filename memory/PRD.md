@@ -1,38 +1,38 @@
 # IA Match — Product Requirements Document
 
 ## Overview
-"IA Match" is a Steve Jobs-style premium mobile app (Expo + React Native) that helps users find the best AI tool for their specific needs.
+"IA Match" is a Steve Jobs-style premium mobile app (Expo + React Native) that helps users find the best AI tool for their specific needs and learn how to prompt them.
 
 ## Stack
-- Frontend: Expo Router (React Native, web preview), Lucide icons, Playfair Display (serif) + Inter (sans), react-native-reanimated, react-native-svg, AsyncStorage.
-- Backend: FastAPI with `/api/*` prefix, MongoDB for ratings storage. 20 AI tools curated as seed.
+- Frontend: Expo Router (React Native, web preview, SSR), Lucide icons, Playfair Display (serif) + Inter (sans), react-native-reanimated, react-native-svg, AsyncStorage, expo-clipboard.
+- Backend: FastAPI with `/api/*` prefix, MongoDB for ratings storage. 48 AIs curated catalog with real Clearbit logos.
 
-## Pages / Screens
-- `(tabs)/index` — Home: dark hero, CTA "Lancer le Match", categories carousel, top AIs.
-- `(tabs)/search` — search input, category chips, sort (score/speed/accuracy/price), free-only filter, ToolCard list with compare toggle.
-- `(tabs)/compare` — two side-by-side slots (chosen via search "compare" toggle), full feature comparison table with winner highlighting.
-- `(tabs)/benchmarks` — sortable table (Score, Vitesse, Précision, Prix) with score progress bars.
-- `(tabs)/profile` — local history (AsyncStorage) of past matches; clear button.
-- `match` (modal) — 3-step wizard: need (with suggestion chips), priority (balanced/speed/accuracy/price + free-only), results.
-- `tool/[slug]` — full detail with stats grid, features, use cases, community rating summary, +10/-10 rating with 0–100 ScoreRing animation, submit, compare toggle.
+## Pages / Screens (5 main tabs + nested routes)
+- `(tabs)/index` (Catalogue) — brand top-bar, hero, search, category/sort/free filters, full results list. Header icons → /benchmarks and /compare.
+- `(tabs)/actue` (Actue) — dark editorial news feed: featured article with figure highlight + 6 article rows.
+- `(tabs)/academy` (Academy) — 2 sub-tabs: Fondamentaux (5 lessons with framework, steps, before/after) + Templates (8 copyable prompt templates).
+- `(tabs)/builder` (Builder) — Prompt Builder 7-block form (Rôle, Objectif, Audience, Contexte, Contraintes, Format, Critères) with live preview + copy.
+- `(tabs)/profile` (Profil) — local match history + new match CTA.
+- `(tabs)/compare` & `(tabs)/benchmarks` — hidden from tab bar, opened from Catalogue header icons.
+- `match` (modal) — 3-step matching wizard.
+- `tool/[slug]` — full detail with stats, features, ratings (+10/-10), compare toggle.
 
 ## Backend API (FastAPI, prefix `/api`)
-- `GET /tools` — filters: category, search, free_only, min_score, sort.
-- `GET /tools/{slug}`.
-- `GET /categories`.
-- `GET /benchmarks?sort=`.
-- `POST /match` — rule-based matching engine (keyword overlap + use-case + category + priority weighting). Returns top 8.
-- `POST /ratings` — body `{tool_slug, score 0-100, note?}`.
-- `GET /ratings/{slug}` — `{average, count}`.
-- `GET /ratings` — aggregated summary all tools.
+- `GET /tools` — filters: category, search, free_only, min_score, sort. Returns 48 tools.
+- `GET /tools/{slug}`, `GET /categories` (7 categories).
+- `GET /benchmarks?sort=`, `POST /match`, `POST /ratings`, `GET /ratings/{slug}`, `GET /ratings`.
+- `GET /news` (7 articles), `GET /news/{id}`.
+- `GET /lessons` (5 lessons), `GET /lessons/{id}`.
+- `GET /templates` (8 templates), `GET /templates/{id}`, filterable by `level`.
 
 ## Design
-- Bg `#FDFBF7`, dark card `#12151C`, accents pink `#F43F7A` & coral `#FF5A45`.
-- 24/32 px radius, soft shadows, large serif H1 with italic accent.
-- Bottom tab bar with 5 tabs.
+- Light theme: Bg `#FDFBF7`, dark editorial sections `#12151C`, accents coral `#FF5A45` (primary) & pink `#F43F7A`.
+- 24/32 px radius, soft shadows, Playfair italic accents in titles.
+- Bottom tab bar with 5 tabs (lucide icons).
+- Real brand logos via Clearbit (`https://logo.clearbit.com/{domain}`).
 
-## Local data
-- `ia_match_history_v1` — last 30 matches (need + priority + ts).
+## Local data (AsyncStorage)
+- `ia_match_history_v1` — last 30 matches.
 - `ia_match_compare_v1` — selected slugs for comparator (max 2).
 
 ## Auth
@@ -40,5 +40,6 @@
 
 ## V2 ideas
 - Stripe Premium plan (PDF reports, real-time API comparator).
-- LLM-based smart matching (Emergent LLM key).
+- LLM-powered smart matching (Emergent LLM key).
+- Article detail view + bookmarks.
 - Multi-language interface.
