@@ -12,10 +12,10 @@ type Props = {
 };
 
 export default function LogoTile({ uri, name, bg, size = 56, rounded = 14, domain }: Props) {
-  // Chain: Clearbit (uri prop) → Google favicons → initials
+  // Chain: Google Favicons (most reliable in our env) → Clearbit (uri) → initials
   const sources: string[] = [];
-  if (uri) sources.push(uri);
   if (domain) sources.push(`https://www.google.com/s2/favicons?domain=${domain}&sz=128`);
+  if (uri) sources.push(uri);
 
   const [idx, setIdx] = useState(0);
   const [failed, setFailed] = useState(false);
