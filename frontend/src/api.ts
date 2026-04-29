@@ -23,6 +23,14 @@ export type Tool = {
   color: string;
   image: string;
   lastUpdated?: string;
+  privacy?: {
+    privacy_score?: number;
+    eu_hosted?: boolean;
+    trains_on_data?: string;
+    rgpd?: boolean;
+    note?: string;
+  };
+  example?: { prompt: string; output: string };
 };
 
 export type Category = { slug: string; name: string; description: string };

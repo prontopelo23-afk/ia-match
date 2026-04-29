@@ -176,6 +176,13 @@ export default function Catalogue() {
               </Text>
             </View>
           </View>
+          <TouchableOpacity
+            onPress={() => router.push("/learn")}
+            style={[styles.howCta, { backgroundColor: theme.coral }]}
+            testID="cta-learn"
+          >
+            <Text style={styles.howCtaText}>📚 Apprendre l'IA — Glossaire, FAQ, Cas d'usage…</Text>
+          </TouchableOpacity>
         </View>
 
         {/* PROMPT DU JOUR */}
@@ -437,6 +444,13 @@ const styles = StyleSheet.create({
   howNumText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
   howStepTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
   howStepDesc: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 2 },
+  howCta: {
+    marginTop: spacing.md,
+    paddingVertical: 12,
+    borderRadius: radius.pill,
+    alignItems: "center",
+  },
+  howCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
 
   searchBox: {
     flexDirection: "row",

@@ -31,8 +31,8 @@ TOOLS = [
      "keywords": ["cv", "resume", "résumé", "lettre", "motivation", "email", "écrire", "rédiger", "brainstorm", "gpt5", "gpt-5"],
      "score": 96, "color": "#10A37F"},
 
-    {"slug": "claude", "name": "Claude", "vendor": "Anthropic", "domain": "claude.ai",
-     "tagline": "Le rédacteur long format au raisonnement profond",
+    {"slug": "claude", "name": "Claude Sonnet 4", "vendor": "Anthropic", "domain": "claude.ai",
+     "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)",
      "description": "Excellent pour l'analyse de documents longs, le raisonnement nuancé et l'écriture soignée.",
      "categorySlugs": ["texte", "recherche", "productivite"], "speedMs": 220, "accuracyPct": 95,
      "costPerPrompt": 0.003, "monthlyPrice": 20.0, "freeTier": True,
@@ -43,7 +43,7 @@ TOOLS = [
      "score": 95, "color": "#CC785C"},
 
     {"slug": "gemini", "name": "Gemini", "vendor": "Google", "domain": "gemini.google.com",
-     "tagline": "L'IA multimodale intégrée à Google",
+     "tagline": "L'assistant Google grand public (Free + Advanced 19,99€)",
      "description": "Multimodal natif, intégré à Gmail, Docs et la recherche Google.",
      "categorySlugs": ["texte", "productivite", "recherche", "image"], "speedMs": 160, "accuracyPct": 90,
      "costPerPrompt": 0.0015, "monthlyPrice": 19.99, "freeTier": True,
@@ -75,7 +75,8 @@ TOOLS = [
      "keywords": ["temps réel", "twitter", "x", "actualité", "veille"],
      "score": 82, "color": "#000000"},
 
-    {"slug": "deepseek", "name": "DeepSeek", "vendor": "DeepSeek", "domain": "deepseek.com",
+    {"slug": "deepseek", "name": "DeepSeek V3", "vendor": "DeepSeek", "domain": "deepseek.com",
+     "tagline": "Le LLM open-weight chinois ultra abordable",
      "tagline": "Le raisonneur open-source ultra-économique",
      "description": "Modèle chinois open-source au rapport qualité/prix exceptionnel, fort en code et maths.",
      "categorySlugs": ["texte", "code", "data"], "speedMs": 240, "accuracyPct": 89,

@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 from seed_data import TOOLS, CATEGORIES
 from seed_data_extra import EXTRA_TOOLS
 from editorial_data import NEWS, LESSONS, TEMPLATES, RESOURCES
+from learn_data import GLOSSARY, FAQ, USE_CASES, PERSONAS, PRIVACY_OVERRIDES, EXAMPLES, QUIZ, quiz_level
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 # Merge EXTRA_TOOLS into TOOLS (decorate with logo)
@@ -67,6 +68,16 @@ def _compute_category_scores(tool: dict) -> dict:
 for _t in TOOLS:
     _t["categoryScores"] = _compute_category_scores(_t)
 
+
+# Decorate each tool with privacy + example info (read-only, computed at boot)
+def _decorate_tool_extras(t: dict) -> dict:
+    out = dict(t)
+    priv = PRIVACY_OVERRIDES.get(t["slug"]) or PRIVACY_OVERRIDES.get("_default", {})
+    out["privacy"] = priv
+    if t["slug"] in EXAMPLES:
+        out["example"] = EXAMPLES[t["slug"]]
+    return out
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 
@@ -104,6 +115,8 @@ class Tool(BaseModel):
     color: str
     image: str
     lastUpdated: Optional[str] = None
+    privacy: Optional[dict] = None
+    example: Optional[dict] = None
 
 
 class Category(BaseModel):
@@ -273,8 +286,79 @@ async def list_tools(
 async def get_tool(slug: str):
     for t in TOOLS:
         if t["slug"] == slug:
-            return Tool(**t)
+            return Tool(**_decorate_tool_extras(t))
     raise HTTPException(404, "Tool not found")
+
+
+# ---- Pedagogical / discovery endpoints ----
+@api_router.get("/glossary")
+async def list_glossary():
+    return GLOSSARY
+
+
+@api_router.get("/faq")
+async def list_faq():
+    return FAQ
+
+
+@api_router.get("/use-cases")
+async def list_use_cases():
+    # Enrich each use case with the actual tool objects
+    out = []
+    for uc in USE_CASES:
+        tools_resolved = []
+        for slug in uc.get("tools", []):
+            for t in TOOLS:
+                if t["slug"] == slug:
+                    tools_resolved.append(
+                        {"slug": t["slug"], "name": t["name"], "vendor": t["vendor"],
+                         "image": t.get("image"), "domain": t.get("domain"),
+                         "color": t.get("color"), "tagline": t.get("tagline")}
+                    )
+                    break
+        out.append({**uc, "tools_resolved": tools_resolved})
+    return out
+
+
+@api_router.get("/personas")
+async def list_personas():
+    out = []
+    for p in PERSONAS:
+        tools_resolved = []
+        for slug in p.get("tools", []):
+            for t in TOOLS:
+                if t["slug"] == slug:
+                    tools_resolved.append(
+                        {"slug": t["slug"], "name": t["name"], "vendor": t["vendor"],
+                         "image": t.get("image"), "domain": t.get("domain"),
+                         "color": t.get("color"), "tagline": t.get("tagline")}
+                    )
+                    break
+        out.append({**p, "tools_resolved": tools_resolved})
+    return out
+
+
+@api_router.get("/quiz")
+async def get_quiz():
+    return QUIZ
+
+
+class QuizSubmit(BaseModel):
+    answers: List[int]
+
+
+@api_router.post("/quiz/score")
+async def score_quiz(req: QuizSubmit):
+    # answers : list of selected option indices (one per question)
+    total = 0
+    for i, q in enumerate(QUIZ):
+        if i < len(req.answers):
+            idx = max(0, min(len(q["options"]) - 1, int(req.answers[i])))
+            total += q["options"][idx]["score"]
+    result = quiz_level(total)
+    result["total"] = total
+    result["max"] = len(QUIZ) * 3
+    return result
 
 
 @api_router.get("/benchmarks")

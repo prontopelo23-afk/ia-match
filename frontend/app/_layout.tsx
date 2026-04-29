@@ -51,6 +51,7 @@ function StackContent() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="onboarding" options={{ animation: "fade" }} />
         <Stack.Screen name="auth" options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="learn" options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="legal/[type]" options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="match" options={{ presentation: "modal", animation: "slide_from_bottom" }} />
         <Stack.Screen name="tool/[slug]" options={{ animation: "slide_from_right" }} />

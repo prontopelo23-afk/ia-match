@@ -563,13 +563,65 @@ backend:
           ✅ GET /api/tools/chatgpt -> 200, tagline = "Powered by GPT-5.5 — l'assistant IA n°1 mondial" (contains "GPT-5.5"), score = 96.
           ✅ GET /api/tools/gpt5 -> 404 (correctly removed; no longer in dataset).
 
+backend:
+  - task: "GET /api/glossary, /api/faq, /api/use-cases, /api/personas, /api/quiz pedagogical endpoints"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/learn_data.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter6.py against EXPO_PUBLIC_BACKEND_URL/api. 60/60 assertions PASS.
+          ✅ GET /api/glossary -> 200, list of pedagogical entries with required fields term/emoji/short/long/example. Contains Prompt, Token, Hallucination, and RGPD/Souveraineté IA. (≥30 entries OK)
+          ✅ GET /api/faq -> 200, ≥ 15 entries with q+a. At least one question contains 'données' and at least one contains 'coût' or 'gratuit'.
+          ✅ GET /api/use-cases -> 200, ≥ 10 entries. Each has id/icon/title/summary/tools (list of slug strings) /tools_resolved (list of dicts with name+vendor+image+slug+...) /tip. uc-cv, uc-pdf, uc-logo all present.
+          ✅ GET /api/personas -> 200, ≥ 5 personas. Each has id/label/emoji/summary/tools/tools_resolved/tips. etudiant, freelance, senior all present.
+          ✅ GET /api/quiz -> 200, exactly 8 questions. Each question has id/question/options (4 options with label+score 0..3).
+          ✅ POST /api/quiz/score {answers:[0]*8} -> 200 with level='Débutant', total=0, max=24, description string, next_steps list, lessons list.
+          ✅ POST /api/quiz/score {answers:[3]*8} -> 200 with level='Avancé', total=24.
+
+  - task: "Tool privacy + example fields (privacy_score, eu_hosted, trains_on_data, rgpd, note + prompt/output)"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/learn_data.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: true
+        -agent: "testing"
+        -comment: |
+          Tested via /app/backend_test_iter6.py.
+          ✅ GET /api/tools/claude -> 200, contains privacy{privacy_score, eu_hosted, trains_on_data, rgpd, note} AND example{prompt, output}.
+          ✅ GET /api/tools/mistral -> 200, privacy.eu_hosted=true, privacy.privacy_score>=90 (souverain confirmé).
+          ✅ GET /api/tools/deepseek -> 200, privacy.eu_hosted=false, privacy.privacy_score<60 (drapeau attention OK).
+          ✅ GET /api/tools/gpt5 -> 404 (slug bien supprimé).
+          ✅ GET /api/tools/chatgpt -> 200, tagline contient 'GPT-5.5', score=96 (≥95 OK).
+
 test_plan:
-  current_focus:
-    - "Security: rate limiting, account lockout, strong password, security headers, CORS allowlist"
-    - "Data freshness: lastUpdated, news rotation, admin endpoints guarded"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
+
+agent_communication:
+    -agent: "testing"
+    -message: |
+      Itération 6 — Endpoints pédagogiques + privacy/example IA Match : 60/60 assertions PASS via /app/backend_test_iter6.py contre EXPO_PUBLIC_BACKEND_URL/api.
+      ✅ /api/glossary : ≥30 entrées, champs term/emoji/short/long/example, Prompt+Token+Hallucination+RGPD/Souveraineté IA présents
+      ✅ /api/faq : ≥15 entrées q+a, questions 'données' et 'coût/gratuit' OK
+      ✅ /api/use-cases : ≥10, tools_resolved enrichi avec name/vendor/image/slug, uc-cv/uc-pdf/uc-logo présents
+      ✅ /api/personas : ≥5, etudiant/freelance/senior présents
+      ✅ /api/quiz : 8 questions, 4 options/question avec score 0-3
+      ✅ /api/quiz/score : [0]*8 → Débutant/total=0/max=24/description/next_steps/lessons ; [3]*8 → Avancé/total=24
+      ✅ /api/tools/claude : privacy{privacy_score,eu_hosted,trains_on_data,rgpd,note} + example{prompt,output}
+      ✅ /api/tools/mistral : eu_hosted=true, privacy_score≥90 (souverain) ; /api/tools/deepseek : eu_hosted=false, privacy_score<60
+      ✅ /api/tools/gpt5 → 404 ; /api/tools/chatgpt → tagline 'GPT-5.5', score=96
+      Aucune régression. Aucun blocage.
 
 agent_communication:
     -agent: "testing"

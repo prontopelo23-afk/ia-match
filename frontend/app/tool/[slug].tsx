@@ -144,6 +144,49 @@ export default function ToolDetail() {
             </Text>
           ) : null}
 
+          {tool.privacy ? (
+            <View style={{ backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md }}>
+              <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, marginBottom: 6 }}>
+                🛡️ Confidentialité & souveraineté
+              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: (tool.privacy.privacy_score || 0) >= 80 ? "#10B981" : (tool.privacy.privacy_score || 0) >= 60 ? "#F59E0B" : "#EF4444", alignItems: "center", justifyContent: "center" }}>
+                  <Text style={{ color: "#fff", fontFamily: fonts.bodyBold, fontSize: 18 }}>{tool.privacy.privacy_score}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontFamily: fonts.body, fontSize: 12, color: colors.textPrimary }}>
+                    {tool.privacy.eu_hosted ? "🇪🇺 Hébergé en Europe" : "🌍 Hébergé hors Europe"}
+                  </Text>
+                  <Text style={{ fontFamily: fonts.body, fontSize: 12, color: colors.textPrimary, marginTop: 2 }}>
+                    {tool.privacy.trains_on_data === "no" ? "✅ Tes données ne sont PAS utilisées pour entraîner" : tool.privacy.trains_on_data === "opt-out" ? "⚠️ Désactivable dans les paramètres" : "❌ Données utilisées pour entraîner par défaut"}
+                  </Text>
+                  <Text style={{ fontFamily: fonts.body, fontSize: 12, color: colors.textPrimary, marginTop: 2 }}>
+                    {tool.privacy.rgpd ? "✅ Conforme RGPD" : "❌ RGPD non garanti"}
+                  </Text>
+                </View>
+              </View>
+              {tool.privacy.note ? (
+                <Text style={{ fontFamily: fonts.body, fontSize: 12, lineHeight: 17, color: colors.textSecondary, fontStyle: "italic" }}>{tool.privacy.note}</Text>
+              ) : null}
+            </View>
+          ) : null}
+
+          {tool.example ? (
+            <View style={{ backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md }}>
+              <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, marginBottom: 8 }}>
+                ✨ Exemple : Avant / Après
+              </Text>
+              <Text style={{ fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral, marginBottom: 4 }}>CE QU'ON ENVOIE</Text>
+              <View style={{ backgroundColor: colors.bg, padding: 10, borderRadius: 8, marginBottom: 10 }}>
+                <Text style={{ fontFamily: fonts.body, fontSize: 12, lineHeight: 18, color: colors.textPrimary }}>{tool.example.prompt}</Text>
+              </View>
+              <Text style={{ fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral, marginBottom: 4 }}>CE QUE L'IA RÉPOND</Text>
+              <View style={{ backgroundColor: colors.bg, padding: 10, borderRadius: 8 }}>
+                <Text style={{ fontFamily: fonts.body, fontSize: 12, lineHeight: 18, color: colors.textPrimary }}>{tool.example.output}</Text>
+              </View>
+            </View>
+          ) : null}
+
           <Text style={styles.section}>Points forts</Text>
           <View style={styles.featureRow}>
             {tool.features.map((f) => (
