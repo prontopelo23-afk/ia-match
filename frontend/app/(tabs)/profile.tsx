@@ -1,33 +1,63 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Linking } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
-import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, ExternalLink } from "lucide-react-native";
+import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
-import { history, HistoryItem, api, Resource } from "../../src/api";
+import {
+  history,
+  HistoryItem,
+  api,
+  Tool,
+  NewsItem,
+  bookmarkTools,
+  bookmarkNews,
+  onboardingStore,
+} from "../../src/api";
+import LogoTile from "../../src/components/LogoTile";
 
 export default function ProfileScreen() {
   const router = useRouter();
   const { colors, mode, toggle } = useTheme();
   const { isPremium, setPremium } = usePremium();
   const [items, setItems] = useState<HistoryItem[]>([]);
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [savedTools, setSavedTools] = useState<Tool[]>([]);
+  const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
+
+  const loadBookmarks = useCallback(async () => {
+    const [toolSlugs, newsIds] = await Promise.all([bookmarkTools.list(), bookmarkNews.list()]);
+    if (toolSlugs.length > 0) {
+      const tools = await Promise.all(toolSlugs.map((s) => api.getTool(s).catch(() => null)));
+      setSavedTools(tools.filter((t): t is Tool => !!t));
+    } else {
+      setSavedTools([]);
+    }
+    if (newsIds.length > 0) {
+      const all = await api.listNews().catch(() => [] as NewsItem[]);
+      setSavedNews(all.filter((n) => newsIds.includes(n.id)));
+    } else {
+      setSavedNews([]);
+    }
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
       history.list().then(setItems);
-    }, [])
+      loadBookmarks();
+    }, [loadBookmarks])
   );
-  useEffect(() => {
-    api.listResources().then(setResources).catch(() => {});
-  }, []);
 
   const clear = () => {
     Alert.alert("Effacer l'historique ?", "Cette action est irréversible.", [
       { text: "Annuler", style: "cancel" },
       { text: "Effacer", style: "destructive", onPress: async () => { await history.clear(); setItems([]); } },
     ]);
+  };
+
+  const replayOnboarding = async () => {
+    await onboardingStore.reset();
+    router.replace("/onboarding");
   };
 
   return (
@@ -62,7 +92,7 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Settings card */}
+        {/* Settings */}
         <View style={[styles.settingsCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
           <TouchableOpacity onPress={toggle} style={styles.settingRow} testID="profile-toggle-theme">
             <View style={styles.settingLeft}>
@@ -76,6 +106,14 @@ export default function ProfileScreen() {
             <Text style={[styles.settingValue, { color: colors.coral }]}>
               {mode === "light" ? "Jour" : "Nuit"}
             </Text>
+          </TouchableOpacity>
+          <View style={[styles.divider, { backgroundColor: colors.borderSubtle }]} />
+          <TouchableOpacity onPress={replayOnboarding} style={styles.settingRow} testID="profile-replay-onboarding">
+            <View style={styles.settingLeft}>
+              <RefreshCw size={18} color={colors.textPrimary} strokeWidth={2} />
+              <Text style={[styles.settingText, { color: colors.textPrimary }]}>Refaire l'onboarding</Text>
+            </View>
+            <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
           </TouchableOpacity>
         </View>
 
@@ -96,11 +134,64 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Saved tools */}
+        <View style={styles.sectionHead}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <Bookmark size={18} color={colors.textPrimary} strokeWidth={2} />
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>IA favoris</Text>
+          </View>
+          <Text style={[styles.sectionCount, { color: colors.textSecondary }]}>{savedTools.length}</Text>
+        </View>
+        {savedTools.length === 0 ? (
+          <Text style={[styles.empty, { color: colors.textSecondary }]}>Aucune IA en favoris pour l'instant. Touche le marque-page sur une IA dans le Catalogue.</Text>
+        ) : (
+          savedTools.map((t) => (
+            <TouchableOpacity
+              key={t.slug}
+              onPress={() => router.push(`/tool/${t.slug}`)}
+              style={[styles.bmRow, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
+              testID={`bookmark-tool-${t.slug}`}
+            >
+              <LogoTile uri={t.image} name={t.name} bg={t.color} size={42} rounded={10} domain={t.domain} />
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.bmTitle, { color: colors.textPrimary }]} numberOfLines={1}>{t.name}</Text>
+                <Text style={[styles.bmMeta, { color: colors.textSecondary }]} numberOfLines={1}>{t.tagline}</Text>
+              </View>
+              <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
+            </TouchableOpacity>
+          ))
+        )}
+
+        {/* Saved news */}
+        <View style={styles.sectionHead}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <Bookmark size={18} color={colors.textPrimary} strokeWidth={2} />
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Articles sauvegardés</Text>
+          </View>
+          <Text style={[styles.sectionCount, { color: colors.textSecondary }]}>{savedNews.length}</Text>
+        </View>
+        {savedNews.length === 0 ? (
+          <Text style={[styles.empty, { color: colors.textSecondary }]}>Aucun article sauvegardé. Touche le marque-page sur un article dans Actue.</Text>
+        ) : (
+          savedNews.map((n) => (
+            <TouchableOpacity
+              key={n.id}
+              onPress={() => router.push(`/news/${n.id}`)}
+              style={[styles.bmNewsRow, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
+              testID={`bookmark-news-${n.id}`}
+            >
+              <Text style={[styles.bmCat, { color: colors.coral }]}>{n.category}</Text>
+              <Text style={[styles.bmNewsTitle, { color: colors.textPrimary }]} numberOfLines={2}>{n.title}</Text>
+              <Text style={[styles.bmMeta, { color: colors.textSecondary }]} numberOfLines={1}>{n.readMinutes} min · {n.tag}</Text>
+            </TouchableOpacity>
+          ))
+        )}
+
         {/* History */}
         <View style={styles.sectionHead}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <History size={18} color={colors.textPrimary} strokeWidth={2} />
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Historique</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Historique des matchs</Text>
           </View>
           {items.length > 0 ? (
             <TouchableOpacity onPress={clear} testID="history-clear">
@@ -124,32 +215,6 @@ export default function ProfileScreen() {
             </View>
           ))
         )}
-
-        {/* Useful links */}
-        <Text style={[styles.sectionTitle, { color: colors.textPrimary, marginTop: spacing.xl, marginBottom: spacing.sm }]}>
-          Liens utiles
-        </Text>
-        <Text style={[styles.empty, { color: colors.textSecondary, marginTop: 0, marginBottom: spacing.md, textAlign: "left" }]}>
-          Ressources triées sur le volet pour aller plus loin sur l'IA générative.
-        </Text>
-        {resources.map((r) => (
-          <TouchableOpacity
-            key={r.id}
-            onPress={() => Linking.openURL(r.url).catch(() => {})}
-            style={[styles.resourceRow, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-            testID={`resource-${r.id}`}
-          >
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.resCat, { color: colors.coral }]}>{r.category}</Text>
-              <Text style={[styles.resTitle, { color: colors.textPrimary }]}>{r.title}</Text>
-              <Text style={[styles.resAuthor, { color: colors.textSecondary }]}>par {r.author}</Text>
-              <Text style={[styles.resSummary, { color: colors.textSecondary }]} numberOfLines={2}>
-                {r.summary}
-              </Text>
-            </View>
-            <ExternalLink size={16} color={colors.textSecondary} strokeWidth={2} />
-          </TouchableOpacity>
-        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -173,6 +238,7 @@ const styles = StyleSheet.create({
   settingLeft: { flexDirection: "row", alignItems: "center", gap: 10 },
   settingText: { fontFamily: fonts.bodySemi, fontSize: 14 },
   settingValue: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  divider: { height: 1, marginVertical: 6 },
   heroBlock: { borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.xl },
   heroTitle: { fontFamily: fonts.serif, fontSize: 22, marginTop: spacing.sm },
   heroSub: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4, marginBottom: spacing.md },
@@ -181,18 +247,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md, paddingVertical: 12, borderRadius: radius.pill, alignSelf: "flex-start",
   },
   ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
-  sectionHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: spacing.sm },
+  sectionHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
   sectionTitle: { fontFamily: fonts.bodyBold, fontSize: 16 },
-  empty: { fontFamily: fonts.body, textAlign: "center", marginTop: spacing.lg },
+  sectionCount: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  empty: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginBottom: spacing.sm },
   histItem: { borderRadius: radius.md, padding: spacing.md, marginBottom: spacing.sm, borderWidth: 1 },
   histNeed: { fontFamily: fonts.bodySemi, fontSize: 15 },
   histMeta: { fontFamily: fonts.body, fontSize: 12, marginTop: 2 },
-  resourceRow: {
+  bmRow: {
     flexDirection: "row", alignItems: "center", gap: spacing.sm,
-    padding: spacing.md, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1,
+    padding: spacing.sm, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1,
   },
-  resCat: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  resTitle: { fontFamily: fonts.serif, fontSize: 17, marginTop: 2 },
-  resAuthor: { fontFamily: fonts.body, fontSize: 11, marginTop: 1 },
-  resSummary: { fontFamily: fonts.body, fontSize: 12, lineHeight: 16, marginTop: 4 },
+  bmTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  bmMeta: { fontFamily: fonts.body, fontSize: 12, marginTop: 2 },
+  bmNewsRow: { padding: spacing.md, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1 },
+  bmCat: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: 4 },
+  bmNewsTitle: { fontFamily: fonts.serif, fontSize: 17, lineHeight: 21, marginBottom: 4 },
 });

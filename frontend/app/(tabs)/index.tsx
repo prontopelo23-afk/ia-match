@@ -19,10 +19,13 @@ import {
   Wand2,
   GitCompare,
   BarChart3,
+  Copy,
+  Check,
 } from "lucide-react-native";
+import * as Clipboard from "expo-clipboard";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
-import { api, Category, Tool, compareStore } from "../../src/api";
+import { api, Category, Tool, Template, compareStore } from "../../src/api";
 import ToolCard from "../../src/components/ToolCard";
 
 export default function Catalogue() {
@@ -36,6 +39,8 @@ export default function Catalogue() {
   const [cats, setCats] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [potdCopied, setPotdCopied] = useState(false);
 
   const load = useCallback(() => {
     setLoading(true);
@@ -48,6 +53,7 @@ export default function Catalogue() {
 
   useEffect(() => {
     api.listCategories().then(setCats).catch(() => {});
+    api.listTemplates().then(setTemplates).catch(() => {});
     compareStore.get().then(setCompareList);
   }, []);
   useEffect(() => {
@@ -58,6 +64,21 @@ export default function Catalogue() {
   const toggleCompare = async (slug: string) => {
     const next = await compareStore.toggle(slug);
     setCompareList(next);
+  };
+
+  // Daily prompt: pick deterministically from templates by day of year
+  const dayOfYear = Math.floor(
+    (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
+  );
+  const potd = templates.length > 0 ? templates[dayOfYear % templates.length] : null;
+
+  const copyPotd = async () => {
+    if (!potd) return;
+    try {
+      await Clipboard.setStringAsync(potd.body);
+    } catch {}
+    setPotdCopied(true);
+    setTimeout(() => setPotdCopied(false), 1500);
   };
 
   const totalCount = tools.length;
@@ -118,6 +139,36 @@ export default function Catalogue() {
             <ArrowRight size={16} color="#fff" strokeWidth={2.5} />
           </TouchableOpacity>
         </View>
+
+        {/* PROMPT DU JOUR */}
+        {potd ? (
+          <View style={[styles.potdCard, { backgroundColor: theme.coralSoft, borderColor: theme.coral }]} testID="potd-card">
+            <View style={styles.potdHead}>
+              <Sparkles size={14} color={theme.coral} strokeWidth={2.5} />
+              <Text style={[styles.potdLabel, { color: theme.coral }]}>PROMPT DU JOUR · {potd.level}</Text>
+              <View style={{ flex: 1 }} />
+              <TouchableOpacity onPress={copyPotd} style={styles.potdCopy} testID="potd-copy">
+                {potdCopied ? (
+                  <Check size={14} color={theme.success} strokeWidth={2.5} />
+                ) : (
+                  <Copy size={14} color={theme.coral} strokeWidth={2} />
+                )}
+              </TouchableOpacity>
+            </View>
+            <Text style={[styles.potdTitle, { color: theme.textPrimary }]}>{potd.title}</Text>
+            <Text style={[styles.potdBody, { color: theme.textSecondary }]} numberOfLines={3}>
+              {potd.body}
+            </Text>
+            <TouchableOpacity
+              onPress={() => router.push("/(tabs)/builder")}
+              style={[styles.potdCta, { backgroundColor: theme.coral }]}
+              testID="potd-open-builder"
+            >
+              <Wand2 size={14} color="#fff" strokeWidth={2.5} />
+              <Text style={styles.potdCtaText}>Ouvrir dans le Builder</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         {/* SEARCH */}
         <View style={styles.searchBox}>
@@ -303,6 +354,29 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
+
+  potdCard: {
+    marginTop: spacing.md,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: 1.5,
+  },
+  potdHead: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 },
+  potdLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  potdCopy: { padding: 4 },
+  potdTitle: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24, marginBottom: 6 },
+  potdBody: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18 },
+  potdCta: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: radius.pill,
+    alignSelf: "flex-start",
+    marginTop: spacing.sm,
+  },
+  potdCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
 
   searchBox: {
     flexDirection: "row",

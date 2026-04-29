@@ -45,24 +45,15 @@ export const fonts = {
 
 export const shadow = {
   soft: {
-    shadowColor: "#111217",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.06,
-    shadowRadius: 24,
+    boxShadow: "0px 8px 24px rgba(17, 18, 23, 0.06)",
     elevation: 4,
-  },
+  } as any,
   medium: {
-    shadowColor: "#111217",
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.1,
-    shadowRadius: 32,
+    boxShadow: "0px 12px 32px rgba(17, 18, 23, 0.10)",
     elevation: 8,
-  },
+  } as any,
   dark: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 16 },
-    shadowOpacity: 0.25,
-    shadowRadius: 40,
+    boxShadow: "0px 16px 40px rgba(0, 0, 0, 0.25)",
     elevation: 12,
-  },
+  } as any,
 };

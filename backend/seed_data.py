@@ -31,7 +31,7 @@ TOOLS = [
      "keywords": ["cv", "resume", "résumé", "lettre", "motivation", "email", "écrire", "rédiger", "brainstorm"],
      "score": 94, "color": "#10A37F"},
 
-    {"slug": "claude", "name": "Claude", "vendor": "Anthropic", "domain": "anthropic.com",
+    {"slug": "claude", "name": "Claude", "vendor": "Anthropic", "domain": "claude.ai",
      "tagline": "Le rédacteur long format au raisonnement profond",
      "description": "Excellent pour l'analyse de documents longs, le raisonnement nuancé et l'écriture soignée.",
      "categorySlugs": ["texte", "recherche", "productivite"], "speedMs": 220, "accuracyPct": 95,

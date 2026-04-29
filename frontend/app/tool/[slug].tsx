@@ -11,10 +11,10 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring, withSequence } from "react-native-reanimated";
-import { ChevronLeft, Plus, Minus, Zap, Target, DollarSign, Globe, GitCompare, ExternalLink } from "lucide-react-native";
+import { ChevronLeft, Plus, Minus, Zap, Target, DollarSign, Globe, GitCompare, ExternalLink, Bookmark } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
-import { api, Tool, RatingSummary, compareStore } from "../../src/api";
+import { api, Tool, RatingSummary, compareStore, bookmarkTools } from "../../src/api";
 import ScoreRing from "../../src/components/ScoreRing";
 import LogoTile from "../../src/components/LogoTile";
 
@@ -28,20 +28,23 @@ export default function ToolDetail() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [inCompare, setInCompare] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const scale = useSharedValue(1);
 
   const animatedScore = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   const reload = useCallback(async () => {
     if (!slug) return;
-    const [t, r, c] = await Promise.all([
+    const [t, r, c, b] = await Promise.all([
       api.getTool(slug).catch(() => null),
       api.ratings(slug).catch(() => null),
       compareStore.get(),
+      bookmarkTools.has(slug),
     ]);
     setTool(t);
     setSummary(r);
     setInCompare(c.includes(slug));
+    setBookmarked(b);
   }, [slug]);
 
   useEffect(() => {
@@ -71,6 +74,12 @@ export default function ToolDetail() {
     setInCompare(next.includes(slug));
   };
 
+  const toggleBookmark = async () => {
+    if (!slug) return;
+    const next = await bookmarkTools.toggle(slug);
+    setBookmarked(next.includes(slug));
+  };
+
   if (!tool) {
     return (
       <SafeAreaView style={styles.container}>
@@ -85,6 +94,14 @@ export default function ToolDetail() {
         <View style={[styles.headerImg, { backgroundColor: tool.color }]}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backBtn} testID="tool-back">
             <ChevronLeft size={24} color="#fff" strokeWidth={2.5} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleBookmark} style={styles.bookmarkBtn} testID="tool-bookmark">
+            <Bookmark
+              size={20}
+              color="#fff"
+              fill={bookmarked ? "#fff" : "transparent"}
+              strokeWidth={2.5}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => tool.domain && Linking.openURL(`https://${tool.domain}`).catch(() => {})}
@@ -230,6 +247,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: spacing.sm,
     left: spacing.md,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bookmarkBtn: {
+    position: "absolute",
+    top: spacing.sm,
+    right: spacing.md,
     width: 40,
     height: 40,
     borderRadius: 20,

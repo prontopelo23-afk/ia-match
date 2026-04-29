@@ -1,21 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { ArrowUpRight } from "lucide-react-native";
+import { useFocusEffect, useRouter } from "expo-router";
+import { ArrowUpRight, Bookmark } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
-import { api, NewsItem } from "../../src/api";
+import { api, NewsItem, bookmarkNews } from "../../src/api";
 
 export default function ActueScreen() {
   const router = useRouter();
   const { colors } = useTheme();
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [bms, setBms] = useState<string[]>([]);
 
   useEffect(() => {
     api.listNews().then(setItems).catch(() => {}).finally(() => setLoading(false));
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      bookmarkNews.list().then(setBms);
+    }, [])
+  );
+
+  const toggleBm = async (id: string) => {
+    const next = await bookmarkNews.toggle(id);
+    setBms(next);
+  };
 
   const featured = items[0];
   const rest = items.slice(1);
@@ -47,6 +59,15 @@ export default function ActueScreen() {
                 <Text style={[styles.metaText, { color: colors.textSecondary }]}>{formatDate(featured.publishedAt)}</Text>
                 <Text style={[styles.dotSep, { color: colors.textSecondary }]}>·</Text>
                 <Text style={[styles.metaText, { color: colors.textSecondary }]}>{featured.readMinutes} min</Text>
+                <View style={{ flex: 1 }} />
+                <TouchableOpacity onPress={() => toggleBm(featured.id)} testID={`news-bm-${featured.id}`} style={{ padding: 4 }}>
+                  <Bookmark
+                    size={16}
+                    color={bms.includes(featured.id) ? colors.coral : colors.textSecondary}
+                    fill={bms.includes(featured.id) ? colors.coral : "transparent"}
+                    strokeWidth={2}
+                  />
+                </TouchableOpacity>
               </View>
               <Text style={[styles.featuredTitle, { color: colors.textPrimary }]}>{featured.title}</Text>
               <Text style={[styles.featuredSummary, { color: colors.textSecondary }]}>{featured.summary}</Text>
@@ -74,7 +95,14 @@ export default function ActueScreen() {
                   </Text>
                 </View>
                 <View style={styles.rowMeta}>
-                  <ArrowUpRight size={14} color={colors.textSecondary} strokeWidth={2} />
+                  <TouchableOpacity onPress={() => toggleBm(n.id)} style={{ padding: 4 }} testID={`news-bm-${n.id}`}>
+                    <Bookmark
+                      size={14}
+                      color={bms.includes(n.id) ? colors.coral : colors.textSecondary}
+                      fill={bms.includes(n.id) ? colors.coral : "transparent"}
+                      strokeWidth={2}
+                    />
+                  </TouchableOpacity>
                   <Text style={[styles.rowDate, { color: colors.textSecondary }]}>{formatDate(n.publishedAt)}</Text>
                   <Text style={[styles.rowMin, { color: colors.textSecondary }]}>{n.readMinutes} min</Text>
                 </View>
