@@ -509,16 +509,16 @@ async def score_quiz(req: QuizSubmit):
 # Classement général : une seule entrée par grande famille LLM généraliste.
 # Les variantes précises restent visibles dans /tools?category=... et les catégories.
 GENERAL_BENCHMARK_SLUGS = [
-    "chatgpt",       # ChatGPT / GPT-5.5
-    "claude",        # Claude général affiché côté UI, modèle référence Sonnet
-    "gemini-25",     # Gemini 3.1 Pro Preview
-    "deepseek-r1",
-    "llama",
-    "qwen",
-    "mistral",
-    "kimi",
-    "grok",
-    "perplexity",
+    "chatgpt",       # meilleur choix polyvalent pour commencer
+    "claude",        # rédaction longue, analyse, documents
+    "gemini-25",     # Google, multimodal, contexte long
+    "perplexity",    # recherche sourcée
+    "mistral",       # option européenne / souveraineté
+    "deepseek-r1",   # raisonnement, code, rapport puissance/prix
+    "qwen",          # multilingue, code, modèles avancés
+    "kimi",          # contexte long, recherche, agentique
+    "llama",         # open-weight / local / développeurs
+    "grok",          # actualité et écosystème X
 ]
 
 GENERAL_BENCHMARK_NAMES = {
@@ -547,6 +547,19 @@ GENERAL_BENCHMARK_MODELS = {
     "perplexity": "Perplexity AI",
 }
 
+GENERAL_BENCHMARK_CONTEXT = {
+    "chatgpt": {"bestFor": "polyvalence, débutants, tâches quotidiennes", "whyRanked": "Très connu, riche en fonctions, bon en français et facile à recommander sans explication technique.", "limitation": "Pas toujours le moins cher ni le meilleur choix pour recherche sourcée stricte.", "confidence": "élevée"},
+    "claude": {"bestFor": "écriture, synthèse, analyse de documents", "whyRanked": "Très fiable pour produire des réponses structurées et nuancées, avec un bon confort de lecture.", "limitation": "Moins central si ton besoin principal est l’image, l’actualité en direct ou l’écosystème Google.", "confidence": "élevée"},
+    "gemini-25": {"bestFor": "Google Workspace, multimodal, contexte long", "whyRanked": "Fort pour les utilisateurs déjà dans l’écosystème Google et les usages mêlant texte, images et documents.", "limitation": "L’expérience peut dépendre fortement du pays, du forfait et des intégrations activées.", "confidence": "élevée"},
+    "perplexity": {"bestFor": "recherche sourcée, veille, compréhension rapide", "whyRanked": "Ce n’est pas seulement un modèle : c’est une interface de recherche très utile pour vérifier et sourcer.", "limitation": "Moins adapté comme assistant général de production longue ou automatisation complète.", "confidence": "élevée"},
+    "mistral": {"bestFor": "Europe, productivité, souveraineté", "whyRanked": "Bon compromis pour une app française : accessible, crédible et plus facile à expliquer côté RGPD/Europe.", "limitation": "Écosystème grand public moins installé que ChatGPT, Claude ou Gemini.", "confidence": "moyenne"},
+    "deepseek-r1": {"bestFor": "raisonnement, code, coût/API", "whyRanked": "Puissant et compétitif, mais plus pertinent pour utilisateurs avertis ou usages techniques.", "limitation": "Moins évident comme produit grand public français pour débuter sans contexte.", "confidence": "moyenne"},
+    "qwen": {"bestFor": "multilingue, code, intégrations techniques", "whyRanked": "Très capable, surtout côté modèles/API, mais demande plus de pédagogie pour un public novice.", "limitation": "Moins identifiable qu’un assistant grand public comme ChatGPT ou Claude.", "confidence": "moyenne"},
+    "kimi": {"bestFor": "contexte long, recherche, workflows avancés", "whyRanked": "À surveiller pour les usages longs et complexes, mais moins connu du grand public.", "limitation": "Pas encore le premier choix pédagogique pour une première expérience IA.", "confidence": "prudente"},
+    "llama": {"bestFor": "open-source, local, intégration développeur", "whyRanked": "Excellent comme famille technique, mais pas toujours comme app prête à l’emploi pour débutants.", "limitation": "Demande souvent une interface, un hébergement ou des compétences techniques autour du modèle.", "confidence": "moyenne"},
+    "grok": {"bestFor": "actualité, culture web, écosystème X", "whyRanked": "Pertinent dans certains contextes, mais moins universel pour un classement débutant français.", "limitation": "Dépend fortement de l’accès à X et de ton besoin d’actualité en temps réel.", "confidence": "prudente"},
+}
+
 BENCHMARK_SOURCE_NOTE = {
     "checkedAt": "2026-05-03",
     "label": "Disponibilité vérifiée via docs officielles éditeurs + OpenRouter pour les IDs API.",
@@ -567,8 +580,13 @@ async def benchmarks(sort: str = Query("score"), scope: str = Query("general")):
         items.sort(key=lambda t: t["accuracyPct"], reverse=True)
     elif sort == "price":
         items.sort(key=lambda t: (not t["freeTier"], t["monthlyPrice"]))
-    else:
+    elif scope == "all":
         items.sort(key=lambda t: t["score"], reverse=True)
+    else:
+        # Pour le top général, le tri recommandé est un classement d’aide au choix
+        # novice-first, pas un simple score éditorial brut.
+        order = {slug: i for i, slug in enumerate(GENERAL_BENCHMARK_SLUGS)}
+        items.sort(key=lambda t: order.get(t["slug"], 999))
     return {
         "sourceNote": BENCHMARK_SOURCE_NOTE,
         "rows": [
@@ -584,6 +602,7 @@ async def benchmarks(sort: str = Query("score"), scope: str = Query("general")):
                 "freeTier": t["freeTier"],
                 "score": t["score"],
                 "languages": t["languages"],
+                **(GENERAL_BENCHMARK_CONTEXT.get(t["slug"], {}) if scope != "all" else {}),
             }
             for t in items
         ]

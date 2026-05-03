@@ -57,6 +57,10 @@ export type BenchmarkRow = {
   freeTier: boolean;
   score: number;
   languages: string[];
+  bestFor?: string;
+  whyRanked?: string;
+  limitation?: string;
+  confidence?: "élevée" | "moyenne" | "prudente" | string;
 };
 
 export type NewsItem = {
@@ -275,7 +279,7 @@ function fallbackTools(params: Record<string, string | number | boolean | undefi
   return items;
 }
 
-const GENERAL_BENCHMARK_SLUGS = ["chatgpt", "claude", "gemini-25", "deepseek-r1", "llama", "qwen", "mistral", "kimi", "grok", "perplexity"];
+const GENERAL_BENCHMARK_SLUGS = ["chatgpt", "claude", "gemini-25", "perplexity", "mistral", "deepseek-r1", "qwen", "kimi", "llama", "grok"];
 const GENERAL_BENCHMARK_NAMES: Record<string, string> = {
   chatgpt: "ChatGPT",
   claude: "Claude",
@@ -301,9 +305,30 @@ const GENERAL_BENCHMARK_MODELS: Record<string, string> = {
   perplexity: "Perplexity AI",
 };
 
+const GENERAL_BENCHMARK_CONTEXT: Record<string, Pick<BenchmarkRow, "bestFor" | "whyRanked" | "limitation" | "confidence">> = {
+  chatgpt: { bestFor: "polyvalence, débutants, tâches quotidiennes", whyRanked: "Très connu, riche en fonctions, bon en français et facile à recommander sans explication technique.", limitation: "Pas toujours le moins cher ni le meilleur choix pour recherche sourcée stricte.", confidence: "élevée" },
+  claude: { bestFor: "écriture, synthèse, analyse de documents", whyRanked: "Très fiable pour produire des réponses structurées et nuancées, avec un bon confort de lecture.", limitation: "Moins central si ton besoin principal est l’image, l’actualité en direct ou l’écosystème Google.", confidence: "élevée" },
+  "gemini-25": { bestFor: "Google Workspace, multimodal, contexte long", whyRanked: "Fort pour les utilisateurs déjà dans l’écosystème Google et les usages mêlant texte, images et documents.", limitation: "L’expérience peut dépendre fortement du pays, du forfait et des intégrations activées.", confidence: "élevée" },
+  perplexity: { bestFor: "recherche sourcée, veille, compréhension rapide", whyRanked: "Ce n’est pas seulement un modèle : c’est une interface de recherche très utile pour vérifier et sourcer.", limitation: "Moins adapté comme assistant général de production longue ou automatisation complète.", confidence: "élevée" },
+  mistral: { bestFor: "Europe, productivité, souveraineté", whyRanked: "Bon compromis pour une app française : accessible, crédible et plus facile à expliquer côté RGPD/Europe.", limitation: "Écosystème grand public moins installé que ChatGPT, Claude ou Gemini.", confidence: "moyenne" },
+  "deepseek-r1": { bestFor: "raisonnement, code, coût/API", whyRanked: "Puissant et compétitif, mais plus pertinent pour utilisateurs avertis ou usages techniques.", limitation: "Moins évident comme produit grand public français pour débuter sans contexte.", confidence: "moyenne" },
+  qwen: { bestFor: "multilingue, code, intégrations techniques", whyRanked: "Très capable, surtout côté modèles/API, mais demande plus de pédagogie pour un public novice.", limitation: "Moins identifiable qu’un assistant grand public comme ChatGPT ou Claude.", confidence: "moyenne" },
+  kimi: { bestFor: "contexte long, recherche, workflows avancés", whyRanked: "À surveiller pour les usages longs et complexes, mais moins connu du grand public.", limitation: "Pas encore le premier choix pédagogique pour une première expérience IA.", confidence: "prudente" },
+  llama: { bestFor: "open-source, local, intégration développeur", whyRanked: "Excellent comme famille technique, mais pas toujours comme app prête à l’emploi pour débutants.", limitation: "Demande souvent une interface, un hébergement ou des compétences techniques autour du modèle.", confidence: "moyenne" },
+  grok: { bestFor: "actualité, culture web, écosystème X", whyRanked: "Pertinent dans certains contextes, mais moins universel pour un classement débutant français.", limitation: "Dépend fortement de l’accès à X et de ton besoin d’actualité en temps réel.", confidence: "prudente" },
+};
+
 function fallbackBenchmarks(sort = "score", scope: "general" | "all" = "general"): { rows: BenchmarkRow[] } {
   const tools = fallbackTools({ sort });
-  const source = scope === "all" ? tools : GENERAL_BENCHMARK_SLUGS.map((slug) => tools.find((t) => t.slug === slug)).filter(Boolean) as Tool[];
+  let source = scope === "all" ? tools : GENERAL_BENCHMARK_SLUGS.map((slug) => tools.find((t) => t.slug === slug)).filter(Boolean) as Tool[];
+  if (scope !== "all" && sort !== "score") {
+    source = [...source].sort((a, b) => {
+      if (sort === "speed") return a.speedMs - b.speedMs;
+      if (sort === "accuracy") return b.accuracyPct - a.accuracyPct;
+      if (sort === "price") return Number(!a.freeTier) - Number(!b.freeTier) || a.monthlyPrice - b.monthlyPrice;
+      return GENERAL_BENCHMARK_SLUGS.indexOf(a.slug) - GENERAL_BENCHMARK_SLUGS.indexOf(b.slug);
+    });
+  }
   return {
     rows: source.map((t) => ({
       slug: t.slug,
@@ -317,6 +342,7 @@ function fallbackBenchmarks(sort = "score", scope: "general" | "all" = "general"
       freeTier: t.freeTier,
       score: t.score,
       languages: t.languages,
+      ...(scope === "all" ? {} : GENERAL_BENCHMARK_CONTEXT[t.slug]),
     })),
   };
 }
