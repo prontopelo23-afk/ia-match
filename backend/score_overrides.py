@@ -16,7 +16,7 @@ SCORE_OVERRIDES = {
     "claude-opus": 96,    # Opus 4 — niveau frontière
     "claude": 94,         # Sonnet 4 — équilibré
     # Google
-    "gemini-25": 95,      # Gemini 2.5 Pro — multimodal premium
+    "gemini-25": 95,      # Gemini 3.1 Pro Preview — multimodal premium
     "gemini": 88,         # Free grand public
     # xAI
     "grok": 89,           # Grok 3 — temps réel + X

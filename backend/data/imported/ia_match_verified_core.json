@@ -2970,7 +2970,7 @@
           "gemini-25",
           "mistral"
         ],
-        "tip": "Claude (200k contexte) ou Gemini 2.5 Pro (1M) avalent un livre entier d'un coup.",
+        "tip": "Claude, Gemini et Kimi proposent des variantes à grand contexte utiles pour analyser de longs documents.",
         "recommended_entities": [
           "claude",
           "gemini_25",
@@ -10297,7 +10297,7 @@
         "emoji": "📏",
         "short": "La quantité de texte que l'IA peut « lire » d'un coup.",
         "long": "Mesuré en tokens. Un contexte 200k = un livre entier d'un coup.",
-        "example": "Claude Sonnet 4 a 200k tokens, Kimi K2 a 2M tokens.",
+        "example": "Claude Sonnet 4.6 a un grand contexte, Kimi K2 est utile pour des tâches longues.",
         "data_tier": "content_ready",
         "import_recommendation": "import_to_public_app"
       },
@@ -10333,7 +10333,7 @@
         "emoji": "🎨",
         "short": "Une IA qui comprend texte + image + audio + vidéo.",
         "long": "Au lieu d'avoir 4 IA distinctes, tu en as une seule qui mélange tout.",
-        "example": "Gemini 2.5 Pro analyse un PDF avec des graphiques + écoute un audio.",
+        "example": "Gemini 3.1 Pro Preview analyse des documents multimodaux et du contexte long.",
         "data_tier": "content_ready",
         "import_recommendation": "import_to_public_app"
       },
@@ -10467,7 +10467,7 @@
         "term": "Modèle de fondation",
         "emoji": "🏗️",
         "short": "Un grand modèle pré-entraîné qui sert de base à plein d'applications.",
-        "long": "GPT-5.5, Claude Sonnet 4, Gemini 2.5 sont des modèles de fondation. Coûtent des centaines de millions à entraîner.",
+        "long": "GPT-5.5, Claude Sonnet 4.6, Gemini 3.1 et Llama 4 sont des modèles de fondation. Les grands modèles coûtent très cher à entraîner.",
         "example": "Les startups construisent leurs apps sur des modèles de fondation.",
         "data_tier": "content_ready",
         "import_recommendation": "import_to_public_app"

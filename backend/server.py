@@ -22,7 +22,7 @@ from cache import (
     get_faq,
     get_use_cases,
     get_personas,
-    get_quiz,
+    get_quiz as get_cached_quiz,
     get_news,
     get_lessons,
     get_templates,
@@ -485,7 +485,7 @@ async def list_personas():
 
 @api_router.get("/quiz")
 async def get_quiz():
-    return get_quiz()
+    return get_cached_quiz()
 
 
 class QuizSubmit(BaseModel):
@@ -496,13 +496,13 @@ class QuizSubmit(BaseModel):
 async def score_quiz(req: QuizSubmit):
     # answers : list of selected option indices (one per question)
     total = 0
-    for i, q in enumerate(get_quiz()):
+    for i, q in enumerate(get_cached_quiz()):
         if i < len(req.answers):
             idx = max(0, min(len(q["options"]) - 1, int(req.answers[i])))
             total += q["options"][idx]["score"]
     result = get_quiz_level(total)
     result["total"] = total
-    result["max"] = len(get_quiz()) * 3
+    result["max"] = len(get_cached_quiz()) * 3
     return result
 
 
@@ -511,7 +511,7 @@ async def score_quiz(req: QuizSubmit):
 GENERAL_BENCHMARK_SLUGS = [
     "chatgpt",       # ChatGPT / GPT-5.5
     "claude",        # Claude général affiché côté UI, modèle référence Sonnet
-    "gemini-25",     # Gemini 2.5 Pro
+    "gemini-25",     # Gemini 3.1 Pro Preview
     "deepseek-r1",
     "llama",
     "qwen",
@@ -536,15 +536,21 @@ GENERAL_BENCHMARK_NAMES = {
 
 GENERAL_BENCHMARK_MODELS = {
     "chatgpt": "GPT-5.5",
-    "claude": "Claude Sonnet 4",
-    "gemini-25": "Gemini 2.5 Pro",
-    "deepseek-r1": "DeepSeek R1",
-    "llama": "Llama 4",
-    "qwen": "Qwen 3",
-    "mistral": "Le Chat / modèles Mistral",
-    "kimi": "Kimi K2",
-    "grok": "Grok",
+    "claude": "Claude Sonnet 4.6",
+    "gemini-25": "Gemini 3.1 Pro Preview",
+    "deepseek-r1": "DeepSeek-V3.2 / R1",
+    "llama": "Llama 4 Scout/Maverick",
+    "qwen": "Qwen3",
+    "mistral": "Mistral Large 3 / Le Chat",
+    "kimi": "Kimi K2 Thinking",
+    "grok": "Grok 4.3",
     "perplexity": "Perplexity AI",
+}
+
+BENCHMARK_SOURCE_NOTE = {
+    "checkedAt": "2026-05-03",
+    "label": "Disponibilité vérifiée via docs officielles éditeurs + OpenRouter pour les IDs API.",
+    "caveat": "Les scores restent des indices éditoriaux IA Match, pas des mesures de laboratoire en temps réel.",
 }
 
 
@@ -564,6 +570,7 @@ async def benchmarks(sort: str = Query("score"), scope: str = Query("general")):
     else:
         items.sort(key=lambda t: t["score"], reverse=True)
     return {
+        "sourceNote": BENCHMARK_SOURCE_NOTE,
         "rows": [
             {
                 "slug": t["slug"],

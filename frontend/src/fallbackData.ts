@@ -24,6 +24,7 @@
 // - FAQ: 15 items
 // - USE_CASES: 12 items
 // - PERSONAS: 6 items
+// - QUIZ: 8 items
 export const FALLBACK_DATA = {
   "TOOLS": [
     {
@@ -91,7 +92,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B35",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -106,7 +107,7 @@ export const FALLBACK_DATA = {
       "name": "ChatGPT",
       "vendor": "OpenAI",
       "domain": "openai.com",
-      "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial",
+      "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5",
       "description": "Assistant conversationnel OpenAI propulsé par GPT-5.5. Rédaction, brainstorming, code, analyse de documents, vision, navigation web et GPTs personnalisés.",
       "categorySlugs": [
         "texte",
@@ -163,7 +164,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 55,
         "eu_hosted": false,
@@ -220,7 +221,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 75,
         "eu_hosted": false,
@@ -518,7 +519,7 @@ export const FALLBACK_DATA = {
     },
     {
       "slug": "claude",
-      "name": "Claude Sonnet 4",
+      "name": "Claude Sonnet 4.6",
       "vendor": "Anthropic",
       "domain": "claude.ai",
       "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)",
@@ -570,7 +571,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 75,
         "eu_hosted": false,
@@ -584,57 +585,66 @@ export const FALLBACK_DATA = {
       }
     },
     {
-      "slug": "o3",
-      "name": "o3",
-      "vendor": "OpenAI",
-      "domain": "openai.com",
-      "tagline": "Le raisonneur frontière",
-      "description": "Modèle reasoning OpenAI o3 — chaîne de pensée extrême, math/code/sciences.",
+      "slug": "gemini-25",
+      "name": "Gemini 3.1 Pro Preview",
+      "vendor": "Google",
+      "domain": "gemini.google.com",
+      "tagline": "Le multimodal Google haut de gamme en preview",
+      "description": "Gemini 3.1 Pro Preview est le modèle Google avancé pour raisonnement, multimodalité, contexte long et usages agentiques.",
       "categorySlugs": [
         "texte",
-        "code",
+        "image",
+        "video",
         "recherche"
       ],
-      "speedMs": 8000,
-      "accuracyPct": 97,
-      "costPerPrompt": 0.06,
-      "monthlyPrice": 200.0,
-      "freeTier": false,
+      "speedMs": 220,
+      "accuracyPct": 95,
+      "costPerPrompt": 0.0035,
+      "monthlyPrice": 19.99,
+      "freeTier": true,
       "languages": [
+        "fr",
         "en",
-        "fr"
+        "es",
+        "de",
+        "ja",
+        "zh"
       ],
       "features": [
-        "Reasoning extrême",
-        "Math",
-        "Code"
+        "Contexte long",
+        "Multimodal",
+        "Deep Research",
+        "Preview"
       ],
       "useCases": [
+        "Pro multimodal",
         "Recherche",
-        "Olympiades",
-        "Code complexe"
+        "Vidéo analyse"
       ],
       "keywords": [
-        "o3",
-        "openai",
-        "raisonnement",
-        "math"
+        "gemini",
+        "3.1",
+        "2.5",
+        "pro",
+        "google",
+        "deep research"
       ],
       "score": 95,
       "categoryScores": {
         "texte": 95,
-        "code": 88,
-        "recherche": 82
+        "image": 88,
+        "video": 82,
+        "recherche": 78
       },
-      "color": "#10A37F",
-      "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "color": "#4285F4",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
-        "privacy_score": 60,
+        "privacy_score": 65,
         "eu_hosted": false,
-        "trains_on_data": "opt-out",
+        "trains_on_data": "no",
         "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+        "note": "Plan API/Pro : pas d'utilisation pour entraîner. Vertex AI a hébergement régional disponible."
       },
       "example": null
     },
@@ -973,7 +983,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/elevenlabs.io",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -985,67 +995,6 @@ export const FALLBACK_DATA = {
         "prompt": "Voix-off française, ton chaleureux, 60 ans, lecture d'un conte pour enfants : « Il était une fois une petite fille qui aimait les étoiles... »",
         "output": "[Audio] Voix synthétique humaine et chaleureuse, lecture posée avec inflexions naturelles, indiscernable d'un comédien doublage."
       }
-    },
-    {
-      "slug": "gemini-25",
-      "name": "Gemini 2.5 Pro",
-      "vendor": "Google",
-      "domain": "gemini.google.com",
-      "tagline": "Le multimodal Google haut de gamme",
-      "description": "Gemini 2.5 Pro avec contexte 2M, Deep Research, vision native.",
-      "categorySlugs": [
-        "texte",
-        "image",
-        "video",
-        "recherche"
-      ],
-      "speedMs": 220,
-      "accuracyPct": 94,
-      "costPerPrompt": 0.0035,
-      "monthlyPrice": 19.99,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "ja",
-        "zh"
-      ],
-      "features": [
-        "Contexte 2M",
-        "Vidéo",
-        "Deep Research"
-      ],
-      "useCases": [
-        "Pro multimodal",
-        "Vidéo analyse"
-      ],
-      "keywords": [
-        "gemini",
-        "2.5",
-        "pro",
-        "google",
-        "deep research"
-      ],
-      "score": 94,
-      "categoryScores": {
-        "texte": 94,
-        "image": 87,
-        "video": 81,
-        "recherche": 77
-      },
-      "color": "#4285F4",
-      "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
-      "privacy": {
-        "privacy_score": 65,
-        "eu_hosted": false,
-        "trains_on_data": "no",
-        "rgpd": true,
-        "note": "Plan API/Pro : pas d'utilisation pour entraîner. Vertex AI a hébergement régional disponible."
-      },
-      "example": null
     },
     {
       "slug": "nano-banana-pro",
@@ -1304,7 +1253,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/midjourney.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1362,7 +1311,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F0F0F",
       "image": "https://logo.clearbit.com/cursor.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1420,7 +1369,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1658,7 +1607,63 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F2B46",
       "image": "https://logo.clearbit.com/deepl.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "o3",
+      "name": "o3",
+      "vendor": "OpenAI",
+      "domain": "openai.com",
+      "tagline": "Raisonnement OpenAI encore disponible via API/agrégateurs",
+      "description": "Modèle de raisonnement OpenAI orienté maths, code et analyse complexe. À afficher comme modèle spécialisé, pas comme assistant généraliste par défaut.",
+      "categorySlugs": [
+        "texte",
+        "code",
+        "recherche"
+      ],
+      "speedMs": 8000,
+      "accuracyPct": 94,
+      "costPerPrompt": 0.008,
+      "monthlyPrice": 0.0,
+      "freeTier": false,
+      "languages": [
+        "en",
+        "fr"
+      ],
+      "features": [
+        "Reasoning avancé",
+        "Math",
+        "Code",
+        "Recherche complexe"
+      ],
+      "useCases": [
+        "Recherche",
+        "Maths",
+        "Code complexe"
+      ],
+      "keywords": [
+        "o3",
+        "openai",
+        "raisonnement",
+        "math"
+      ],
+      "score": 92,
+      "categoryScores": {
+        "texte": 92,
+        "code": 85,
+        "recherche": 79
+      },
+      "color": "#111827",
+      "image": "https://logo.clearbit.com/openai.com",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1714,7 +1719,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4D6BFE",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1878,7 +1883,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/blackforestlabs.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1930,7 +1935,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#181717",
       "image": "https://logo.clearbit.com/github.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1989,7 +1994,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0866FF",
       "image": "https://logo.clearbit.com/llama.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2042,7 +2047,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2215,7 +2220,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 50,
         "eu_hosted": false,
@@ -2277,7 +2282,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2341,7 +2346,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#615CED",
       "image": "https://logo.clearbit.com/qwen.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 50,
         "eu_hosted": false,
@@ -2392,7 +2397,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2455,7 +2460,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2675,7 +2680,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#20B8CD",
       "image": "https://logo.clearbit.com/perplexity.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 65,
         "eu_hosted": false,
@@ -2734,7 +2739,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/kimi.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 40,
         "eu_hosted": false,
@@ -2793,7 +2798,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 95,
         "eu_hosted": true,
@@ -2960,11 +2965,11 @@ export const FALLBACK_DATA = {
     },
     {
       "slug": "deepseek",
-      "name": "DeepSeek V3",
+      "name": "DeepSeek-V3.2",
       "vendor": "DeepSeek",
       "domain": "deepseek.com",
-      "tagline": "Le raisonneur open-source ultra-économique",
-      "description": "Modèle chinois open-source au rapport qualité/prix exceptionnel, fort en code et maths.",
+      "tagline": "Famille DeepSeek très économique pour code, texte et raisonnement",
+      "description": "Modèles DeepSeek récents au rapport qualité/prix fort, utiles en code, maths et usages API à volume.",
       "categorySlugs": [
         "texte",
         "code",
@@ -3007,7 +3012,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4D6BFE",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 35,
         "eu_hosted": false,
@@ -3059,7 +3064,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#09B6A2",
       "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3113,7 +3118,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/sora.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3166,7 +3171,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F55036",
       "image": "https://logo.clearbit.com/groq.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3217,7 +3222,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/magnific.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3271,7 +3276,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cartesia.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3326,7 +3331,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1A53E0",
       "image": "https://logo.clearbit.com/assemblyai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3804,7 +3809,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 95,
         "eu_hosted": true,
@@ -3862,7 +3867,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4F00",
       "image": "https://logo.clearbit.com/zapier.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3918,7 +3923,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF1744",
       "image": "https://logo.clearbit.com/photoroom.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3977,7 +3982,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#32A8E8",
       "image": "https://logo.clearbit.com/synthesia.io",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4031,7 +4036,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#13EF93",
       "image": "https://logo.clearbit.com/deepgram.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4089,7 +4094,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4458,7 +4463,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/vercel.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4516,7 +4521,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/heygen.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4570,7 +4575,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#15C39A",
       "image": "https://logo.clearbit.com/grammarly.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4624,7 +4629,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/gamma.app",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4676,7 +4681,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#EA4B71",
       "image": "https://logo.clearbit.com/n8n.io",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4733,7 +4738,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/julius.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4792,7 +4797,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#39594D",
       "image": "https://logo.clearbit.com/cohere.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4845,7 +4850,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA0F00",
       "image": "https://logo.clearbit.com/adobe.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4897,7 +4902,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B00",
       "image": "https://logo.clearbit.com/topazlabs.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4946,7 +4951,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/supermaven.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5003,7 +5008,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/workspace.google.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5052,7 +5057,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/consensus.app",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5104,7 +5109,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#5A45FF",
       "image": "https://logo.clearbit.com/hex.tech",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5513,7 +5518,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/recraft.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5565,7 +5570,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#01FF61",
       "image": "https://logo.clearbit.com/runwayml.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5620,7 +5625,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#76B900",
       "image": "https://logo.clearbit.com/nvidia.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5674,7 +5679,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F6FFF",
       "image": "https://logo.clearbit.com/together.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5726,7 +5731,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/lovable.dev",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5778,7 +5783,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/phind.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5829,7 +5834,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6038,7 +6043,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4F8B",
       "image": "https://logo.clearbit.com/ideogram.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6091,7 +6096,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1389FD",
       "image": "https://logo.clearbit.com/stackblitz.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6146,7 +6151,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1A1A1A",
       "image": "https://logo.clearbit.com/suno.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6204,7 +6209,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/notion.so",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6257,7 +6262,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#6D00CC",
       "image": "https://logo.clearbit.com/make.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6308,7 +6313,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/klingai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6359,7 +6364,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/01.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6416,7 +6421,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/reka.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6470,7 +6475,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5722",
       "image": "https://logo.clearbit.com/fireworks.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6518,7 +6523,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/reve.art",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6573,7 +6578,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5500",
       "image": "https://logo.clearbit.com/remove.bg",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6624,7 +6629,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/hailuoai.video",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6681,7 +6686,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#39EBA9",
       "image": "https://logo.clearbit.com/play.ht",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6734,7 +6739,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#272727",
       "image": "https://logo.clearbit.com/resemble.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6784,7 +6789,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/aider.chat",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6833,7 +6838,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#09B6A2",
       "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6885,7 +6890,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/granola.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6934,7 +6939,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/elicit.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6986,7 +6991,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lindy.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7452,7 +7457,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/leonardo.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7503,7 +7508,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lumalabs.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7560,7 +7565,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F0463A",
       "image": "https://logo.clearbit.com/fireflies.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7614,7 +7619,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0066CC",
       "image": "https://logo.clearbit.com/zhipuai.cn",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7664,7 +7669,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#6E40C9",
       "image": "https://logo.clearbit.com/tabnine.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7715,7 +7720,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cognition.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7765,7 +7770,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6E47",
       "image": "https://logo.clearbit.com/relevanceai.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7831,11 +7836,11 @@ export const FALLBACK_DATA = {
     },
     {
       "slug": "grok",
-      "name": "Grok",
+      "name": "Grok 4.3",
       "vendor": "xAI",
       "domain": "x.ai",
-      "tagline": "L'IA temps-réel branchée sur X",
-      "description": "Réponses temps-réel avec accès flux X, ton décalé, mode raisonnement.",
+      "tagline": "L'IA xAI temps-réel branchée sur X",
+      "description": "Famille Grok récente avec accès à l’actualité/X selon le produit utilisé, ton direct et capacités de raisonnement.",
       "categorySlugs": [
         "texte",
         "recherche"
@@ -7873,7 +7878,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/x.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7923,7 +7928,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7975,7 +7980,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F26207",
       "image": "https://logo.clearbit.com/replit.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8026,7 +8031,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F62FE",
       "image": "https://logo.clearbit.com/scribehow.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8080,7 +8085,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8135,7 +8140,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7CB7FF",
       "image": "https://logo.clearbit.com/ai21.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8185,7 +8190,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/ltx.studio",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8233,7 +8238,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/scite.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8445,7 +8450,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/udio.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8505,7 +8510,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#00C4CC",
       "image": "https://logo.clearbit.com/canva.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8558,7 +8563,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4500",
       "image": "https://logo.clearbit.com/krea.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8609,7 +8614,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/pixverse.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8663,7 +8668,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF7C00",
       "image": "https://logo.clearbit.com/d-id.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8712,7 +8717,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8760,7 +8765,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/continue.dev",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8812,7 +8817,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/mem.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8866,7 +8871,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7C3AED",
       "image": "https://logo.clearbit.com/you.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8920,7 +8925,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/otter.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8974,7 +8979,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3F51B5",
       "image": "https://logo.clearbit.com/rows.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9026,7 +9031,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tldraw.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9074,7 +9079,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/multion.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9330,7 +9335,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tome.app",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9379,7 +9384,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/genmo.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9430,7 +9435,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/softgen.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9482,7 +9487,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/spell.so",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9533,7 +9538,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/pika.art",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9689,7 +9694,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/decktopus.com",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9739,7 +9744,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/agentgpt.reworkd.ai",
-      "lastUpdated": "2026-05-03T19:19:01.898051+00:00",
+      "lastUpdated": "2026-05-03T20:44:44.482261+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -10263,7 +10268,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu te souviens quand ChatGPT t'oubliait à chaque conversation ? GPT-5.5 change cette règle. Et c'est juste l'un des trois sauts majeurs annoncés. On déballe.",
       "body": "## Trois choses sont devenues vraies cette semaine\n\nGPT-5.5 n'est pas qu'un meilleur modèle. C'est une bascule sur trois plans simultanés.\n\n## 1) La mémoire continue par défaut\n\nAvant : tu commençais chaque chat de zéro. Tu devais re-coller ton CV, tes objectifs, ton style. Pénible.\n\nMaintenant : le modèle se souvient de toi entre conversations. Tu lui dis 'écris comme moi' et il sait ce que ça veut dire. Tu lui dis 'comme la dernière fois' et il s'en souvient vraiment.\n\nImpact concret : ton assistant devient véritablement **personnel**. Plus tu l'utilises, plus il te ressemble.\n\n## 2) Le raisonnement par étapes est natif\n\nLes anciens modèles devinaient une réponse. GPT-5.5 **réfléchit** avant. Il décompose le problème, teste plusieurs approches en interne, vérifie son brouillon, puis répond.\n\nPour des questions simples, c'est instantané. Pour des problèmes complexes (un cas juridique, un calcul d'investissement, un debug), il prend 10-30 secondes et la qualité monte d'un cran.\n\n## 3) Multimodal d'origine\n\nLe modèle ne 'voit' plus l'image après l'avoir lue dans un module séparé. Il **comprend** texte, image, audio en même temps. Tu peux lui montrer un graphique, lui dicter une question vocalement, et il te répond avec une explication écrite + un schéma.\n\n## Ce que ça change pour toi\n\n- **Avant** : tu redonnais le contexte à chaque fois.\n- **Maintenant** : tu travailles avec un assistant qui te connaît.\n- **Avant** : tu acceptais des réponses approximatives sur les questions difficiles.\n- **Maintenant** : tu peux exiger un raisonnement et le voir.\n\n## Le piège à éviter\n\nLa mémoire continue est puissante mais elle stocke des infos sur toi. Vérifie tes paramètres de confidentialité. Choisis ce que le modèle a le droit de retenir.\n\n## Verdict\n\nCe n'est plus un outil pratique. C'est un **partenaire de travail** qui apprend ta manière de penser. Si tu utilisais déjà ChatGPT, ta journée vient de gagner 20-40% de productivité. Si tu hésitais, c'est le moment de t'y mettre.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10288,7 +10293,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "La promesse paraissait impossible : 'génère un visuel publicitaire avec ce slogan exact'. Pendant 3 ans, le texte était flou ou déformé, les mains à 6 doigts, la composition approximative. GPT Image 2.0 lit ton brief comme un humain et exécute. Démonstration en 4 percées concrètes.",
       "body": "## Les 4 avancées concrètes\n\n### Texte parfaitement lisible\nTu peux écrire 'Solde -30% du 1er au 7 mai' et le modèle l'imprime tel quel. Plus de typos générées, plus de texte qui se déforme à mi-image. Pour les agences et les marques, c'est un gain de temps colossal sur les campagnes promo, les affiches événementielles, les bannières web et les visuels réseaux sociaux.\n\n### Mains, mains, mains\nLes IA ont longtemps galéré avec les mains : 5 doigts, anatomie correcte, prise d'objet réaliste. GPT Image 2.0 les rend correctement dans 96% des cas. Tu peux générer des poses naturelles (boire un café, tenir un livre, signer un document) sans avoir à camoufler les mains.\n\n### Contrôle de pose précis\nTu peux donner une silhouette de référence ou un croquis simple. Le modèle respecte la posture exacte, l'orientation du regard, les proportions. Idéal pour la cohérence entre plusieurs visuels d'une même campagne ou les variations d'un même personnage.\n\n### Édition par phrase, sans masque\n'Garde la lumière, change la veste pour un manteau noir long, retire le badge sur le revers.' Plus besoin de découpage, de masques, de calques. La phrase suffit. Le modèle comprend ce qui doit être préservé et ce qui doit changer.\n\n## Ce que ça veut dire pour les créatifs\n\n- **Designers** : 70% du temps de retouche disparaît. Plus de Photoshop pour des corrections mineures. Plus de focus sur la direction artistique.\n- **Marketing** : production de A/B testing visuels en 5 minutes. Les itérations passent de la semaine à l'heure.\n- **Indépendants** : un freelance peut produire un kit complet (3 visuels, 2 formats, 4 variations) en une demi-journée pour le prix d'un simple café.\n\n## Le débat éthique qui revient\n\nPlus c'est précis, plus on peut tromper. Réflexe pro : ajouter des watermarks discrets, garder une trace de génération horodatée, refuser systématiquement la commande si elle imite trop fidèlement une personne réelle non consentante. Les outils sérieux affichent désormais une mention 'image générée par IA' incrustée par défaut.\n\n## Verdict\n\nC'est le premier modèle d'image qui respecte un brief complet sans bricolage. La barrière entre 'idée visuelle' et 'visuel final' vient de tomber d'un cran. La créativité humaine — le brief, le goût, la direction — reprend toute sa valeur. L'exécution n'est plus le goulot d'étranglement.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10312,7 +10317,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10336,7 +10341,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10360,7 +10365,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10384,7 +10389,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10409,7 +10414,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Anthropic vient de publier Claude 4.5 Sonnet. Sur le papier, c'est une mise à jour. Dans la pratique, c'est le modèle préféré des avocats, des analystes et des écrivains. Voici pourquoi.",
       "body": "## La signature Anthropic\n\nAnthropic a toujours visé une niche : la **qualité d'écriture** et le **raisonnement nuancé**. Pendant qu'OpenAI courait après le multimodal, Claude affinait sa plume.\n\n## Trois forces qui changent la donne\n\n### 1) Fenêtre 1 million de tokens\nTu peux coller un livre entier (300 pages) et discuter avec lui. Tu peux passer un dossier juridique de 80 documents et obtenir une synthèse honnête. La capacité d'absorption est juste **5×** supérieure à GPT-5.5.\n\n### 2) Artefacts version 2\nQuand tu demandes du code ou un mini-outil, Claude crée un 'artefact' interactif sur le côté. Tu peux itérer dessus en parlant, sans copier-coller. C'est devenu l'outil n°1 des designers UX et des product managers.\n\n### 3) Refus argumenté\nSur les sujets sensibles, Claude ne refuse pas brutalement : il explique son raisonnement. C'est inestimable pour les équipes juridiques et conformité qui doivent comprendre pourquoi un modèle dit non.\n\n## Quand choisir Claude plutôt que ChatGPT\n\n- **Audit juridique** : long doc, citations à conserver intactes.\n- **Écriture longue** : un essai de 5000 mots cohérent, pas haché.\n- **Code complexe** : refactoring multi-fichiers avec explication.\n- **Conversations sensibles** : RH, médical, conformité.\n\n## Le piège\n\nClaude est plus lent que les modèles concurrents (200-300ms par token). Pour un assistant temps réel grand public, GPT ou Gemini conviennent mieux. Pour un travail de fond, Claude gagne presque toujours.\n\n## Verdict\n\nClaude 4.5 Sonnet est le **outil de bureau** du travailleur intellectuel sérieux. Si tu écris pour vivre, si tu raisonnes pour décider, abonne-toi. C'est le meilleur 20€/mois que tu dépenseras cette année.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10434,7 +10439,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Pendant deux ans, Google a couru après OpenAI. Avec Gemini 3 Ultra, le rapport de force change : pour la première fois, Google offre un modèle plus complet que ses concurrents, et largement gratuit.",
       "body": "## Le multimodal vraiment natif\n\nGemini 3 ne 'lit' pas une vidéo après l'avoir convertie en texte. Il la **regarde** réellement, frame par frame. Tu peux uploader 1 heure de vidéo et lui demander 'à quel moment précis le client a hésité ?'. Il pointe la timestamp à la seconde près.\n\n## Quatre cas d'usage qui surprennent\n\n### 1) Analyser des screenshots de tableaux complexes\nFini la galère d'extraction OCR : tu uploads, tu poses ta question. Précision proche de 100%.\n\n### 2) Sous-titrer un podcast en 8 langues\nUpload audio + 'sous-titre en français, anglais, espagnol, allemand, italien, japonais, coréen, mandarin'. Tu reçois 8 fichiers prêts à l'emploi.\n\n### 3) Coder une app à partir d'un Figma\nUpload du PNG du design, 'code-moi cette page en React Native'. Le résultat est étonnamment proche.\n\n### 4) Générer un script vidéo à partir d'une conférence\nUpload de la vidéo, 'écris un fil Twitter et un article Medium à partir de cette présentation'. Cohérence parfaite, citations exactes.\n\n## Le tarif imbattable\n\nLa plupart de ces usages sont **gratuits** dans l'app Gemini. Pour les développeurs, l'API est environ 60% moins chère que GPT à qualité équivalente. Google joue clairement la carte du volume.\n\n## La limite\n\nGemini reste légèrement moins fort que Claude sur l'écriture longue et le raisonnement profond. Pour un usage 'écriveur', Claude gagne. Pour un usage 'multimodal' (vidéo, image, audio simultanés), Gemini est imbattable.\n\n## Verdict\n\nSi tu travailles avec du contenu visuel (vidéo, image, screenshot, PDF) tous les jours, Gemini 3 Ultra est ton nouveau couteau suisse. Et le tarif gratuit fait de lui un excellent point d'entrée si tu débutes en IA.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10862,7 +10867,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu te souviens quand ChatGPT t'oubliait à chaque conversation ? GPT-5.5 change cette règle. Et c'est juste l'un des trois sauts majeurs annoncés. On déballe.",
       "body": "## Trois choses sont devenues vraies cette semaine\n\nGPT-5.5 n'est pas qu'un meilleur modèle. C'est une bascule sur trois plans simultanés.\n\n## 1) La mémoire continue par défaut\n\nAvant : tu commençais chaque chat de zéro. Tu devais re-coller ton CV, tes objectifs, ton style. Pénible.\n\nMaintenant : le modèle se souvient de toi entre conversations. Tu lui dis 'écris comme moi' et il sait ce que ça veut dire. Tu lui dis 'comme la dernière fois' et il s'en souvient vraiment.\n\nImpact concret : ton assistant devient véritablement **personnel**. Plus tu l'utilises, plus il te ressemble.\n\n## 2) Le raisonnement par étapes est natif\n\nLes anciens modèles devinaient une réponse. GPT-5.5 **réfléchit** avant. Il décompose le problème, teste plusieurs approches en interne, vérifie son brouillon, puis répond.\n\nPour des questions simples, c'est instantané. Pour des problèmes complexes (un cas juridique, un calcul d'investissement, un debug), il prend 10-30 secondes et la qualité monte d'un cran.\n\n## 3) Multimodal d'origine\n\nLe modèle ne 'voit' plus l'image après l'avoir lue dans un module séparé. Il **comprend** texte, image, audio en même temps. Tu peux lui montrer un graphique, lui dicter une question vocalement, et il te répond avec une explication écrite + un schéma.\n\n## Ce que ça change pour toi\n\n- **Avant** : tu redonnais le contexte à chaque fois.\n- **Maintenant** : tu travailles avec un assistant qui te connaît.\n- **Avant** : tu acceptais des réponses approximatives sur les questions difficiles.\n- **Maintenant** : tu peux exiger un raisonnement et le voir.\n\n## Le piège à éviter\n\nLa mémoire continue est puissante mais elle stocke des infos sur toi. Vérifie tes paramètres de confidentialité. Choisis ce que le modèle a le droit de retenir.\n\n## Verdict\n\nCe n'est plus un outil pratique. C'est un **partenaire de travail** qui apprend ta manière de penser. Si tu utilisais déjà ChatGPT, ta journée vient de gagner 20-40% de productivité. Si tu hésitais, c'est le moment de t'y mettre.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10887,7 +10892,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "La promesse paraissait impossible : 'génère un visuel publicitaire avec ce slogan exact'. Pendant 3 ans, le texte était flou ou déformé, les mains à 6 doigts, la composition approximative. GPT Image 2.0 lit ton brief comme un humain et exécute. Démonstration en 4 percées concrètes.",
       "body": "## Les 4 avancées concrètes\n\n### Texte parfaitement lisible\nTu peux écrire 'Solde -30% du 1er au 7 mai' et le modèle l'imprime tel quel. Plus de typos générées, plus de texte qui se déforme à mi-image. Pour les agences et les marques, c'est un gain de temps colossal sur les campagnes promo, les affiches événementielles, les bannières web et les visuels réseaux sociaux.\n\n### Mains, mains, mains\nLes IA ont longtemps galéré avec les mains : 5 doigts, anatomie correcte, prise d'objet réaliste. GPT Image 2.0 les rend correctement dans 96% des cas. Tu peux générer des poses naturelles (boire un café, tenir un livre, signer un document) sans avoir à camoufler les mains.\n\n### Contrôle de pose précis\nTu peux donner une silhouette de référence ou un croquis simple. Le modèle respecte la posture exacte, l'orientation du regard, les proportions. Idéal pour la cohérence entre plusieurs visuels d'une même campagne ou les variations d'un même personnage.\n\n### Édition par phrase, sans masque\n'Garde la lumière, change la veste pour un manteau noir long, retire le badge sur le revers.' Plus besoin de découpage, de masques, de calques. La phrase suffit. Le modèle comprend ce qui doit être préservé et ce qui doit changer.\n\n## Ce que ça veut dire pour les créatifs\n\n- **Designers** : 70% du temps de retouche disparaît. Plus de Photoshop pour des corrections mineures. Plus de focus sur la direction artistique.\n- **Marketing** : production de A/B testing visuels en 5 minutes. Les itérations passent de la semaine à l'heure.\n- **Indépendants** : un freelance peut produire un kit complet (3 visuels, 2 formats, 4 variations) en une demi-journée pour le prix d'un simple café.\n\n## Le débat éthique qui revient\n\nPlus c'est précis, plus on peut tromper. Réflexe pro : ajouter des watermarks discrets, garder une trace de génération horodatée, refuser systématiquement la commande si elle imite trop fidèlement une personne réelle non consentante. Les outils sérieux affichent désormais une mention 'image générée par IA' incrustée par défaut.\n\n## Verdict\n\nC'est le premier modèle d'image qui respecte un brief complet sans bricolage. La barrière entre 'idée visuelle' et 'visuel final' vient de tomber d'un cran. La créativité humaine — le brief, le goût, la direction — reprend toute sa valeur. L'exécution n'est plus le goulot d'étranglement.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10911,7 +10916,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10935,7 +10940,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10959,7 +10964,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10983,7 +10988,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11008,7 +11013,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Anthropic vient de publier Claude 4.5 Sonnet. Sur le papier, c'est une mise à jour. Dans la pratique, c'est le modèle préféré des avocats, des analystes et des écrivains. Voici pourquoi.",
       "body": "## La signature Anthropic\n\nAnthropic a toujours visé une niche : la **qualité d'écriture** et le **raisonnement nuancé**. Pendant qu'OpenAI courait après le multimodal, Claude affinait sa plume.\n\n## Trois forces qui changent la donne\n\n### 1) Fenêtre 1 million de tokens\nTu peux coller un livre entier (300 pages) et discuter avec lui. Tu peux passer un dossier juridique de 80 documents et obtenir une synthèse honnête. La capacité d'absorption est juste **5×** supérieure à GPT-5.5.\n\n### 2) Artefacts version 2\nQuand tu demandes du code ou un mini-outil, Claude crée un 'artefact' interactif sur le côté. Tu peux itérer dessus en parlant, sans copier-coller. C'est devenu l'outil n°1 des designers UX et des product managers.\n\n### 3) Refus argumenté\nSur les sujets sensibles, Claude ne refuse pas brutalement : il explique son raisonnement. C'est inestimable pour les équipes juridiques et conformité qui doivent comprendre pourquoi un modèle dit non.\n\n## Quand choisir Claude plutôt que ChatGPT\n\n- **Audit juridique** : long doc, citations à conserver intactes.\n- **Écriture longue** : un essai de 5000 mots cohérent, pas haché.\n- **Code complexe** : refactoring multi-fichiers avec explication.\n- **Conversations sensibles** : RH, médical, conformité.\n\n## Le piège\n\nClaude est plus lent que les modèles concurrents (200-300ms par token). Pour un assistant temps réel grand public, GPT ou Gemini conviennent mieux. Pour un travail de fond, Claude gagne presque toujours.\n\n## Verdict\n\nClaude 4.5 Sonnet est le **outil de bureau** du travailleur intellectuel sérieux. Si tu écris pour vivre, si tu raisonnes pour décider, abonne-toi. C'est le meilleur 20€/mois que tu dépenseras cette année.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11033,7 +11038,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Pendant deux ans, Google a couru après OpenAI. Avec Gemini 3 Ultra, le rapport de force change : pour la première fois, Google offre un modèle plus complet que ses concurrents, et largement gratuit.",
       "body": "## Le multimodal vraiment natif\n\nGemini 3 ne 'lit' pas une vidéo après l'avoir convertie en texte. Il la **regarde** réellement, frame par frame. Tu peux uploader 1 heure de vidéo et lui demander 'à quel moment précis le client a hésité ?'. Il pointe la timestamp à la seconde près.\n\n## Quatre cas d'usage qui surprennent\n\n### 1) Analyser des screenshots de tableaux complexes\nFini la galère d'extraction OCR : tu uploads, tu poses ta question. Précision proche de 100%.\n\n### 2) Sous-titrer un podcast en 8 langues\nUpload audio + 'sous-titre en français, anglais, espagnol, allemand, italien, japonais, coréen, mandarin'. Tu reçois 8 fichiers prêts à l'emploi.\n\n### 3) Coder une app à partir d'un Figma\nUpload du PNG du design, 'code-moi cette page en React Native'. Le résultat est étonnamment proche.\n\n### 4) Générer un script vidéo à partir d'une conférence\nUpload de la vidéo, 'écris un fil Twitter et un article Medium à partir de cette présentation'. Cohérence parfaite, citations exactes.\n\n## Le tarif imbattable\n\nLa plupart de ces usages sont **gratuits** dans l'app Gemini. Pour les développeurs, l'API est environ 60% moins chère que GPT à qualité équivalente. Google joue clairement la carte du volume.\n\n## La limite\n\nGemini reste légèrement moins fort que Claude sur l'écriture longue et le raisonnement profond. Pour un usage 'écriveur', Claude gagne. Pour un usage 'multimodal' (vidéo, image, audio simultanés), Gemini est imbattable.\n\n## Verdict\n\nSi tu travailles avec du contenu visuel (vidéo, image, screenshot, PDF) tous les jours, Gemini 3 Ultra est ton nouveau couteau suisse. Et le tarif gratuit fait de lui un excellent point d'entrée si tu débutes en IA.",
-      "created_at": "2026-05-03T19:19:01.898051+00:00",
+      "created_at": "2026-05-03T20:44:44.482261+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -47327,7 +47332,7 @@ export const FALLBACK_DATA = {
       "emoji": "📏",
       "short": "La quantité de texte que l'IA peut « lire » d'un coup.",
       "long": "Mesuré en tokens. Un contexte 200k = un livre entier d'un coup.",
-      "example": "Claude Sonnet 4 a 200k tokens, Kimi K2 a 2M tokens.",
+      "example": "Claude Sonnet 4.6 a un grand contexte, Kimi K2 est utile pour des tâches longues.",
       "data_tier": "content_ready",
       "import_recommendation": "import_to_public_app"
     },
@@ -47363,7 +47368,7 @@ export const FALLBACK_DATA = {
       "emoji": "🎨",
       "short": "Une IA qui comprend texte + image + audio + vidéo.",
       "long": "Au lieu d'avoir 4 IA distinctes, tu en as une seule qui mélange tout.",
-      "example": "Gemini 2.5 Pro analyse un PDF avec des graphiques + écoute un audio.",
+      "example": "Gemini 3.1 Pro Preview analyse des documents multimodaux et du contexte long.",
       "data_tier": "content_ready",
       "import_recommendation": "import_to_public_app"
     },
@@ -47497,7 +47502,7 @@ export const FALLBACK_DATA = {
       "term": "Modèle de fondation",
       "emoji": "🏗️",
       "short": "Un grand modèle pré-entraîné qui sert de base à plein d'applications.",
-      "long": "GPT-5.5, Claude Sonnet 4, Gemini 2.5 sont des modèles de fondation. Coûtent des centaines de millions à entraîner.",
+      "long": "GPT-5.5, Claude Sonnet 4.6, Gemini 3.1 et Llama 4 sont des modèles de fondation. Les grands modèles coûtent très cher à entraîner.",
       "example": "Les startups construisent leurs apps sur des modèles de fondation.",
       "data_tier": "content_ready",
       "import_recommendation": "import_to_public_app"
@@ -47664,7 +47669,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -47687,7 +47692,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/openai.com",
           "domain": "openai.com",
           "color": "#10A37F",
-          "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial"
+          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
         }
       ]
     },
@@ -47742,11 +47747,11 @@ export const FALLBACK_DATA = {
         "gemini-25",
         "mistral"
       ],
-      "tip": "Claude (200k contexte) ou Gemini 2.5 Pro (1M) avalent un livre entier d'un coup.",
+      "tip": "Claude, Gemini et Kimi proposent des variantes à grand contexte utiles pour analyser de longs documents.",
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -47755,12 +47760,12 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "gemini-25",
-          "name": "Gemini 2.5 Pro",
+          "name": "Gemini 3.1 Pro Preview",
           "vendor": "Google",
           "image": "https://logo.clearbit.com/gemini.google.com",
           "domain": "gemini.google.com",
           "color": "#4285F4",
-          "tagline": "Le multimodal Google haut de gamme"
+          "tagline": "Le multimodal Google haut de gamme en preview"
         },
         {
           "slug": "mistral",
@@ -47787,7 +47792,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -47801,7 +47806,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/openai.com",
           "domain": "openai.com",
           "color": "#10A37F",
-          "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial"
+          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
         },
         {
           "slug": "elevenlabs",
@@ -48042,7 +48047,7 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48083,7 +48088,7 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48115,7 +48120,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48164,7 +48169,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48229,7 +48234,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48294,7 +48299,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48367,7 +48372,7 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48412,7 +48417,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
@@ -48435,7 +48440,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/openai.com",
           "domain": "openai.com",
           "color": "#10A37F",
-          "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial"
+          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
         }
       ]
     },
@@ -48459,7 +48464,7 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "claude",
-          "name": "Claude Sonnet 4",
+          "name": "Claude Sonnet 4.6",
           "vendor": "Anthropic",
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",

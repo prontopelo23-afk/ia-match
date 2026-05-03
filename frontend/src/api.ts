@@ -290,14 +290,14 @@ const GENERAL_BENCHMARK_NAMES: Record<string, string> = {
 };
 const GENERAL_BENCHMARK_MODELS: Record<string, string> = {
   chatgpt: "GPT-5.5",
-  claude: "Claude Sonnet 4",
-  "gemini-25": "Gemini 2.5 Pro",
-  "deepseek-r1": "DeepSeek R1",
-  llama: "Llama 4",
-  qwen: "Qwen 3",
-  mistral: "Le Chat / modèles Mistral",
-  kimi: "Kimi K2",
-  grok: "Grok",
+  claude: "Claude Sonnet 4.6",
+  "gemini-25": "Gemini 3.1 Pro Preview",
+  "deepseek-r1": "DeepSeek-V3.2 / R1",
+  llama: "Llama 4 Scout/Maverick",
+  qwen: "Qwen3",
+  mistral: "Mistral Large 3 / Le Chat",
+  kimi: "Kimi K2 Thinking",
+  grok: "Grok 4.3",
   perplexity: "Perplexity AI",
 };
 

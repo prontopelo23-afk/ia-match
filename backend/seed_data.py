@@ -21,7 +21,7 @@ def _logo(domain: str) -> str:
 TOOLS = [
     # Conversational / Text generalists
     {"slug": "chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "domain": "openai.com",
-     "tagline": "Powered by GPT-5.5 — l'assistant IA n°1 mondial",
+     "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5",
      "description": "Assistant conversationnel OpenAI propulsé par GPT-5.5. Rédaction, brainstorming, code, analyse de documents, vision, navigation web et GPTs personnalisés.",
      "categorySlugs": ["texte", "productivite", "recherche", "code"], "speedMs": 180, "accuracyPct": 95,
      "costPerPrompt": 0.002, "monthlyPrice": 20.0, "freeTier": True,
@@ -31,7 +31,7 @@ TOOLS = [
      "keywords": ["cv", "resume", "résumé", "lettre", "motivation", "email", "écrire", "rédiger", "brainstorm", "gpt5", "gpt-5"],
      "score": 96, "color": "#10A37F"},
 
-    {"slug": "claude", "name": "Claude Sonnet 4", "vendor": "Anthropic", "domain": "claude.ai",
+    {"slug": "claude", "name": "Claude Sonnet 4.6", "vendor": "Anthropic", "domain": "claude.ai",
      "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)",
      "description": "Excellent pour l'analyse de documents longs, le raisonnement nuancé et l'écriture soignée.",
      "categorySlugs": ["texte", "recherche", "productivite"], "speedMs": 220, "accuracyPct": 95,
@@ -64,9 +64,9 @@ TOOLS = [
      "keywords": ["français", "europe", "souveraineté", "open", "mistral", "le chat"],
      "score": 87, "color": "#FA520F"},
 
-    {"slug": "grok", "name": "Grok", "vendor": "xAI", "domain": "x.ai",
-     "tagline": "L'IA temps-réel branchée sur X",
-     "description": "Réponses temps-réel avec accès flux X, ton décalé, mode raisonnement.",
+    {"slug": "grok", "name": "Grok 4.3", "vendor": "xAI", "domain": "x.ai",
+     "tagline": "L'IA xAI temps-réel branchée sur X",
+     "description": "Famille Grok récente avec accès à l’actualité/X selon le produit utilisé, ton direct et capacités de raisonnement.",
      "categorySlugs": ["texte", "recherche"], "speedMs": 200, "accuracyPct": 86,
      "costPerPrompt": 0.002, "monthlyPrice": 16.0, "freeTier": True,
      "languages": ["en", "fr", "es"],
@@ -75,10 +75,9 @@ TOOLS = [
      "keywords": ["temps réel", "twitter", "x", "actualité", "veille"],
      "score": 82, "color": "#000000"},
 
-    {"slug": "deepseek", "name": "DeepSeek V3", "vendor": "DeepSeek", "domain": "deepseek.com",
-     "tagline": "Le LLM open-weight chinois ultra abordable",
-     "tagline": "Le raisonneur open-source ultra-économique",
-     "description": "Modèle chinois open-source au rapport qualité/prix exceptionnel, fort en code et maths.",
+    {"slug": "deepseek", "name": "DeepSeek-V3.2", "vendor": "DeepSeek", "domain": "deepseek.com",
+     "tagline": "Famille DeepSeek très économique pour code, texte et raisonnement",
+     "description": "Modèles DeepSeek récents au rapport qualité/prix fort, utiles en code, maths et usages API à volume.",
      "categorySlugs": ["texte", "code", "data"], "speedMs": 240, "accuracyPct": 89,
      "costPerPrompt": 0.0002, "monthlyPrice": 0.0, "freeTier": True,
      "languages": ["fr", "en", "zh"],

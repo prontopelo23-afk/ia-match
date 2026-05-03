@@ -45,7 +45,7 @@ ENDPOINTS = {
     "FAQ": "/api/faq",
     "USE_CASES": "/api/use-cases",
     "PERSONAS": "/api/personas",
-    # /api/quiz currently exposes a coroutine in local TestClient; keep the existing static quiz pack if needed.
+    "QUIZ": "/api/quiz",
 }
 
 
