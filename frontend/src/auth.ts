@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const API = process.env.EXPO_PUBLIC_BACKEND_URL || "";
 const TOKEN_KEY = "ia_match_auth_token_v1";
 const USER_KEY = "ia_match_auth_user_v1";
+const DEMO_AUTH = !API;
 
 export type AuthUser = {
   id: string;
@@ -67,6 +68,14 @@ export const auth = {
     return v ? JSON.parse(v) : null;
   },
   async register(email: string, password: string, name: string, acceptTerms: boolean): Promise<AuthUser> {
+    if (DEMO_AUTH) {
+      if (!acceptTerms) throw new Error("Tu dois accepter les CGU et la Politique de confidentialité");
+      if (!email.trim() || password.length < 6) throw new Error("Email et mot de passe requis pour la démo bêta");
+      const user = { id: `demo-${Date.now()}`, email: email.trim(), name: name.trim() || email.split("@")[0], is_premium: true };
+      await AsyncStorage.setItem(TOKEN_KEY, `demo-token-${Date.now()}`);
+      await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+      return user;
+    }
     const r = await postJson("/auth/register", {
       email,
       password,
@@ -78,6 +87,13 @@ export const auth = {
     return r.user;
   },
   async login(email: string, password: string): Promise<AuthUser> {
+    if (DEMO_AUTH) {
+      if (!email.trim() || !password.trim()) throw new Error("Email et mot de passe requis pour la démo bêta");
+      const user = { id: "demo-beta", email: email.trim(), name: email.split("@")[0] || "Beta testeur", is_premium: true };
+      await AsyncStorage.setItem(TOKEN_KEY, `demo-token-${Date.now()}`);
+      await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+      return user;
+    }
     const r = await postJson("/auth/login", { email, password });
     await AsyncStorage.setItem(TOKEN_KEY, r.token);
     await AsyncStorage.setItem(USER_KEY, JSON.stringify(r.user));
@@ -88,6 +104,12 @@ export const auth = {
     await AsyncStorage.removeItem(USER_KEY);
   },
   async updateProfile(name: string): Promise<AuthUser> {
+    if (DEMO_AUTH) {
+      const current = await auth.getUser();
+      const user = { id: current?.id || "demo-beta", email: current?.email || "beta@ia-match.local", name, is_premium: true };
+      await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+      return user;
+    }
     const token = await AsyncStorage.getItem(TOKEN_KEY);
     if (!token) throw new Error("Pas connecté");
     const u = await patchJson("/auth/me", { name }, token);

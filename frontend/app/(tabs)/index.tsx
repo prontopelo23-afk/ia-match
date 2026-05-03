@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness } from "lucide-react-native";
+import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness, GitCompare, GraduationCap, Network } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { useI18n } from "../../src/i18n";
@@ -60,6 +60,10 @@ export default function Accueil() {
           <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title={t("home.quickAcademyTitle")} text={t("home.quickAcademy")} onPress={() => router.push("/(tabs)/academy")} />
           <QuickCard icon={<Sparkles size={20} color={colors.coral} />} title={t("home.quickRankingsTitle")} text={t("home.quickRankings")} onPress={() => router.push("/(tabs)/benchmarks")} />
           <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title={t("home.quickPromptTitle")} text={t("home.quickPrompt")} onPress={() => router.push("/(tabs)/builder")} />
+          <QuickCard icon={<Newspaper size={20} color={colors.coral} />} title="Actu" text="Radar IA, sources et conseils actionnables." onPress={() => router.push("/(tabs)/actue")} />
+          <QuickCard icon={<GitCompare size={20} color={colors.coral} />} title="Comparer" text="Comparer jusqu’à 4 outils avec favoris et notes." onPress={() => router.push("/(tabs)/compare")} />
+          <QuickCard icon={<GraduationCap size={20} color={colors.coral} />} title="Apprendre" text="Glossaire, FAQ, cas d’usage et quiz gratuit." onPress={() => router.push("/learn")} />
+          <QuickCard icon={<Network size={20} color={colors.coral} />} title="Écosystème" text="Stacks IA, ressources et workflows concrets." onPress={() => router.push("/ecosystem")} />
           <QuickCard icon={<Mail size={20} color={colors.coral} />} title={t("home.quickNewsletterTitle")} text={t("home.quickNewsletter")} onPress={() => router.push("/newsletter")} />
           <QuickCard icon={<BriefcaseBusiness size={20} color={colors.coral} />} title={t("home.quickBusinessTitle")} text={t("home.quickBusiness")} onPress={() => router.push("/business")} />
         </View>

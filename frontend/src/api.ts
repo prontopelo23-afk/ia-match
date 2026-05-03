@@ -369,8 +369,20 @@ export const api = {
   benchmarks: (sort: string = "score", scope: "general" | "all" = "general") => withFallback(get<{ rows: BenchmarkRow[] }>(`/benchmarks?sort=${sort}&scope=${scope}`), () => fallbackBenchmarks(sort, scope)),
   match: (need: string, priority: string, free_only: boolean, language: string = "fr") =>
     withFallback(post<MatchResult[]>(`/match`, { need, priority, free_only, language }), () => fallbackMatch(need, priority, free_only)),
-  rate: (tool_slug: string, score: number, note?: string) =>
-    post<{ id: string }>(`/ratings`, { tool_slug, score, note }),
+  rate: async (tool_slug: string, score: number, note?: string) => {
+    try {
+      return await post<{ id: string }>(`/ratings`, { tool_slug, score, note });
+    } catch {
+      const id = `local-rating-${tool_slug}-${Date.now()}`;
+      try {
+        const raw = await AsyncStorage.getItem("ia_match_local_ratings_v1");
+        const list = raw ? JSON.parse(raw) : [];
+        list.unshift({ id, tool_slug, score, note, createdAt: Date.now() });
+        await AsyncStorage.setItem("ia_match_local_ratings_v1", JSON.stringify(list.slice(0, 200)));
+      } catch {}
+      return { id };
+    }
+  },
   ratings: (slug: string) => withFallback(get<RatingSummary>(`/ratings/${slug}`), () => ({ tool_slug: slug, average: 0, count: 0 })),
   allRatings: () => withFallback(get<RatingSummary[]>(`/ratings`), () => []),
   listNews: () => withFallback(get<NewsItem[]>(`/news`), () => asMutableArray<NewsItem>(FALLBACK_DATA.NEWS)),

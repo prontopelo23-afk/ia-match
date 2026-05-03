@@ -108,12 +108,14 @@ const PremiumContext = createContext<PremiumCtx>({ isPremium: false, setPremium:
 // Avant production payante, remplacer par un statut validé côté backend
 // (Stripe/RevenueCat + webhooks + endpoint /me), pas par AsyncStorage seul.
 const PKEY = "ia_match_premium_v1";
+const BETA_UNLOCK_DEFAULT = process.env.EXPO_PUBLIC_BETA_UNLOCK !== "0";
 
 export function PremiumProvider({ children }: { children: React.ReactNode }) {
-  const [isPremium, setState] = useState(false);
+  const [isPremium, setState] = useState(BETA_UNLOCK_DEFAULT);
   useEffect(() => {
     AsyncStorage.getItem(PKEY).then((v) => {
       if (v === "1") setState(true);
+      if (v === "0") setState(false);
     });
   }, []);
   const setPremium = useCallback((v: boolean) => {
