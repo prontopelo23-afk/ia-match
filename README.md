@@ -10,13 +10,31 @@ IA Match est une application mobile Expo + API FastAPI qui aide un utilisateur f
 
 ## Déploiement bêta publique
 
-Pour obtenir un lien public testable même quand le Mac est éteint, utiliser le guide :
+Deux modes existent selon le budget :
+
+### Mode 100% gratuit
+
+Pour obtenir un lien public sans serveur payant, sans MongoDB et sans carte bancaire :
+
+```bash
+FREE_DEPLOY.md
+```
+
+Ce mode publie le frontend statique avec Vercel Free. L’app utilise les données embarquées et ses fallbacks locaux. Configuration :
+
+```bash
+vercel.json
+```
+
+### Mode complet avec API
+
+Pour une bêta plus complète avec backend FastAPI + base distante :
 
 ```bash
 BETA_DEPLOY.md
 ```
 
-Le projet contient aussi un blueprint Render prêt à adapter :
+Blueprint Render :
 
 ```bash
 render.yaml
