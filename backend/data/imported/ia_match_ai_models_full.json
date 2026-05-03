@@ -1,0 +1,6051 @@
+{
+  "generated_at": "2026-05-02",
+  "version": "v1.0",
+  "project": "IA Match",
+  "methodology": {
+    "id": "ia_match_scoring_v1",
+    "generated_at": "2026-05-02",
+    "version": "v1.0",
+    "language": "fr",
+    "purpose": "Base JSON exploitable pour IA Match afin de recommander les modèles, agents et assistants IA selon le besoin utilisateur.",
+    "scope": {
+      "included": [
+        "modèles publics majeurs",
+        "modèles open-weight significatifs",
+        "modèles image/vidéo/audio connus du grand public",
+        "agents généralistes",
+        "agents de code",
+        "app builders / vibe coding"
+      ],
+      "excluded_or_limited": [
+        "modèles expérimentaux non publics",
+        "forks mineurs sans adoption significative",
+        "milliers de checkpoints Hugging Face peu utilisés",
+        "scores non vérifiés ou marketing sans source"
+      ],
+      "warning": "La base doit être actualisée souvent : les classements IA changent en quelques semaines."
+    },
+    "ia_match_score": {
+      "scale": "0-100",
+      "type": "score composite éditorial + benchmarks",
+      "weights": {
+        "benchmark_performance": 0.35,
+        "real_world_usefulness": 0.25,
+        "accessibility_and_availability": 0.15,
+        "price_performance": 0.1,
+        "ecosystem_and_integrations": 0.1,
+        "safety_and_reliability": 0.05
+      },
+      "confidence_levels": {
+        "high": "Plusieurs sources solides ou official + benchmark.",
+        "medium": "Source officielle mais peu de benchmarks comparables, ou benchmark tiers crédible.",
+        "low": "Outil émergent, données partielles, ou comparaison principalement qualitative."
+      }
+    },
+    "data_rules": [
+      "Ne jamais présenter ia_match_score comme un benchmark officiel.",
+      "Afficher les métriques officielles dans benchmark_metrics quand elles existent.",
+      "Afficher source_ids pour chaque entrée.",
+      "Quand une métrique n’est pas comparable entre modèles, garder benchmark_family et source séparés.",
+      "Utiliser last_verified_at pour forcer une mise à jour périodique."
+    ]
+  },
+  "sources": [
+    {
+      "id": "openai_gpt_55_intro",
+      "title": "Introducing GPT-5.5",
+      "publisher": "OpenAI",
+      "type": "official",
+      "url": "https://openai.com/index/introducing-gpt-5-5/",
+      "used_for": [
+        "GPT-5.5 capabilities",
+        "Terminal-Bench 2.0",
+        "SWE-Bench Pro"
+      ]
+    },
+    {
+      "id": "openai_gpt_55_system_card",
+      "title": "GPT-5.5 System Card",
+      "publisher": "OpenAI",
+      "type": "official",
+      "url": "https://openai.com/index/gpt-5-5-system-card/",
+      "used_for": [
+        "GPT-5.5 intended use",
+        "documents",
+        "spreadsheets",
+        "agentic work"
+      ]
+    },
+    {
+      "id": "anthropic_opus_47_news",
+      "title": "Introducing Claude Opus 4.7",
+      "publisher": "Anthropic",
+      "type": "official",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "used_for": [
+        "Claude Opus 4.7 availability",
+        "pricing"
+      ]
+    },
+    {
+      "id": "anthropic_opus_47_docs",
+      "title": "What's new in Claude Opus 4.7",
+      "publisher": "Anthropic Docs",
+      "type": "official",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7",
+      "used_for": [
+        "1M context window",
+        "long context"
+      ]
+    },
+    {
+      "id": "anthropic_sonnet_46",
+      "title": "Claude Sonnet 4.6",
+      "publisher": "Anthropic",
+      "type": "official",
+      "url": "https://www.anthropic.com/claude/sonnet",
+      "used_for": [
+        "Claude Sonnet 4.6 pricing"
+      ]
+    },
+    {
+      "id": "google_gemini_31_blog",
+      "title": "Gemini 3.1 Pro: A smarter model for your most complex tasks",
+      "publisher": "Google",
+      "type": "official",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/",
+      "used_for": [
+        "Gemini 3.1 Pro release",
+        "access channels"
+      ]
+    },
+    {
+      "id": "google_vertex_gemini_31",
+      "title": "Gemini 3.1 Pro on Vertex AI",
+      "publisher": "Google Cloud",
+      "type": "official",
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-1-pro",
+      "used_for": [
+        "Gemini 3.1 Pro 1M context",
+        "multimodal inputs",
+        "PDF/code repository analysis"
+      ]
+    },
+    {
+      "id": "mistral_large_3_docs",
+      "title": "Mistral Large 3",
+      "publisher": "Mistral AI Docs",
+      "type": "official",
+      "url": "https://docs.mistral.ai/models/model-cards/mistral-large-3-25-12",
+      "used_for": [
+        "Mistral Large 3 specs",
+        "675B total parameters",
+        "41B active parameters",
+        "256k context",
+        "pricing"
+      ]
+    },
+    {
+      "id": "mistral_3_news",
+      "title": "Introducing Mistral 3",
+      "publisher": "Mistral AI",
+      "type": "official",
+      "url": "https://mistral.ai/news/mistral-3",
+      "used_for": [
+        "Mistral Large 3 open-weight positioning"
+      ]
+    },
+    {
+      "id": "swe_bench",
+      "title": "SWE-bench Leaderboards",
+      "publisher": "SWE-bench",
+      "type": "benchmark",
+      "url": "https://www.swebench.com/",
+      "used_for": [
+        "coding benchmark methodology",
+        "Verified subset",
+        "coding rankings"
+      ]
+    },
+    {
+      "id": "terminal_bench_20",
+      "title": "terminal-bench@2.0 Leaderboard",
+      "publisher": "Terminal-Bench",
+      "type": "benchmark",
+      "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+      "used_for": [
+        "terminal/coding agent benchmark"
+      ]
+    },
+    {
+      "id": "vellum_llm_leaderboard",
+      "title": "LLM Leaderboard 2026",
+      "publisher": "Vellum",
+      "type": "benchmark_aggregator",
+      "url": "https://www.vellum.ai/llm-leaderboard",
+      "used_for": [
+        "cross-model comparison",
+        "reasoning/coding/math rankings"
+      ]
+    },
+    {
+      "id": "lmarena_leaderboard",
+      "title": "LMArena Leaderboard",
+      "publisher": "LMArena / Hugging Face",
+      "type": "human_preference_benchmark",
+      "url": "https://huggingface.co/spaces/lmarena-ai/arena-leaderboard",
+      "used_for": [
+        "human preference model comparison"
+      ]
+    },
+    {
+      "id": "artificial_analysis_image",
+      "title": "Text to Image Leaderboard",
+      "publisher": "Artificial Analysis",
+      "type": "human_preference_benchmark",
+      "url": "https://artificialanalysis.ai/image/leaderboard/text-to-image",
+      "used_for": [
+        "image model Elo rankings"
+      ]
+    },
+    {
+      "id": "artificial_analysis_video",
+      "title": "Text to Video Leaderboard",
+      "publisher": "Artificial Analysis",
+      "type": "human_preference_benchmark",
+      "url": "https://artificialanalysis.ai/video/leaderboard/text-to-video",
+      "used_for": [
+        "video model Elo rankings"
+      ]
+    },
+    {
+      "id": "arena_text_to_video",
+      "title": "Text-to-Video Arena",
+      "publisher": "Arena.ai",
+      "type": "human_preference_benchmark",
+      "url": "https://arena.ai/leaderboard/text-to-video",
+      "used_for": [
+        "video model Arena rankings"
+      ]
+    },
+    {
+      "id": "google_veo_31_docs",
+      "title": "Generate videos with Veo 3.1 in Gemini API",
+      "publisher": "Google AI for Developers",
+      "type": "official",
+      "url": "https://ai.google.dev/gemini-api/docs/video",
+      "used_for": [
+        "Veo 3.1 capabilities",
+        "video generation with audio",
+        "resolution"
+      ]
+    },
+    {
+      "id": "runway_gen_4_research",
+      "title": "Introducing Runway Gen-4",
+      "publisher": "Runway",
+      "type": "official",
+      "url": "https://runwayml.com/research/introducing-runway-gen-4",
+      "used_for": [
+        "Runway Gen-4 consistency",
+        "creative video workflow"
+      ]
+    },
+    {
+      "id": "qwen3_max_blog",
+      "title": "Qwen3-Max: Just Scale it",
+      "publisher": "Qwen",
+      "type": "official",
+      "url": "https://qwen.ai/blog?id=qwen3-max",
+      "used_for": [
+        "Qwen3-Max specs",
+        "SWE-Bench Verified 69.6"
+      ]
+    },
+    {
+      "id": "deepseek_v32_release",
+      "title": "DeepSeek-V3.2 Release",
+      "publisher": "DeepSeek API Docs",
+      "type": "official",
+      "url": "https://api-docs.deepseek.com/news/news251201",
+      "used_for": [
+        "DeepSeek V3.2 agent/reasoning positioning"
+      ]
+    },
+    {
+      "id": "deepseek_v32_hf",
+      "title": "DeepSeek-V3.2",
+      "publisher": "Hugging Face",
+      "type": "official_model_card",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+      "used_for": [
+        "DeepSeek V3.2 technical description"
+      ]
+    },
+    {
+      "id": "xai_models_pricing",
+      "title": "Models and Pricing",
+      "publisher": "xAI Docs",
+      "type": "official",
+      "url": "https://docs.x.ai/developers/models",
+      "used_for": [
+        "Grok model availability"
+      ]
+    },
+    {
+      "id": "openrouter_grok_43",
+      "title": "xAI Grok 4.3 pricing and specs",
+      "publisher": "OpenRouter",
+      "type": "provider_pricing",
+      "url": "https://openrouter.ai/x-ai/grok-4.3",
+      "used_for": [
+        "Grok 4.3 price",
+        "1M context"
+      ]
+    },
+    {
+      "id": "hermes_agent_official",
+      "title": "Hermes Agent",
+      "publisher": "Nous Research",
+      "type": "official",
+      "url": "https://hermes-agent.nousresearch.com/",
+      "used_for": [
+        "Hermes Agent features",
+        "memory",
+        "scheduled automations",
+        "channels"
+      ]
+    },
+    {
+      "id": "hermes_agent_github",
+      "title": "NousResearch/hermes-agent",
+      "publisher": "GitHub",
+      "type": "github",
+      "url": "https://github.com/nousresearch/hermes-agent",
+      "used_for": [
+        "Hermes Agent open-source details",
+        "learning loop"
+      ]
+    },
+    {
+      "id": "openclaw_github",
+      "title": "OpenClaw — Personal AI Assistant",
+      "publisher": "GitHub",
+      "type": "github",
+      "url": "https://github.com/openclaw/openclaw",
+      "used_for": [
+        "OpenClaw local assistant",
+        "channels",
+        "device access"
+      ]
+    },
+    {
+      "id": "openclaw_website",
+      "title": "OpenClaw",
+      "publisher": "OpenClaw",
+      "type": "official",
+      "url": "https://openclaw.ai/",
+      "used_for": [
+        "OpenClaw tasks",
+        "email/calendar/flight workflows"
+      ]
+    },
+    {
+      "id": "artificial_analysis_agents",
+      "title": "General Work AI Agents Comparison",
+      "publisher": "Artificial Analysis",
+      "type": "comparison",
+      "url": "https://artificialanalysis.ai/agents",
+      "used_for": [
+        "agent feature comparison",
+        "browser automation",
+        "local file access"
+      ]
+    },
+    {
+      "id": "ai_agents_benchmark",
+      "title": "AI Coding Agents Benchmark 2026",
+      "publisher": "AI Agents Benchmark",
+      "type": "benchmark",
+      "url": "https://ai-agents-benchmark.com/",
+      "used_for": [
+        "app builder benchmark",
+        "Lovable/Bolt/Replit/v0/Base44/Totalum"
+      ]
+    }
+  ],
+  "models_general": [
+    {
+      "id": "gpt_55",
+      "rank": 1,
+      "name": "GPT-5.5",
+      "provider": "OpenAI",
+      "model_family": "GPT",
+      "type": "proprietary_frontier",
+      "ia_match_score": 96,
+      "confidence": "high",
+      "public_access": [
+        "ChatGPT",
+        "Codex",
+        "API annoncé / déploiement progressif selon disponibilité"
+      ],
+      "modalities": [
+        "text",
+        "vision",
+        "code",
+        "documents",
+        "tools",
+        "agents"
+      ],
+      "best_for": [
+        "généraliste premium",
+        "code agentique",
+        "recherche",
+        "documents",
+        "analyse de données"
+      ],
+      "strengths": [
+        "Très fort en tâches longues et complexes",
+        "Très bon usage des outils",
+        "Excellent pour code, documents, tableurs et recherche",
+        "Bonne polyvalence produit pour une app grand public"
+      ],
+      "weaknesses": [
+        "Coût potentiellement élevé",
+        "Surdimensionné pour des demandes simples",
+        "Disponibilité API/plans à vérifier selon région et date"
+      ],
+      "benchmark_metrics": [
+        {
+          "benchmark": "Terminal-Bench 2.0",
+          "score": "82.7%",
+          "source_id": "openai_gpt_55_intro"
+        },
+        {
+          "benchmark": "SWE-Bench Pro",
+          "score": "58.6%",
+          "source_id": "openai_gpt_55_intro"
+        }
+      ],
+      "pricing": {
+        "input_per_million_usd": 5,
+        "output_per_million_usd": 30,
+        "confidence": "medium",
+        "note": "À vérifier lors de l'intégration API."
+      },
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "openai_gpt_55_system_card",
+        "terminal_bench_20",
+        "swe_bench"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "gpt_55_pro",
+      "rank": 2,
+      "name": "GPT-5.5 Pro",
+      "provider": "OpenAI",
+      "model_family": "GPT",
+      "type": "proprietary_frontier",
+      "ia_match_score": 96,
+      "confidence": "medium",
+      "public_access": [
+        "ChatGPT Pro / offres premium selon disponibilité"
+      ],
+      "modalities": [
+        "text",
+        "vision",
+        "code",
+        "documents",
+        "tools",
+        "agents"
+      ],
+      "best_for": [
+        "tâches ultra complexes",
+        "deep research",
+        "stratégie",
+        "documents longs"
+      ],
+      "strengths": [
+        "Meilleure profondeur de raisonnement que la version standard",
+        "Très bon pour recherche et tâches longues"
+      ],
+      "weaknesses": [
+        "Très cher",
+        "Pas nécessaire pour 80% des utilisateurs",
+        "Données de pricing/accès à vérifier"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": 30,
+        "output_per_million_usd": 180,
+        "confidence": "low",
+        "note": "À vérifier avant affichage public."
+      },
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "openai_gpt_55_system_card"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "claude_opus_47",
+      "rank": 3,
+      "name": "Claude Opus 4.7",
+      "provider": "Anthropic",
+      "model_family": "Claude",
+      "type": "proprietary_frontier",
+      "ia_match_score": 95,
+      "confidence": "high",
+      "public_access": [
+        "Claude",
+        "Anthropic API",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Foundry"
+      ],
+      "modalities": [
+        "text",
+        "vision",
+        "code",
+        "documents",
+        "tools",
+        "agents"
+      ],
+      "context_window_tokens": 1000000,
+      "best_for": [
+        "code complexe",
+        "rédaction premium",
+        "documents longs",
+        "raisonnement",
+        "agents"
+      ],
+      "strengths": [
+        "Très fort en rédaction naturelle et analyse longue",
+        "Excellent pour code complexe et documents",
+        "Contexte 1M tokens selon documentation Anthropic",
+        "Tarif officiel clair"
+      ],
+      "weaknesses": [
+        "Coût élevé",
+        "Peut consommer beaucoup de tokens",
+        "Parfois moins search-native que Perplexity/Gemini"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": 5,
+        "output_per_million_usd": 25,
+        "confidence": "high"
+      },
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "anthropic_opus_47_docs"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "gemini_31_pro",
+      "rank": 4,
+      "name": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "model_family": "Gemini",
+      "type": "proprietary_frontier",
+      "ia_match_score": 94,
+      "confidence": "high",
+      "public_access": [
+        "Gemini app",
+        "Gemini API",
+        "Vertex AI",
+        "NotebookLM"
+      ],
+      "modalities": [
+        "text",
+        "audio",
+        "image",
+        "video",
+        "pdf",
+        "code_repositories"
+      ],
+      "context_window_tokens": 1000000,
+      "best_for": [
+        "multimodal",
+        "Google Workspace",
+        "gros contexte",
+        "PDF",
+        "analyse de codebase"
+      ],
+      "strengths": [
+        "Très fort multimodal",
+        "1M de contexte selon Google Cloud",
+        "Très bon avec PDF, vidéo, audio et repositories",
+        "Écosystème Google très puissant"
+      ],
+      "weaknesses": [
+        "Expérience dépendante de l'écosystème Google",
+        "Certaines fonctions peuvent varier selon produit/région",
+        "Style conversationnel parfois moins naturel que Claude"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "medium",
+        "note": "Varie selon Vertex/Gemini API et contexte."
+      },
+      "source_ids": [
+        "google_gemini_31_blog",
+        "google_vertex_gemini_31"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "grok_43",
+      "rank": 5,
+      "name": "Grok 4.3",
+      "provider": "xAI",
+      "model_family": "Grok",
+      "type": "proprietary_frontier",
+      "ia_match_score": 91,
+      "confidence": "medium",
+      "public_access": [
+        "xAI API",
+        "OpenRouter / providers tiers",
+        "écosystème X selon plan"
+      ],
+      "modalities": [
+        "text",
+        "vision"
+      ],
+      "context_window_tokens": 1000000,
+      "best_for": [
+        "prix/performance API",
+        "actualités",
+        "agentic workflows",
+        "factualité"
+      ],
+      "strengths": [
+        "Prix API agressif chez certains providers",
+        "Contexte annoncé à 1M via provider tiers",
+        "Bon choix pour apps nécessitant coût bas et contexte long"
+      ],
+      "weaknesses": [
+        "Moins éprouvé en production longue durée que OpenAI/Anthropic/Google",
+        "Données officielles parfois moins complètes",
+        "Risque d'image de marque selon publics sensibles"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": 1.25,
+        "output_per_million_usd": 2.5,
+        "confidence": "medium",
+        "source_id": "openrouter_grok_43"
+      },
+      "source_ids": [
+        "xai_models_pricing",
+        "openrouter_grok_43"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "claude_sonnet_46",
+      "rank": 6,
+      "name": "Claude Sonnet 4.6",
+      "provider": "Anthropic",
+      "model_family": "Claude",
+      "type": "proprietary_frontier_mid_cost",
+      "ia_match_score": 90,
+      "confidence": "high",
+      "public_access": [
+        "Claude",
+        "Anthropic API",
+        "Claude Cowork",
+        "cloud providers"
+      ],
+      "modalities": [
+        "text",
+        "vision",
+        "code",
+        "documents",
+        "tools"
+      ],
+      "best_for": [
+        "production",
+        "code quotidien",
+        "rédaction",
+        "analyse de documents",
+        "rapport qualité/prix"
+      ],
+      "strengths": [
+        "Excellent compromis prix/performance",
+        "Très bon pour code et rédaction",
+        "Tarif officiel stable"
+      ],
+      "weaknesses": [
+        "Moins puissant qu’Opus sur les tâches extrêmes",
+        "Limites d’usage selon plan"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": 3,
+        "output_per_million_usd": 15,
+        "confidence": "high"
+      },
+      "source_ids": [
+        "anthropic_sonnet_46"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "qwen3_max",
+      "rank": 7,
+      "name": "Qwen3-Max",
+      "provider": "Alibaba / Qwen",
+      "model_family": "Qwen",
+      "type": "proprietary_or_open_ecosystem",
+      "ia_match_score": 88,
+      "confidence": "high",
+      "public_access": [
+        "Qwen Chat",
+        "API Alibaba Cloud / Model Studio",
+        "providers tiers selon disponibilité"
+      ],
+      "modalities": [
+        "text",
+        "code",
+        "agents"
+      ],
+      "best_for": [
+        "code",
+        "raisonnement",
+        "rapport prix/performance",
+        "marché asiatique"
+      ],
+      "strengths": [
+        "Très bon score coding annoncé officiellement",
+        "Écosystème Qwen très actif",
+        "Bon choix pour agents et développeurs"
+      ],
+      "weaknesses": [
+        "Moins simple pour utilisateur non technique",
+        "Intégration occidentale moins évidente que OpenAI/Claude/Gemini"
+      ],
+      "benchmark_metrics": [
+        {
+          "benchmark": "SWE-Bench Verified",
+          "score": "69.6",
+          "source_id": "qwen3_max_blog"
+        }
+      ],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "qwen3_max_blog",
+        "swe_bench"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "deepseek_v32",
+      "rank": 8,
+      "name": "DeepSeek-V3.2",
+      "provider": "DeepSeek",
+      "model_family": "DeepSeek",
+      "type": "open_or_low_cost_reasoning",
+      "ia_match_score": 87,
+      "confidence": "high",
+      "public_access": [
+        "App",
+        "Web",
+        "API",
+        "Hugging Face model card"
+      ],
+      "modalities": [
+        "text",
+        "code",
+        "reasoning",
+        "agents"
+      ],
+      "best_for": [
+        "raisonnement bon marché",
+        "agents",
+        "code",
+        "expérimentation technique"
+      ],
+      "strengths": [
+        "Positionné officiellement comme reasoning-first pour agents",
+        "Bon potentiel coût/performance",
+        "Écosystème open/technique actif"
+      ],
+      "weaknesses": [
+        "Questions de conformité/données selon usage entreprise",
+        "Expérience dépendante du provider",
+        "Moins grand public que ChatGPT/Claude/Gemini"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "deepseek_v32_release",
+        "deepseek_v32_hf"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "mistral_large_3",
+      "rank": 9,
+      "name": "Mistral Large 3",
+      "provider": "Mistral AI",
+      "model_family": "Mistral",
+      "type": "open_weight_multimodal_moe",
+      "ia_match_score": 84,
+      "confidence": "high",
+      "public_access": [
+        "API Mistral",
+        "Hugging Face / open weights",
+        "providers compatibles"
+      ],
+      "modalities": [
+        "text",
+        "image_understanding"
+      ],
+      "context_window_tokens": 256000,
+      "parameters": {
+        "total": "675B",
+        "active": "41B"
+      },
+      "best_for": [
+        "souveraineté européenne",
+        "open-weight",
+        "entreprise",
+        "self-hosting"
+      ],
+      "strengths": [
+        "Open-weight permissif",
+        "Très gros modèle MoE",
+        "Prix officiel compétitif",
+        "Bon choix pour confidentialité/souveraineté"
+      ],
+      "weaknesses": [
+        "Moins dominant que GPT/Claude/Gemini en frontier généraliste",
+        "Nécessite plus d'expertise pour self-hosting"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": 0.5,
+        "output_per_million_usd": 1.5,
+        "confidence": "high"
+      },
+      "source_ids": [
+        "mistral_large_3_docs",
+        "mistral_3_news"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "perplexity_sonar_deep_research",
+      "rank": 10,
+      "name": "Perplexity Sonar Deep Research",
+      "provider": "Perplexity",
+      "model_family": "Sonar",
+      "type": "research_specialist",
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "public_access": [
+        "Perplexity",
+        "API Sonar selon plan"
+      ],
+      "modalities": [
+        "text",
+        "web_search",
+        "citations",
+        "research_reports"
+      ],
+      "best_for": [
+        "recherche sourcée",
+        "veille",
+        "résumés d'articles",
+        "comparatifs"
+      ],
+      "strengths": [
+        "Très fort pour recherche web avec citations",
+        "Interface grand public simple",
+        "Bon pour veille et sources"
+      ],
+      "weaknesses": [
+        "Moins complet comme modèle général pur",
+        "Dépend de la qualité de recherche et des sources accessibles"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "llama_4_scout",
+      "rank": 11,
+      "name": "Llama 4 Scout",
+      "provider": "Meta",
+      "model_family": "Llama",
+      "type": "open_weight",
+      "ia_match_score": 81,
+      "confidence": "medium",
+      "public_access": [
+        "Meta AI",
+        "download/open-weight selon licence",
+        "providers tiers"
+      ],
+      "modalities": [
+        "text",
+        "multimodal"
+      ],
+      "best_for": [
+        "open ecosystem",
+        "déploiement",
+        "long contexte",
+        "expérimentation"
+      ],
+      "strengths": [
+        "Bon pour self-hosting et intégrations",
+        "Écosystème large",
+        "Bonne option open-weight grand public"
+      ],
+      "weaknesses": [
+        "Licence et usage commercial à vérifier",
+        "Moins fort que leaders propriétaires en qualité brute"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "vellum_llm_leaderboard",
+        "lmarena_leaderboard"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "kimi_k2_thinking",
+      "rank": 12,
+      "name": "Kimi K2 Thinking",
+      "provider": "Moonshot AI",
+      "model_family": "Kimi",
+      "type": "reasoning_model",
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "public_access": [
+        "Kimi",
+        "API/providers selon disponibilité"
+      ],
+      "modalities": [
+        "text",
+        "reasoning",
+        "code"
+      ],
+      "best_for": [
+        "raisonnement",
+        "tâches complexes",
+        "alternatives prix/performance"
+      ],
+      "strengths": [
+        "Très bon potentiel reasoning",
+        "Souvent bien placé dans comparatifs tiers"
+      ],
+      "weaknesses": [
+        "Disponibilité et documentation variables",
+        "Moins connu du grand public occidental"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "gpt_5_codex",
+      "rank": 13,
+      "name": "GPT-5 Codex / GPT-5.x Codex",
+      "provider": "OpenAI",
+      "model_family": "Codex",
+      "type": "coding_specialist",
+      "ia_match_score": 89,
+      "confidence": "medium",
+      "public_access": [
+        "Codex",
+        "ChatGPT coding tools",
+        "API selon disponibilité"
+      ],
+      "modalities": [
+        "code",
+        "terminal",
+        "tools",
+        "text"
+      ],
+      "best_for": [
+        "développement logiciel",
+        "terminal",
+        "debug",
+        "refactoring"
+      ],
+      "strengths": [
+        "Très bon pour workflows dev agentiques",
+        "Intégration OpenAI forte"
+      ],
+      "weaknesses": [
+        "Moins utile hors code",
+        "Coût/accès à vérifier"
+      ],
+      "benchmark_metrics": [],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "swe_bench",
+        "terminal_bench_20"
+      ],
+      "last_verified_at": "2026-05-02"
+    },
+    {
+      "id": "glm_5",
+      "rank": 14,
+      "name": "GLM-5",
+      "provider": "Zhipu AI",
+      "model_family": "GLM",
+      "type": "reasoning_coding_model",
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "public_access": [
+        "API/providers selon disponibilité"
+      ],
+      "modalities": [
+        "text",
+        "code",
+        "reasoning"
+      ],
+      "best_for": [
+        "coding",
+        "raisonnement",
+        "marché asiatique"
+      ],
+      "strengths": [
+        "Apparaît dans classements SWE-bench récents",
+        "Alternative intéressante aux leaders"
+      ],
+      "weaknesses": [
+        "Moins connu grand public",
+        "Données produit plus fragmentées"
+      ],
+      "benchmark_metrics": [
+        {
+          "benchmark": "SWE-bench Verified",
+          "score": "72.80 via aperçu leaderboard",
+          "source_id": "swe_bench"
+        }
+      ],
+      "pricing": {
+        "input_per_million_usd": null,
+        "output_per_million_usd": null,
+        "confidence": "low"
+      },
+      "source_ids": [
+        "swe_bench"
+      ],
+      "last_verified_at": "2026-05-02"
+    }
+  ],
+  "specialization_rankings": {
+    "generated_at": "2026-05-02",
+    "version": "v1.0",
+    "categories": {
+      "image_generation": [
+        {
+          "rank": 1,
+          "id": "gpt_image_2",
+          "name": "GPT Image 2",
+          "provider": "OpenAI",
+          "ia_match_score": 96,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1336
+          },
+          "best_for": [
+            "image premium",
+            "texte dans image",
+            "design logique",
+            "storytelling visuel"
+          ],
+          "pros": [
+            "N°1 Elo text-to-image Artificial Analysis",
+            "Très fort en cohérence et rendu texte"
+          ],
+          "cons": [
+            "Coût et disponibilité à vérifier",
+            "Moins ouvert que FLUX/Stable Diffusion"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "gpt_image_15",
+          "name": "GPT Image 1.5",
+          "provider": "OpenAI",
+          "ia_match_score": 93,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1272
+          },
+          "best_for": [
+            "génération image générale",
+            "prompt following"
+          ],
+          "pros": [
+            "Très haut Elo",
+            "Rendu polyvalent"
+          ],
+          "cons": [
+            "Moins récent que GPT Image 2"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "nano_banana_2",
+          "name": "Nano Banana 2 / Gemini 3.1 Flash Image Preview",
+          "provider": "Google",
+          "ia_match_score": 92,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1261
+          },
+          "best_for": [
+            "réalisme",
+            "édition simple",
+            "usage grand public Google"
+          ],
+          "pros": [
+            "Très bon réalisme",
+            "Écosystème Google"
+          ],
+          "cons": [
+            "Nom/branding peut évoluer",
+            "Moins open"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "nano_banana_pro",
+          "name": "Nano Banana Pro / Gemini 3 Pro Image",
+          "provider": "Google",
+          "ia_match_score": 90,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1217
+          },
+          "best_for": [
+            "image multimodale",
+            "Google ecosystem"
+          ],
+          "pros": [
+            "Bon équilibre qualité/intégration"
+          ],
+          "cons": [
+            "Rang inférieur à GPT Image 2/1.5 dans AA"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "seedream_4",
+          "name": "Seedream 4.0",
+          "provider": "ByteDance",
+          "ia_match_score": 89,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1201
+          },
+          "best_for": [
+            "réalisme",
+            "photo",
+            "création visuelle rapide"
+          ],
+          "pros": [
+            "Très bon rendu photoréaliste",
+            "Top 5 AA"
+          ],
+          "cons": [
+            "Accès selon plateformes tiers",
+            "Moins connu grand public Europe"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 6,
+          "id": "flux_2",
+          "name": "FLUX.2 dev / Turbo",
+          "provider": "Black Forest Labs",
+          "ia_match_score": 87,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "open-weight",
+            "pipelines créatifs",
+            "self-hosting image"
+          ],
+          "pros": [
+            "Très bon choix open",
+            "Contrôle technique"
+          ],
+          "cons": [
+            "Nécessite setup technique",
+            "Qualité variable selon pipeline"
+          ],
+          "source_ids": [
+            "artificial_analysis_image"
+          ]
+        },
+        {
+          "rank": 7,
+          "id": "midjourney_v7",
+          "name": "Midjourney V7",
+          "provider": "Midjourney",
+          "ia_match_score": 86,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "direction artistique",
+            "moodboards",
+            "créa premium"
+          ],
+          "pros": [
+            "Style très fort",
+            "Excellent rendu artistique"
+          ],
+          "cons": [
+            "Benchmarks publics moins transparents",
+            "Moins API/productivité selon usage"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 8,
+          "id": "ideogram_3",
+          "name": "Ideogram 3",
+          "provider": "Ideogram",
+          "ia_match_score": 84,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "texte dans image",
+            "posters",
+            "logos simples"
+          ],
+          "pros": [
+            "Très bon sur typographie",
+            "Simple pour créateurs"
+          ],
+          "cons": [
+            "Moins généraliste que leaders"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 9,
+          "id": "adobe_firefly",
+          "name": "Adobe Firefly",
+          "provider": "Adobe",
+          "ia_match_score": 82,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "entreprise",
+            "usage commercial",
+            "Adobe workflow"
+          ],
+          "pros": [
+            "Très bon pour marques",
+            "Intégration Adobe"
+          ],
+          "cons": [
+            "Qualité parfois moins spectaculaire que Midjourney/GPT Image"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 10,
+          "id": "stable_diffusion_xl",
+          "name": "Stable Diffusion XL / dérivés",
+          "provider": "Stability AI / communauté",
+          "ia_match_score": 78,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "open source",
+            "custom models",
+            "LoRA",
+            "local"
+          ],
+          "pros": [
+            "Écosystème énorme",
+            "Contrôle maximal"
+          ],
+          "cons": [
+            "Setup technique",
+            "Qualité dépend du modèle/pipeline"
+          ],
+          "source_ids": []
+        }
+      ],
+      "video_generation": [
+        {
+          "rank": 1,
+          "id": "happyhorse_10",
+          "name": "HappyHorse-1.0",
+          "provider": "Alibaba-ATH / selon sources leaderboard",
+          "ia_match_score": 94,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo text-to-video sans audio",
+            "value": 1354
+          },
+          "best_for": [
+            "qualité brute text-to-video",
+            "clips réalistes"
+          ],
+          "pros": [
+            "N°1 AA text-to-video sans audio"
+          ],
+          "cons": [
+            "Accès produit à vérifier",
+            "Moins installé que Runway/Veo"
+          ],
+          "source_ids": [
+            "artificial_analysis_video",
+            "arena_text_to_video"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "dreamina_seedance_20",
+          "name": "Dreamina Seedance 2.0 720p",
+          "provider": "ByteDance",
+          "ia_match_score": 93,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1270
+          },
+          "best_for": [
+            "vidéo réaliste",
+            "création rapide",
+            "réseaux sociaux"
+          ],
+          "pros": [
+            "Très haut classement AA et Arena.ai"
+          ],
+          "cons": [
+            "Disponibilité selon régions/outils"
+          ],
+          "source_ids": [
+            "artificial_analysis_video",
+            "arena_text_to_video"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "kling_30_pro",
+          "name": "Kling 3.0 1080p Pro",
+          "provider": "Kuaishou",
+          "ia_match_score": 91,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1248
+          },
+          "best_for": [
+            "cinématique",
+            "motion",
+            "image-to-video"
+          ],
+          "pros": [
+            "Très fort en mouvement et réalisme",
+            "Top 3 AA"
+          ],
+          "cons": [
+            "Accès/prix variables"
+          ],
+          "source_ids": [
+            "artificial_analysis_video"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "grok_imagine_video",
+          "name": "grok-imagine-video",
+          "provider": "xAI",
+          "ia_match_score": 88,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1232
+          },
+          "best_for": [
+            "vidéo grand public xAI",
+            "idéation rapide"
+          ],
+          "pros": [
+            "Top 5 AA",
+            "Bon potentiel créatif"
+          ],
+          "cons": [
+            "Écosystème xAI spécifique"
+          ],
+          "source_ids": [
+            "artificial_analysis_video"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "kling_30_omni",
+          "name": "Kling 3.0 Omni 1080p Pro",
+          "provider": "Kuaishou",
+          "ia_match_score": 88,
+          "confidence": "high",
+          "official_or_benchmark_score": {
+            "metric": "Artificial Analysis Elo",
+            "value": 1232
+          },
+          "best_for": [
+            "storyboard",
+            "vidéo avancée",
+            "créateurs"
+          ],
+          "pros": [
+            "Très haut AA",
+            "Bon contrôle créatif"
+          ],
+          "cons": [
+            "Complexité/prix"
+          ],
+          "source_ids": [
+            "artificial_analysis_video"
+          ]
+        },
+        {
+          "rank": 6,
+          "id": "veo_31",
+          "name": "Veo 3.1",
+          "provider": "Google",
+          "ia_match_score": 90,
+          "confidence": "high",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "vidéo avec audio",
+            "production Google",
+            "4K",
+            "Gemini API"
+          ],
+          "pros": [
+            "Modèle vidéo Google state-of-the-art",
+            "Audio natif",
+            "720p/1080p/4K selon docs"
+          ],
+          "cons": [
+            "Coût potentiellement élevé",
+            "Accès selon plan/région"
+          ],
+          "source_ids": [
+            "google_veo_31_docs",
+            "arena_text_to_video"
+          ]
+        },
+        {
+          "rank": 7,
+          "id": "runway_gen_45",
+          "name": "Runway Gen-4 / Gen-4.5",
+          "provider": "Runway",
+          "ia_match_score": 88,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "workflow pro",
+            "édition",
+            "contrôle créatif",
+            "marketing"
+          ],
+          "pros": [
+            "Écosystème mature",
+            "Consistance personnages/lieux/objets"
+          ],
+          "cons": [
+            "Abonnement et crédits",
+            "Peut être moins haut en Elo brut selon leaderboard"
+          ],
+          "source_ids": [
+            "runway_gen_4_research"
+          ]
+        },
+        {
+          "rank": 8,
+          "id": "sora_2",
+          "name": "Sora 2",
+          "provider": "OpenAI",
+          "ia_match_score": 86,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "simulation",
+            "cinématique",
+            "scènes complexes"
+          ],
+          "pros": [
+            "Très bon potentiel qualité/simulation"
+          ],
+          "cons": [
+            "Accès et benchmarks publics à vérifier"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 9,
+          "id": "pika",
+          "name": "Pika",
+          "provider": "Pika Labs",
+          "ia_match_score": 82,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "social media",
+            "clips courts",
+            "édition rapide"
+          ],
+          "pros": [
+            "Simple pour créateurs",
+            "Très accessible"
+          ],
+          "cons": [
+            "Moins premium que leaders vidéo"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 10,
+          "id": "ltx_23",
+          "name": "LTX-2.3",
+          "provider": "Lightricks / open ecosystem",
+          "ia_match_score": 78,
+          "confidence": "medium",
+          "official_or_benchmark_score": null,
+          "best_for": [
+            "open-weight vidéo",
+            "expérimentation",
+            "pipelines dev"
+          ],
+          "pros": [
+            "Intéressant pour open-source vidéo"
+          ],
+          "cons": [
+            "Qualité inférieure aux modèles propriétaires leaders"
+          ],
+          "source_ids": [
+            "artificial_analysis_video"
+          ]
+        }
+      ],
+      "coding_dev": [
+        {
+          "rank": 1,
+          "id": "claude_opus_47",
+          "name": "Claude Opus 4.7",
+          "ia_match_score": 96,
+          "confidence": "high",
+          "best_for": [
+            "code complexe",
+            "refactor",
+            "debug",
+            "repo longs"
+          ],
+          "pros": [
+            "Très bon pour raisonnement long et code"
+          ],
+          "cons": [
+            "Coûteux"
+          ],
+          "source_ids": [
+            "anthropic_opus_47_news",
+            "anthropic_opus_47_docs",
+            "swe_bench"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "gpt_55",
+          "name": "GPT-5.5",
+          "ia_match_score": 95,
+          "confidence": "high",
+          "best_for": [
+            "coding agentique",
+            "terminal",
+            "debug",
+            "outils"
+          ],
+          "pros": [
+            "82.7% Terminal-Bench 2.0 selon OpenAI",
+            "58.6% SWE-Bench Pro selon OpenAI"
+          ],
+          "cons": [
+            "Cher pour dev quotidien simple"
+          ],
+          "source_ids": [
+            "openai_gpt_55_intro"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "gemini_31_pro",
+          "name": "Gemini 3.1 Pro",
+          "ia_match_score": 92,
+          "confidence": "high",
+          "best_for": [
+            "analyse codebase",
+            "gros contexte",
+            "repos entiers"
+          ],
+          "pros": [
+            "1M contexte et code repositories selon Google"
+          ],
+          "cons": [
+            "Écosystème Google"
+          ],
+          "source_ids": [
+            "google_vertex_gemini_31"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "claude_sonnet_46",
+          "name": "Claude Sonnet 4.6",
+          "ia_match_score": 91,
+          "confidence": "high",
+          "best_for": [
+            "dev quotidien",
+            "PR",
+            "rapport qualité/prix"
+          ],
+          "pros": [
+            "3$/15$ par MTok selon Anthropic"
+          ],
+          "cons": [
+            "Moins puissant qu'Opus"
+          ],
+          "source_ids": [
+            "anthropic_sonnet_46"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "qwen3_max",
+          "name": "Qwen3-Max",
+          "ia_match_score": 87,
+          "confidence": "high",
+          "best_for": [
+            "coding coût/performance",
+            "agents"
+          ],
+          "pros": [
+            "69.6 SWE-Bench Verified selon Qwen"
+          ],
+          "cons": [
+            "Moins grand public"
+          ],
+          "source_ids": [
+            "qwen3_max_blog"
+          ]
+        },
+        {
+          "rank": 6,
+          "id": "deepseek_v32",
+          "name": "DeepSeek-V3.2",
+          "ia_match_score": 86,
+          "confidence": "high",
+          "best_for": [
+            "reasoning agents",
+            "code économique"
+          ],
+          "pros": [
+            "Reasoning-first built for agents"
+          ],
+          "cons": [
+            "Conformité à évaluer"
+          ],
+          "source_ids": [
+            "deepseek_v32_release"
+          ]
+        },
+        {
+          "rank": 7,
+          "id": "mistral_large_3",
+          "name": "Mistral Large 3",
+          "ia_match_score": 83,
+          "confidence": "high",
+          "best_for": [
+            "open-weight",
+            "souveraineté",
+            "self-hosting"
+          ],
+          "pros": [
+            "Open-weight, 675B/41B actif"
+          ],
+          "cons": [
+            "Moins leader en coding pur"
+          ],
+          "source_ids": [
+            "mistral_large_3_docs"
+          ]
+        },
+        {
+          "rank": 8,
+          "id": "gpt_5_codex",
+          "name": "GPT-5 Codex / GPT-5.x Codex",
+          "ia_match_score": 89,
+          "confidence": "medium",
+          "best_for": [
+            "IDE/terminal",
+            "agents dev"
+          ],
+          "pros": [
+            "Spécialisé code"
+          ],
+          "cons": [
+            "À réserver au dev"
+          ],
+          "source_ids": [
+            "openai_gpt_55_intro",
+            "swe_bench"
+          ]
+        }
+      ],
+      "research_search": [
+        {
+          "rank": 1,
+          "id": "gpt_55_pro",
+          "name": "GPT-5.5 Pro + tools",
+          "ia_match_score": 96,
+          "confidence": "medium",
+          "best_for": [
+            "deep research",
+            "rapports",
+            "synthèse multi-sources"
+          ],
+          "pros": [
+            "Très fort en recherche et outils"
+          ],
+          "cons": [
+            "Coûteux"
+          ],
+          "source_ids": [
+            "openai_gpt_55_system_card"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "gemini_31_pro",
+          "name": "Gemini 3.1 Pro + Google Search/NotebookLM",
+          "ia_match_score": 94,
+          "confidence": "high",
+          "best_for": [
+            "Google Search",
+            "PDF",
+            "NotebookLM",
+            "gros contexte"
+          ],
+          "pros": [
+            "Écosystème Google"
+          ],
+          "cons": [
+            "Dépendant Google"
+          ],
+          "source_ids": [
+            "google_gemini_31_blog",
+            "google_vertex_gemini_31"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "perplexity_sonar_deep_research",
+          "name": "Perplexity Sonar Deep Research",
+          "ia_match_score": 92,
+          "confidence": "medium",
+          "best_for": [
+            "réponses sourcées",
+            "veille",
+            "comparatifs"
+          ],
+          "pros": [
+            "Très orienté citations"
+          ],
+          "cons": [
+            "Moins généraliste"
+          ],
+          "source_ids": [
+            "vellum_llm_leaderboard"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "claude_opus_47",
+          "name": "Claude Opus 4.7 + web/tools",
+          "ia_match_score": 90,
+          "confidence": "high",
+          "best_for": [
+            "synthèse",
+            "documents longs",
+            "analyse critique"
+          ],
+          "pros": [
+            "Très bon style et raisonnement"
+          ],
+          "cons": [
+            "Moins search-native"
+          ],
+          "source_ids": [
+            "anthropic_opus_47_news"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "grok_43",
+          "name": "Grok 4.3",
+          "ia_match_score": 87,
+          "confidence": "medium",
+          "best_for": [
+            "actualité",
+            "factualité",
+            "X ecosystem"
+          ],
+          "pros": [
+            "Prix API bas via providers"
+          ],
+          "cons": [
+            "À vérifier selon sécurité/brand"
+          ],
+          "source_ids": [
+            "xai_models_pricing",
+            "openrouter_grok_43"
+          ]
+        }
+      ],
+      "writing_content": [
+        {
+          "rank": 1,
+          "id": "claude_opus_47",
+          "name": "Claude Opus 4.7",
+          "ia_match_score": 96,
+          "confidence": "high",
+          "best_for": [
+            "rédaction premium",
+            "storytelling",
+            "nuance"
+          ],
+          "pros": [
+            "Style naturel"
+          ],
+          "cons": [
+            "Coût"
+          ],
+          "source_ids": [
+            "anthropic_opus_47_news"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "gpt_55",
+          "name": "GPT-5.5",
+          "ia_match_score": 95,
+          "confidence": "high",
+          "best_for": [
+            "documents business",
+            "structure",
+            "marketing"
+          ],
+          "pros": [
+            "Très structuré"
+          ],
+          "cons": [
+            "Peut être trop cadré"
+          ],
+          "source_ids": [
+            "openai_gpt_55_system_card"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "gemini_31_pro",
+          "name": "Gemini 3.1 Pro",
+          "ia_match_score": 91,
+          "confidence": "high",
+          "best_for": [
+            "contenu multimodal",
+            "Workspace",
+            "présentations"
+          ],
+          "pros": [
+            "Écosystème Google"
+          ],
+          "cons": [
+            "Style parfois moins chaleureux"
+          ],
+          "source_ids": [
+            "google_gemini_31_blog"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "claude_sonnet_46",
+          "name": "Claude Sonnet 4.6",
+          "ia_match_score": 90,
+          "confidence": "high",
+          "best_for": [
+            "rédaction quotidienne",
+            "emails",
+            "articles"
+          ],
+          "pros": [
+            "Excellent rapport qualité/prix"
+          ],
+          "cons": [
+            "Moins profond qu'Opus"
+          ],
+          "source_ids": [
+            "anthropic_sonnet_46"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "mistral_large_3",
+          "name": "Mistral Large 3",
+          "ia_match_score": 84,
+          "confidence": "high",
+          "best_for": [
+            "multilingue",
+            "Europe",
+            "open-weight"
+          ],
+          "pros": [
+            "Souveraineté"
+          ],
+          "cons": [
+            "Moins premium stylistiquement"
+          ],
+          "source_ids": [
+            "mistral_large_3_docs"
+          ]
+        }
+      ],
+      "conversation_assistant": [
+        {
+          "rank": 1,
+          "id": "chatgpt_gpt55",
+          "name": "ChatGPT avec GPT-5.5",
+          "ia_match_score": 96,
+          "confidence": "high",
+          "best_for": [
+            "assistant polyvalent",
+            "fichiers",
+            "outils",
+            "image",
+            "recherche"
+          ],
+          "pros": [
+            "Écosystème complet"
+          ],
+          "cons": [
+            "Plans premium nécessaires pour certains usages"
+          ],
+          "source_ids": [
+            "openai_gpt_55_system_card"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "claude_opus_47",
+          "name": "Claude avec Opus 4.7",
+          "ia_match_score": 94,
+          "confidence": "high",
+          "best_for": [
+            "conversation naturelle",
+            "écriture",
+            "analyse"
+          ],
+          "pros": [
+            "Très agréable et fiable"
+          ],
+          "cons": [
+            "Moins large en outils selon plateforme"
+          ],
+          "source_ids": [
+            "anthropic_opus_47_news"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "gemini_31_pro",
+          "name": "Gemini avec Gemini 3.1 Pro",
+          "ia_match_score": 92,
+          "confidence": "high",
+          "best_for": [
+            "Gmail",
+            "Docs",
+            "Drive",
+            "Search",
+            "NotebookLM"
+          ],
+          "pros": [
+            "Très bon avec Google"
+          ],
+          "cons": [
+            "Dépend Google"
+          ],
+          "source_ids": [
+            "google_gemini_31_blog"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "perplexity",
+          "name": "Perplexity",
+          "ia_match_score": 86,
+          "confidence": "medium",
+          "best_for": [
+            "réponses sourcées",
+            "recherche rapide"
+          ],
+          "pros": [
+            "Citations"
+          ],
+          "cons": [
+            "Moins assistant tout-en-un"
+          ],
+          "source_ids": [
+            "vellum_llm_leaderboard"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "copilot",
+          "name": "Microsoft Copilot",
+          "ia_match_score": 84,
+          "confidence": "medium",
+          "best_for": [
+            "Microsoft 365",
+            "entreprise"
+          ],
+          "pros": [
+            "Word/Excel/Teams/Outlook"
+          ],
+          "cons": [
+            "Moins flexible hors Microsoft"
+          ],
+          "source_ids": [
+            "artificial_analysis_agents"
+          ]
+        }
+      ],
+      "documents_pdf_office": [
+        {
+          "rank": 1,
+          "id": "gpt_55",
+          "name": "GPT-5.5",
+          "ia_match_score": 96,
+          "confidence": "high",
+          "best_for": [
+            "docs",
+            "spreadsheets",
+            "analyse de fichiers",
+            "workflow multi-outils"
+          ],
+          "pros": [
+            "OpenAI met en avant documents/spreadsheets"
+          ],
+          "cons": [
+            "Coût/accès"
+          ],
+          "source_ids": [
+            "openai_gpt_55_system_card"
+          ]
+        },
+        {
+          "rank": 2,
+          "id": "claude_opus_47",
+          "name": "Claude Opus 4.7",
+          "ia_match_score": 95,
+          "confidence": "high",
+          "best_for": [
+            "documents longs",
+            "analyse",
+            "rédaction"
+          ],
+          "pros": [
+            "1M contexte"
+          ],
+          "cons": [
+            "Tokens coûteux"
+          ],
+          "source_ids": [
+            "anthropic_opus_47_docs"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "gemini_31_pro",
+          "name": "Gemini 3.1 Pro",
+          "ia_match_score": 92,
+          "confidence": "high",
+          "best_for": [
+            "PDF",
+            "vidéo/audio",
+            "code repos",
+            "Workspace"
+          ],
+          "pros": [
+            "PDF et gros contexte selon Google"
+          ],
+          "cons": [
+            "Écosystème Google"
+          ],
+          "source_ids": [
+            "google_vertex_gemini_31"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "microsoft_copilot",
+          "name": "Microsoft Copilot",
+          "ia_match_score": 90,
+          "confidence": "medium",
+          "best_for": [
+            "Word",
+            "Excel",
+            "PowerPoint",
+            "Outlook",
+            "Teams"
+          ],
+          "pros": [
+            "Intégration entreprise"
+          ],
+          "cons": [
+            "Moins ouvert"
+          ],
+          "source_ids": [
+            "artificial_analysis_agents"
+          ]
+        },
+        {
+          "rank": 5,
+          "id": "notebooklm",
+          "name": "NotebookLM",
+          "provider": "Google",
+          "ia_match_score": 86,
+          "confidence": "medium",
+          "best_for": [
+            "recherche documentaire",
+            "synthèse sources"
+          ],
+          "pros": [
+            "Excellent pour dossiers et sources"
+          ],
+          "cons": [
+            "Moins création de fichiers finaux"
+          ],
+          "source_ids": [
+            "google_gemini_31_blog"
+          ]
+        }
+      ],
+      "audio_voice": [
+        {
+          "rank": 1,
+          "id": "elevenlabs",
+          "name": "ElevenLabs",
+          "provider": "ElevenLabs",
+          "ia_match_score": 92,
+          "confidence": "medium",
+          "best_for": [
+            "voix off",
+            "doublage",
+            "clonage voix autorisé"
+          ],
+          "pros": [
+            "Qualité voix très élevée"
+          ],
+          "cons": [
+            "Prix et droits à gérer"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 2,
+          "id": "openai_audio",
+          "name": "OpenAI Audio / Voice",
+          "provider": "OpenAI",
+          "ia_match_score": 90,
+          "confidence": "medium",
+          "best_for": [
+            "assistant vocal",
+            "transcription",
+            "voix intégrée"
+          ],
+          "pros": [
+            "Très intégré à ChatGPT/API"
+          ],
+          "cons": [
+            "Moins spécialisé voix off studio que ElevenLabs"
+          ],
+          "source_ids": [
+            "openai_gpt_55_system_card"
+          ]
+        },
+        {
+          "rank": 3,
+          "id": "gemini_live",
+          "name": "Gemini Live / audio multimodal",
+          "provider": "Google",
+          "ia_match_score": 88,
+          "confidence": "medium",
+          "best_for": [
+            "conversation vocale",
+            "Google ecosystem"
+          ],
+          "pros": [
+            "Multimodal Google"
+          ],
+          "cons": [
+            "Dépend de Gemini"
+          ],
+          "source_ids": [
+            "google_gemini_31_blog"
+          ]
+        },
+        {
+          "rank": 4,
+          "id": "murf",
+          "name": "Murf",
+          "provider": "Murf",
+          "ia_match_score": 80,
+          "confidence": "low",
+          "best_for": [
+            "voix marketing",
+            "formations"
+          ],
+          "pros": [
+            "Simple pour entreprises"
+          ],
+          "cons": [
+            "Moins frontier"
+          ],
+          "source_ids": []
+        },
+        {
+          "rank": 5,
+          "id": "playht",
+          "name": "PlayHT",
+          "provider": "PlayHT",
+          "ia_match_score": 79,
+          "confidence": "low",
+          "best_for": [
+            "TTS",
+            "podcasts",
+            "voix IA"
+          ],
+          "pros": [
+            "Bon choix TTS"
+          ],
+          "cons": [
+            "Moins généraliste"
+          ],
+          "source_ids": []
+        }
+      ]
+    }
+  },
+  "agents_general": [
+    {
+      "id": "chatgpt_agent",
+      "rank": 1,
+      "name": "ChatGPT Agent / GPT-5.5",
+      "provider": "OpenAI",
+      "ia_match_score": 95,
+      "confidence": "high",
+      "type": "general_work_agent",
+      "best_for": [
+        "assistant général",
+        "recherche",
+        "fichiers",
+        "outils",
+        "automatisation cloud"
+      ],
+      "pros": [
+        "Très polyvalent",
+        "Très bon avec outils et fichiers",
+        "Écosystème ChatGPT large"
+      ],
+      "cons": [
+        "Pas de contrôle local total",
+        "Coût premium possible",
+        "Local file access limité selon environnement"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card",
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "claude_cowork",
+      "rank": 2,
+      "name": "Claude Cowork / Claude + Opus 4.7",
+      "provider": "Anthropic",
+      "ia_match_score": 94,
+      "confidence": "high",
+      "type": "general_work_agent",
+      "best_for": [
+        "travail long",
+        "code",
+        "documents",
+        "analyse",
+        "rédaction"
+      ],
+      "pros": [
+        "Très fort en analyse et écriture",
+        "Bon pour workflows professionnels"
+      ],
+      "cons": [
+        "Coûteux",
+        "Limites selon plan"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "openclaw",
+      "rank": 3,
+      "name": "OpenClaw",
+      "provider": "OpenClaw / open source",
+      "aliases": [
+        "Clawdbot",
+        "Moltbot",
+        "probable confusion utilisateur: Clowbot"
+      ],
+      "ia_match_score": 91,
+      "confidence": "high",
+      "type": "open_source_personal_agent",
+      "best_for": [
+        "assistant local",
+        "WhatsApp/Telegram",
+        "email",
+        "calendrier",
+        "automatisation personnelle"
+      ],
+      "pros": [
+        "Open-source",
+        "Tourne sur appareils de l'utilisateur",
+        "Canaux existants comme WhatsApp/Telegram/Slack/Discord",
+        "Peut accéder aux fichiers et apps locales selon permissions"
+      ],
+      "cons": [
+        "Installation et sécurité techniques",
+        "Risque élevé avec skills/plugins non vérifiés",
+        "Dépend du modèle LLM branché"
+      ],
+      "source_ids": [
+        "openclaw_github",
+        "openclaw_website",
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "hermes_agent",
+      "rank": 4,
+      "name": "Hermes Agent",
+      "provider": "Nous Research",
+      "ia_match_score": 90,
+      "confidence": "high",
+      "type": "open_source_autonomous_agent",
+      "best_for": [
+        "mémoire persistante",
+        "skills",
+        "serveur personnel",
+        "automatisations planifiées",
+        "agents évolutifs"
+      ],
+      "pros": [
+        "Mémoire persistante",
+        "Auto-generated skills",
+        "Canaux Telegram/Discord/Slack/WhatsApp/Signal/Email/CLI",
+        "Automatisations planifiées",
+        "Learning loop selon GitHub"
+      ],
+      "cons": [
+        "Plus technique que ChatGPT/Claude",
+        "Nécessite infra/API/configuration",
+        "Sécurité à gérer sérieusement"
+      ],
+      "source_ids": [
+        "hermes_agent_official",
+        "hermes_agent_github"
+      ]
+    },
+    {
+      "id": "manus",
+      "rank": 5,
+      "name": "Manus",
+      "provider": "Manus",
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "type": "general_autonomous_agent",
+      "best_for": [
+        "web automation",
+        "rapports",
+        "sites",
+        "analyse data",
+        "livrables"
+      ],
+      "pros": [
+        "Bon pour livrables autonomes",
+        "Approche généraliste agentique"
+      ],
+      "cons": [
+        "Résultats variables",
+        "Coût/accès à vérifier",
+        "Moins transparent"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "microsoft_copilot",
+      "rank": 6,
+      "name": "Microsoft Copilot",
+      "provider": "Microsoft",
+      "ia_match_score": 87,
+      "confidence": "medium",
+      "type": "enterprise_assistant",
+      "best_for": [
+        "Microsoft 365",
+        "Teams",
+        "Outlook",
+        "Excel",
+        "Word",
+        "PowerPoint"
+      ],
+      "pros": [
+        "Intégration entreprise",
+        "Permission-aware",
+        "Très utile dans Microsoft"
+      ],
+      "cons": [
+        "Moins flexible hors Microsoft",
+        "Dépend des licences"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "google_workspace_studio",
+      "rank": 7,
+      "name": "Google Workspace Studio / Gemini Enterprise",
+      "provider": "Google",
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "type": "enterprise_workspace_agent",
+      "best_for": [
+        "Gmail",
+        "Drive",
+        "Docs",
+        "Sheets",
+        "connecteurs entreprise"
+      ],
+      "pros": [
+        "Très bon avec Google Workspace",
+        "No-code agent builder selon comparatifs"
+      ],
+      "cons": [
+        "Moins contrôle local",
+        "Dépend des licences Google"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog",
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "perplexity_deep_research_agent",
+      "rank": 8,
+      "name": "Perplexity Deep Research",
+      "provider": "Perplexity",
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "type": "research_agent",
+      "best_for": [
+        "veille",
+        "synthèse sourcée",
+        "dossiers de recherche"
+      ],
+      "pros": [
+        "Très bon pour citations et recherche"
+      ],
+      "cons": [
+        "Pas agent ordinateur complet"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ]
+    },
+    {
+      "id": "zapier_agents",
+      "rank": 9,
+      "name": "Zapier Agents / Make AI / n8n AI",
+      "provider": "Zapier / Make / n8n",
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "type": "automation_agent",
+      "best_for": [
+        "automatisation business",
+        "no-code",
+        "CRM",
+        "emails",
+        "workflows SaaS"
+      ],
+      "pros": [
+        "Très utile pour workflows réels",
+        "Intégrations nombreuses"
+      ],
+      "cons": [
+        "Dépend de scénarios et connecteurs",
+        "Peu adapté aux tâches créatives complexes"
+      ],
+      "source_ids": []
+    },
+    {
+      "id": "framework_agents",
+      "rank": 10,
+      "name": "AutoGPT / CrewAI / LangGraph / AutoGen",
+      "provider": "Open-source / frameworks dev",
+      "ia_match_score": 80,
+      "confidence": "medium",
+      "type": "developer_agent_framework",
+      "best_for": [
+        "frameworks agents",
+        "multi-agent",
+        "prototype dev",
+        "orchestration"
+      ],
+      "pros": [
+        "Très flexibles",
+        "Bon pour développeurs"
+      ],
+      "cons": [
+        "Pas grand public",
+        "Nécessite dev"
+      ],
+      "source_ids": []
+    }
+  ],
+  "agents_coding": [
+    {
+      "id": "claude_code",
+      "rank": 1,
+      "name": "Claude Code",
+      "provider": "Anthropic",
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "repo complexes",
+        "refactor",
+        "debug",
+        "tests",
+        "agent dev"
+      ],
+      "pros": [
+        "Très fort pour gros projets",
+        "S'appuie sur Claude performant"
+      ],
+      "cons": [
+        "Coût élevé",
+        "Usage tokens important"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "terminal_bench_20",
+        "swe_bench"
+      ]
+    },
+    {
+      "id": "openai_codex",
+      "rank": 2,
+      "name": "OpenAI Codex",
+      "provider": "OpenAI",
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "terminal",
+        "PR",
+        "debug",
+        "agents dev",
+        "génération fichiers"
+      ],
+      "pros": [
+        "Très intégré à GPT-5.5",
+        "Bon pour workflows agentiques"
+      ],
+      "cons": [
+        "Coût/accès selon plan"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "terminal_bench_20",
+        "swe_bench"
+      ]
+    },
+    {
+      "id": "cursor",
+      "rank": 3,
+      "name": "Cursor",
+      "provider": "Anysphere",
+      "ia_match_score": 92,
+      "confidence": "medium",
+      "best_for": [
+        "IDE IA",
+        "multi-file editing",
+        "productivité dev"
+      ],
+      "pros": [
+        "Très bonne UX dev",
+        "Choix de modèles",
+        "Composer/agent"
+      ],
+      "cons": [
+        "Dépend du modèle",
+        "Coût en usage intensif"
+      ],
+      "source_ids": []
+    },
+    {
+      "id": "devin",
+      "rank": 4,
+      "name": "Devin",
+      "provider": "Cognition",
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "software engineering autonome",
+        "multi-repo",
+        "équipes"
+      ],
+      "pros": [
+        "Agent dev cloud spécialisé"
+      ],
+      "cons": [
+        "Cher",
+        "Résultats variables"
+      ],
+      "source_ids": []
+    },
+    {
+      "id": "github_copilot",
+      "rank": 5,
+      "name": "GitHub Copilot / Copilot Workspace",
+      "provider": "Microsoft / GitHub",
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "VS Code",
+        "GitHub",
+        "entreprise",
+        "PR"
+      ],
+      "pros": [
+        "Très intégré GitHub"
+      ],
+      "cons": [
+        "Moins autonome sur tâches longues que Claude Code/Codex"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ]
+    },
+    {
+      "id": "cline_roo_aider",
+      "rank": 6,
+      "name": "Cline / Roo Code / Aider / OpenCode",
+      "provider": "Open-source",
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "dev local",
+        "BYO model",
+        "open-source"
+      ],
+      "pros": [
+        "Flexibles",
+        "Peuvent utiliser plusieurs modèles"
+      ],
+      "cons": [
+        "Configuration technique"
+      ],
+      "source_ids": [
+        "terminal_bench_20"
+      ]
+    },
+    {
+      "id": "replit_agent",
+      "rank": 7,
+      "name": "Replit Agent",
+      "provider": "Replit",
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "prototypage",
+        "apprentissage",
+        "déploiement rapide"
+      ],
+      "pros": [
+        "Simple",
+        "Environnement complet"
+      ],
+      "cons": [
+        "Peut être lent/limité"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "codegen_factory_sweep",
+      "rank": 8,
+      "name": "Codegen / Factory / Sweep-like agents",
+      "provider": "Divers",
+      "ia_match_score": 80,
+      "confidence": "low",
+      "best_for": [
+        "PR automatiques",
+        "maintenance repo",
+        "équipes dev"
+      ],
+      "pros": [
+        "Automatisation utile"
+      ],
+      "cons": [
+        "Niche",
+        "Qualité variable"
+      ],
+      "source_ids": []
+    }
+  ],
+  "app_builders": [
+    {
+      "id": "totalum",
+      "rank": 1,
+      "name": "Totalum",
+      "provider": "Totalum",
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "8/10"
+      },
+      "best_for": [
+        "no-code app builder",
+        "SaaS",
+        "MVP",
+        "SEO/stabilité"
+      ],
+      "pros": [
+        "Meilleur score du benchmark cité",
+        "Bon équilibre stabilité/fonctionnalité"
+      ],
+      "cons": [
+        "Moins connu que Lovable/Bolt/Replit",
+        "Écosystème plus limité"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "base44",
+      "rank": 2,
+      "name": "Base44",
+      "provider": "Base44",
+      "ia_match_score": 85,
+      "confidence": "medium",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "7/10"
+      },
+      "best_for": [
+        "MVP rapide",
+        "belles UI",
+        "apps simples"
+      ],
+      "pros": [
+        "Rapide",
+        "Bon rendu visuel"
+      ],
+      "cons": [
+        "Vendor lock-in possible",
+        "Backend limité selon projet"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "lovable",
+      "rank": 3,
+      "name": "Lovable",
+      "provider": "Lovable",
+      "ia_match_score": 84,
+      "confidence": "high",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "6/10"
+      },
+      "best_for": [
+        "founders",
+        "apps web",
+        "Supabase",
+        "MVP rapide",
+        "IA Match"
+      ],
+      "pros": [
+        "Très bon pour passer d'une idée à une app",
+        "Bon avec Supabase",
+        "UX simple"
+      ],
+      "cons": [
+        "Peut générer des bugs",
+        "SEO/stabilité à renforcer selon benchmark",
+        "Besoin de prompts précis"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "bolt_new",
+      "rank": 4,
+      "name": "Bolt.new",
+      "provider": "StackBlitz",
+      "ia_match_score": 80,
+      "confidence": "medium",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "5/10"
+      },
+      "best_for": [
+        "front-end",
+        "prototypes",
+        "démos rapides"
+      ],
+      "pros": [
+        "Rapide",
+        "Bon rendu UI front"
+      ],
+      "cons": [
+        "Crédits/tokens",
+        "Backend complexe plus difficile"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "replit_agent_app_builder",
+      "rank": 5,
+      "name": "Replit Agent",
+      "provider": "Replit",
+      "ia_match_score": 76,
+      "confidence": "medium",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "3/10"
+      },
+      "best_for": [
+        "apprendre en construisant",
+        "projets complets",
+        "déploiement"
+      ],
+      "pros": [
+        "Environnement complet",
+        "Accessible"
+      ],
+      "cons": [
+        "Lenteur/qualité variable selon benchmark"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    },
+    {
+      "id": "v0",
+      "rank": 6,
+      "name": "v0",
+      "provider": "Vercel",
+      "ia_match_score": 72,
+      "confidence": "medium",
+      "benchmark_score": {
+        "metric": "AI Coding Agents Benchmark 2026",
+        "value": "2/10"
+      },
+      "best_for": [
+        "UI components",
+        "landing pages",
+        "design front-end"
+      ],
+      "pros": [
+        "Très bon pour composants React/Tailwind",
+        "Intégré Vercel"
+      ],
+      "cons": [
+        "Moins adapté app SaaS complète selon benchmark"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ]
+    }
+  ],
+  "recommendations": {
+    "generated_at": "2026-05-02",
+    "version": "v1.0",
+    "recommendations_by_need": [
+      {
+        "need": "Meilleure IA globale",
+        "primary_id": "gpt_55",
+        "alternatives": [
+          "claude_opus_47",
+          "gemini_31_pro"
+        ]
+      },
+      {
+        "need": "Meilleure rédaction",
+        "primary_id": "claude_opus_47",
+        "alternatives": [
+          "gpt_55",
+          "claude_sonnet_46"
+        ]
+      },
+      {
+        "need": "Meilleur code complexe",
+        "primary_id": "claude_opus_47",
+        "alternatives": [
+          "gpt_55",
+          "gpt_5_codex"
+        ]
+      },
+      {
+        "need": "Meilleur agent dev",
+        "primary_id": "claude_code",
+        "alternatives": [
+          "openai_codex",
+          "cursor"
+        ]
+      },
+      {
+        "need": "Meilleure recherche sourcée",
+        "primary_id": "perplexity_sonar_deep_research",
+        "alternatives": [
+          "gpt_55_pro",
+          "gemini_31_pro"
+        ]
+      },
+      {
+        "need": "Meilleur Google ecosystem",
+        "primary_id": "gemini_31_pro",
+        "alternatives": [
+          "notebooklm",
+          "google_workspace_studio"
+        ]
+      },
+      {
+        "need": "Meilleure image",
+        "primary_id": "gpt_image_2",
+        "alternatives": [
+          "nano_banana_2",
+          "seedream_4"
+        ]
+      },
+      {
+        "need": "Meilleure vidéo",
+        "primary_id": "happyhorse_10",
+        "alternatives": [
+          "dreamina_seedance_20",
+          "kling_30_pro",
+          "veo_31"
+        ]
+      },
+      {
+        "need": "Meilleur open-source agent personnel",
+        "primary_id": "openclaw",
+        "alternatives": [
+          "hermes_agent"
+        ]
+      },
+      {
+        "need": "Meilleur open-weight général",
+        "primary_id": "mistral_large_3",
+        "alternatives": [
+          "llama_4_scout",
+          "qwen3_max",
+          "deepseek_v32"
+        ]
+      },
+      {
+        "need": "Meilleur rapport prix/perf API",
+        "primary_id": "grok_43",
+        "alternatives": [
+          "deepseek_v32",
+          "qwen3_max",
+          "claude_sonnet_46"
+        ]
+      },
+      {
+        "need": "Meilleur traitement documents Office/PDF",
+        "primary_id": "gpt_55",
+        "alternatives": [
+          "claude_opus_47",
+          "gemini_31_pro",
+          "microsoft_copilot"
+        ]
+      },
+      {
+        "need": "Meilleur app builder no-code",
+        "primary_id": "lovable",
+        "alternatives": [
+          "base44",
+          "totalum",
+          "bolt_new"
+        ],
+        "note": "Pour IA Match spécifiquement, Lovable reste très pertinent malgré un score benchmark plus bas, car le projet est déjà construit dessus."
+      }
+    ]
+  },
+  "schema": {
+    "generated_at": "2026-05-02",
+    "version": "v1.0",
+    "entity_schema": {
+      "id": "string unique stable slug",
+      "rank": "integer optional",
+      "name": "string",
+      "provider": "string",
+      "ia_match_score": "integer 0-100",
+      "confidence": "high|medium|low",
+      "type": "string",
+      "modalities": "array<string>",
+      "best_for": "array<string>",
+      "strengths_or_pros": "array<string>",
+      "weaknesses_or_cons": "array<string>",
+      "benchmark_metrics": "array<object>",
+      "pricing": "object optional",
+      "source_ids": "array<string> referencing 07_sources.json",
+      "last_verified_at": "YYYY-MM-DD"
+    },
+    "supabase_suggestion": {
+      "tables": [
+        {
+          "name": "ai_entities",
+          "columns": [
+            "id",
+            "name",
+            "provider",
+            "entity_type",
+            "ia_match_score",
+            "confidence",
+            "best_for",
+            "pros",
+            "cons",
+            "metadata",
+            "last_verified_at"
+          ]
+        },
+        {
+          "name": "ai_rankings",
+          "columns": [
+            "id",
+            "category",
+            "entity_id",
+            "rank",
+            "score",
+            "source_ids"
+          ]
+        },
+        {
+          "name": "ai_sources",
+          "columns": [
+            "id",
+            "title",
+            "publisher",
+            "type",
+            "url",
+            "used_for"
+          ]
+        },
+        {
+          "name": "ai_benchmarks",
+          "columns": [
+            "id",
+            "entity_id",
+            "benchmark",
+            "score",
+            "score_unit",
+            "source_id",
+            "verified_at"
+          ]
+        }
+      ]
+    }
+  },
+  "import_ready_records": [
+    {
+      "id": "gpt_55",
+      "name": "GPT-5.5",
+      "provider": "OpenAI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "généraliste premium",
+        "code agentique",
+        "recherche",
+        "documents",
+        "analyse de données"
+      ],
+      "pros": [
+        "Très fort en tâches longues et complexes",
+        "Très bon usage des outils",
+        "Excellent pour code, documents, tableurs et recherche",
+        "Bonne polyvalence produit pour une app grand public"
+      ],
+      "cons": [
+        "Coût potentiellement élevé",
+        "Surdimensionné pour des demandes simples",
+        "Disponibilité API/plans à vérifier selon région et date"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "openai_gpt_55_system_card",
+        "terminal_bench_20",
+        "swe_bench"
+      ],
+      "metadata": {
+        "model_family": "GPT",
+        "type": "proprietary_frontier",
+        "public_access": [
+          "ChatGPT",
+          "Codex",
+          "API annoncé / déploiement progressif selon disponibilité"
+        ],
+        "modalities": [
+          "text",
+          "vision",
+          "code",
+          "documents",
+          "tools",
+          "agents"
+        ],
+        "benchmark_metrics": [
+          {
+            "benchmark": "Terminal-Bench 2.0",
+            "score": "82.7%",
+            "source_id": "openai_gpt_55_intro"
+          },
+          {
+            "benchmark": "SWE-Bench Pro",
+            "score": "58.6%",
+            "source_id": "openai_gpt_55_intro"
+          }
+        ],
+        "pricing": {
+          "input_per_million_usd": 5,
+          "output_per_million_usd": 30,
+          "confidence": "medium",
+          "note": "À vérifier lors de l'intégration API."
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "gpt_55_pro",
+      "name": "GPT-5.5 Pro",
+      "provider": "OpenAI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 2,
+      "ia_match_score": 96,
+      "confidence": "medium",
+      "best_for": [
+        "tâches ultra complexes",
+        "deep research",
+        "stratégie",
+        "documents longs"
+      ],
+      "pros": [
+        "Meilleure profondeur de raisonnement que la version standard",
+        "Très bon pour recherche et tâches longues"
+      ],
+      "cons": [
+        "Très cher",
+        "Pas nécessaire pour 80% des utilisateurs",
+        "Données de pricing/accès à vérifier"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {
+        "model_family": "GPT",
+        "type": "proprietary_frontier",
+        "public_access": [
+          "ChatGPT Pro / offres premium selon disponibilité"
+        ],
+        "modalities": [
+          "text",
+          "vision",
+          "code",
+          "documents",
+          "tools",
+          "agents"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": 30,
+          "output_per_million_usd": 180,
+          "confidence": "low",
+          "note": "À vérifier avant affichage public."
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude Opus 4.7",
+      "provider": "Anthropic",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 3,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "code complexe",
+        "rédaction premium",
+        "documents longs",
+        "raisonnement",
+        "agents"
+      ],
+      "pros": [
+        "Très fort en rédaction naturelle et analyse longue",
+        "Excellent pour code complexe et documents",
+        "Contexte 1M tokens selon documentation Anthropic",
+        "Tarif officiel clair"
+      ],
+      "cons": [
+        "Coût élevé",
+        "Peut consommer beaucoup de tokens",
+        "Parfois moins search-native que Perplexity/Gemini"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "anthropic_opus_47_docs"
+      ],
+      "metadata": {
+        "model_family": "Claude",
+        "type": "proprietary_frontier",
+        "public_access": [
+          "Claude",
+          "Anthropic API",
+          "Amazon Bedrock",
+          "Google Vertex AI",
+          "Microsoft Foundry"
+        ],
+        "modalities": [
+          "text",
+          "vision",
+          "code",
+          "documents",
+          "tools",
+          "agents"
+        ],
+        "context_window_tokens": 1000000,
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": 5,
+          "output_per_million_usd": 25,
+          "confidence": "high"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 4,
+      "ia_match_score": 94,
+      "confidence": "high",
+      "best_for": [
+        "multimodal",
+        "Google Workspace",
+        "gros contexte",
+        "PDF",
+        "analyse de codebase"
+      ],
+      "pros": [
+        "Très fort multimodal",
+        "1M de contexte selon Google Cloud",
+        "Très bon avec PDF, vidéo, audio et repositories",
+        "Écosystème Google très puissant"
+      ],
+      "cons": [
+        "Expérience dépendante de l'écosystème Google",
+        "Certaines fonctions peuvent varier selon produit/région",
+        "Style conversationnel parfois moins naturel que Claude"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog",
+        "google_vertex_gemini_31"
+      ],
+      "metadata": {
+        "model_family": "Gemini",
+        "type": "proprietary_frontier",
+        "public_access": [
+          "Gemini app",
+          "Gemini API",
+          "Vertex AI",
+          "NotebookLM"
+        ],
+        "modalities": [
+          "text",
+          "audio",
+          "image",
+          "video",
+          "pdf",
+          "code_repositories"
+        ],
+        "context_window_tokens": 1000000,
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "medium",
+          "note": "Varie selon Vertex/Gemini API et contexte."
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "grok_43",
+      "name": "Grok 4.3",
+      "provider": "xAI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 5,
+      "ia_match_score": 91,
+      "confidence": "medium",
+      "best_for": [
+        "prix/performance API",
+        "actualités",
+        "agentic workflows",
+        "factualité"
+      ],
+      "pros": [
+        "Prix API agressif chez certains providers",
+        "Contexte annoncé à 1M via provider tiers",
+        "Bon choix pour apps nécessitant coût bas et contexte long"
+      ],
+      "cons": [
+        "Moins éprouvé en production longue durée que OpenAI/Anthropic/Google",
+        "Données officielles parfois moins complètes",
+        "Risque d'image de marque selon publics sensibles"
+      ],
+      "source_ids": [
+        "xai_models_pricing",
+        "openrouter_grok_43"
+      ],
+      "metadata": {
+        "model_family": "Grok",
+        "type": "proprietary_frontier",
+        "public_access": [
+          "xAI API",
+          "OpenRouter / providers tiers",
+          "écosystème X selon plan"
+        ],
+        "modalities": [
+          "text",
+          "vision"
+        ],
+        "context_window_tokens": 1000000,
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": 1.25,
+          "output_per_million_usd": 2.5,
+          "confidence": "medium",
+          "source_id": "openrouter_grok_43"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "claude_sonnet_46",
+      "name": "Claude Sonnet 4.6",
+      "provider": "Anthropic",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 6,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "production",
+        "code quotidien",
+        "rédaction",
+        "analyse de documents",
+        "rapport qualité/prix"
+      ],
+      "pros": [
+        "Excellent compromis prix/performance",
+        "Très bon pour code et rédaction",
+        "Tarif officiel stable"
+      ],
+      "cons": [
+        "Moins puissant qu’Opus sur les tâches extrêmes",
+        "Limites d’usage selon plan"
+      ],
+      "source_ids": [
+        "anthropic_sonnet_46"
+      ],
+      "metadata": {
+        "model_family": "Claude",
+        "type": "proprietary_frontier_mid_cost",
+        "public_access": [
+          "Claude",
+          "Anthropic API",
+          "Claude Cowork",
+          "cloud providers"
+        ],
+        "modalities": [
+          "text",
+          "vision",
+          "code",
+          "documents",
+          "tools"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": 3,
+          "output_per_million_usd": 15,
+          "confidence": "high"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "qwen3_max",
+      "name": "Qwen3-Max",
+      "provider": "Alibaba / Qwen",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 7,
+      "ia_match_score": 88,
+      "confidence": "high",
+      "best_for": [
+        "code",
+        "raisonnement",
+        "rapport prix/performance",
+        "marché asiatique"
+      ],
+      "pros": [
+        "Très bon score coding annoncé officiellement",
+        "Écosystème Qwen très actif",
+        "Bon choix pour agents et développeurs"
+      ],
+      "cons": [
+        "Moins simple pour utilisateur non technique",
+        "Intégration occidentale moins évidente que OpenAI/Claude/Gemini"
+      ],
+      "source_ids": [
+        "qwen3_max_blog",
+        "swe_bench"
+      ],
+      "metadata": {
+        "model_family": "Qwen",
+        "type": "proprietary_or_open_ecosystem",
+        "public_access": [
+          "Qwen Chat",
+          "API Alibaba Cloud / Model Studio",
+          "providers tiers selon disponibilité"
+        ],
+        "modalities": [
+          "text",
+          "code",
+          "agents"
+        ],
+        "benchmark_metrics": [
+          {
+            "benchmark": "SWE-Bench Verified",
+            "score": "69.6",
+            "source_id": "qwen3_max_blog"
+          }
+        ],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "deepseek_v32",
+      "name": "DeepSeek-V3.2",
+      "provider": "DeepSeek",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 8,
+      "ia_match_score": 87,
+      "confidence": "high",
+      "best_for": [
+        "raisonnement bon marché",
+        "agents",
+        "code",
+        "expérimentation technique"
+      ],
+      "pros": [
+        "Positionné officiellement comme reasoning-first pour agents",
+        "Bon potentiel coût/performance",
+        "Écosystème open/technique actif"
+      ],
+      "cons": [
+        "Questions de conformité/données selon usage entreprise",
+        "Expérience dépendante du provider",
+        "Moins grand public que ChatGPT/Claude/Gemini"
+      ],
+      "source_ids": [
+        "deepseek_v32_release",
+        "deepseek_v32_hf"
+      ],
+      "metadata": {
+        "model_family": "DeepSeek",
+        "type": "open_or_low_cost_reasoning",
+        "public_access": [
+          "App",
+          "Web",
+          "API",
+          "Hugging Face model card"
+        ],
+        "modalities": [
+          "text",
+          "code",
+          "reasoning",
+          "agents"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "mistral_large_3",
+      "name": "Mistral Large 3",
+      "provider": "Mistral AI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 9,
+      "ia_match_score": 84,
+      "confidence": "high",
+      "best_for": [
+        "souveraineté européenne",
+        "open-weight",
+        "entreprise",
+        "self-hosting"
+      ],
+      "pros": [
+        "Open-weight permissif",
+        "Très gros modèle MoE",
+        "Prix officiel compétitif",
+        "Bon choix pour confidentialité/souveraineté"
+      ],
+      "cons": [
+        "Moins dominant que GPT/Claude/Gemini en frontier généraliste",
+        "Nécessite plus d'expertise pour self-hosting"
+      ],
+      "source_ids": [
+        "mistral_large_3_docs",
+        "mistral_3_news"
+      ],
+      "metadata": {
+        "model_family": "Mistral",
+        "type": "open_weight_multimodal_moe",
+        "public_access": [
+          "API Mistral",
+          "Hugging Face / open weights",
+          "providers compatibles"
+        ],
+        "modalities": [
+          "text",
+          "image_understanding"
+        ],
+        "context_window_tokens": 256000,
+        "parameters": {
+          "total": "675B",
+          "active": "41B"
+        },
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": 0.5,
+          "output_per_million_usd": 1.5,
+          "confidence": "high"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "perplexity_sonar_deep_research",
+      "name": "Perplexity Sonar Deep Research",
+      "provider": "Perplexity",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 10,
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "recherche sourcée",
+        "veille",
+        "résumés d'articles",
+        "comparatifs"
+      ],
+      "pros": [
+        "Très fort pour recherche web avec citations",
+        "Interface grand public simple",
+        "Bon pour veille et sources"
+      ],
+      "cons": [
+        "Moins complet comme modèle général pur",
+        "Dépend de la qualité de recherche et des sources accessibles"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "metadata": {
+        "model_family": "Sonar",
+        "type": "research_specialist",
+        "public_access": [
+          "Perplexity",
+          "API Sonar selon plan"
+        ],
+        "modalities": [
+          "text",
+          "web_search",
+          "citations",
+          "research_reports"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "llama_4_scout",
+      "name": "Llama 4 Scout",
+      "provider": "Meta",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 11,
+      "ia_match_score": 81,
+      "confidence": "medium",
+      "best_for": [
+        "open ecosystem",
+        "déploiement",
+        "long contexte",
+        "expérimentation"
+      ],
+      "pros": [
+        "Bon pour self-hosting et intégrations",
+        "Écosystème large",
+        "Bonne option open-weight grand public"
+      ],
+      "cons": [
+        "Licence et usage commercial à vérifier",
+        "Moins fort que leaders propriétaires en qualité brute"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard",
+        "lmarena_leaderboard"
+      ],
+      "metadata": {
+        "model_family": "Llama",
+        "type": "open_weight",
+        "public_access": [
+          "Meta AI",
+          "download/open-weight selon licence",
+          "providers tiers"
+        ],
+        "modalities": [
+          "text",
+          "multimodal"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "kimi_k2_thinking",
+      "name": "Kimi K2 Thinking",
+      "provider": "Moonshot AI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 12,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "raisonnement",
+        "tâches complexes",
+        "alternatives prix/performance"
+      ],
+      "pros": [
+        "Très bon potentiel reasoning",
+        "Souvent bien placé dans comparatifs tiers"
+      ],
+      "cons": [
+        "Disponibilité et documentation variables",
+        "Moins connu du grand public occidental"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "metadata": {
+        "model_family": "Kimi",
+        "type": "reasoning_model",
+        "public_access": [
+          "Kimi",
+          "API/providers selon disponibilité"
+        ],
+        "modalities": [
+          "text",
+          "reasoning",
+          "code"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "gpt_5_codex",
+      "name": "GPT-5 Codex / GPT-5.x Codex",
+      "provider": "OpenAI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 13,
+      "ia_match_score": 89,
+      "confidence": "medium",
+      "best_for": [
+        "développement logiciel",
+        "terminal",
+        "debug",
+        "refactoring"
+      ],
+      "pros": [
+        "Très bon pour workflows dev agentiques",
+        "Intégration OpenAI forte"
+      ],
+      "cons": [
+        "Moins utile hors code",
+        "Coût/accès à vérifier"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "swe_bench",
+        "terminal_bench_20"
+      ],
+      "metadata": {
+        "model_family": "Codex",
+        "type": "coding_specialist",
+        "public_access": [
+          "Codex",
+          "ChatGPT coding tools",
+          "API selon disponibilité"
+        ],
+        "modalities": [
+          "code",
+          "terminal",
+          "tools",
+          "text"
+        ],
+        "benchmark_metrics": [],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "glm_5",
+      "name": "GLM-5",
+      "provider": "Zhipu AI",
+      "category": "general_models",
+      "entity_type": "model",
+      "rank": 14,
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "coding",
+        "raisonnement",
+        "marché asiatique"
+      ],
+      "pros": [
+        "Apparaît dans classements SWE-bench récents",
+        "Alternative intéressante aux leaders"
+      ],
+      "cons": [
+        "Moins connu grand public",
+        "Données produit plus fragmentées"
+      ],
+      "source_ids": [
+        "swe_bench"
+      ],
+      "metadata": {
+        "model_family": "GLM",
+        "type": "reasoning_coding_model",
+        "public_access": [
+          "API/providers selon disponibilité"
+        ],
+        "modalities": [
+          "text",
+          "code",
+          "reasoning"
+        ],
+        "benchmark_metrics": [
+          {
+            "benchmark": "SWE-bench Verified",
+            "score": "72.80 via aperçu leaderboard",
+            "source_id": "swe_bench"
+          }
+        ],
+        "pricing": {
+          "input_per_million_usd": null,
+          "output_per_million_usd": null,
+          "confidence": "low"
+        },
+        "last_verified_at": "2026-05-02"
+      }
+    },
+    {
+      "id": "gpt_image_2",
+      "name": "GPT Image 2",
+      "provider": "OpenAI",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "image premium",
+        "texte dans image",
+        "design logique",
+        "storytelling visuel"
+      ],
+      "pros": [
+        "N°1 Elo text-to-image Artificial Analysis",
+        "Très fort en cohérence et rendu texte"
+      ],
+      "cons": [
+        "Coût et disponibilité à vérifier",
+        "Moins ouvert que FLUX/Stable Diffusion"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1336
+        }
+      }
+    },
+    {
+      "id": "gpt_image_15",
+      "name": "GPT Image 1.5",
+      "provider": "OpenAI",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 93,
+      "confidence": "high",
+      "best_for": [
+        "génération image générale",
+        "prompt following"
+      ],
+      "pros": [
+        "Très haut Elo",
+        "Rendu polyvalent"
+      ],
+      "cons": [
+        "Moins récent que GPT Image 2"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1272
+        }
+      }
+    },
+    {
+      "id": "nano_banana_2",
+      "name": "Nano Banana 2 / Gemini 3.1 Flash Image Preview",
+      "provider": "Google",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "high",
+      "best_for": [
+        "réalisme",
+        "édition simple",
+        "usage grand public Google"
+      ],
+      "pros": [
+        "Très bon réalisme",
+        "Écosystème Google"
+      ],
+      "cons": [
+        "Nom/branding peut évoluer",
+        "Moins open"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1261
+        }
+      }
+    },
+    {
+      "id": "nano_banana_pro",
+      "name": "Nano Banana Pro / Gemini 3 Pro Image",
+      "provider": "Google",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "image multimodale",
+        "Google ecosystem"
+      ],
+      "pros": [
+        "Bon équilibre qualité/intégration"
+      ],
+      "cons": [
+        "Rang inférieur à GPT Image 2/1.5 dans AA"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1217
+        }
+      }
+    },
+    {
+      "id": "seedream_4",
+      "name": "Seedream 4.0",
+      "provider": "ByteDance",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 89,
+      "confidence": "high",
+      "best_for": [
+        "réalisme",
+        "photo",
+        "création visuelle rapide"
+      ],
+      "pros": [
+        "Très bon rendu photoréaliste",
+        "Top 5 AA"
+      ],
+      "cons": [
+        "Accès selon plateformes tiers",
+        "Moins connu grand public Europe"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1201
+        }
+      }
+    },
+    {
+      "id": "flux_2",
+      "name": "FLUX.2 dev / Turbo",
+      "provider": "Black Forest Labs",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 6,
+      "ia_match_score": 87,
+      "confidence": "medium",
+      "best_for": [
+        "open-weight",
+        "pipelines créatifs",
+        "self-hosting image"
+      ],
+      "pros": [
+        "Très bon choix open",
+        "Contrôle technique"
+      ],
+      "cons": [
+        "Nécessite setup technique",
+        "Qualité variable selon pipeline"
+      ],
+      "source_ids": [
+        "artificial_analysis_image"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "midjourney_v7",
+      "name": "Midjourney V7",
+      "provider": "Midjourney",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 7,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "direction artistique",
+        "moodboards",
+        "créa premium"
+      ],
+      "pros": [
+        "Style très fort",
+        "Excellent rendu artistique"
+      ],
+      "cons": [
+        "Benchmarks publics moins transparents",
+        "Moins API/productivité selon usage"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "ideogram_3",
+      "name": "Ideogram 3",
+      "provider": "Ideogram",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 8,
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "texte dans image",
+        "posters",
+        "logos simples"
+      ],
+      "pros": [
+        "Très bon sur typographie",
+        "Simple pour créateurs"
+      ],
+      "cons": [
+        "Moins généraliste que leaders"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "adobe_firefly",
+      "name": "Adobe Firefly",
+      "provider": "Adobe",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 9,
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "entreprise",
+        "usage commercial",
+        "Adobe workflow"
+      ],
+      "pros": [
+        "Très bon pour marques",
+        "Intégration Adobe"
+      ],
+      "cons": [
+        "Qualité parfois moins spectaculaire que Midjourney/GPT Image"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "stable_diffusion_xl",
+      "name": "Stable Diffusion XL / dérivés",
+      "provider": "Stability AI / communauté",
+      "category": "image_generation",
+      "entity_type": "model_or_tool",
+      "rank": 10,
+      "ia_match_score": 78,
+      "confidence": "medium",
+      "best_for": [
+        "open source",
+        "custom models",
+        "LoRA",
+        "local"
+      ],
+      "pros": [
+        "Écosystème énorme",
+        "Contrôle maximal"
+      ],
+      "cons": [
+        "Setup technique",
+        "Qualité dépend du modèle/pipeline"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "happyhorse_10",
+      "name": "HappyHorse-1.0",
+      "provider": "Alibaba-ATH / selon sources leaderboard",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 94,
+      "confidence": "high",
+      "best_for": [
+        "qualité brute text-to-video",
+        "clips réalistes"
+      ],
+      "pros": [
+        "N°1 AA text-to-video sans audio"
+      ],
+      "cons": [
+        "Accès produit à vérifier",
+        "Moins installé que Runway/Veo"
+      ],
+      "source_ids": [
+        "artificial_analysis_video",
+        "arena_text_to_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo text-to-video sans audio",
+          "value": 1354
+        }
+      }
+    },
+    {
+      "id": "dreamina_seedance_20",
+      "name": "Dreamina Seedance 2.0 720p",
+      "provider": "ByteDance",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 93,
+      "confidence": "high",
+      "best_for": [
+        "vidéo réaliste",
+        "création rapide",
+        "réseaux sociaux"
+      ],
+      "pros": [
+        "Très haut classement AA et Arena.ai"
+      ],
+      "cons": [
+        "Disponibilité selon régions/outils"
+      ],
+      "source_ids": [
+        "artificial_analysis_video",
+        "arena_text_to_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1270
+        }
+      }
+    },
+    {
+      "id": "kling_30_pro",
+      "name": "Kling 3.0 1080p Pro",
+      "provider": "Kuaishou",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 91,
+      "confidence": "high",
+      "best_for": [
+        "cinématique",
+        "motion",
+        "image-to-video"
+      ],
+      "pros": [
+        "Très fort en mouvement et réalisme",
+        "Top 3 AA"
+      ],
+      "cons": [
+        "Accès/prix variables"
+      ],
+      "source_ids": [
+        "artificial_analysis_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1248
+        }
+      }
+    },
+    {
+      "id": "grok_imagine_video",
+      "name": "grok-imagine-video",
+      "provider": "xAI",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 88,
+      "confidence": "high",
+      "best_for": [
+        "vidéo grand public xAI",
+        "idéation rapide"
+      ],
+      "pros": [
+        "Top 5 AA",
+        "Bon potentiel créatif"
+      ],
+      "cons": [
+        "Écosystème xAI spécifique"
+      ],
+      "source_ids": [
+        "artificial_analysis_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1232
+        }
+      }
+    },
+    {
+      "id": "kling_30_omni",
+      "name": "Kling 3.0 Omni 1080p Pro",
+      "provider": "Kuaishou",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 88,
+      "confidence": "high",
+      "best_for": [
+        "storyboard",
+        "vidéo avancée",
+        "créateurs"
+      ],
+      "pros": [
+        "Très haut AA",
+        "Bon contrôle créatif"
+      ],
+      "cons": [
+        "Complexité/prix"
+      ],
+      "source_ids": [
+        "artificial_analysis_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": {
+          "metric": "Artificial Analysis Elo",
+          "value": 1232
+        }
+      }
+    },
+    {
+      "id": "veo_31",
+      "name": "Veo 3.1",
+      "provider": "Google",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 6,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "vidéo avec audio",
+        "production Google",
+        "4K",
+        "Gemini API"
+      ],
+      "pros": [
+        "Modèle vidéo Google state-of-the-art",
+        "Audio natif",
+        "720p/1080p/4K selon docs"
+      ],
+      "cons": [
+        "Coût potentiellement élevé",
+        "Accès selon plan/région"
+      ],
+      "source_ids": [
+        "google_veo_31_docs",
+        "arena_text_to_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "runway_gen_45",
+      "name": "Runway Gen-4 / Gen-4.5",
+      "provider": "Runway",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 7,
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "workflow pro",
+        "édition",
+        "contrôle créatif",
+        "marketing"
+      ],
+      "pros": [
+        "Écosystème mature",
+        "Consistance personnages/lieux/objets"
+      ],
+      "cons": [
+        "Abonnement et crédits",
+        "Peut être moins haut en Elo brut selon leaderboard"
+      ],
+      "source_ids": [
+        "runway_gen_4_research"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "sora_2",
+      "name": "Sora 2",
+      "provider": "OpenAI",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 8,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "simulation",
+        "cinématique",
+        "scènes complexes"
+      ],
+      "pros": [
+        "Très bon potentiel qualité/simulation"
+      ],
+      "cons": [
+        "Accès et benchmarks publics à vérifier"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "pika",
+      "name": "Pika",
+      "provider": "Pika Labs",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 9,
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "social media",
+        "clips courts",
+        "édition rapide"
+      ],
+      "pros": [
+        "Simple pour créateurs",
+        "Très accessible"
+      ],
+      "cons": [
+        "Moins premium que leaders vidéo"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "ltx_23",
+      "name": "LTX-2.3",
+      "provider": "Lightricks / open ecosystem",
+      "category": "video_generation",
+      "entity_type": "model_or_tool",
+      "rank": 10,
+      "ia_match_score": 78,
+      "confidence": "medium",
+      "best_for": [
+        "open-weight vidéo",
+        "expérimentation",
+        "pipelines dev"
+      ],
+      "pros": [
+        "Intéressant pour open-source vidéo"
+      ],
+      "cons": [
+        "Qualité inférieure aux modèles propriétaires leaders"
+      ],
+      "source_ids": [
+        "artificial_analysis_video"
+      ],
+      "metadata": {
+        "official_or_benchmark_score": null
+      }
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude Opus 4.7",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "code complexe",
+        "refactor",
+        "debug",
+        "repo longs"
+      ],
+      "pros": [
+        "Très bon pour raisonnement long et code"
+      ],
+      "cons": [
+        "Coûteux"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "anthropic_opus_47_docs",
+        "swe_bench"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gpt_55",
+      "name": "GPT-5.5",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "coding agentique",
+        "terminal",
+        "debug",
+        "outils"
+      ],
+      "pros": [
+        "82.7% Terminal-Bench 2.0 selon OpenAI",
+        "58.6% SWE-Bench Pro selon OpenAI"
+      ],
+      "cons": [
+        "Cher pour dev quotidien simple"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "high",
+      "best_for": [
+        "analyse codebase",
+        "gros contexte",
+        "repos entiers"
+      ],
+      "pros": [
+        "1M contexte et code repositories selon Google"
+      ],
+      "cons": [
+        "Écosystème Google"
+      ],
+      "source_ids": [
+        "google_vertex_gemini_31"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_sonnet_46",
+      "name": "Claude Sonnet 4.6",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 91,
+      "confidence": "high",
+      "best_for": [
+        "dev quotidien",
+        "PR",
+        "rapport qualité/prix"
+      ],
+      "pros": [
+        "3$/15$ par MTok selon Anthropic"
+      ],
+      "cons": [
+        "Moins puissant qu'Opus"
+      ],
+      "source_ids": [
+        "anthropic_sonnet_46"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "qwen3_max",
+      "name": "Qwen3-Max",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 87,
+      "confidence": "high",
+      "best_for": [
+        "coding coût/performance",
+        "agents"
+      ],
+      "pros": [
+        "69.6 SWE-Bench Verified selon Qwen"
+      ],
+      "cons": [
+        "Moins grand public"
+      ],
+      "source_ids": [
+        "qwen3_max_blog"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "deepseek_v32",
+      "name": "DeepSeek-V3.2",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 6,
+      "ia_match_score": 86,
+      "confidence": "high",
+      "best_for": [
+        "reasoning agents",
+        "code économique"
+      ],
+      "pros": [
+        "Reasoning-first built for agents"
+      ],
+      "cons": [
+        "Conformité à évaluer"
+      ],
+      "source_ids": [
+        "deepseek_v32_release"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "mistral_large_3",
+      "name": "Mistral Large 3",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 7,
+      "ia_match_score": 83,
+      "confidence": "high",
+      "best_for": [
+        "open-weight",
+        "souveraineté",
+        "self-hosting"
+      ],
+      "pros": [
+        "Open-weight, 675B/41B actif"
+      ],
+      "cons": [
+        "Moins leader en coding pur"
+      ],
+      "source_ids": [
+        "mistral_large_3_docs"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gpt_5_codex",
+      "name": "GPT-5 Codex / GPT-5.x Codex",
+      "provider": null,
+      "category": "coding_dev",
+      "entity_type": "model_or_tool",
+      "rank": 8,
+      "ia_match_score": 89,
+      "confidence": "medium",
+      "best_for": [
+        "IDE/terminal",
+        "agents dev"
+      ],
+      "pros": [
+        "Spécialisé code"
+      ],
+      "cons": [
+        "À réserver au dev"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "swe_bench"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gpt_55_pro",
+      "name": "GPT-5.5 Pro + tools",
+      "provider": null,
+      "category": "research_search",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "medium",
+      "best_for": [
+        "deep research",
+        "rapports",
+        "synthèse multi-sources"
+      ],
+      "pros": [
+        "Très fort en recherche et outils"
+      ],
+      "cons": [
+        "Coûteux"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini 3.1 Pro + Google Search/NotebookLM",
+      "provider": null,
+      "category": "research_search",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 94,
+      "confidence": "high",
+      "best_for": [
+        "Google Search",
+        "PDF",
+        "NotebookLM",
+        "gros contexte"
+      ],
+      "pros": [
+        "Écosystème Google"
+      ],
+      "cons": [
+        "Dépendant Google"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog",
+        "google_vertex_gemini_31"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "perplexity_sonar_deep_research",
+      "name": "Perplexity Sonar Deep Research",
+      "provider": null,
+      "category": "research_search",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "medium",
+      "best_for": [
+        "réponses sourcées",
+        "veille",
+        "comparatifs"
+      ],
+      "pros": [
+        "Très orienté citations"
+      ],
+      "cons": [
+        "Moins généraliste"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude Opus 4.7 + web/tools",
+      "provider": null,
+      "category": "research_search",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "synthèse",
+        "documents longs",
+        "analyse critique"
+      ],
+      "pros": [
+        "Très bon style et raisonnement"
+      ],
+      "cons": [
+        "Moins search-native"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "grok_43",
+      "name": "Grok 4.3",
+      "provider": null,
+      "category": "research_search",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 87,
+      "confidence": "medium",
+      "best_for": [
+        "actualité",
+        "factualité",
+        "X ecosystem"
+      ],
+      "pros": [
+        "Prix API bas via providers"
+      ],
+      "cons": [
+        "À vérifier selon sécurité/brand"
+      ],
+      "source_ids": [
+        "xai_models_pricing",
+        "openrouter_grok_43"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude Opus 4.7",
+      "provider": null,
+      "category": "writing_content",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "rédaction premium",
+        "storytelling",
+        "nuance"
+      ],
+      "pros": [
+        "Style naturel"
+      ],
+      "cons": [
+        "Coût"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gpt_55",
+      "name": "GPT-5.5",
+      "provider": null,
+      "category": "writing_content",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "documents business",
+        "structure",
+        "marketing"
+      ],
+      "pros": [
+        "Très structuré"
+      ],
+      "cons": [
+        "Peut être trop cadré"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": null,
+      "category": "writing_content",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 91,
+      "confidence": "high",
+      "best_for": [
+        "contenu multimodal",
+        "Workspace",
+        "présentations"
+      ],
+      "pros": [
+        "Écosystème Google"
+      ],
+      "cons": [
+        "Style parfois moins chaleureux"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_sonnet_46",
+      "name": "Claude Sonnet 4.6",
+      "provider": null,
+      "category": "writing_content",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "rédaction quotidienne",
+        "emails",
+        "articles"
+      ],
+      "pros": [
+        "Excellent rapport qualité/prix"
+      ],
+      "cons": [
+        "Moins profond qu'Opus"
+      ],
+      "source_ids": [
+        "anthropic_sonnet_46"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "mistral_large_3",
+      "name": "Mistral Large 3",
+      "provider": null,
+      "category": "writing_content",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 84,
+      "confidence": "high",
+      "best_for": [
+        "multilingue",
+        "Europe",
+        "open-weight"
+      ],
+      "pros": [
+        "Souveraineté"
+      ],
+      "cons": [
+        "Moins premium stylistiquement"
+      ],
+      "source_ids": [
+        "mistral_large_3_docs"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "chatgpt_gpt55",
+      "name": "ChatGPT avec GPT-5.5",
+      "provider": null,
+      "category": "conversation_assistant",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "assistant polyvalent",
+        "fichiers",
+        "outils",
+        "image",
+        "recherche"
+      ],
+      "pros": [
+        "Écosystème complet"
+      ],
+      "cons": [
+        "Plans premium nécessaires pour certains usages"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude avec Opus 4.7",
+      "provider": null,
+      "category": "conversation_assistant",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 94,
+      "confidence": "high",
+      "best_for": [
+        "conversation naturelle",
+        "écriture",
+        "analyse"
+      ],
+      "pros": [
+        "Très agréable et fiable"
+      ],
+      "cons": [
+        "Moins large en outils selon plateforme"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini avec Gemini 3.1 Pro",
+      "provider": null,
+      "category": "conversation_assistant",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "high",
+      "best_for": [
+        "Gmail",
+        "Docs",
+        "Drive",
+        "Search",
+        "NotebookLM"
+      ],
+      "pros": [
+        "Très bon avec Google"
+      ],
+      "cons": [
+        "Dépend Google"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "provider": null,
+      "category": "conversation_assistant",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "réponses sourcées",
+        "recherche rapide"
+      ],
+      "pros": [
+        "Citations"
+      ],
+      "cons": [
+        "Moins assistant tout-en-un"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "copilot",
+      "name": "Microsoft Copilot",
+      "provider": null,
+      "category": "conversation_assistant",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "Microsoft 365",
+        "entreprise"
+      ],
+      "pros": [
+        "Word/Excel/Teams/Outlook"
+      ],
+      "cons": [
+        "Moins flexible hors Microsoft"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gpt_55",
+      "name": "GPT-5.5",
+      "provider": null,
+      "category": "documents_pdf_office",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "docs",
+        "spreadsheets",
+        "analyse de fichiers",
+        "workflow multi-outils"
+      ],
+      "pros": [
+        "OpenAI met en avant documents/spreadsheets"
+      ],
+      "cons": [
+        "Coût/accès"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "claude_opus_47",
+      "name": "Claude Opus 4.7",
+      "provider": null,
+      "category": "documents_pdf_office",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "documents longs",
+        "analyse",
+        "rédaction"
+      ],
+      "pros": [
+        "1M contexte"
+      ],
+      "cons": [
+        "Tokens coûteux"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_docs"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_31_pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": null,
+      "category": "documents_pdf_office",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "high",
+      "best_for": [
+        "PDF",
+        "vidéo/audio",
+        "code repos",
+        "Workspace"
+      ],
+      "pros": [
+        "PDF et gros contexte selon Google"
+      ],
+      "cons": [
+        "Écosystème Google"
+      ],
+      "source_ids": [
+        "google_vertex_gemini_31"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "microsoft_copilot",
+      "name": "Microsoft Copilot",
+      "provider": null,
+      "category": "documents_pdf_office",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 90,
+      "confidence": "medium",
+      "best_for": [
+        "Word",
+        "Excel",
+        "PowerPoint",
+        "Outlook",
+        "Teams"
+      ],
+      "pros": [
+        "Intégration entreprise"
+      ],
+      "cons": [
+        "Moins ouvert"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM",
+      "provider": "Google",
+      "category": "documents_pdf_office",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "recherche documentaire",
+        "synthèse sources"
+      ],
+      "pros": [
+        "Excellent pour dossiers et sources"
+      ],
+      "cons": [
+        "Moins création de fichiers finaux"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "elevenlabs",
+      "name": "ElevenLabs",
+      "provider": "ElevenLabs",
+      "category": "audio_voice",
+      "entity_type": "model_or_tool",
+      "rank": 1,
+      "ia_match_score": 92,
+      "confidence": "medium",
+      "best_for": [
+        "voix off",
+        "doublage",
+        "clonage voix autorisé"
+      ],
+      "pros": [
+        "Qualité voix très élevée"
+      ],
+      "cons": [
+        "Prix et droits à gérer"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "openai_audio",
+      "name": "OpenAI Audio / Voice",
+      "provider": "OpenAI",
+      "category": "audio_voice",
+      "entity_type": "model_or_tool",
+      "rank": 2,
+      "ia_match_score": 90,
+      "confidence": "medium",
+      "best_for": [
+        "assistant vocal",
+        "transcription",
+        "voix intégrée"
+      ],
+      "pros": [
+        "Très intégré à ChatGPT/API"
+      ],
+      "cons": [
+        "Moins spécialisé voix off studio que ElevenLabs"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "gemini_live",
+      "name": "Gemini Live / audio multimodal",
+      "provider": "Google",
+      "category": "audio_voice",
+      "entity_type": "model_or_tool",
+      "rank": 3,
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "conversation vocale",
+        "Google ecosystem"
+      ],
+      "pros": [
+        "Multimodal Google"
+      ],
+      "cons": [
+        "Dépend de Gemini"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "murf",
+      "name": "Murf",
+      "provider": "Murf",
+      "category": "audio_voice",
+      "entity_type": "model_or_tool",
+      "rank": 4,
+      "ia_match_score": 80,
+      "confidence": "low",
+      "best_for": [
+        "voix marketing",
+        "formations"
+      ],
+      "pros": [
+        "Simple pour entreprises"
+      ],
+      "cons": [
+        "Moins frontier"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "playht",
+      "name": "PlayHT",
+      "provider": "PlayHT",
+      "category": "audio_voice",
+      "entity_type": "model_or_tool",
+      "rank": 5,
+      "ia_match_score": 79,
+      "confidence": "low",
+      "best_for": [
+        "TTS",
+        "podcasts",
+        "voix IA"
+      ],
+      "pros": [
+        "Bon choix TTS"
+      ],
+      "cons": [
+        "Moins généraliste"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "chatgpt_agent",
+      "name": "ChatGPT Agent / GPT-5.5",
+      "provider": "OpenAI",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 1,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "assistant général",
+        "recherche",
+        "fichiers",
+        "outils",
+        "automatisation cloud"
+      ],
+      "pros": [
+        "Très polyvalent",
+        "Très bon avec outils et fichiers",
+        "Écosystème ChatGPT large"
+      ],
+      "cons": [
+        "Pas de contrôle local total",
+        "Coût premium possible",
+        "Local file access limité selon environnement"
+      ],
+      "source_ids": [
+        "openai_gpt_55_system_card",
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "type": "general_work_agent"
+      }
+    },
+    {
+      "id": "claude_cowork",
+      "name": "Claude Cowork / Claude + Opus 4.7",
+      "provider": "Anthropic",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 2,
+      "ia_match_score": 94,
+      "confidence": "high",
+      "best_for": [
+        "travail long",
+        "code",
+        "documents",
+        "analyse",
+        "rédaction"
+      ],
+      "pros": [
+        "Très fort en analyse et écriture",
+        "Bon pour workflows professionnels"
+      ],
+      "cons": [
+        "Coûteux",
+        "Limites selon plan"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "type": "general_work_agent"
+      }
+    },
+    {
+      "id": "openclaw",
+      "name": "OpenClaw",
+      "provider": "OpenClaw / open source",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 3,
+      "ia_match_score": 91,
+      "confidence": "high",
+      "best_for": [
+        "assistant local",
+        "WhatsApp/Telegram",
+        "email",
+        "calendrier",
+        "automatisation personnelle"
+      ],
+      "pros": [
+        "Open-source",
+        "Tourne sur appareils de l'utilisateur",
+        "Canaux existants comme WhatsApp/Telegram/Slack/Discord",
+        "Peut accéder aux fichiers et apps locales selon permissions"
+      ],
+      "cons": [
+        "Installation et sécurité techniques",
+        "Risque élevé avec skills/plugins non vérifiés",
+        "Dépend du modèle LLM branché"
+      ],
+      "source_ids": [
+        "openclaw_github",
+        "openclaw_website",
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "aliases": [
+          "Clawdbot",
+          "Moltbot",
+          "probable confusion utilisateur: Clowbot"
+        ],
+        "type": "open_source_personal_agent"
+      }
+    },
+    {
+      "id": "hermes_agent",
+      "name": "Hermes Agent",
+      "provider": "Nous Research",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 4,
+      "ia_match_score": 90,
+      "confidence": "high",
+      "best_for": [
+        "mémoire persistante",
+        "skills",
+        "serveur personnel",
+        "automatisations planifiées",
+        "agents évolutifs"
+      ],
+      "pros": [
+        "Mémoire persistante",
+        "Auto-generated skills",
+        "Canaux Telegram/Discord/Slack/WhatsApp/Signal/Email/CLI",
+        "Automatisations planifiées",
+        "Learning loop selon GitHub"
+      ],
+      "cons": [
+        "Plus technique que ChatGPT/Claude",
+        "Nécessite infra/API/configuration",
+        "Sécurité à gérer sérieusement"
+      ],
+      "source_ids": [
+        "hermes_agent_official",
+        "hermes_agent_github"
+      ],
+      "metadata": {
+        "type": "open_source_autonomous_agent"
+      }
+    },
+    {
+      "id": "manus",
+      "name": "Manus",
+      "provider": "Manus",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 5,
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "web automation",
+        "rapports",
+        "sites",
+        "analyse data",
+        "livrables"
+      ],
+      "pros": [
+        "Bon pour livrables autonomes",
+        "Approche généraliste agentique"
+      ],
+      "cons": [
+        "Résultats variables",
+        "Coût/accès à vérifier",
+        "Moins transparent"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "type": "general_autonomous_agent"
+      }
+    },
+    {
+      "id": "microsoft_copilot",
+      "name": "Microsoft Copilot",
+      "provider": "Microsoft",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 6,
+      "ia_match_score": 87,
+      "confidence": "medium",
+      "best_for": [
+        "Microsoft 365",
+        "Teams",
+        "Outlook",
+        "Excel",
+        "Word",
+        "PowerPoint"
+      ],
+      "pros": [
+        "Intégration entreprise",
+        "Permission-aware",
+        "Très utile dans Microsoft"
+      ],
+      "cons": [
+        "Moins flexible hors Microsoft",
+        "Dépend des licences"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "type": "enterprise_assistant"
+      }
+    },
+    {
+      "id": "google_workspace_studio",
+      "name": "Google Workspace Studio / Gemini Enterprise",
+      "provider": "Google",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 7,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "Gmail",
+        "Drive",
+        "Docs",
+        "Sheets",
+        "connecteurs entreprise"
+      ],
+      "pros": [
+        "Très bon avec Google Workspace",
+        "No-code agent builder selon comparatifs"
+      ],
+      "cons": [
+        "Moins contrôle local",
+        "Dépend des licences Google"
+      ],
+      "source_ids": [
+        "google_gemini_31_blog",
+        "artificial_analysis_agents"
+      ],
+      "metadata": {
+        "type": "enterprise_workspace_agent"
+      }
+    },
+    {
+      "id": "perplexity_deep_research_agent",
+      "name": "Perplexity Deep Research",
+      "provider": "Perplexity",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 8,
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "veille",
+        "synthèse sourcée",
+        "dossiers de recherche"
+      ],
+      "pros": [
+        "Très bon pour citations et recherche"
+      ],
+      "cons": [
+        "Pas agent ordinateur complet"
+      ],
+      "source_ids": [
+        "vellum_llm_leaderboard"
+      ],
+      "metadata": {
+        "type": "research_agent"
+      }
+    },
+    {
+      "id": "zapier_agents",
+      "name": "Zapier Agents / Make AI / n8n AI",
+      "provider": "Zapier / Make / n8n",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 9,
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "automatisation business",
+        "no-code",
+        "CRM",
+        "emails",
+        "workflows SaaS"
+      ],
+      "pros": [
+        "Très utile pour workflows réels",
+        "Intégrations nombreuses"
+      ],
+      "cons": [
+        "Dépend de scénarios et connecteurs",
+        "Peu adapté aux tâches créatives complexes"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "type": "automation_agent"
+      }
+    },
+    {
+      "id": "framework_agents",
+      "name": "AutoGPT / CrewAI / LangGraph / AutoGen",
+      "provider": "Open-source / frameworks dev",
+      "category": "agents_general",
+      "entity_type": "agent",
+      "rank": 10,
+      "ia_match_score": 80,
+      "confidence": "medium",
+      "best_for": [
+        "frameworks agents",
+        "multi-agent",
+        "prototype dev",
+        "orchestration"
+      ],
+      "pros": [
+        "Très flexibles",
+        "Bon pour développeurs"
+      ],
+      "cons": [
+        "Pas grand public",
+        "Nécessite dev"
+      ],
+      "source_ids": [],
+      "metadata": {
+        "type": "developer_agent_framework"
+      }
+    },
+    {
+      "id": "claude_code",
+      "name": "Claude Code",
+      "provider": "Anthropic",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 1,
+      "ia_match_score": 96,
+      "confidence": "high",
+      "best_for": [
+        "repo complexes",
+        "refactor",
+        "debug",
+        "tests",
+        "agent dev"
+      ],
+      "pros": [
+        "Très fort pour gros projets",
+        "S'appuie sur Claude performant"
+      ],
+      "cons": [
+        "Coût élevé",
+        "Usage tokens important"
+      ],
+      "source_ids": [
+        "anthropic_opus_47_news",
+        "terminal_bench_20",
+        "swe_bench"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "openai_codex",
+      "name": "OpenAI Codex",
+      "provider": "OpenAI",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 2,
+      "ia_match_score": 95,
+      "confidence": "high",
+      "best_for": [
+        "terminal",
+        "PR",
+        "debug",
+        "agents dev",
+        "génération fichiers"
+      ],
+      "pros": [
+        "Très intégré à GPT-5.5",
+        "Bon pour workflows agentiques"
+      ],
+      "cons": [
+        "Coût/accès selon plan"
+      ],
+      "source_ids": [
+        "openai_gpt_55_intro",
+        "terminal_bench_20",
+        "swe_bench"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "provider": "Anysphere",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 3,
+      "ia_match_score": 92,
+      "confidence": "medium",
+      "best_for": [
+        "IDE IA",
+        "multi-file editing",
+        "productivité dev"
+      ],
+      "pros": [
+        "Très bonne UX dev",
+        "Choix de modèles",
+        "Composer/agent"
+      ],
+      "cons": [
+        "Dépend du modèle",
+        "Coût en usage intensif"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "devin",
+      "name": "Devin",
+      "provider": "Cognition",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 4,
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "software engineering autonome",
+        "multi-repo",
+        "équipes"
+      ],
+      "pros": [
+        "Agent dev cloud spécialisé"
+      ],
+      "cons": [
+        "Cher",
+        "Résultats variables"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "github_copilot",
+      "name": "GitHub Copilot / Copilot Workspace",
+      "provider": "Microsoft / GitHub",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 5,
+      "ia_match_score": 86,
+      "confidence": "medium",
+      "best_for": [
+        "VS Code",
+        "GitHub",
+        "entreprise",
+        "PR"
+      ],
+      "pros": [
+        "Très intégré GitHub"
+      ],
+      "cons": [
+        "Moins autonome sur tâches longues que Claude Code/Codex"
+      ],
+      "source_ids": [
+        "artificial_analysis_agents"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "cline_roo_aider",
+      "name": "Cline / Roo Code / Aider / OpenCode",
+      "provider": "Open-source",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 6,
+      "ia_match_score": 84,
+      "confidence": "medium",
+      "best_for": [
+        "dev local",
+        "BYO model",
+        "open-source"
+      ],
+      "pros": [
+        "Flexibles",
+        "Peuvent utiliser plusieurs modèles"
+      ],
+      "cons": [
+        "Configuration technique"
+      ],
+      "source_ids": [
+        "terminal_bench_20"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "replit_agent",
+      "name": "Replit Agent",
+      "provider": "Replit",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 7,
+      "ia_match_score": 82,
+      "confidence": "medium",
+      "best_for": [
+        "prototypage",
+        "apprentissage",
+        "déploiement rapide"
+      ],
+      "pros": [
+        "Simple",
+        "Environnement complet"
+      ],
+      "cons": [
+        "Peut être lent/limité"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "codegen_factory_sweep",
+      "name": "Codegen / Factory / Sweep-like agents",
+      "provider": "Divers",
+      "category": "agents_coding",
+      "entity_type": "coding_agent",
+      "rank": 8,
+      "ia_match_score": 80,
+      "confidence": "low",
+      "best_for": [
+        "PR automatiques",
+        "maintenance repo",
+        "équipes dev"
+      ],
+      "pros": [
+        "Automatisation utile"
+      ],
+      "cons": [
+        "Niche",
+        "Qualité variable"
+      ],
+      "source_ids": [],
+      "metadata": {}
+    },
+    {
+      "id": "totalum",
+      "name": "Totalum",
+      "provider": "Totalum",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 1,
+      "ia_match_score": 88,
+      "confidence": "medium",
+      "best_for": [
+        "no-code app builder",
+        "SaaS",
+        "MVP",
+        "SEO/stabilité"
+      ],
+      "pros": [
+        "Meilleur score du benchmark cité",
+        "Bon équilibre stabilité/fonctionnalité"
+      ],
+      "cons": [
+        "Moins connu que Lovable/Bolt/Replit",
+        "Écosystème plus limité"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "8/10"
+        }
+      }
+    },
+    {
+      "id": "base44",
+      "name": "Base44",
+      "provider": "Base44",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 2,
+      "ia_match_score": 85,
+      "confidence": "medium",
+      "best_for": [
+        "MVP rapide",
+        "belles UI",
+        "apps simples"
+      ],
+      "pros": [
+        "Rapide",
+        "Bon rendu visuel"
+      ],
+      "cons": [
+        "Vendor lock-in possible",
+        "Backend limité selon projet"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "7/10"
+        }
+      }
+    },
+    {
+      "id": "lovable",
+      "name": "Lovable",
+      "provider": "Lovable",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 3,
+      "ia_match_score": 84,
+      "confidence": "high",
+      "best_for": [
+        "founders",
+        "apps web",
+        "Supabase",
+        "MVP rapide",
+        "IA Match"
+      ],
+      "pros": [
+        "Très bon pour passer d'une idée à une app",
+        "Bon avec Supabase",
+        "UX simple"
+      ],
+      "cons": [
+        "Peut générer des bugs",
+        "SEO/stabilité à renforcer selon benchmark",
+        "Besoin de prompts précis"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "6/10"
+        }
+      }
+    },
+    {
+      "id": "bolt_new",
+      "name": "Bolt.new",
+      "provider": "StackBlitz",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 4,
+      "ia_match_score": 80,
+      "confidence": "medium",
+      "best_for": [
+        "front-end",
+        "prototypes",
+        "démos rapides"
+      ],
+      "pros": [
+        "Rapide",
+        "Bon rendu UI front"
+      ],
+      "cons": [
+        "Crédits/tokens",
+        "Backend complexe plus difficile"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "5/10"
+        }
+      }
+    },
+    {
+      "id": "replit_agent_app_builder",
+      "name": "Replit Agent",
+      "provider": "Replit",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 5,
+      "ia_match_score": 76,
+      "confidence": "medium",
+      "best_for": [
+        "apprendre en construisant",
+        "projets complets",
+        "déploiement"
+      ],
+      "pros": [
+        "Environnement complet",
+        "Accessible"
+      ],
+      "cons": [
+        "Lenteur/qualité variable selon benchmark"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "3/10"
+        }
+      }
+    },
+    {
+      "id": "v0",
+      "name": "v0",
+      "provider": "Vercel",
+      "category": "app_builders",
+      "entity_type": "app_builder",
+      "rank": 6,
+      "ia_match_score": 72,
+      "confidence": "medium",
+      "best_for": [
+        "UI components",
+        "landing pages",
+        "design front-end"
+      ],
+      "pros": [
+        "Très bon pour composants React/Tailwind",
+        "Intégré Vercel"
+      ],
+      "cons": [
+        "Moins adapté app SaaS complète selon benchmark"
+      ],
+      "source_ids": [
+        "ai_agents_benchmark"
+      ],
+      "metadata": {
+        "benchmark_score": {
+          "metric": "AI Coding Agents Benchmark 2026",
+          "value": "2/10"
+        }
+      }
+    }
+  ]
+}

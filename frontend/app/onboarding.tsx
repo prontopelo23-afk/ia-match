@@ -12,61 +12,56 @@ import { useRouter } from "expo-router";
 import { Sparkles, ChevronRight, X, Check } from "lucide-react-native";
 import { fonts, radius, spacing } from "../src/theme";
 import { useTheme } from "../src/theme-context";
+import { useI18n } from "../src/i18n";
 import { api, MatchResult, onboardingStore } from "../src/api";
 import ToolCard from "../src/components/ToolCard";
 
 const Q1 = [
-  { value: "texte", label: "Écrire & Rédiger", emoji: "✍️", hint: "CV, emails, articles, résumés" },
-  { value: "image", label: "Créer des Images", emoji: "🎨", hint: "Visuels, illustrations, design" },
-  { value: "code", label: "Coder une App", emoji: "💻", hint: "Apps, sites, scripts" },
-  { value: "video", label: "Faire de la Vidéo", emoji: "🎬", hint: "Animation, montage, clips" },
-  { value: "audio", label: "Voix & Audio", emoji: "🎙️", hint: "Voix-off, transcription, musique" },
-  { value: "recherche", label: "Rechercher & Analyser", emoji: "🔍", hint: "Veille, fact-check, synthèses" },
+  { value: "écrire", label: "Écrire", emoji: "✍️", hint: "emails, articles, posts, CV" },
+  { value: "créer une image", label: "Créer une image", emoji: "🎨", hint: "visuels, illustrations, design" },
+  { value: "faire une vidéo", label: "Faire une vidéo", emoji: "🎬", hint: "clips, montage, animation" },
+  { value: "coder", label: "Coder", emoji: "💻", hint: "scripts, debug, apps" },
+  { value: "créer une app", label: "Créer une app", emoji: "📱", hint: "prototype, MVP, interface" },
+  { value: "automatiser", label: "Automatiser", emoji: "⚙️", hint: "workflows, tâches répétitives" },
+  { value: "apprendre", label: "Apprendre", emoji: "🎓", hint: "cours, explications, quiz" },
+  { value: "faire du marketing", label: "Marketing", emoji: "📣", hint: "ads, landing pages, contenus" },
+  { value: "créer une voix", label: "Créer une voix", emoji: "🎙️", hint: "voix-off, doublage, audio" },
+  { value: "analyser un document", label: "Analyser un document", emoji: "📄", hint: "PDF, synthèse, extraction" },
 ];
 
 const Q2 = [
-  { value: "balanced", label: "Équilibré", hint: "Le meilleur compromis qualité/vitesse/prix" },
-  { value: "accuracy", label: "Qualité maximale", hint: "Je veux la meilleure précision possible" },
-  { value: "speed", label: "Rapide", hint: "La réponse doit arriver en moins d'une seconde" },
-  { value: "price", label: "Économique", hint: "Je préfère gratuit ou peu coûteux" },
+  { value: "beginner", label: "Débutant", hint: "Je veux quelque chose de simple, guidé et rassurant" },
+  { value: "intermediate", label: "Intermédiaire", hint: "Je veux un bon équilibre entre puissance et simplicité" },
+  { value: "pro", label: "Pro", hint: "Je veux l'outil le plus solide, même s'il demande plus d'effort" },
 ];
 
 const Q3 = [
-  { value: "fr", label: "Français en priorité", hint: "Travail dans ma langue, données européennes" },
-  { value: "en", label: "Anglais OK", hint: "Je travaille principalement en anglais" },
+  { value: "free", label: "Gratuit uniquement", hint: "Ne me propose que des outils avec un vrai plan gratuit" },
+  { value: "under10", label: "Moins de 10 €/mois", hint: "Je peux payer un peu si ça vaut le coup" },
+  { value: "best", label: "Peu importe si c'est le meilleur", hint: "Priorité à la meilleure recommandation" },
 ];
 
 export default function Onboarding() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { t, apiLanguage } = useI18n();
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
   const [domain, setDomain] = useState<string | null>(null);
-  const [priority, setPriority] = useState<string | null>(null);
-  const [language, setLanguage] = useState<string>("fr");
+  const [level, setLevel] = useState<string | null>(null);
+  const [budget, setBudget] = useState<string>("free");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const need = domain
-    ? `Je veux ${
-        domain === "texte"
-          ? "écrire et rédiger des contenus"
-          : domain === "image"
-          ? "créer des images et visuels"
-          : domain === "code"
-          ? "coder une application"
-          : domain === "video"
-          ? "faire de la vidéo"
-          : domain === "audio"
-          ? "travailler sur de la voix ou audio"
-          : "faire de la recherche et analyse"
-      }`
+  const need = domain && level
+    ? `Je veux ${domain}. Mon niveau est ${level === "beginner" ? "débutant" : level === "intermediate" ? "intermédiaire" : "pro"}. Mon budget : ${budget === "free" ? "gratuit uniquement" : budget === "under10" ? "moins de 10 €/mois" : "peu importe si c'est le meilleur"}.`
     : "";
 
   const submit = async () => {
-    if (!domain || !priority) return;
+    if (!domain || !level) return;
     setLoading(true);
     try {
-      const res = await api.match(need, priority, false, language);
+      const priority = budget === "best" || level === "pro" ? "accuracy" : budget === "free" ? "price" : "balanced";
+      const res = await api.match(need, priority, budget === "free", apiLanguage);
       setResults(res.slice(0, 3));
       setStep(3);
     } catch {
@@ -91,7 +86,7 @@ export default function Onboarding() {
       <View style={styles.topBar}>
         <Text style={[styles.brand, { color: colors.textPrimary }]}>IA MATCH</Text>
         <TouchableOpacity onPress={skip} style={[styles.skipBtn, { borderColor: colors.borderSubtle }]} testID="onboard-skip">
-          <Text style={[styles.skipText, { color: colors.textSecondary }]}>Passer</Text>
+          <Text style={[styles.skipText, { color: colors.textSecondary }]}>{t("common.skip")}</Text>
           <X size={16} color={colors.textSecondary} strokeWidth={2.5} />
         </TouchableOpacity>
       </View>
@@ -114,12 +109,12 @@ export default function Onboarding() {
 
         {step === 0 && (
           <View>
-            <Text style={[styles.eyebrow, { color: colors.coral }]}>BIENVENUE · 1 / 3</Text>
+            <Text style={[styles.eyebrow, { color: colors.coral }]}>{t("onboarding.welcomeLabel")}</Text>
             <Text style={[styles.title, { color: colors.textPrimary }]}>
-              Tu veux faire <Text style={[styles.titleAccent, { color: colors.coral }]}>quoi</Text> avec l'IA ?
+              {t("onboarding.needTitle")}
             </Text>
             <Text style={[styles.sub, { color: colors.textSecondary }]}>
-              Choisis ton terrain de jeu principal. Tu pourras toujours en explorer d'autres.
+              {t("onboarding.needSub")}
             </Text>
             <View style={styles.options}>
               {Q1.map((q) => (
@@ -147,25 +142,25 @@ export default function Onboarding() {
 
         {step === 1 && (
           <View>
-            <Text style={[styles.eyebrow, { color: colors.coral }]}>PRIORITÉ · 2 / 3</Text>
+            <Text style={[styles.eyebrow, { color: colors.coral }]}>{t("onboarding.levelLabel")}</Text>
             <Text style={[styles.title, { color: colors.textPrimary }]}>
-              Quelle est ta <Text style={[styles.titleAccent, { color: colors.coral }]}>priorité</Text> ?
+              Quel est ton <Text style={[styles.titleAccent, { color: colors.coral }]}>niveau</Text> ?
             </Text>
             <Text style={[styles.sub, { color: colors.textSecondary }]}>
-              On adaptera nos recommandations à ce qui compte le plus pour toi.
+              Le Match adapte la recommandation : simplicité pour débuter, puissance si tu es déjà à l'aise.
             </Text>
             <View style={[styles.options, { gap: 10 }]}>
               {Q2.map((q) => (
                 <TouchableOpacity
                   key={q.value}
                   onPress={() => {
-                    setPriority(q.value);
+                    setLevel(q.value);
                     setStep(2);
                   }}
                   style={[
                     styles.optionRow,
                     { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
-                    priority === q.value && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
+                    level === q.value && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
                   ]}
                   testID={`onboard-q2-${q.value}`}
                 >
@@ -182,22 +177,22 @@ export default function Onboarding() {
 
         {step === 2 && (
           <View>
-            <Text style={[styles.eyebrow, { color: colors.coral }]}>LANGUE · 3 / 3</Text>
+            <Text style={[styles.eyebrow, { color: colors.coral }]}>{t("onboarding.budgetLabel")}</Text>
             <Text style={[styles.title, { color: colors.textPrimary }]}>
-              Et ta <Text style={[styles.titleAccent, { color: colors.coral }]}>langue</Text> ?
+              Ton <Text style={[styles.titleAccent, { color: colors.coral }]}>budget</Text> ?
             </Text>
             <Text style={[styles.sub, { color: colors.textSecondary }]}>
-              On privilégiera des modèles forts dans ta langue principale.
+              On filtre ou on privilégie le gratuit selon ta réponse, sans te bloquer avec un paywall.
             </Text>
             <View style={[styles.options, { gap: 10 }]}>
               {Q3.map((q) => (
                 <TouchableOpacity
                   key={q.value}
-                  onPress={() => setLanguage(q.value)}
+                  onPress={() => setBudget(q.value)}
                   style={[
                     styles.optionRow,
                     { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
-                    language === q.value && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
+                    budget === q.value && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
                   ]}
                   testID={`onboard-q3-${q.value}`}
                 >
@@ -205,7 +200,7 @@ export default function Onboarding() {
                     <Text style={[styles.optionLabel, { color: colors.textPrimary }]}>{q.label}</Text>
                     <Text style={[styles.optionHint, { color: colors.textSecondary, marginTop: 2 }]}>{q.hint}</Text>
                   </View>
-                  {language === q.value ? (
+                  {budget === q.value ? (
                     <Check size={20} color={colors.coral} strokeWidth={3} />
                   ) : null}
                 </TouchableOpacity>
@@ -222,7 +217,7 @@ export default function Onboarding() {
               ) : (
                 <>
                   <Sparkles size={16} color="#fff" strokeWidth={2.5} />
-                  <Text style={styles.ctaText}>Découvrir mes 3 IA</Text>
+                  <Text style={styles.ctaText}>Lancer mon Match</Text>
                 </>
               )}
             </TouchableOpacity>
@@ -236,7 +231,7 @@ export default function Onboarding() {
               Tes <Text style={[styles.titleAccent, { color: colors.coral }]}>3 meilleures</Text> IA.
             </Text>
             <Text style={[styles.sub, { color: colors.textSecondary }]}>
-              Sur la base de ton profil, voici les outils à tester en priorité.
+              Voici tes premières recommandations : une meilleure option, une alternative gratuite quand possible, et une piste premium si elle vaut vraiment le coup.
             </Text>
             <View style={{ marginTop: spacing.lg }}>
               {results.length === 0 ? (

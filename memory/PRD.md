@@ -9,7 +9,7 @@
 
 ## Theme & Premium
 - Light/Dark, persistant, toggle dans Profil. Toutes les sections partagent le même `bg`.
-- Plan freemium : Catalogue + Actue + Profil (gratuit) ; Academy + Builder + Compare + Benchmarks (Premium 9,99€/mois — **MOCKED** activation AsyncStorage, pas de Stripe).
+- Plan freemium : Catalogue + Actue + Profil (gratuit) ; Academy + Builder + Compare + Benchmarks (Premium public 6,99 €/mois ou 49,99 €/an — **MOCKED** activation AsyncStorage, pas de Stripe).
 
 ## Tabs (5)
 - **Catalogue** : 48 IA. Logo IA Match dans le header. Recherche, filtres, tri.

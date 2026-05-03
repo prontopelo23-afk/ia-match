@@ -649,6 +649,17 @@ EXTRA_TOOLS = [
      "score": 85, "color": "#0078D4"},
 
     # ===== Bonus LLMs frontières =====
+    {"slug": "claude-haiku", "name": "Claude Haiku 4.5", "vendor": "Anthropic", "domain": "claude.ai",
+     "tagline": "Claude rapide et économique pour tâches quotidiennes",
+     "description": "Variante Claude optimisée vitesse/coût : résumés, extraction, support, classification et prompts courts.",
+     "categorySlugs": ["texte", "productivite", "agent"], "speedMs": 120, "accuracyPct": 90,
+     "costPerPrompt": 0.0008, "monthlyPrice": 20.0, "freeTier": True,
+     "languages": ["fr", "en", "es", "de", "it", "ja"],
+     "features": ["Très rapide", "Économique", "Tool use", "Vision"],
+     "useCases": ["Support client", "Résumé rapide", "Classification", "Extraction"],
+     "keywords": ["claude", "haiku", "anthropic", "rapide", "support", "résumé"],
+     "score": 90, "color": "#CC785C"},
+
     {"slug": "claude-opus", "name": "Claude Opus 4", "vendor": "Anthropic", "domain": "claude.ai",
      "tagline": "Le modèle de raisonnement Anthropic premium",
      "description": "Le plus puissant des Claude, raisonnement de pointe, contexte 200k+.",

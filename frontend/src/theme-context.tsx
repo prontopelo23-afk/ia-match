@@ -104,6 +104,9 @@ type PremiumCtx = {
 };
 
 const PremiumContext = createContext<PremiumCtx>({ isPremium: false, setPremium: () => {}, toggle: () => {} });
+// MVP uniquement : le premium est simulé localement pour tester l’UX.
+// Avant production payante, remplacer par un statut validé côté backend
+// (Stripe/RevenueCat + webhooks + endpoint /me), pas par AsyncStorage seul.
 const PKEY = "ia_match_premium_v1";
 
 export function PremiumProvider({ children }: { children: React.ReactNode }) {

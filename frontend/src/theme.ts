@@ -15,6 +15,7 @@ export const colors = {
   borderSubtle: "rgba(17, 18, 23, 0.06)",
   borderDark: "rgba(255, 255, 255, 0.1)",
   pinkSoft: "rgba(244, 63, 122, 0.1)",
+  coralSoft: "rgba(255, 90, 69, 0.1)",
 };
 
 export const spacing = {

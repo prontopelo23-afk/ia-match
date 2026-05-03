@@ -1,0 +1,57 @@
+# Render Blueprint — IA Match bêta publique
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Déploiement conseillé pour une bêta simple :
+# - API FastAPI sur Render Web Service
+# - Frontend Expo Web exporté en site statique Render
+# - MongoDB Atlas pour MONGO_URL
+#
+# Après le premier déploiement, vérifie l’URL exacte de l’API Render.
+# Si elle diffère de https://ia-match-api.onrender.com, mets à jour
+# EXPO_PUBLIC_BACKEND_URL dans le service frontend puis relance le build.
+
+services:
+  - type: web
+    name: ia-match-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DB_NAME
+        value: ia_match
+      - key: MONGO_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://ia-match-web.onrender.com,http://localhost:8081,http://localhost:3000
+      - key: CORS_ORIGINS
+        value: https://ia-match-web.onrender.com,http://localhost:8081,http://localhost:3000
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: anthropic/claude-3.5-haiku
+      - key: OPENROUTER_SITE_URL
+        value: https://ia-match-web.onrender.com
+      - key: OPENROUTER_APP_NAME
+        value: IA Match
+      - key: EMERGENT_LLM_KEY
+        sync: false
+
+  - type: web
+    name: ia-match-web
+    runtime: static
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npx expo export --platform web --clear
+    staticPublishPath: dist
+    envVars:
+      - key: EXPO_PUBLIC_BACKEND_URL
+        value: https://ia-match-api.onrender.com
+      - key: EXPO_USE_FAST_RESOLVER
+        value: "0"
+      - key: METRO_CACHE_ROOT
+        value: .metro-cache

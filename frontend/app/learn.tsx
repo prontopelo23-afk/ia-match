@@ -11,26 +11,26 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowLeft, Search, BookOpen, HelpCircle, Target, Users, Sparkles, ChevronRight, Shield } from "lucide-react-native";
+import * as Clipboard from "expo-clipboard";
+import { ArrowLeft, Search, BookOpen, HelpCircle, Target, Users, Sparkles, ChevronRight, Shield, Copy, Check } from "lucide-react-native";
 import { fonts, radius, spacing } from "../src/theme";
 import { useTheme } from "../src/theme-context";
-
-const API = process.env.EXPO_PUBLIC_BACKEND_URL || "";
+import { api } from "../src/api";
 
 type Tab = "glossary" | "faq" | "use-cases" | "personas" | "quiz" | "first-prompt";
 
 export default function LearnHub() {
   const router = useRouter();
   const { colors } = useTheme();
-  const [tab, setTab] = useState<Tab>("glossary");
+  const [tab, setTab] = useState<Tab>("first-prompt");
 
   const TABS: { id: Tab; label: string; icon: any }[] = [
-    { id: "glossary", label: "Glossaire", icon: BookOpen },
+    { id: "first-prompt", label: "1. Premier prompt", icon: Sparkles },
+    { id: "quiz", label: "2. Quiz niveau", icon: Sparkles },
+    { id: "use-cases", label: "3. Cas concrets", icon: Target },
+    { id: "personas", label: "4. Ton profil", icon: Users },
+    { id: "glossary", label: "5. Glossaire", icon: BookOpen },
     { id: "faq", label: "FAQ", icon: HelpCircle },
-    { id: "use-cases", label: "Cas d'usage", icon: Target },
-    { id: "personas", label: "Profils", icon: Users },
-    { id: "quiz", label: "Quiz niveau", icon: Sparkles },
-    { id: "first-prompt", label: "1er prompt", icon: Sparkles },
   ];
 
   return (
@@ -41,6 +41,12 @@ export default function LearnHub() {
         </TouchableOpacity>
         <Text style={[styles.brand, { color: colors.textSecondary }]}>APPRENDRE L'IA</Text>
         <View style={{ width: 40 }} />
+      </View>
+
+      <View style={[styles.pathHero, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}> 
+        <Text style={[styles.pathKicker, { color: colors.coral }]}>PARCOURS DÉBUTANT · 10 MIN</Text>
+        <Text style={[styles.pathTitle, { color: colors.textPrimary }]}>Apprendre l’IA sans jargon, en testant.</Text>
+        <Text style={[styles.pathText, { color: colors.textSecondary }]}>D’abord tu crées un vrai prompt, puis tu découvres ton niveau, ensuite tu choisis les bons outils pour un cas concret. Le glossaire sert quand un mot bloque — pas comme point de départ.</Text>
       </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs}>
@@ -78,7 +84,7 @@ function Glossary() {
   const { colors } = useTheme();
   const [items, setItems] = useState<any[]>([]);
   const [q, setQ] = useState("");
-  useEffect(() => { fetch(`${API}/api/glossary`).then((r) => r.json()).then(setItems).catch(() => {}); }, []);
+  useEffect(() => { api.listGlossary().then(setItems).catch(() => {}); }, []);
   const filtered = q.trim() ? items.filter((x) => (x.term + " " + x.short).toLowerCase().includes(q.toLowerCase())) : items;
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -109,7 +115,7 @@ function FAQ() {
   const { colors } = useTheme();
   const [items, setItems] = useState<any[]>([]);
   const [open, setOpen] = useState<number | null>(0);
-  useEffect(() => { fetch(`${API}/api/faq`).then((r) => r.json()).then(setItems).catch(() => {}); }, []);
+  useEffect(() => { api.listFaq().then(setItems).catch(() => {}); }, []);
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <Text style={[styles.title, { color: colors.textPrimary }]}>15 questions que tout le monde se pose</Text>
@@ -133,11 +139,11 @@ function UseCases() {
   const router = useRouter();
   const { colors } = useTheme();
   const [items, setItems] = useState<any[]>([]);
-  useEffect(() => { fetch(`${API}/api/use-cases`).then((r) => r.json()).then(setItems).catch(() => {}); }, []);
+  useEffect(() => { api.listUseCases().then(setItems).catch(() => {}); }, []);
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <Text style={[styles.title, { color: colors.textPrimary }]}>Tu veux faire quoi exactement ?</Text>
-      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Cliquez sur ton besoin, on te donne les 3 meilleures IA pour ce cas précis.</Text>
+      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Clique sur ton besoin : IA Match te donne les 3 meilleures IA pour ce cas précis, avec une raison claire.</Text>
       {items.map((uc) => (
         <View key={uc.id} style={[styles.ucCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} testID={`uc-${uc.id}`}>
           <Text style={[styles.ucTitle, { color: colors.textPrimary }]}>{uc.icon} {uc.title}</Text>
@@ -167,7 +173,7 @@ function Personas() {
   const router = useRouter();
   const { colors } = useTheme();
   const [items, setItems] = useState<any[]>([]);
-  useEffect(() => { fetch(`${API}/api/personas`).then((r) => r.json()).then(setItems).catch(() => {}); }, []);
+  useEffect(() => { api.listPersonas().then(setItems).catch(() => {}); }, []);
   return (
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <Text style={[styles.title, { color: colors.textPrimary }]}>Trouve les IA faites pour toi</Text>
@@ -202,12 +208,12 @@ function QuizPanel() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [result, setResult] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
-  useEffect(() => { fetch(`${API}/api/quiz`).then((r) => r.json()).then(setQuestions).catch(() => {}); }, []);
+  useEffect(() => { api.listQuiz().then(setQuestions).catch(() => {}); }, []);
   const submit = async () => {
     setLoading(true);
     try {
-      const r = await fetch(`${API}/api/quiz/score`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ answers }) });
-      setResult(await r.json());
+      const r = await api.scoreQuiz(answers);
+      setResult(r);
     } catch {}
     setLoading(false);
   };
@@ -271,7 +277,14 @@ function FirstPrompt() {
   const [need, setNeed] = useState("");
   const [role, setRole] = useState("");
   const [format, setFormat] = useState("");
+  const [copiedPrompt, setCopiedPrompt] = useState(false);
   const finalPrompt = `${role ? "Tu es " + role + ".\n" : ""}${need}${format ? "\n\nFormat attendu : " + format : ""}`;
+  const copyPrompt = async () => {
+    if (!finalPrompt.trim()) return;
+    try { await Clipboard.setStringAsync(finalPrompt); } catch {}
+    setCopiedPrompt(true);
+    setTimeout(() => setCopiedPrompt(false), 1500);
+  };
 
   const STEPS = [
     {
@@ -301,7 +314,7 @@ function FirstPrompt() {
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
       <Text style={[styles.title, { color: colors.textPrimary }]}>Mon tout premier prompt</Text>
       <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-        On t'accompagne main dans la main. À la fin, tu auras un prompt prêt à coller dans Claude, Le Chat, ChatGPT ou n'importe quelle IA.
+        On t'accompagne main dans la main. À la fin, tu auras un prompt prêt à coller dans ChatGPT, Mistral, Claude, Gemini ou n'importe quelle IA.
       </Text>
 
       {STEPS.map((s, i) => (
@@ -332,15 +345,38 @@ function FirstPrompt() {
         <Text style={[styles.previewText, { color: colors.textPrimary }]}>
           {finalPrompt || "Remplis les étapes ci-dessus pour voir ton prompt apparaître ici…"}
         </Text>
+        <TouchableOpacity
+          onPress={copyPrompt}
+          disabled={!finalPrompt.trim()}
+          style={[styles.copyPromptBtn, { backgroundColor: colors.coral }, !finalPrompt.trim() && { opacity: 0.45 }]}
+          testID="first-prompt-copy"
+        >
+          {copiedPrompt ? <Check size={15} color="#fff" strokeWidth={2.5} /> : <Copy size={15} color="#fff" strokeWidth={2.5} />}
+          <Text style={styles.copyPromptText}>{copiedPrompt ? "Prompt copié" : "Copier le prompt"}</Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
-        <TouchableOpacity onPress={() => Linking.openURL("https://chat.mistral.ai")} style={[styles.cta, { backgroundColor: "#FA520F", flex: 1 }]}>
-          <Text style={styles.ctaText}>Tester sur Le Chat 🇪🇺</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL("https://claude.ai")} style={[styles.cta, { backgroundColor: "#CC785C", flex: 1 }]}>
-          <Text style={styles.ctaText}>Tester sur Claude</Text>
-        </TouchableOpacity>
+      <View style={styles.providerBlock}>
+        <Text style={[styles.providerTitle, { color: colors.textPrimary }]}>Où tester ton prompt ?</Text>
+        <Text style={[styles.providerSub, { color: colors.textSecondary }]}>Commence par un assistant généraliste connu. Les boutons ouvrent les sites officiels.</Text>
+        <View style={styles.providerGrid}>
+          <TouchableOpacity onPress={() => Linking.openURL("https://chatgpt.com")} style={[styles.providerBtn, { backgroundColor: "#10A37F" }]}>
+            <Text style={styles.providerName}>ChatGPT</Text>
+            <Text style={styles.providerMeta}>GPT · simple pour débuter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL("https://chat.mistral.ai")} style={[styles.providerBtn, { backgroundColor: "#FA520F" }]}>
+            <Text style={styles.providerName}>Mistral</Text>
+            <Text style={styles.providerMeta}>Le Chat · acteur européen 🇪🇺</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL("https://claude.ai")} style={[styles.providerBtn, { backgroundColor: "#CC785C" }]}>
+            <Text style={styles.providerName}>Claude</Text>
+            <Text style={styles.providerMeta}>Très bon pour écrire</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL("https://gemini.google.com")} style={[styles.providerBtn, { backgroundColor: "#4285F4" }]}>
+            <Text style={styles.providerName}>Gemini</Text>
+            <Text style={styles.providerMeta}>Google · multimodal</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -358,6 +394,10 @@ const styles = StyleSheet.create({
   brand: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 4 },
   backBtn: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center", borderWidth: 1 },
   tabs: { paddingHorizontal: spacing.lg, gap: 8, paddingBottom: spacing.sm },
+  pathHero: { marginHorizontal: spacing.lg, marginBottom: spacing.sm, padding: spacing.md, borderRadius: radius.lg, borderWidth: 1 },
+  pathKicker: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: 6 },
+  pathTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 29, letterSpacing: -0.4 },
+  pathText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 6 },
   tab: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 14, paddingVertical: 8, borderRadius: radius.pill, borderWidth: 1 },
   tabText: { fontFamily: fonts.bodySemi, fontSize: 12 },
   scroll: { padding: spacing.lg, paddingBottom: spacing.xxl },
@@ -394,4 +434,13 @@ const styles = StyleSheet.create({
   previewCard: { padding: spacing.md, borderRadius: radius.lg, borderWidth: 1.5, marginVertical: spacing.md },
   previewLabel: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 1.5, marginBottom: 6 },
   previewText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19 },
+  copyPromptBtn: { marginTop: spacing.sm, borderRadius: radius.pill, paddingVertical: 12, paddingHorizontal: 14, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 },
+  copyPromptText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
+  providerBlock: { marginTop: spacing.sm },
+  providerTitle: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24, marginBottom: 4 },
+  providerSub: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginBottom: spacing.sm },
+  providerGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  providerBtn: { width: "48%", minWidth: 142, borderRadius: radius.lg, padding: spacing.md },
+  providerName: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 15 },
+  providerMeta: { color: "rgba(255,255,255,0.84)", fontFamily: fonts.body, fontSize: 11, lineHeight: 15, marginTop: 4 },
 });

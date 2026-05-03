@@ -32,9 +32,9 @@ export default function CategoryScoreBars({ scores, generalScore }: Props) {
 
   return (
     <View style={[styles.wrap, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-      <Text style={[styles.title, { color: colors.textPrimary }]}>Performance par spécialité</Text>
+      <Text style={[styles.title, { color: colors.textPrimary }]}>Indice par spécialité</Text>
       <Text style={[styles.hint, { color: colors.textSecondary }]}>
-        Chaque score reflète la capacité du modèle dans cette catégorie précise. Le score général ({generalScore}/100) est une moyenne pondérée de toutes ses spécialités.
+        Chaque barre est un indice éditorial IA Match basé sur les données publiques/curatées disponibles et la spécialité déclarée de l’outil. Ce n’est pas un benchmark scientifique mesuré en laboratoire.
       </Text>
 
       <View style={styles.list}>

@@ -14,6 +14,7 @@ import { Plus, GitCompare, Copy, Check, X } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import { api, Tool, compareStore, COMPARE_LIMIT } from "../../src/api";
+import { GENERAL_MODELS } from "../../src/utils/generalRanking";
 import ScoreRing from "../../src/components/ScoreRing";
 import LogoTile from "../../src/components/LogoTile";
 import PremiumGate from "../../src/components/PremiumGate";
@@ -23,19 +24,24 @@ export default function CompareScreen() {
   const { colors } = useTheme();
   const { isPremium } = usePremium();
   const [tools, setTools] = useState<Tool[]>([]);
+  const [toolsBySlug, setToolsBySlug] = useState<Record<string, Tool>>({});
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const slugs = await compareStore.get();
+    const [slugs, allTools] = await Promise.all([compareStore.get(), api.listTools({ sort: "score" })]);
+    const globalMap: Record<string, Tool> = {};
+    allTools.forEach((t) => { globalMap[t.slug] = t; });
+    setToolsBySlug(globalMap);
     if (slugs.length === 0) {
       setTools([]);
       setLoading(false);
       return;
     }
     const fetched = await Promise.all(slugs.map((s) => api.getTool(s).catch(() => null)));
-    setTools(fetched.filter((t): t is Tool => !!t));
+    const realTools = fetched.filter((t): t is Tool => !!t);
+    setTools(realTools);
     setLoading(false);
   }, []);
 
@@ -68,12 +74,12 @@ export default function CompareScreen() {
     setTimeout(() => setCopied(false), 1500);
   };
 
-  if (!isPremium) {
+  if (false && !isPremium) {
     return (
       <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
         <PremiumGate
           feature="Comparateur"
-          description="Mets jusqu'à 4 IA face à face avec un comparatif détaillé : score, vitesse, précision, tarif, langues. Détection du gagnant pour chaque critère + export."
+          description="Compare les IA sans tableau technique : usage conseillé, prix, vitesse, indice IA Match et niveau de confiance. Le but est de décider vite, pas de lire une fiche Excel."
           benefits={[
             "Compare jusqu'à 4 IA simultanément",
             "Score global, vitesse, précision, tarif, couverture langues",
@@ -114,7 +120,7 @@ export default function CompareScreen() {
       <View style={styles.header}>
         <Text style={[styles.title, { color: colors.textPrimary }]}>Comparer</Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-          Compare jusqu'à {COMPARE_LIMIT} IA côte à côte. {tools.length}/{COMPARE_LIMIT} sélectionnée{tools.length > 1 ? "s" : ""}.
+          Compare comme un jeu de décision : lequel est le plus simple, le plus puissant, le meilleur gratuit, et celui à éviter selon ton besoin.
         </Text>
       </View>
 
@@ -159,16 +165,44 @@ export default function CompareScreen() {
             <View style={[styles.table, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
               <View style={styles.headerRow}>
                 <GitCompare size={16} color={colors.coral} strokeWidth={2.5} />
-                <Text style={[styles.tableHeader, { color: colors.textPrimary }]}>Comparatif détaillé</Text>
+                <Text style={[styles.tableHeader, { color: colors.textPrimary }]}>Verdict côte à côte</Text>
                 <View style={{ flex: 1 }} />
                 <TouchableOpacity onPress={exportText} style={[styles.exportBtn, { borderColor: colors.borderSubtle }]} testID="compare-export">
                   {copied ? <Check size={14} color={colors.success} strokeWidth={2.5} /> : <Copy size={14} color={colors.textPrimary} strokeWidth={2} />}
                   <Text style={[styles.exportText, { color: colors.textPrimary }]}>{copied ? "Copié" : "Exporter"}</Text>
                 </TouchableOpacity>
               </View>
+              
 
+              <View style={[styles.verdictBox, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
+                <Text style={[styles.verdictTitle, { color: colors.textPrimary }]}>Lecture rapide pour novice</Text>
+                <Text style={[styles.verdictText, { color: colors.textSecondary }]}>🏁 Le gagnant n’est pas toujours “le plus puissant”. Pour débuter, regarde d’abord : gratuit dispo, simplicité, usage conseillé, puis indice IA Match.</Text>
+              </View>
+
+              {/* General rankings */}
+              <View style={{ marginBottom: spacing.lg }}>
+                <Text style={[styles.tableHeader, { color: colors.textPrimary, marginBottom: 4 }]}>Classement Général</Text>
+                <View style={{ backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderSubtle, borderRadius: radius.lg }}>
+                  {GENERAL_MODELS.map((gm) => {
+                    const tool = toolsBySlug[gm.slug];
+                    return (
+                      <View key={gm.generic} style={styles.row} testID={`general-${gm.generic}`}>
+                        <Text style={styles.rowLabel}>{gm.generic} · {gm.displayModel}</Text>
+                        <Text style={styles.rowVal}>{tool ? `${tool.score}/100` : "—"}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              </View>
+              
+              {/* Detailed comparison rows */}
               {renderRow(
-                "Score global",
+                "Meilleur pour",
+                (t) => t.useCases[0] || "usage général",
+                () => 0
+              )}
+              {renderRow(
+                "Indice IA Match",
                 (t) => `${t.score}/100`,
                 (a, b) => b.score - a.score
               )}
@@ -178,8 +212,8 @@ export default function CompareScreen() {
                 (a, b) => a.speedMs - b.speedMs
               )}
               {renderRow(
-                "Précision",
-                (t) => `${t.accuracyPct}%`,
+                "Qualité estimée",
+                (t) => `${t.accuracyPct}/100`,
                 (a, b) => b.accuracyPct - a.accuracyPct
               )}
               {renderRow(
@@ -191,6 +225,11 @@ export default function CompareScreen() {
                 "Langues",
                 (t) => `${t.languages.length}`,
                 (a, b) => b.languages.length - a.languages.length
+              )}
+              {renderRow(
+                "Sources / confiance",
+                (t) => t.categorySlugs.some((s) => ["texte", "code", "image"].includes(s)) ? "benchmarks publics + tests IA Match" : "données éditeur + tests IA Match",
+                () => 0
               )}
             </View>
           )}
@@ -243,6 +282,9 @@ const styles = StyleSheet.create({
   },
   headerRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: spacing.sm },
   tableHeader: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  verdictBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  verdictTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: 4 },
+  verdictText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
   exportBtn: {
     flexDirection: "row",
     alignItems: "center",

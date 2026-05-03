@@ -1,522 +1,174 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  ActivityIndicator,
-  Image,
-} from "react-native";
-import { useRouter } from "expo-router";
+import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Search as SearchIcon,
-  X,
-  Sparkles,
-  ArrowRight,
-  Wand2,
-  GitCompare,
-  BarChart3,
-  Copy,
-  Check,
-} from "lucide-react-native";
-import * as Clipboard from "expo-clipboard";
+import { useRouter } from "expo-router";
+import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
-import { api, Category, Tool, Template, compareStore } from "../../src/api";
+import { useI18n } from "../../src/i18n";
+import { api, BenchmarkRow, NewsItem, Tool } from "../../src/api";
 import ToolCard from "../../src/components/ToolCard";
+import { GENERAL_MODELS } from "../../src/utils/generalRanking";
+import { CONTENT_FAMILIES } from "../../src/utils/contentArchitecture";
 
-export default function Catalogue() {
+export default function Accueil() {
   const router = useRouter();
   const { colors: theme } = useTheme();
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | undefined>(undefined);
-  const [freeOnly, setFreeOnly] = useState(false);
-  const [sort, setSort] = useState<"score" | "speed" | "accuracy" | "price">("score");
-  const [tools, setTools] = useState<Tool[]>([]);
-  const [cats, setCats] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [compareList, setCompareList] = useState<string[]>([]);
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [potdCopied, setPotdCopied] = useState(false);
+  const { t } = useI18n();
+  const [generalTools, setGeneralTools] = useState<Tool[]>([]);
+  const [news, setNews] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const load = useCallback(() => {
-    setLoading(true);
-    api
-      .listTools({ search, category: activeCategory, free_only: freeOnly, sort })
-      .then(setTools)
-      .catch(() => setTools([]))
+  useEffect(() => {
+    Promise.all([api.listTools({ sort: "score" }), api.benchmarks("score"), api.getEditorialHighlights()])
+      .then(([allTools, benchmarks, highlights]) => {
+        setGeneralTools(buildGeneralToolCards(allTools, benchmarks.rows).slice(0, 3));
+        setNews(highlights.headline ?? null);
+      })
+      .catch(() => {})
       .finally(() => setLoading(false));
-  }, [search, activeCategory, freeOnly, sort]);
-
-  useEffect(() => {
-    api.listCategories().then(setCats).catch(() => {});
-    api.listTemplates().then(setTemplates).catch(() => {});
-    compareStore.get().then(setCompareList);
   }, []);
-  useEffect(() => {
-    const id = setTimeout(load, 250);
-    return () => clearTimeout(id);
-  }, [load]);
 
-  const toggleCompare = async (slug: string) => {
-    const next = await compareStore.toggle(slug);
-    setCompareList(next);
-  };
-
-  // Daily prompt: pick deterministically from templates by day of year
-  const dayOfYear = Math.floor(
-    (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
-  );
-  const potd = templates.length > 0 ? templates[dayOfYear % templates.length] : null;
-
-  const copyPotd = async () => {
-    if (!potd) return;
-    try {
-      await Clipboard.setStringAsync(potd.body);
-    } catch {}
-    setPotdCopied(true);
-    setTimeout(() => setPotdCopied(false), 1500);
-  };
-
-  const totalCount = tools.length;
-  const filtersActive = !!search || !!activeCategory || freeOnly;
+  const familyPreview = useMemo(() => CONTENT_FAMILIES.slice(1, 5), []);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        {/* TOP BAR */}
         <View style={styles.topBar}>
           <View style={styles.brandLockup}>
             <Image source={require("../../assets/brand/ia-match-logo.png")} style={styles.brandLogo} resizeMode="contain" />
             <View>
               <Text style={[styles.brandName, { color: theme.textPrimary }]}>IA Match</Text>
-              <Text style={[styles.brandSub, { color: theme.textSecondary }]}>SEED · {totalCount} IA</Text>
+              <Text style={[styles.brandSub, { color: theme.textSecondary }]}>{t("home.tagline")}</Text>
             </View>
-          </View>
-          <View style={styles.topActions}>
-            <TouchableOpacity
-              style={styles.iconBtn}
-              onPress={() => router.push("/benchmarks")}
-              testID="open-benchmarks"
-            >
-              <BarChart3 size={18} color={colors.textPrimary} strokeWidth={2} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.iconBtn}
-              onPress={() => router.push("/compare")}
-              testID="open-compare"
-            >
-              <GitCompare size={18} color={colors.textPrimary} strokeWidth={2} />
-              {compareList.length > 0 ? (
-                <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{compareList.length}</Text>
-                </View>
-              ) : null}
-            </TouchableOpacity>
           </View>
         </View>
 
-        {/* HERO */}
         <View style={styles.hero} testID="hero-section">
-          <Text style={styles.heroLabel}>WORKSPACE · CATALOGUE</Text>
-          <Text style={styles.heroTitle}>
-            Trouve l'IA{"\n"}
-            <Text style={styles.heroTitleAccent}>idéale</Text> pour ton besoin.
-          </Text>
-          <Text style={styles.heroSub}>
-            111 IA testées, classées et notées par spécialité. 3 questions et tu sais laquelle utiliser.
-          </Text>
-          <TouchableOpacity
-            style={styles.cta}
-            onPress={() => router.push("/match")}
-            testID="cta-start-match"
-          >
+          <Text style={styles.heroLabel}>{t("home.heroLabel")}</Text>
+          <Text style={styles.heroTitle}>{t("home.heroTitle")}</Text>
+          <Text style={styles.heroSub}>{t("home.heroSub")}</Text>
+          <TouchableOpacity style={styles.cta} onPress={() => router.push("/match")} testID="cta-start-match">
             <Wand2 size={16} color="#fff" strokeWidth={2.5} />
-            <Text style={styles.ctaText}>Lancer le Match</Text>
+            <Text style={styles.ctaText}>{t("home.ctaMatch")}</Text>
             <ArrowRight size={16} color="#fff" strokeWidth={2.5} />
           </TouchableOpacity>
         </View>
 
-        {/* HOW IT WORKS — pédagogie 3 étapes */}
-        <View style={[styles.howCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]} testID="how-it-works">
-          <Text style={[styles.howTitle, { color: theme.textPrimary }]}>Comment ça marche ?</Text>
-          <View style={styles.howStep}>
-            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
-              <Text style={styles.howNumText}>1</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Choisis ta spécialité</Text>
-              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
-                Texte, image, code… filtre par catégorie pour voir le top 3 par spécialité (badge #1).
-              </Text>
-            </View>
-          </View>
-          <View style={styles.howStep}>
-            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
-              <Text style={styles.howNumText}>2</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Compare les scores</Text>
-              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
-                Note générale (toutes spécialités) et note par catégorie. Une IA peut être 88/100 en général mais 95/100 en image.
-              </Text>
-            </View>
-          </View>
-          <View style={styles.howStep}>
-            <View style={[styles.howNum, { backgroundColor: theme.coral }]}>
-              <Text style={styles.howNumText}>3</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.howStepTitle, { color: theme.textPrimary }]}>Teste sans risque</Text>
-              <Text style={[styles.howStepDesc, { color: theme.textSecondary }]}>
-                Touche une carte pour la fiche détaillée, ou lance le Match si tu hésites.
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => router.push("/learn")}
-            style={[styles.howCta, { backgroundColor: theme.coral }]}
-            testID="cta-learn"
-          >
-            <Text style={styles.howCtaText}>📚 Apprendre l'IA — Glossaire, FAQ, Cas d'usage…</Text>
+        <View style={styles.quickGrid}>
+          <QuickCard icon={<Layers3 size={20} color={colors.coral} />} title={t("home.quickCatalogTitle")} text={t("home.quickCatalog")} onPress={() => router.push("/(tabs)/categories")} />
+          <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title={t("home.quickAcademyTitle")} text={t("home.quickAcademy")} onPress={() => router.push("/(tabs)/academy")} />
+          <QuickCard icon={<Sparkles size={20} color={colors.coral} />} title={t("home.quickRankingsTitle")} text={t("home.quickRankings")} onPress={() => router.push("/(tabs)/benchmarks")} />
+          <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title={t("home.quickPromptTitle")} text={t("home.quickPrompt")} onPress={() => router.push("/(tabs)/builder")} />
+          <QuickCard icon={<Mail size={20} color={colors.coral} />} title={t("home.quickNewsletterTitle")} text={t("home.quickNewsletter")} onPress={() => router.push("/newsletter")} />
+          <QuickCard icon={<BriefcaseBusiness size={20} color={colors.coral} />} title={t("home.quickBusinessTitle")} text={t("home.quickBusiness")} onPress={() => router.push("/business")} />
+        </View>
+
+
+        <View style={[styles.monetizeCard, { backgroundColor: colors.darkCard }]}>
+          <Text style={styles.monetizeLabel}>{t("home.subscribeLabel")}</Text>
+          <Text style={styles.monetizeTitle}>{t("home.subscribeTitle")}</Text>
+          <Text style={styles.monetizeText}>{t("home.subscribeText")}</Text>
+          <TouchableOpacity style={styles.monetizeCta} onPress={() => router.push("/newsletter")}>
+            <Text style={styles.monetizeCtaText}>{t("home.newsletterCta")}</Text>
+            <ArrowRight size={15} color="#fff" strokeWidth={2.5} />
           </TouchableOpacity>
         </View>
 
-        {/* PROMPT DU JOUR */}
-        {potd ? (
-          <View style={[styles.potdCard, { backgroundColor: theme.coralSoft, borderColor: theme.coral }]} testID="potd-card">
-            <View style={styles.potdHead}>
-              <Sparkles size={14} color={theme.coral} strokeWidth={2.5} />
-              <Text style={[styles.potdLabel, { color: theme.coral }]}>PROMPT DU JOUR · {potd.level}</Text>
-              <View style={{ flex: 1 }} />
-              <TouchableOpacity onPress={copyPotd} style={styles.potdCopy} testID="potd-copy">
-                {potdCopied ? (
-                  <Check size={14} color={theme.success} strokeWidth={2.5} />
-                ) : (
-                  <Copy size={14} color={theme.coral} strokeWidth={2} />
-                )}
-              </TouchableOpacity>
-            </View>
-            <Text style={[styles.potdTitle, { color: theme.textPrimary }]}>{potd.title}</Text>
-            <Text style={[styles.potdBody, { color: theme.textSecondary }]} numberOfLines={3}>
-              {potd.body}
-            </Text>
-            <TouchableOpacity
-              onPress={() => router.push("/(tabs)/builder")}
-              style={[styles.potdCta, { backgroundColor: theme.coral }]}
-              testID="potd-open-builder"
-            >
-              <Wand2 size={14} color="#fff" strokeWidth={2.5} />
-              <Text style={styles.potdCtaText}>Ouvrir dans le Builder</Text>
-            </TouchableOpacity>
+        <View style={[styles.hubCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}> 
+          <View style={styles.sectionHeadCompact}>
+            <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{t("home.exploreFamilies")}</Text>
+            <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>{t("common.seeAll")}</Text></TouchableOpacity>
           </View>
-        ) : null}
-
-        {/* SEARCH */}
-        <View style={styles.searchBox}>
-          <SearchIcon size={18} color={colors.textSecondary} strokeWidth={2} />
-          <TextInput
-            value={search}
-            onChangeText={setSearch}
-            placeholder="Mot-clé, IA, besoin..."
-            placeholderTextColor={colors.textSecondary}
-            style={styles.searchInput}
-            testID="search-input"
-          />
-          {search ? (
-            <TouchableOpacity onPress={() => setSearch("")} testID="search-clear">
-              <X size={16} color={colors.textSecondary} strokeWidth={2} />
-            </TouchableOpacity>
-          ) : null}
-        </View>
-
-        {/* CATEGORIES */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipsRow}>
-          <TouchableOpacity
-            onPress={() => setActiveCategory(undefined)}
-            style={[styles.chip, !activeCategory && styles.chipActive]}
-            testID="filter-cat-all"
-          >
-            <Text style={[styles.chipText, !activeCategory && styles.chipTextActive]}>Tout</Text>
-          </TouchableOpacity>
-          {cats.map((c) => (
-            <TouchableOpacity
-              key={c.slug}
-              onPress={() => setActiveCategory(activeCategory === c.slug ? undefined : c.slug)}
-              style={[styles.chip, activeCategory === c.slug && styles.chipActive]}
-              testID={`filter-cat-${c.slug}`}
-            >
-              <Text style={[styles.chipText, activeCategory === c.slug && styles.chipTextActive]}>
-                {c.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        {/* SORT + FREE */}
-        <View style={styles.filtersRow}>
-          <View style={styles.sortRow}>
-            {(["score", "speed", "accuracy", "price"] as const).map((k) => (
-              <TouchableOpacity
-                key={k}
-                onPress={() => setSort(k)}
-                style={[styles.sortBtn, sort === k && styles.sortBtnActive]}
-                testID={`sort-${k}`}
-              >
-                <Text style={[styles.sortText, sort === k && styles.sortTextActive]}>
-                  {k === "score" ? "Score" : k === "speed" ? "Vitesse" : k === "accuracy" ? "Précision" : "Prix"}
-                </Text>
+          <View style={styles.familyGrid}>
+            {familyPreview.map((family) => (
+              <TouchableOpacity key={family.slug} onPress={() => router.push(`/benchmarks/category/${family.slug}`)} style={[styles.familyPill, { backgroundColor: theme.coralSoft }]}>
+                <Text style={[styles.familyTitle, { color: theme.coral }]}>{family.shortLabel}</Text>
+                <Text style={[styles.familyText, { color: theme.textSecondary }]} numberOfLines={2}>{family.description}</Text>
               </TouchableOpacity>
             ))}
           </View>
-          <TouchableOpacity
-            onPress={() => setFreeOnly((v) => !v)}
-            style={[styles.freeChip, freeOnly && styles.freeChipActive]}
-            testID="filter-free-only"
-          >
-            <Text style={[styles.freeText, freeOnly && styles.freeTextActive]}>
-              {freeOnly ? "Gratuit ✓" : "Gratuit"}
-            </Text>
+        </View>
+
+        {news ? (
+          <TouchableOpacity style={[styles.newsCard, { backgroundColor: theme.coralSoft, borderColor: theme.coral }]} onPress={() => router.push("/(tabs)/actue")} activeOpacity={0.86}>
+            <View style={styles.newsTopRow}>
+              <Radar size={17} color={theme.coral} strokeWidth={2.5} />
+              <Text style={[styles.newsLabel, { color: theme.coral }]}>{t("home.radar")}</Text>
+            </View>
+            <Text style={[styles.newsTitle, { color: theme.textPrimary }]}>{news.title}</Text>
+            <Text style={[styles.newsText, { color: theme.textSecondary }]} numberOfLines={2}>{news.summary}</Text>
           </TouchableOpacity>
+        ) : null}
+
+        <View style={styles.sectionHead}>
+          <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{t("home.topStart")}</Text>
+          <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>{t("common.fullTop")}</Text></TouchableOpacity>
         </View>
-
-        {/* RESULTS */}
-        <View style={styles.resultHeader}>
-          <Text style={styles.resultLabel}>{filtersActive ? "RÉSULTATS" : "TOUTES LES IA"}</Text>
-          <Text style={styles.resultCount}>{totalCount}</Text>
-        </View>
-
-        {loading ? (
-          <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} />
-        ) : tools.length === 0 ? (
-          <Text style={styles.empty}>Aucune IA ne correspond à ces critères.</Text>
-        ) : (
-          tools.map((t, i) => (
-            <ToolCard
-              key={t.slug}
-              tool={t}
-              onCompare={() => toggleCompare(t.slug)}
-              inCompare={compareList.includes(t.slug)}
-              activeCategory={activeCategory || undefined}
-              rank={activeCategory ? i + 1 : undefined}
-            />
-          ))
-        )}
-
-        <View style={{ height: 40 }} />
+        {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : generalTools.map((t, index) => <ToolCard key={t.slug} tool={t} rank={index + 1} />)}
+        <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
+function buildGeneralToolCards(allTools: Tool[], benchmarkRows: BenchmarkRow[]): Tool[] {
+  const bySlug = new Map(allTools.map((tool) => [tool.slug, tool]));
+  const rowBySlug = new Map(benchmarkRows.map((row) => [row.slug, row]));
+  return GENERAL_MODELS.map((model) => {
+    const base = bySlug.get(model.slug);
+    const row = rowBySlug.get(model.slug);
+    if (!base && !row) return null;
+    const fallback = allTools.find((tool) => tool.vendor.toLowerCase().includes(model.generic.toLowerCase())) ?? allTools[0];
+    const source = base ?? fallback;
+    if (!source) return null;
+    return { ...source, slug: model.slug, name: model.generic, tagline: `${model.displayModel} — ${model.note}`, vendor: row?.vendor ?? source.vendor, color: row?.color ?? source.color, speedMs: row?.speedMs ?? source.speedMs, accuracyPct: row?.accuracyPct ?? source.accuracyPct, monthlyPrice: row?.monthlyPrice ?? source.monthlyPrice, freeTier: row?.freeTier ?? source.freeTier, score: row?.score ?? source.score };
+  }).filter((tool): tool is Tool => Boolean(tool));
+}
+
+function QuickCard({ icon, title, text, onPress }: { icon: React.ReactNode; title: string; text: string; onPress: () => void }) {
+  const { colors } = useTheme();
+  return <TouchableOpacity onPress={onPress} style={[styles.quickCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><View style={[styles.quickIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.quickTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.quickText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
-  topBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: spacing.sm,
-  },
+  topBar: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: spacing.sm },
   brandLockup: { flexDirection: "row", alignItems: "center", gap: 10 },
   brandLogo: { width: 44, height: 44, borderRadius: 8 },
-  brandIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 8,
-    backgroundColor: colors.coral,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  brandIconText: { color: "#fff", fontFamily: fonts.serif, fontSize: 22, lineHeight: 26 },
-  brandName: { fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, lineHeight: 20 },
-  brandSub: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1.5, color: colors.textSecondary },
-  topActions: { flexDirection: "row", gap: 8 },
-  iconBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: radius.md,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  badge: {
-    position: "absolute",
-    top: -4,
-    right: -4,
-    minWidth: 18,
-    height: 18,
-    borderRadius: 9,
-    backgroundColor: colors.coral,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 4,
-  },
-  badgeText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 10 },
-
-  hero: {
-    backgroundColor: colors.darkCard,
-    borderRadius: radius.xl,
-    padding: spacing.lg,
-    paddingVertical: spacing.xl,
-    marginTop: spacing.sm,
-    ...shadow.dark,
-  },
-  heroLabel: {
-    fontFamily: fonts.bodySemi,
-    fontSize: 10,
-    letterSpacing: 2,
-    color: colors.coral,
-    marginBottom: spacing.sm,
-  },
-  heroTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 38,
-    lineHeight: 44,
-    color: colors.textInverse,
-    letterSpacing: -1,
-  },
+  brandName: { fontFamily: fonts.serif, fontSize: 18, lineHeight: 20 },
+  brandSub: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1.5 },
+  hero: { backgroundColor: colors.darkCard, borderRadius: radius.xl, padding: spacing.lg, paddingVertical: spacing.xl, marginTop: spacing.sm, ...shadow.dark },
+  heroLabel: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 2, color: colors.coral, marginBottom: spacing.sm },
+  heroTitle: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, color: colors.textInverse, letterSpacing: -1 },
   heroTitleAccent: { color: colors.coral, fontStyle: "italic" },
-  heroSub: {
-    fontFamily: fonts.body,
-    fontSize: 14,
-    lineHeight: 20,
-    color: "rgba(253,251,247,0.7)",
-    marginTop: spacing.sm,
-    marginBottom: spacing.md,
-  },
-  cta: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    backgroundColor: colors.coral,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 12,
-    borderRadius: radius.pill,
-    alignSelf: "flex-start",
-  },
+  heroSub: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, color: "rgba(253,251,247,0.72)", marginTop: spacing.sm, marginBottom: spacing.md },
+  cta: { flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: colors.coral, paddingHorizontal: spacing.md, paddingVertical: 12, borderRadius: radius.pill, alignSelf: "flex-start" },
   ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
-
-  potdCard: {
-    marginTop: spacing.md,
-    padding: spacing.md,
-    borderRadius: radius.lg,
-    borderWidth: 1.5,
-  },
-  potdHead: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 },
-  potdLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  potdCopy: { padding: 4 },
-  potdTitle: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24, marginBottom: 6 },
-  potdBody: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18 },
-  potdCta: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: radius.pill,
-    alignSelf: "flex-start",
-    marginTop: spacing.sm,
-  },
-  potdCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
-
-  howCard: {
-    marginTop: spacing.md,
-    padding: spacing.md,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-  },
-  howTitle: { fontFamily: fonts.serif, fontSize: 20, marginBottom: spacing.sm },
-  howStep: { flexDirection: "row", gap: spacing.sm, marginTop: spacing.sm },
-  howNum: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-  },
-  howNumText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
-  howStepTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
-  howStepDesc: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 2 },
-  howCta: {
-    marginTop: spacing.md,
-    paddingVertical: 12,
-    borderRadius: radius.pill,
-    alignItems: "center",
-  },
-  howCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
-
-  searchBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.sm,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 12,
-    marginTop: spacing.lg,
-  },
-  searchInput: { flex: 1, fontFamily: fonts.body, fontSize: 15, color: colors.textPrimary, outlineWidth: 0 } as any,
-
-  chipsRow: { paddingVertical: spacing.sm, gap: 8 },
-  chip: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: radius.pill,
-    marginRight: 8,
-  },
-  chipActive: { backgroundColor: colors.darkCard, borderColor: colors.darkCard },
-  chipText: { fontFamily: fonts.bodySemi, fontSize: 13, color: colors.textPrimary },
-  chipTextActive: { color: colors.textInverse },
-
-  filtersRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 6,
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  sortRow: { flexDirection: "row", alignItems: "center", gap: 6, flexWrap: "wrap" },
-  sortBtn: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: radius.pill },
-  sortBtnActive: { backgroundColor: "rgba(255,90,69,0.12)" },
-  sortText: { fontFamily: fonts.bodyMd, fontSize: 12, color: colors.textSecondary },
-  sortTextActive: { color: colors.coral, fontFamily: fonts.bodySemi },
-  freeChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-  },
-  freeChipActive: { backgroundColor: colors.coral, borderColor: colors.coral },
-  freeText: { fontFamily: fonts.bodySemi, fontSize: 12, color: colors.textPrimary },
-  freeTextActive: { color: "#fff" },
-
-  resultHeader: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-    marginTop: spacing.lg,
-    marginBottom: spacing.sm,
-  },
-  resultLabel: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 2, color: colors.coral },
-  resultCount: { fontFamily: fonts.serif, fontSize: 14, color: colors.textSecondary },
-  empty: {
-    fontFamily: fonts.body,
-    color: colors.textSecondary,
-    textAlign: "center",
-    marginTop: spacing.xl,
-  },
+  quickGrid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.md },
+  quickCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 118 },
+  quickIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
+  quickTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
+  quickText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
+  hubCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
+  sectionHeadCompact: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginBottom: spacing.sm },
+  familyGrid: { gap: 8 },
+  familyPill: { borderRadius: radius.lg, padding: spacing.sm },
+  familyTitle: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  familyText: { fontFamily: fonts.body, fontSize: 11, lineHeight: 16, marginTop: 2 },
+  newsCard: { borderWidth: 1.5, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
+  newsTopRow: { flexDirection: "row", alignItems: "center", gap: 7, marginBottom: 6 },
+  newsLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  newsTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 26 },
+  newsText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4 },
+  sectionHead: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
+  sectionTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 30 },
+  sectionLink: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  monetizeCard: { borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
+  monetizeLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.8, color: colors.coral, marginBottom: 6 },
+  monetizeTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 29, color: colors.textInverse },
+  monetizeText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 20, color: "rgba(253,251,247,0.76)", marginTop: 8 },
+  monetizeCta: { flexDirection: "row", alignItems: "center", gap: 8, alignSelf: "flex-start", backgroundColor: colors.coral, borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 11, marginTop: spacing.md },
+  monetizeCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
 });

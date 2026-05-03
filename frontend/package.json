@@ -8,7 +8,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
+    "validate": "npm run lint && npm run typecheck",
+    "export": "expo export"
   },
   "dependencies": {
     "@babel/runtime": "^7.20.6",

@@ -1,167 +1,29 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { BookOpen, ChevronRight, Layers3 } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
-import { useTheme, usePremium } from "../../src/theme-context";
-import { api, BenchmarkRow } from "../../src/api";
-import PremiumGate from "../../src/components/PremiumGate";
+import { useTheme } from "../../src/theme-context";
+import { api, BenchmarkRow, ModelRankings } from "../../src/api";
+import { GENERAL_MODELS } from "../../src/utils/generalRanking";
+import { CONTENT_FAMILIES, familyCategoryCoverage, rowMatchesFamily } from "../../src/utils/contentArchitecture";
 
 type SortKey = "score" | "speed" | "accuracy" | "price";
+const SORTS: { key: SortKey; label: string }[] = [{ key: "score", label: "Recommandé" }, { key: "accuracy", label: "Qualité" }, { key: "speed", label: "Rapide" }, { key: "price", label: "Prix" }];
 
 export default function BenchmarksScreen() {
-  const router = useRouter();
-  const { colors: theme } = useTheme();
-  const { isPremium } = usePremium();
-  const [sort, setSort] = useState<SortKey>("score");
-  const [rows, setRows] = useState<BenchmarkRow[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    api
-      .benchmarks(sort)
-      .then((d) => setRows(d.rows))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [sort]);
-
-  if (!isPremium) {
-    return (
-      <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={["top"]}>
-        <PremiumGate
-          feature="Benchmarks"
-          description="Visualise les performances de toutes les IA dans un tableau dynamique : score, vitesse, précision, prix. Trie selon le critère qui compte pour toi."
-          benefits={[
-            "Tableau benchmark avec 48 IA et 4 critères",
-            "Tri dynamique par score, vitesse, précision, prix",
-            "Barres de progression visuelles",
-            "Accès à l'Academy, Builder et Comparateur",
-          ]}
-        />
-      </SafeAreaView>
-    );
-  }
-
-  const fmtSpeed = (ms: number) => (ms < 1000 ? `${ms}ms` : `${(ms / 1000).toFixed(1)}s`);
-  const sorts: { key: SortKey; label: string }[] = [
-    { key: "score", label: "Score" },
-    { key: "speed", label: "Vitesse" },
-    { key: "accuracy", label: "Précision" },
-    { key: "price", label: "Prix" },
-  ];
-
-  return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Benchmarks</Text>
-        <Text style={styles.subtitle}>Performances comparées de toutes les IA.</Text>
-      </View>
-
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs}>
-        {sorts.map((s) => (
-          <TouchableOpacity
-            key={s.key}
-            onPress={() => setSort(s.key)}
-            style={[styles.tab, sort === s.key && styles.tabActive]}
-            testID={`bench-sort-${s.key}`}
-          >
-            <Text style={[styles.tabText, sort === s.key && styles.tabTextActive]}>{s.label}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {loading ? (
-        <ActivityIndicator color={colors.pink} style={{ marginTop: spacing.xl }} />
-      ) : (
-        <ScrollView contentContainerStyle={{ padding: spacing.lg, paddingBottom: 100 }}>
-          <View style={styles.table}>
-            <View style={styles.headRow}>
-              <Text style={[styles.headCell, { flex: 2 }]}>IA</Text>
-              <Text style={[styles.headCell, { flex: 1, textAlign: "right" }]}>Vitesse</Text>
-              <Text style={[styles.headCell, { flex: 1, textAlign: "right" }]}>Préc.</Text>
-              <Text style={[styles.headCell, { flex: 1, textAlign: "right" }]}>Score</Text>
-            </View>
-            {rows.map((r, i) => (
-              <TouchableOpacity
-                key={r.slug}
-                onPress={() => router.push(`/tool/${r.slug}`)}
-                style={[styles.row, i % 2 === 1 && { backgroundColor: colors.bgSoft }]}
-                testID={`bench-row-${r.slug}`}
-              >
-                <View style={{ flex: 2 }}>
-                  <Text style={styles.rowName}>{r.name}</Text>
-                  <Text style={styles.rowVendor}>{r.vendor}</Text>
-                </View>
-                <Text style={[styles.rowVal, { flex: 1, textAlign: "right" }]}>{fmtSpeed(r.speedMs)}</Text>
-                <Text style={[styles.rowVal, { flex: 1, textAlign: "right" }]}>{r.accuracyPct}%</Text>
-                <View style={[styles.scorePill, { flex: 1 }]}>
-                  <View style={styles.scoreBarBg}>
-                    <View style={[styles.scoreBarFill, { width: `${r.score}%` }]} />
-                  </View>
-                  <Text style={styles.scoreText}>{r.score}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-      )}
-    </SafeAreaView>
-  );
+  const router = useRouter(); const { colors: theme } = useTheme(); const [sort,setSort]=useState<SortKey>("score"); const [generalRows,setGeneralRows]=useState<BenchmarkRow[]>([]); const [allRows,setAllRows]=useState<BenchmarkRow[]>([]); const [modelRankings,setModelRankings]=useState<ModelRankings>({}); const [loading,setLoading]=useState(true);
+  useEffect(()=>{setLoading(true);Promise.all([api.benchmarks(sort,"general"),api.benchmarks(sort,"all"),api.getModelRankings()]).then(([general,all,rankings])=>{const bySlug=new Map(general.rows.map(r=>[r.slug,r]));setGeneralRows(GENERAL_MODELS.map(m=>bySlug.get(m.slug)).filter((r):r is BenchmarkRow=>Boolean(r)));setAllRows(all.rows);setModelRankings(rankings);}).finally(()=>setLoading(false));},[sort]);
+  const modelCount=modelRankings.import_ready_records?.length ?? 91;
+  const familyStats=useMemo(()=>CONTENT_FAMILIES.map(f=>({family:f,count:allRows.filter(r=>rowMatchesFamily(r,f)).length})),[allRows]);
+  return <SafeAreaView style={[styles.container,{backgroundColor:theme.bg}]} edges={["top"]}><ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+    <Text style={[styles.eyebrow,{color:theme.coral}]}>BENCHMARKS · CLASSEMENTS</Text><Text style={[styles.title,{color:theme.textPrimary}]}>Tout est classé, mais par niveaux.</Text><Text style={[styles.subtitle,{color:theme.textSecondary}]}>Le JSON complet est regroupé en familles lisibles : {CONTENT_FAMILIES.length} familles couvrent {familyCategoryCoverage()} catégories/sous-catégories JSON et prompts.</Text>
+    <View style={[styles.helpCard,{backgroundColor:theme.coralSoft,borderColor:theme.coral}]}><BookOpen size={18} color={theme.coral}/><Text style={[styles.helpText,{color:theme.textSecondary}]}>Top général = familles connues. Les pages par famille exploitent les catégories JSON : image_generation, coding_dev, documents_pdf_office, prompt categories, etc.</Text></View>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.sorts}>{SORTS.map(s=><TouchableOpacity key={s.key} onPress={()=>setSort(s.key)} style={[styles.sortChip,{backgroundColor:sort===s.key?theme.coral:theme.surface,borderColor:sort===s.key?theme.coral:theme.borderSubtle}]}><Text style={[styles.sortLabel,{color:sort===s.key?"#fff":theme.textPrimary}]}>{s.label}</Text></TouchableOpacity>)}</ScrollView>
+    <Text style={[styles.sectionTitle,{color:theme.textPrimary}]}>Top général</Text>{loading?<ActivityIndicator color={theme.coral}/>:generalRows.slice(0,5).map((r,i)=><RankCard key={r.slug} row={r} rank={i+1} onPress={()=>router.push(`/tool/${r.slug}`)}/>)}
+    <View style={styles.sectionHead}><Text style={[styles.sectionTitle,{color:theme.textPrimary}]}>Familles issues des JSON</Text><Text style={[styles.sectionMeta,{color:theme.textSecondary}]}>{modelCount} entrées modèles</Text></View>
+    <View style={styles.familyList}>{familyStats.map(({family,count})=><TouchableOpacity key={family.slug} onPress={()=>router.push(`/benchmarks/category/${family.slug}`)} style={[styles.familyCard,{backgroundColor:theme.surface,borderColor:theme.borderSubtle}]}><View style={[styles.familyIcon,{backgroundColor:theme.coralSoft}]}><Layers3 size={18} color={theme.coral}/></View><View style={{flex:1}}><Text style={[styles.familyTitle,{color:theme.textPrimary}]}>{family.label}</Text><Text style={[styles.familyDesc,{color:theme.textSecondary}]} numberOfLines={2}>{family.description}</Text><Text style={[styles.familyMeta,{color:theme.coral}]}>{count || "—"} outils app · {family.jsonCategories.length} catégories JSON · {family.promptCategories.length} catégories prompt</Text></View><ChevronRight size={18} color={theme.coral}/></TouchableOpacity>)}</View><View style={{height:100}}/></ScrollView></SafeAreaView>
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bg },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
-  title: { fontFamily: fonts.serif, fontSize: 32, color: colors.textPrimary, letterSpacing: -0.5 },
-  subtitle: { fontFamily: fonts.body, fontSize: 14, color: colors.textSecondary, marginTop: 4 },
-  tabs: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: 8 },
-  tab: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    backgroundColor: colors.surface,
-    marginRight: 8,
-  },
-  tabActive: { backgroundColor: colors.darkCard, borderColor: colors.darkCard },
-  tabText: { fontFamily: fonts.bodySemi, fontSize: 13, color: colors.textPrimary },
-  tabTextActive: { color: colors.textInverse },
-  table: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    ...shadow.soft,
-  },
-  headRow: {
-    flexDirection: "row",
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    backgroundColor: colors.darkCard,
-  },
-  headCell: { fontFamily: fonts.bodyBold, fontSize: 11, color: colors.textInverse, letterSpacing: 1 },
-  row: { flexDirection: "row", paddingHorizontal: spacing.md, paddingVertical: 14, alignItems: "center" },
-  rowName: { fontFamily: fonts.bodySemi, fontSize: 14, color: colors.textPrimary },
-  rowVendor: { fontFamily: fonts.body, fontSize: 11, color: colors.textSecondary },
-  rowVal: { fontFamily: fonts.bodyMd, fontSize: 13, color: colors.textPrimary },
-  scorePill: { alignItems: "flex-end", justifyContent: "center" },
-  scoreBarBg: {
-    width: "100%",
-    height: 6,
-    backgroundColor: colors.pinkSoft,
-    borderRadius: radius.pill,
-    overflow: "hidden",
-  },
-  scoreBarFill: { height: "100%", backgroundColor: colors.pink },
-  scoreText: { marginTop: 4, fontFamily: fonts.bodyBold, fontSize: 12, color: colors.textPrimary },
-});
+function RankCard({row,rank,onPress}:{row:BenchmarkRow;rank:number;onPress:()=>void}){const{colors}=useTheme();return <TouchableOpacity onPress={onPress} style={[styles.card,{backgroundColor:colors.surface,borderColor:colors.borderSubtle}]}><View style={[styles.rank,{backgroundColor:rank===1?colors.coral:colors.coralSoft}]}><Text style={[styles.rankText,{color:rank===1?"#fff":colors.coral}]}>#{rank}</Text></View><View style={{flex:1}}><Text style={[styles.rowName,{color:colors.textPrimary}]}>{row.name}</Text><Text style={[styles.rowMeta,{color:colors.textSecondary}]}>{row.displayModel??row.vendor}</Text></View><Text style={[styles.score,{color:colors.textPrimary}]}>{row.score}</Text></TouchableOpacity>}
+const styles=StyleSheet.create({container:{flex:1},scroll:{paddingHorizontal:spacing.lg,paddingTop:spacing.sm,paddingBottom:spacing.xxl},eyebrow:{fontFamily:fonts.bodyBold,fontSize:10,letterSpacing:2,marginBottom:spacing.sm},title:{fontFamily:fonts.serif,fontSize:36,lineHeight:41,letterSpacing:-1},subtitle:{fontFamily:fonts.body,fontSize:14,lineHeight:20,marginTop:spacing.sm,marginBottom:spacing.md},helpCard:{flexDirection:"row",gap:spacing.sm,borderWidth:1,borderRadius:radius.lg,padding:spacing.md,marginBottom:spacing.md},helpText:{fontFamily:fonts.body,fontSize:12,lineHeight:18,flex:1},sorts:{gap:8,paddingBottom:spacing.md},sortChip:{paddingHorizontal:14,paddingVertical:10,borderRadius:radius.pill,borderWidth:1},sortLabel:{fontFamily:fonts.bodyBold,fontSize:12},sectionTitle:{fontFamily:fonts.serif,fontSize:24,lineHeight:30,marginBottom:spacing.sm},sectionHead:{marginTop:spacing.lg,marginBottom:spacing.sm},sectionMeta:{fontFamily:fonts.bodyBold,fontSize:11},card:{flexDirection:"row",alignItems:"center",gap:spacing.sm,borderWidth:1,borderRadius:radius.lg,padding:spacing.md,marginBottom:spacing.sm,...shadow.soft},rank:{width:34,height:34,borderRadius:17,alignItems:"center",justifyContent:"center"},rankText:{fontFamily:fonts.bodyBold,fontSize:12},rowName:{fontFamily:fonts.serif,fontSize:21,lineHeight:25},rowMeta:{fontFamily:fonts.body,fontSize:12},score:{fontFamily:fonts.bodyBold,fontSize:18},familyList:{gap:spacing.sm},familyCard:{flexDirection:"row",alignItems:"center",gap:spacing.sm,borderWidth:1,borderRadius:radius.lg,padding:spacing.md},familyIcon:{width:40,height:40,borderRadius:15,alignItems:"center",justifyContent:"center"},familyTitle:{fontFamily:fonts.serif,fontSize:20,lineHeight:24},familyDesc:{fontFamily:fonts.body,fontSize:12,lineHeight:17,marginTop:3},familyMeta:{fontFamily:fonts.bodyBold,fontSize:10,marginTop:6}});

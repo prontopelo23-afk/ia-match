@@ -15,6 +15,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider, PremiumProvider, useTheme } from "../src/theme-context";
+import { I18nProvider } from "../src/i18n";
 import { onboardingStore } from "../src/api";
 import CookieConsent from "../src/components/CookieConsent";
 
@@ -74,11 +75,13 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider>
-        <PremiumProvider>
-          <StackContent />
-        </PremiumProvider>
-      </ThemeProvider>
+      <I18nProvider>
+        <ThemeProvider>
+          <PremiumProvider>
+            <StackContent />
+          </PremiumProvider>
+        </ThemeProvider>
+      </I18nProvider>
     </SafeAreaProvider>
   );
 }

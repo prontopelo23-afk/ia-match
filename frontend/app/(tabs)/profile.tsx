@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
+import * as Clipboard from "expo-clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
-import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight, LogIn, LogOut, FileText, Cookie, User as UserIcon } from "lucide-react-native";
+import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight, LogIn, LogOut, FileText, Cookie, User as UserIcon, Globe2, Check, ChevronDown } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import {
@@ -17,15 +18,18 @@ import {
 } from "../../src/api";
 import { auth, AuthUser, consent } from "../../src/auth";
 import LogoTile from "../../src/components/LogoTile";
+import { useI18n } from "../../src/i18n";
 
 export default function ProfileScreen() {
   const router = useRouter();
   const { colors, mode, toggle } = useTheme();
+  const { t, language, setLanguage, languages } = useI18n();
   const { isPremium, setPremium } = usePremium();
   const [items, setItems] = useState<HistoryItem[]>([]);
   const [savedTools, setSavedTools] = useState<Tool[]>([]);
   const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
   const loadAuth = useCallback(async () => {
     setUser(await auth.getUser());
@@ -109,10 +113,20 @@ export default function ProfileScreen() {
     router.replace("/onboarding");
   };
 
+  const copyHistoryPrompt = async (prompt?: string) => {
+    if (!prompt) return;
+    try {
+      await Clipboard.setStringAsync(prompt);
+      Alert.alert("Prompt copié", "Tu peux le coller dans l’IA recommandée.");
+    } catch {}
+  };
+
+  const toggleSection = (key: string) => setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: spacing.lg, paddingBottom: 100 }}>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Mon profil</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>{t("profile.title")}</Text>
 
         {/* Auth card */}
         <View style={[styles.authCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
@@ -208,6 +222,38 @@ export default function ProfileScreen() {
         </View>
 
         {/* Settings */}
+        <ProfileSection title="Réglages" subtitle={`Langue : ${languages.find((l) => l.code === language)?.nativeName || language} · thème · cookies · légal`} open={!!openSections.settings} onToggle={() => toggleSection("settings")}>
+        <View style={[styles.languageCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}> 
+          <View style={styles.languageHeader}>
+            <View style={styles.settingLeft}>
+              <Globe2 size={18} color={colors.textPrimary} strokeWidth={2.2} />
+              <View>
+                <Text style={[styles.settingText, { color: colors.textPrimary }]}>{t("profile.language")}</Text>
+                <Text style={[styles.languageHelp, { color: colors.textSecondary }]}>{t("profile.languageAuto")}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.languageGrid}>
+            {languages.map((item) => {
+              const active = language === item.code;
+              return (
+                <TouchableOpacity
+                  key={item.code}
+                  onPress={() => setLanguage(item.code)}
+                  style={[styles.languagePill, { borderColor: active ? colors.coral : colors.borderSubtle, backgroundColor: active ? colors.coralSoft : colors.bg }]}
+                  testID={`language-${item.code}`}
+                >
+                  <View style={styles.languagePillTop}>
+                    <Text style={[styles.languageName, { color: active ? colors.coral : colors.textPrimary }]}>{item.nativeName}</Text>
+                    {active ? <Check size={13} color={colors.coral} strokeWidth={3} /> : null}
+                  </View>
+                  <Text style={[styles.languageMarket, { color: colors.textSecondary }]} numberOfLines={2}>{t("profile.languageMarket")} : {item.market}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+
         <View style={[styles.settingsCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
           <TouchableOpacity onPress={toggle} style={styles.settingRow} testID="profile-toggle-theme">
             <View style={styles.settingLeft}>
@@ -216,17 +262,17 @@ export default function ProfileScreen() {
               ) : (
                 <Moon size={18} color={colors.textPrimary} strokeWidth={2} />
               )}
-              <Text style={[styles.settingText, { color: colors.textPrimary }]}>Thème</Text>
+              <Text style={[styles.settingText, { color: colors.textPrimary }]}>{t("profile.theme")}</Text>
             </View>
             <Text style={[styles.settingValue, { color: colors.coral }]}>
-              {mode === "light" ? "Jour" : "Nuit"}
+              {mode === "light" ? t("profile.day") : t("profile.night")}
             </Text>
           </TouchableOpacity>
           <View style={[styles.divider, { backgroundColor: colors.borderSubtle }]} />
           <TouchableOpacity onPress={replayOnboarding} style={styles.settingRow} testID="profile-replay-onboarding">
             <View style={styles.settingLeft}>
               <RefreshCw size={18} color={colors.textPrimary} strokeWidth={2} />
-              <Text style={[styles.settingText, { color: colors.textPrimary }]}>Refaire l'onboarding</Text>
+              <Text style={[styles.settingText, { color: colors.textPrimary }]}>{t("profile.replayOnboarding")}</Text>
             </View>
             <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
           </TouchableOpacity>
@@ -234,15 +280,17 @@ export default function ProfileScreen() {
           <TouchableOpacity onPress={resetCookieConsent} style={styles.settingRow} testID="profile-reset-cookies">
             <View style={styles.settingLeft}>
               <Cookie size={18} color={colors.textPrimary} strokeWidth={2} />
-              <Text style={[styles.settingText, { color: colors.textPrimary }]}>Préférences cookies</Text>
+              <Text style={[styles.settingText, { color: colors.textPrimary }]}>{t("profile.cookiePrefs")}</Text>
             </View>
             <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
           </TouchableOpacity>
         </View>
+        </ProfileSection>
 
+        <ProfileSection title="Infos légales" subtitle="Mentions, CGU, CGV, confidentialité" open={!!openSections.legal} onToggle={() => toggleSection("legal")}>
         {/* Legal links */}
         <View style={[styles.legalCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-          <Text style={[styles.legalTitle, { color: colors.textSecondary }]}>INFORMATIONS LÉGALES</Text>
+          <Text style={[styles.legalTitle, { color: colors.textSecondary }]}>{t("profile.legalInfo")}</Text>
           {[
             { type: "mentions", label: "Mentions légales" },
             { type: "cgu", label: "CGU" },
@@ -265,13 +313,14 @@ export default function ProfileScreen() {
             </React.Fragment>
           ))}
         </View>
+        </ProfileSection>
 
         {/* CTA new match */}
         <View style={[styles.heroBlock, { backgroundColor: colors.coralSoft }]}>
           <Sparkles size={20} color={colors.coral} strokeWidth={2.5} />
-          <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>Lance un nouveau match</Text>
+          <Text style={[styles.heroTitle, { color: colors.textPrimary }]}>{t("profile.newMatchTitle")}</Text>
           <Text style={[styles.heroSub, { color: colors.textSecondary }]}>
-            Décris ton besoin, on te trouve la meilleure IA en 3 questions.
+            {t("profile.newMatchSub")}
           </Text>
           <TouchableOpacity
             style={[styles.cta, { backgroundColor: colors.coral }]}
@@ -279,15 +328,16 @@ export default function ProfileScreen() {
             testID="profile-new-match"
           >
             <Wand2 size={16} color="#fff" strokeWidth={2.5} />
-            <Text style={styles.ctaText}>Nouveau Match</Text>
+            <Text style={styles.ctaText}>{t("profile.newMatchCta")}</Text>
           </TouchableOpacity>
         </View>
 
+        <ProfileSection title="Favoris" subtitle={`${savedTools.length} IA · ${savedNews.length} articles`} open={!!openSections.favorites} onToggle={() => toggleSection("favorites")} compact>
         {/* Saved tools */}
         <View style={styles.sectionHead}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Bookmark size={18} color={colors.textPrimary} strokeWidth={2} />
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>IA favoris</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{t("profile.savedTools")}</Text>
           </View>
           <Text style={[styles.sectionCount, { color: colors.textSecondary }]}>{savedTools.length}</Text>
         </View>
@@ -315,7 +365,7 @@ export default function ProfileScreen() {
         <View style={styles.sectionHead}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Bookmark size={18} color={colors.textPrimary} strokeWidth={2} />
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Articles sauvegardés</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{t("profile.savedNews")}</Text>
           </View>
           <Text style={[styles.sectionCount, { color: colors.textSecondary }]}>{savedNews.length}</Text>
         </View>
@@ -336,11 +386,14 @@ export default function ProfileScreen() {
           ))
         )}
 
+        </ProfileSection>
+
+        <ProfileSection title="Historique Match" subtitle={items.length ? `${items.length} match(s) enregistré(s)` : "Aucun match enregistré"} open={!!openSections.history} onToggle={() => toggleSection("history")} compact>
         {/* History */}
         <View style={styles.sectionHead}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <History size={18} color={colors.textPrimary} strokeWidth={2} />
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Historique des matchs</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{t("profile.history")}</Text>
           </View>
           {items.length > 0 ? (
             <TouchableOpacity onPress={clear} testID="history-clear">
@@ -358,20 +411,59 @@ export default function ProfileScreen() {
               testID={`history-item-${i}`}
             >
               <Text style={[styles.histNeed, { color: colors.textPrimary }]}>{it.need}</Text>
+              {it.bestToolName ? (
+                <Text style={[styles.histBest, { color: colors.coral }]}>Meilleur choix : {it.bestToolName}{it.matchScore ? ` · ${it.matchScore}/100` : ""}</Text>
+              ) : null}
               <Text style={[styles.histMeta, { color: colors.textSecondary }]}>
                 {new Date(it.createdAt).toLocaleDateString("fr-FR")} · Priorité : {it.priority}
               </Text>
+              <View style={styles.histActions}>
+                {it.bestToolSlug ? (
+                  <TouchableOpacity onPress={() => router.push(`/tool/${it.bestToolSlug}`)} style={[styles.histBtn, { borderColor: colors.borderSubtle }]}>
+                    <Text style={[styles.histBtnText, { color: colors.textPrimary }]}>Voir l’outil</Text>
+                  </TouchableOpacity>
+                ) : null}
+                {it.readyPrompt ? (
+                  <TouchableOpacity onPress={() => copyHistoryPrompt(it.readyPrompt)} style={[styles.histBtnPrimary, { backgroundColor: colors.coral }]}>
+                    <Text style={styles.histBtnPrimaryText}>Copier le prompt</Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
             </View>
           ))
         )}
+        </ProfileSection>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
+
+function ProfileSection({ title, subtitle, open, onToggle, children, compact = false }: { title: string; subtitle: string; open: boolean; onToggle: () => void; children: React.ReactNode; compact?: boolean }) {
+  const { colors } = useTheme();
+  return (
+    <View style={[styles.profileSectionCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }, compact && styles.profileSectionCardCompact]}>
+      <TouchableOpacity onPress={onToggle} activeOpacity={0.85} style={styles.profileSectionHeader}>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.profileSectionTitle, { color: colors.textPrimary }]}>{title}</Text>
+          <Text style={[styles.profileSectionSubtitle, { color: colors.textSecondary }]}>{subtitle}</Text>
+        </View>
+        <ChevronDown size={18} color={colors.coral} strokeWidth={2.5} style={{ transform: [{ rotate: open ? "180deg" : "0deg" }] }} />
+      </TouchableOpacity>
+      {open ? <View style={styles.profileSectionBody}>{children}</View> : null}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  title: { fontFamily: fonts.serif, fontSize: 32, marginBottom: spacing.lg, letterSpacing: -0.5 },
+  title: { fontFamily: fonts.serif, fontSize: 28, marginBottom: spacing.md, letterSpacing: -0.5 },
+  profileSectionCard: { borderRadius: radius.lg, borderWidth: 1, marginBottom: spacing.md, overflow: "hidden" },
+  profileSectionCardCompact: { marginBottom: spacing.sm },
+  profileSectionHeader: { flexDirection: "row", alignItems: "center", gap: spacing.sm, padding: spacing.md },
+  profileSectionTitle: { fontFamily: fonts.bodyBold, fontSize: 15 },
+  profileSectionSubtitle: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 2 },
+  profileSectionBody: { paddingHorizontal: spacing.md, paddingBottom: spacing.md },
   authCard: { borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, marginBottom: spacing.md },
   authRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, marginBottom: spacing.md },
   avatar: { width: 48, height: 48, borderRadius: 24, alignItems: "center", justifyContent: "center" },
@@ -389,7 +481,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12, borderRadius: radius.pill,
   },
   authBtnPrimaryText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
-  legalCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: spacing.lg },
+  legalCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: 0 },
   legalTitle: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: spacing.sm },
   legalRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
   planCard: { borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, marginBottom: spacing.md },
@@ -402,13 +494,21 @@ const styles = StyleSheet.create({
     paddingVertical: 12, borderRadius: radius.pill, borderWidth: 1.5,
   },
   planBtnText: { fontFamily: fonts.bodyBold, fontSize: 13 },
-  settingsCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: spacing.lg },
+  settingsCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: spacing.sm },
+  languageCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, marginBottom: spacing.sm },
+  languageHeader: { marginBottom: spacing.sm },
+  languageHelp: { fontFamily: fonts.body, fontSize: 11, lineHeight: 16, marginTop: 2 },
+  languageGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  languagePill: { width: "48%", borderWidth: 1, borderRadius: radius.md, padding: 10, minHeight: 82 },
+  languagePillTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 6 },
+  languageName: { flex: 1, fontFamily: fonts.bodyBold, fontSize: 12 },
+  languageMarket: { fontFamily: fonts.body, fontSize: 10, lineHeight: 14, marginTop: 5 },
   settingRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 8 },
   settingLeft: { flexDirection: "row", alignItems: "center", gap: 10 },
   settingText: { fontFamily: fonts.bodySemi, fontSize: 14 },
   settingValue: { fontFamily: fonts.bodyBold, fontSize: 13 },
   divider: { height: 1, marginVertical: 6 },
-  heroBlock: { borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.xl },
+  heroBlock: { borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   heroTitle: { fontFamily: fonts.serif, fontSize: 22, marginTop: spacing.sm },
   heroSub: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4, marginBottom: spacing.md },
   cta: {
@@ -416,13 +516,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md, paddingVertical: 12, borderRadius: radius.pill, alignSelf: "flex-start",
   },
   ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
-  sectionHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
+  sectionHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: spacing.md, marginBottom: spacing.sm },
   sectionTitle: { fontFamily: fonts.bodyBold, fontSize: 16 },
   sectionCount: { fontFamily: fonts.bodyBold, fontSize: 13 },
   empty: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginBottom: spacing.sm },
   histItem: { borderRadius: radius.md, padding: spacing.md, marginBottom: spacing.sm, borderWidth: 1 },
-  histNeed: { fontFamily: fonts.bodySemi, fontSize: 15 },
+  histNeed: { fontFamily: fonts.bodySemi, fontSize: 15, lineHeight: 20 },
+  histBest: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: 8 },
   histMeta: { fontFamily: fonts.body, fontSize: 12, marginTop: 2 },
+  histActions: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: spacing.sm },
+  histBtn: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8 },
+  histBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  histBtnPrimary: { borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8 },
+  histBtnPrimaryText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
   bmRow: {
     flexDirection: "row", alignItems: "center", gap: spacing.sm,
     padding: spacing.sm, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1,

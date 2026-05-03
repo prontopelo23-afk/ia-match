@@ -1,274 +1,164 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Linking } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Clock, Copy, Check, ExternalLink } from "lucide-react-native";
-import * as Clipboard from "expo-clipboard";
-import { fonts, radius, spacing } from "../../src/theme";
+import { useRouter } from "expo-router";
+import { Award, BookOpen, ChevronRight, FileText, Layers3, Library, Route, Sparkles } from "lucide-react-native";
+import { colors as baseColors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
-import { api, Lesson, Template, Resource } from "../../src/api";
+import { api, AcademyBadge, AcademyPath, Lesson, Resource, Template } from "../../src/api";
 import PremiumGate from "../../src/components/PremiumGate";
 
-type Tab = "fundamentals" | "templates" | "resources";
+type AcademyState = { lessons: Lesson[]; paths: AcademyPath[]; badges: AcademyBadge[]; templates: Template[]; resources: Resource[]; exercises: any[]; badExamples: any[]; beginnerTerms: any[] };
+type LevelBucket = "ALL" | "beginner" | "intermediate" | "advanced";
+
+const LEVEL_FILTERS: { key: LevelBucket; label: string }[] = [
+  { key: "ALL", label: "Tous" },
+  { key: "beginner", label: "Débutant" },
+  { key: "intermediate", label: "Intermédiaire" },
+  { key: "advanced", label: "Avancé" },
+];
+
+function normalizeLevel(value?: string): LevelBucket {
+  const raw = String(value || "").toLowerCase();
+  if (raw.includes("advance") || raw.includes("avanc")) return "advanced";
+  if (raw.includes("inter")) return "intermediate";
+  if (raw.includes("begin") || raw.includes("début") || raw.includes("debut")) return "beginner";
+  return "intermediate";
+}
+function levelLabel(value?: string) {
+  const bucket = normalizeLevel(value);
+  if (bucket === "beginner") return "Débutant";
+  if (bucket === "advanced") return "Avancé";
+  return "Intermédiaire";
+}
 
 export default function AcademyScreen() {
+  const router = useRouter();
   const { colors } = useTheme();
   const { isPremium } = usePremium();
-  const [tab, setTab] = useState<Tab>("fundamentals");
-  const [levelFilter, setLevelFilter] = useState<"ALL" | "BEGINNER" | "INTERMEDIATE" | "ADVANCED">("ALL");
-  const [resourceFilter, setResourceFilter] = useState<"ALL" | "YOUTUBE" | "BLOG" | "PODCAST" | "NEWSLETTER" | "OUTIL">("ALL");
-  const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [resources, setResources] = useState<Resource[]>([]);
-  const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [state, setState] = useState<AcademyState>({ lessons: [], paths: [], badges: [], templates: [], resources: [], exercises: [], badExamples: [], beginnerTerms: [] });
   const [loading, setLoading] = useState(true);
+  const [level, setLevel] = useState<LevelBucket>("ALL");
 
   useEffect(() => {
-    Promise.all([api.listLessons(), api.listTemplates(), api.listResources()])
-      .then(([ls, ts, rs]) => {
-        setLessons(ls);
-        setTemplates(ts);
-        setResources(rs);
-        if (ls.length) setActiveLessonId(ls[0].id);
-      })
+    Promise.all([
+      api.listLessons(),
+      api.listAcademyPaths(),
+      api.listAcademyBadges(),
+      api.listTemplates(),
+      api.listResources(),
+      api.listAcademyExercises(),
+      api.listAcademyBadToGood(),
+      api.listBeginnerTerms(),
+    ])
+      .then(([lessons, paths, badges, templates, resources, exercises, badExamples, beginnerTerms]) => setState({ lessons, paths: paths.sort((a, b) => (a.order ?? 99) - (b.order ?? 99)), badges, templates, resources, exercises, badExamples, beginnerTerms }))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
+
+  const levelCounts = useMemo(() => {
+    const counts: Record<LevelBucket, number> = { ALL: state.lessons.length, beginner: 0, intermediate: 0, advanced: 0 };
+    state.lessons.forEach((lesson) => { counts[normalizeLevel(lesson.level)] += 1; });
+    return counts;
+  }, [state.lessons]);
+
+  const visibleLessons = useMemo(() => level === "ALL" ? state.lessons : state.lessons.filter((lesson) => normalizeLevel(lesson.level) === level), [state.lessons, level]);
+  const visiblePaths = useMemo(() => level === "ALL" ? state.paths : state.paths.filter((path) => normalizeLevel(path.level) === level || path.course_ids?.some((id) => visibleLessons.some((lesson) => lesson.id === id))), [state.paths, visibleLessons, level]);
+  const minutesTotal = useMemo(() => visibleLessons.reduce((sum, l) => sum + (l.minutes || 0), 0), [visibleLessons]);
+  const firstLesson = visibleLessons[0] ?? state.lessons[0];
 
   if (!isPremium) {
     return (
       <SafeAreaView style={[{ flex: 1 }, { backgroundColor: colors.bg }]} edges={["top"]}>
         <PremiumGate
           feature="Academy"
-          description="Apprends à prompter comme un pro avec des leçons illustrées, des templates copiables et des ressources françaises triées sur le volet."
-          benefits={[
-            "10 leçons fondamentales avec framework et avant/après",
-            "15 templates de prompts copiables (CV, recherche, code, pitch…)",
-            "16 ressources 100% françaises (YouTubers, blogs, podcasts, newsletters)",
-            "Accès au Builder IA et au Comparateur avancé",
-          ]}
+          description="Débloque le parcours complet IA Match : leçons guidées, quiz, badges, templates copiables et ressources triées. Le contenu reste complet, mais il est organisé en sous-pages pour éviter le scroll infini."
+          benefits={["80 leçons progressives organisées en 10 parcours", "240 quiz courts liés aux leçons", "200 templates prêts à copier", "Ressources et badges de progression"]}
         />
       </SafeAreaView>
     );
   }
 
-  const activeLesson = lessons.find((l) => l.id === activeLessonId) || lessons[0];
-
-  const copy = async (id: string, body: string) => {
-    try {
-      await Clipboard.setStringAsync(body);
-    } catch {}
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 1500);
-  };
-
-  const filteredResources =
-    resourceFilter === "ALL" ? resources : resources.filter((r) => r.category === resourceFilter);
-
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Text style={[styles.crumb, { color: colors.textSecondary }]}>Workspace · Academy</Text>
-        <Text style={[styles.eyebrow, { color: colors.coral }]}>PROMPT ACADEMY</Text>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>
-          Apprends à <Text style={[styles.titleAccent, { color: colors.coral }]}>prompter</Text> comme un pro.
-        </Text>
+        <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY · HUB</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends sans te perdre dans une page infinie.</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Débutant, intermédiaire, avancé : les contenus sont regroupés par parcours, templates et ressources pour garder une navigation courte.</Text>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: spacing.lg }}>
-          <View style={[styles.tabs, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-            <TouchableOpacity
-              onPress={() => setTab("fundamentals")}
-              style={[styles.tab, tab === "fundamentals" && { backgroundColor: colors.coralSoft }]}
-              testID="academy-tab-fundamentals"
-            >
-              <Text style={[styles.tabText, { color: tab === "fundamentals" ? colors.coral : colors.textSecondary }]}>
-                Fondamentaux
-              </Text>
-              <Text style={[styles.tabCount, { color: colors.textSecondary }]}>{lessons.length}</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
+          {LEVEL_FILTERS.map((f) => (
+            <TouchableOpacity key={f.key} onPress={() => setLevel(f.key)} style={[styles.levelChip, { backgroundColor: level === f.key ? colors.coral : colors.surface, borderColor: level === f.key ? colors.coral : colors.borderSubtle }]}>
+              <Text style={[styles.levelChipText, { color: level === f.key ? "#fff" : colors.textPrimary }]}>{f.label} · {levelCounts[f.key]}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setTab("templates")}
-              style={[styles.tab, tab === "templates" && { backgroundColor: colors.coralSoft }]}
-              testID="academy-tab-templates"
-            >
-              <Text style={[styles.tabText, { color: tab === "templates" ? colors.coral : colors.textSecondary }]}>
-                Templates
-              </Text>
-              <Text style={[styles.tabCount, { color: colors.textSecondary }]}>{templates.length}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setTab("resources")}
-              style={[styles.tab, tab === "resources" && { backgroundColor: colors.coralSoft }]}
-              testID="academy-tab-resources"
-            >
-              <Text style={[styles.tabText, { color: tab === "resources" ? colors.coral : colors.textSecondary }]}>
-                Ressources FR
-              </Text>
-              <Text style={[styles.tabCount, { color: colors.textSecondary }]}>{resources.length}</Text>
-            </TouchableOpacity>
-          </View>
+          ))}
         </ScrollView>
 
-        {loading ? (
-          <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.xl }} />
-        ) : tab === "fundamentals" ? (
-          <View>
-            {lessons.map((l) => (
-              <TouchableOpacity
-                key={l.id}
-                onPress={() => setActiveLessonId(l.id)}
-                style={[
-                  styles.lessonRow,
-                  { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
-                  activeLessonId === l.id && { borderColor: colors.coral, backgroundColor: colors.coralSoft },
-                ]}
-                testID={`lesson-${l.id}`}
-              >
-                <View style={styles.lessonHeadRow}>
-                  <Text style={[styles.lessonOrder, { color: colors.textSecondary }]}>0{l.order} · {l.level}</Text>
-                  <View style={styles.minRow}>
-                    <Clock size={11} color={colors.textSecondary} strokeWidth={2} />
-                    <Text style={[styles.lessonMin, { color: colors.textSecondary }]}>{l.minutes}M</Text>
-                  </View>
-                </View>
-                <Text style={[styles.lessonTitle, { color: colors.textPrimary }]}>{l.title}</Text>
+        {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
+          <>
+            <View style={styles.statsRow}>
+              <StatCard value={String(visibleLessons.length)} label="leçons" />
+              <StatCard value={String(visiblePaths.length)} label="parcours" />
+              <StatCard value={String(state.templates.length)} label="templates" />
+              <StatCard value={`${Math.max(1, Math.round(minutesTotal / 60))}h`} label="contenu" />
+            </View>
+            <View style={styles.statsRow}>
+              <StatCard value={String(state.exercises.length)} label="exercices" />
+              <StatCard value={String(state.badExamples.length)} label="avant/après" />
+              <StatCard value={String(state.beginnerTerms.length)} label="termes" />
+              <StatCard value={String(state.badges.length)} label="badges" />
+            </View>
+
+            {firstLesson ? (
+              <TouchableOpacity onPress={() => router.push(`/academy/lesson/${firstLesson.id}`)} style={[styles.continueCard, { backgroundColor: baseColors.darkCard }]} activeOpacity={0.86}>
+                <Text style={styles.continueLabel}>COMMENCER ICI · {level === "ALL" ? levelLabel(firstLesson.level) : LEVEL_FILTERS.find((f) => f.key === level)?.label}</Text>
+                <Text style={styles.continueTitle}>{firstLesson.title}</Text>
+                <Text style={styles.continueText}>Leçon {firstLesson.order} · {firstLesson.minutes} min · ouvrir le détail complet</Text>
+                <ChevronRight size={18} color="#fff" />
               </TouchableOpacity>
-            ))}
+            ) : null}
 
-            {activeLesson ? (
-              <View
-                style={[styles.lessonDetail, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-                testID="lesson-detail"
-              >
-                <Text style={[styles.detailEyebrow, { color: colors.textSecondary }]}>
-                  LEÇON · {activeLesson.level} · {activeLesson.minutes} MIN
-                </Text>
-                <Text style={[styles.detailTitle, { color: colors.textPrimary }]}>{activeLesson.title}</Text>
-                <Text style={[styles.detailIntro, { color: colors.textPrimary }]}>{activeLesson.intro}</Text>
-                <Text style={[styles.detailBody, { color: colors.textSecondary }]}>{activeLesson.body}</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pathRow}>
+              {visiblePaths.map((path) => (
+                <TouchableOpacity key={path.id} onPress={() => router.push(`/academy/path/${path.id}`)} style={[styles.pathCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}>
+                  <Route size={16} color={colors.coral} strokeWidth={2.5} />
+                  <Text style={[styles.pathLevel, { color: colors.coral }]}>{levelLabel(path.level)}</Text>
+                  <Text style={[styles.pathTitle, { color: colors.textPrimary }]} numberOfLines={2}>{path.title}</Text>
+                  <Text style={[styles.pathMeta, { color: colors.textSecondary }]}>{path.course_ids?.length ?? 8} leçons</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
 
-                <View style={[styles.frameworkBox, { borderColor: colors.coral }]}>
-                  <Text style={[styles.frameworkLabel, { color: colors.coral }]}>FRAMEWORK</Text>
-                  <Text style={[styles.frameworkText, { color: colors.coral }]}>{activeLesson.framework}</Text>
-                  {activeLesson.steps.map((s, i) => (
-                    <View key={i} style={styles.stepRow}>
-                      <Text style={[styles.stepNum, { color: colors.textSecondary }]}>0{i + 1}</Text>
-                      <Text style={[styles.stepText, { color: colors.textPrimary }]}>{s}</Text>
-                    </View>
-                  ))}
-                </View>
+            <View style={styles.grid}>
+              <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours guidés" text={`${visiblePaths.length} parcours dans le niveau sélectionné`} onPress={() => router.push("/academy/paths")} />
+              <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text={`${state.templates.length} prompts triés par famille`} onPress={() => router.push("/academy/templates")} />
+              <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text={`${state.resources.length} sources et outils vérifiés`} onPress={() => router.push("/academy/resources")} />
+              <HubCard icon={<Sparkles size={19} color={colors.coral} />} title="Quiz" text="Quiz par leçon, révélés au bon moment" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+            </View>
 
-                <View style={styles.beforeAfter}>
-                  <View style={[styles.baBlock, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
-                    <Text style={[styles.baLabel, { color: colors.coral }]}>AVANT</Text>
-                    <Text style={[styles.baText, { color: colors.textPrimary }]}>{activeLesson.before}</Text>
-                  </View>
-                  <View style={[styles.baBlock, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
-                    <Text style={[styles.baLabel, { color: colors.coral }]}>APRÈS</Text>
-                    <Text style={[styles.baText, { color: colors.textPrimary }]}>{activeLesson.after}</Text>
-                  </View>
-                </View>
+            {state.badges.length > 0 ? (
+              <View style={[styles.badgeBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+                <View style={styles.badgeTitleRow}><Award size={16} color={colors.coral} /><Text style={[styles.badgeTitle, { color: colors.textPrimary }]}>Badges à débloquer</Text></View>
+                <View style={styles.badgeRow}>{state.badges.slice(0, 10).map((badge) => <Text key={badge.id} style={[styles.badgeChip, { color: colors.coral, borderColor: colors.coral }]}>{badge.name}</Text>)}</View>
               </View>
             ) : null}
-          </View>
-        ) : tab === "templates" ? (
-          <View style={styles.templatesGrid}>
-            <View style={styles.levelRow}>
-              {(["ALL", "BEGINNER", "INTERMEDIATE", "ADVANCED"] as const).map((lv) => (
-                <TouchableOpacity
-                  key={lv}
-                  onPress={() => setLevelFilter(lv)}
-                  style={[
-                    styles.levelChip,
-                    { borderColor: colors.borderSubtle },
-                    levelFilter === lv && { backgroundColor: colors.coralSoft, borderColor: colors.coral },
-                  ]}
-                  testID={`level-${lv}`}
-                >
-                  <Text style={[styles.levelChipText, { color: levelFilter === lv ? colors.coral : colors.textSecondary }]}>
-                    {lv === "ALL" ? "Tous" : lv === "BEGINNER" ? "Débutant" : lv === "INTERMEDIATE" ? "Intermédiaire" : "Avancé"}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-            {templates.filter((t) => levelFilter === "ALL" || t.level === levelFilter).map((t) => (
-              <View
-                key={t.id}
-                style={[styles.templateCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-                testID={`template-${t.id}`}
-              >
-                <View style={styles.templateHeader}>
-                  <Text style={[styles.templateLevel, { color: colors.coral }]}>{t.level}</Text>
-                  <TouchableOpacity onPress={() => copy(t.id, t.body)} style={styles.copyBtn} testID={`copy-${t.id}`}>
-                    {copiedId === t.id ? (
-                      <Check size={16} color={colors.success} strokeWidth={2.5} />
-                    ) : (
-                      <Copy size={16} color={colors.textSecondary} strokeWidth={2} />
-                    )}
-                  </TouchableOpacity>
-                </View>
-                <Text style={[styles.templateTitle, { color: colors.textPrimary }]}>{t.title}</Text>
-                <Text style={[styles.templateBody, { color: colors.textSecondary }]} numberOfLines={6}>
-                  {t.body}
-                </Text>
-                <View style={styles.varsRow}>
-                  {t.variables.slice(0, 5).map((v) => (
-                    <Text key={v} style={[styles.varTag, { color: colors.textSecondary }]}>{`{${v}}`}</Text>
-                  ))}
-                </View>
-              </View>
-            ))}
-          </View>
-        ) : (
-          // Resources tab
-          <View style={styles.templatesGrid}>
-            <Text style={[styles.resourcesIntro, { color: colors.textSecondary }]}>
-              16 ressources 100% françaises pour aller plus loin sur l'IA. YouTubers, blogs, podcasts, newsletters et outils — tous vérifiés.
-            </Text>
-            <View style={styles.levelRow}>
-              {(["ALL", "YOUTUBE", "BLOG", "PODCAST", "NEWSLETTER", "OUTIL"] as const).map((cat) => (
-                <TouchableOpacity
-                  key={cat}
-                  onPress={() => setResourceFilter(cat)}
-                  style={[
-                    styles.levelChip,
-                    { borderColor: colors.borderSubtle },
-                    resourceFilter === cat && { backgroundColor: colors.coralSoft, borderColor: colors.coral },
-                  ]}
-                  testID={`res-cat-${cat}`}
-                >
-                  <Text style={[styles.levelChipText, { color: resourceFilter === cat ? colors.coral : colors.textSecondary }]}>
-                    {cat === "ALL" ? "Tout" : cat.charAt(0) + cat.slice(1).toLowerCase()}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-            {filteredResources.map((r) => (
-              <TouchableOpacity
-                key={r.id}
-                onPress={() => Linking.openURL(r.url).catch(() => {})}
-                style={[styles.resourceCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-                testID={`resource-${r.id}`}
-                activeOpacity={0.85}
-              >
-                <View style={styles.resourceHead}>
-                  <Text style={[styles.resourceCat, { color: colors.coral }]}>{r.category}</Text>
-                  <ExternalLink size={14} color={colors.textSecondary} strokeWidth={2} />
-                </View>
-                <Text style={[styles.resourceTitle, { color: colors.textPrimary }]}>{r.title}</Text>
-                <Text style={[styles.resourceAuthor, { color: colors.textSecondary }]}>par {r.author}</Text>
-                <Text style={[styles.resourceSummary, { color: colors.textSecondary }]} numberOfLines={3}>
-                  {r.summary}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          </>
         )}
-
-        <View style={{ height: 40 }} />
+        <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function StatCard({ value, label }: { value: string; label: string }) {
+  const { colors } = useTheme();
+  return <View style={[styles.statCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><Text style={[styles.statValue, { color: colors.coral }]}>{value}</Text><Text style={[styles.statLabel, { color: colors.textSecondary }]}>{label}</Text></View>;
+}
+function HubCard({ icon, title, text, onPress }: { icon: React.ReactNode; title: string; text: string; onPress: () => void }) {
+  const { colors } = useTheme();
+  return <TouchableOpacity onPress={onPress} style={[styles.hubCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}><View style={[styles.hubIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.hubTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.hubText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
 }
 
 const styles = StyleSheet.create({
@@ -276,56 +166,33 @@ const styles = StyleSheet.create({
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
   crumb: { fontFamily: fonts.body, fontSize: 12, marginBottom: spacing.md },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
-  title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1, marginBottom: spacing.lg },
-  titleAccent: { fontStyle: "italic" },
-  tabs: {
-    flexDirection: "row",
-    borderRadius: radius.pill,
-    padding: 4,
-    alignSelf: "flex-start",
-    borderWidth: 1,
-  },
-  tab: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 14, paddingVertical: 8, borderRadius: radius.pill },
-  tabText: { fontFamily: fonts.bodySemi, fontSize: 13 },
-  tabCount: { fontFamily: fonts.bodyBold, fontSize: 11 },
-  lessonRow: { padding: spacing.md, borderRadius: radius.md, marginBottom: spacing.sm, borderWidth: 1 },
-  lessonHeadRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6 },
-  lessonOrder: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  minRow: { flexDirection: "row", alignItems: "center", gap: 4 },
-  lessonMin: { fontFamily: fonts.bodyMd, fontSize: 11 },
-  lessonTitle: { fontFamily: fonts.serif, fontSize: 18, lineHeight: 22 },
-  lessonDetail: { marginTop: spacing.lg, padding: spacing.lg, borderRadius: radius.lg, borderWidth: 1 },
-  detailEyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  detailTitle: { fontFamily: fonts.serif, fontSize: 28, lineHeight: 34, letterSpacing: -0.5, marginTop: spacing.sm },
-  detailIntro: { fontFamily: fonts.body, fontSize: 15, marginTop: spacing.md, lineHeight: 22 },
-  detailBody: { fontFamily: fonts.body, fontSize: 14, marginTop: spacing.sm, lineHeight: 20 },
-  frameworkBox: { borderRadius: radius.md, padding: spacing.md, marginTop: spacing.lg, borderWidth: 1.5 },
-  frameworkLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  frameworkText: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1, marginTop: 4, marginBottom: spacing.sm },
-  stepRow: { flexDirection: "row", gap: 10, paddingVertical: 6 },
-  stepNum: { fontFamily: fonts.body, fontSize: 12, width: 22 },
-  stepText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, flex: 1 },
-  beforeAfter: { flexDirection: "row", gap: 8, marginTop: spacing.md },
-  baBlock: { flex: 1, padding: spacing.md, borderRadius: radius.md, borderWidth: 1 },
-  baLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, marginBottom: 6 },
-  baText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
-  templatesGrid: { gap: spacing.md },
-  levelRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: spacing.sm },
-  levelChip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: radius.pill, borderWidth: 1 },
-  levelChipText: { fontFamily: fonts.bodySemi, fontSize: 12, letterSpacing: 0.5 },
-  templateCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1 },
-  templateHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  templateLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  copyBtn: { padding: 4 },
-  templateTitle: { fontFamily: fonts.serif, fontSize: 20, marginTop: 8, marginBottom: spacing.sm, lineHeight: 24 },
-  templateBody: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18 },
-  varsRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: spacing.md },
-  varTag: { fontFamily: fonts.body, fontSize: 11 },
-  resourcesIntro: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginBottom: spacing.sm },
-  resourceCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1 },
-  resourceHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  resourceCat: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  resourceTitle: { fontFamily: fonts.serif, fontSize: 20, marginTop: 6, lineHeight: 24 },
-  resourceAuthor: { fontFamily: fonts.body, fontSize: 11, marginTop: 2, fontStyle: "italic" },
-  resourceSummary: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 8 },
+  title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1 },
+  subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm, marginBottom: spacing.md },
+  levelRow: { gap: 8, paddingBottom: spacing.md },
+  levelChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
+  levelChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  statsRow: { flexDirection: "row", gap: 8, marginBottom: spacing.md },
+  statCard: { flex: 1, borderWidth: 1, borderRadius: radius.lg, paddingVertical: spacing.sm, alignItems: "center" },
+  statValue: { fontFamily: fonts.serif, fontSize: 22, lineHeight: 26 },
+  statLabel: { fontFamily: fonts.bodyBold, fontSize: 10, textTransform: "uppercase", letterSpacing: 0.7 },
+  continueCard: { borderRadius: radius.xl, padding: spacing.lg, marginBottom: spacing.lg, ...shadow.dark },
+  continueLabel: { fontFamily: fonts.bodyBold, color: baseColors.coral, fontSize: 10, letterSpacing: 1.7 },
+  continueTitle: { fontFamily: fonts.serif, color: "#fff", fontSize: 25, lineHeight: 30, marginTop: 6 },
+  continueText: { fontFamily: fonts.body, color: "rgba(255,255,255,0.72)", fontSize: 12, marginTop: 6 },
+  sectionTitle: { fontFamily: fonts.serif, fontSize: 24, marginBottom: spacing.sm },
+  pathRow: { gap: 10, paddingBottom: spacing.md },
+  pathCard: { width: 190, minHeight: 124, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
+  pathLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.2, textTransform: "uppercase", marginTop: 8 },
+  pathTitle: { fontFamily: fonts.serif, fontSize: 17, lineHeight: 21, marginTop: 5 },
+  pathMeta: { fontFamily: fonts.bodyBold, fontSize: 10, marginTop: 7, textTransform: "uppercase" },
+  grid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.sm },
+  hubCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 130 },
+  hubIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
+  hubTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
+  hubText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
+  badgeBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
+  badgeTitleRow: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: spacing.sm },
+  badgeTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  badgeRow: { flexDirection: "row", flexWrap: "wrap", gap: 7 },
+  badgeChip: { overflow: "hidden", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 5, fontFamily: fonts.bodyBold, fontSize: 10 },
 });

@@ -1,0 +1,3007 @@
+{
+  "metadata": {
+    "file_name": "ia_match_knowledge_intelligence_v1.json",
+    "version": "1.0.0",
+    "created_at": "2026-05-02",
+    "project": "IA Match",
+    "purpose": "Single-file decision intelligence layer for recommendations, Prompt Builder, smart search, comparisons and education.",
+    "source_base": "ia_match_data_room_v4_HYBRID_VERIFIED.zip",
+    "design_rule": "No invented benchmark numbers. This file contains decision logic, mappings and explainable recommendation rules. Numerical performance data remains in the verified benchmark files.",
+    "recommended_import_mode": "Import as one knowledge collection or split arrays into collections by top-level key."
+  },
+  "import_order": [
+    "user_intents",
+    "recommendation_rules",
+    "decision_trees",
+    "capabilities_matrix",
+    "jobs_to_be_done",
+    "ai_stacks",
+    "risk_compliance_notes",
+    "beginner_explanations",
+    "prompt_quality_rules",
+    "market_map",
+    "scoring_engine"
+  ],
+  "user_intents": [
+    {
+      "id": "choose_best_ai_for_my_need",
+      "intent": "Trouver la meilleure IA pour un besoin concret",
+      "intent_type": "recommendation",
+      "primary_category": "general",
+      "user_level": "beginner",
+      "keywords_fr": [
+        "meilleure ia",
+        "outil ia",
+        "quelle ia",
+        "besoin",
+        "recommandation"
+      ],
+      "signals": [
+        "besoin vague",
+        "demande de choix",
+        "comparaison souhaitée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview",
+        "perplexity"
+      ],
+      "fallback_question": "Quel résultat veux-tu obtenir : texte, image, vidéo, code, recherche ou document ?",
+      "response_strategy": "Commencer par clarifier le résultat attendu, puis proposer 3 options : meilleur choix, alternative économique, alternative spécialisée.",
+      "best_prompt_template_group": "diagnostic_besoin_ia"
+    },
+    {
+      "id": "write_professional_text",
+      "intent": "Rédiger un texte professionnel clair et convaincant",
+      "intent_type": "creation",
+      "primary_category": "writing",
+      "user_level": "beginner",
+      "keywords_fr": [
+        "rédiger",
+        "mail",
+        "texte",
+        "présentation",
+        "argumentaire",
+        "post",
+        "contenu"
+      ],
+      "signals": [
+        "besoin de ton",
+        "besoin de structure",
+        "sortie texte"
+      ],
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Demander le public cible, le ton, la longueur et l’objectif avant de générer ou recommander.",
+      "best_prompt_template_group": "redaction_pro"
+    },
+    {
+      "id": "analyze_pdf_or_document",
+      "intent": "Analyser, résumer ou extraire des informations depuis un document",
+      "intent_type": "analysis",
+      "primary_category": "documents",
+      "user_level": "beginner",
+      "keywords_fr": [
+        "pdf",
+        "document",
+        "résumer",
+        "extraire",
+        "analyser",
+        "contrat",
+        "rapport"
+      ],
+      "signals": [
+        "fichier joint",
+        "besoin de synthèse",
+        "questions sur document"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview",
+        "microsoft-copilot"
+      ],
+      "response_strategy": "Recommander selon confidentialité, longueur du document, besoin de synthèse ou d’édition.",
+      "best_prompt_template_group": "analyse_document"
+    },
+    {
+      "id": "research_with_sources",
+      "intent": "Faire une recherche fiable avec sources et citations",
+      "intent_type": "research",
+      "primary_category": "research",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "source",
+        "citation",
+        "recherche",
+        "benchmark",
+        "comparatif",
+        "vérifier",
+        "actualité"
+      ],
+      "signals": [
+        "besoin de preuves",
+        "information récente",
+        "comparaison factuelle"
+      ],
+      "recommended_entity_ids": [
+        "perplexity",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview",
+        "claude-opus-4-7"
+      ],
+      "response_strategy": "Prioriser les assistants avec recherche web/citations, puis vérifier les sources officielles quand la décision est importante.",
+      "best_prompt_template_group": "recherche_sourcee"
+    },
+    {
+      "id": "generate_image_premium",
+      "intent": "Créer une image, un visuel ou un logo premium",
+      "intent_type": "creation",
+      "primary_category": "image",
+      "user_level": "beginner",
+      "keywords_fr": [
+        "image",
+        "logo",
+        "visuel",
+        "affiche",
+        "illustration",
+        "identité visuelle"
+      ],
+      "signals": [
+        "besoin de style",
+        "format visuel",
+        "référence esthétique"
+      ],
+      "recommended_entity_ids": [
+        "gpt-image-2-high",
+        "nano-banana-2",
+        "seedream-4-0",
+        "flux-2-dev-turbo"
+      ],
+      "response_strategy": "Demander style, format, usage, texte à afficher, contraintes de marque et niveau de réalisme.",
+      "best_prompt_template_group": "image_premium"
+    },
+    {
+      "id": "build_app_or_mvp",
+      "intent": "Créer une application, un MVP ou un prototype web",
+      "intent_type": "build",
+      "primary_category": "app_builder",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "application",
+        "mvp",
+        "lovable",
+        "prototype",
+        "site",
+        "saas",
+        "backend",
+        "supabase"
+      ],
+      "signals": [
+        "fonctionnalités",
+        "routes",
+        "base de données",
+        "interface"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-code",
+        "cursor",
+        "codex-cli"
+      ],
+      "response_strategy": "Découper le projet en cahier des charges, schéma data, pages, composants, auth, paiement et tests.",
+      "best_prompt_template_group": "app_builder_spec"
+    },
+    {
+      "id": "debug_or_improve_code",
+      "intent": "Corriger, améliorer ou comprendre du code",
+      "intent_type": "coding",
+      "primary_category": "code",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "bug",
+        "code",
+        "erreur",
+        "debug",
+        "fonction",
+        "repo",
+        "terminal",
+        "test"
+      ],
+      "signals": [
+        "message d’erreur",
+        "fichier code",
+        "stack trace",
+        "régression"
+      ],
+      "recommended_entity_ids": [
+        "claude-code",
+        "codex-cli",
+        "cursor",
+        "gpt-5-5",
+        "claude-opus-4-7"
+      ],
+      "response_strategy": "Demander ou détecter le contexte minimal : langage, objectif, erreur, résultat attendu, fichiers concernés.",
+      "best_prompt_template_group": "debug_code"
+    },
+    {
+      "id": "automate_personal_workflow",
+      "intent": "Automatiser une tâche personnelle ou professionnelle",
+      "intent_type": "automation",
+      "primary_category": "agents",
+      "user_level": "advanced",
+      "keywords_fr": [
+        "automatiser",
+        "agent",
+        "workflow",
+        "mail",
+        "calendrier",
+        "slack",
+        "telegram",
+        "routine"
+      ],
+      "signals": [
+        "tâche répétitive",
+        "outil externe",
+        "déclencheur",
+        "action automatique"
+      ],
+      "recommended_entity_ids": [
+        "openclaw",
+        "hermes-agent",
+        "chatgpt-agent",
+        "manus",
+        "google-workspace-studio"
+      ],
+      "response_strategy": "Clarifier déclencheur, données accessibles, action attendue, fréquence, niveau de sécurité et validation humaine.",
+      "best_prompt_template_group": "automation_agent"
+    },
+    {
+      "id": "choose_enterprise_assistant",
+      "intent": "Choisir un assistant IA pour une équipe ou une entreprise",
+      "intent_type": "decision",
+      "primary_category": "enterprise",
+      "user_level": "advanced",
+      "keywords_fr": [
+        "entreprise",
+        "équipe",
+        "collaboration",
+        "microsoft",
+        "google workspace",
+        "sécurité",
+        "données"
+      ],
+      "signals": [
+        "usage équipe",
+        "données internes",
+        "compliance",
+        "documents partagés"
+      ],
+      "recommended_entity_ids": [
+        "microsoft-copilot",
+        "google-workspace-studio",
+        "gpt-5-5",
+        "claude-opus-4-7"
+      ],
+      "response_strategy": "Comparer selon écosystème existant, sécurité, intégrations, permissions et coût par utilisateur.",
+      "best_prompt_template_group": "choix_assistant_entreprise"
+    },
+    {
+      "id": "open_source_or_self_hosted_ai",
+      "intent": "Trouver une IA open source ou hébergeable avec plus de contrôle",
+      "intent_type": "decision",
+      "primary_category": "open-source",
+      "user_level": "advanced",
+      "keywords_fr": [
+        "open source",
+        "local",
+        "self-host",
+        "héberger",
+        "modèle ouvert",
+        "confidentialité"
+      ],
+      "signals": [
+        "contrôle données",
+        "coût infra",
+        "déploiement privé"
+      ],
+      "recommended_entity_ids": [
+        "mistral-large-3",
+        "llama-4-scout",
+        "llama-4-maverick",
+        "deepseek-v3-2",
+        "qwen3",
+        "flux-2-dev"
+      ],
+      "response_strategy": "Séparer open-weight, open-source, local possible, coût GPU et exigences de compétence technique.",
+      "best_prompt_template_group": "open_source_ai_selection"
+    },
+    {
+      "id": "create_social_media_content",
+      "intent": "Créer du contenu pour réseaux sociaux",
+      "intent_type": "recommendation",
+      "primary_category": "marketing",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "post",
+        "instagram",
+        "tiktok",
+        "linkedin",
+        "calendrier éditorial"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "create_social_media_content"
+    },
+    {
+      "id": "prepare_pitch_deck",
+      "intent": "Préparer un pitch deck ou une présentation",
+      "intent_type": "recommendation",
+      "primary_category": "business",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "pitch",
+        "présentation",
+        "slides",
+        "investisseur"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview",
+        "microsoft-copilot"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "prepare_pitch_deck"
+    },
+    {
+      "id": "learn_prompting",
+      "intent": "Apprendre à écrire de meilleurs prompts",
+      "intent_type": "recommendation",
+      "primary_category": "education",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "prompt",
+        "apprendre",
+        "méthode",
+        "template"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "learn_prompting"
+    },
+    {
+      "id": "compare_two_ai_tools",
+      "intent": "Comparer deux IA avant de choisir",
+      "intent_type": "recommendation",
+      "primary_category": "comparison",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "vs",
+        "comparer",
+        "différence",
+        "meilleur"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview",
+        "perplexity"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "compare_two_ai_tools"
+    },
+    {
+      "id": "summarize_meeting_notes",
+      "intent": "Résumer des notes de réunion et créer un plan d’action",
+      "intent_type": "recommendation",
+      "primary_category": "productivity",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "réunion",
+        "compte rendu",
+        "action",
+        "synthèse"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "microsoft-copilot",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "summarize_meeting_notes"
+    },
+    {
+      "id": "study_or_revision_help",
+      "intent": "Aider à étudier, réviser ou comprendre un sujet",
+      "intent_type": "recommendation",
+      "primary_category": "education",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "cours",
+        "réviser",
+        "expliquer",
+        "quiz"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "study_or_revision_help"
+    },
+    {
+      "id": "make_data_table_or_csv",
+      "intent": "Créer un tableau, CSV ou structure de données",
+      "intent_type": "recommendation",
+      "primary_category": "productivity",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "csv",
+        "tableau",
+        "base de données",
+        "json"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "make_data_table_or_csv"
+    },
+    {
+      "id": "privacy_sensitive_task",
+      "intent": "Travailler avec des données sensibles",
+      "intent_type": "recommendation",
+      "primary_category": "compliance",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "confidentiel",
+        "rgpd",
+        "données",
+        "privé"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "microsoft-copilot",
+        "google-workspace-studio",
+        "mistral-large-3",
+        "llama-4-scout"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "privacy_sensitive_task"
+    },
+    {
+      "id": "choose_ai_for_low_budget",
+      "intent": "Choisir une IA avec budget limité",
+      "intent_type": "recommendation",
+      "primary_category": "pricing",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "gratuit",
+        "pas cher",
+        "budget",
+        "prix"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "deepseek-v3-2",
+        "qwen3",
+        "perplexity",
+        "gpt-5-5"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "choose_ai_for_low_budget"
+    },
+    {
+      "id": "build_ai_agent",
+      "intent": "Créer ou choisir un agent IA autonome",
+      "intent_type": "recommendation",
+      "primary_category": "agents",
+      "user_level": "intermediate",
+      "keywords_fr": [
+        "agent",
+        "autonome",
+        "outils",
+        "workflow"
+      ],
+      "signals": [
+        "objectif concret",
+        "choix d’outil",
+        "besoin de recommandation contextualisée"
+      ],
+      "recommended_entity_ids": [
+        "hermes-agent",
+        "openclaw",
+        "chatgpt-agent",
+        "manus"
+      ],
+      "response_strategy": "Recommander 1 outil principal, 2 alternatives et expliquer le choix selon niveau, budget, confidentialité et résultat attendu.",
+      "best_prompt_template_group": "build_ai_agent"
+    }
+  ],
+  "recommendation_rules": [
+    {
+      "id": "rule_beginner_keep_it_simple",
+      "priority": 100,
+      "conditions": {
+        "user_level": "beginner"
+      },
+      "ranking_boosts": {
+        "ease_of_use": 25,
+        "setup_complexity": -20,
+        "documentation_clarity": 10
+      },
+      "recommendation_behavior": "Limiter à 3 choix, expliquer avec mots simples, éviter les outils qui demandent une configuration technique.",
+      "explain_to_user": "Pour débuter, mieux vaut une IA simple, stable et guidée plutôt qu’un outil très puissant mais complexe."
+    },
+    {
+      "id": "rule_pro_show_tradeoffs",
+      "priority": 95,
+      "conditions": {
+        "user_level": "advanced"
+      },
+      "ranking_boosts": {
+        "api_available": 15,
+        "customization": 20,
+        "benchmark_strength": 15
+      },
+      "recommendation_behavior": "Afficher les limites, coûts, intégrations et niveau de contrôle technique.",
+      "explain_to_user": "Pour un usage avancé, le meilleur choix dépend du contrôle, des intégrations et du coût total."
+    },
+    {
+      "id": "rule_sensitive_data_prioritize_enterprise_or_local",
+      "priority": 98,
+      "conditions": {
+        "data_sensitivity": "high"
+      },
+      "ranking_boosts": {
+        "enterprise_controls": 25,
+        "local_or_private_deploy": 20,
+        "consumer_only": -30
+      },
+      "recommendation_behavior": "Afficher un avertissement confidentialité et recommander solutions entreprise ou self-hosted.",
+      "explain_to_user": "Si les données sont sensibles, la performance ne suffit pas : il faut vérifier hébergement, permissions et contrat."
+    },
+    {
+      "id": "rule_need_sources_prioritize_research_tools",
+      "priority": 92,
+      "conditions": {
+        "needs_citations": true
+      },
+      "ranking_boosts": {
+        "citations": 30,
+        "web_search": 25,
+        "source_transparency": 20
+      },
+      "recommendation_behavior": "Privilégier Perplexity, assistants avec browsing, sources officielles et benchmarks.",
+      "explain_to_user": "Quand la réponse doit être vérifiable, il faut prioriser la traçabilité des sources."
+    },
+    {
+      "id": "rule_visual_creation_prioritize_image_models",
+      "priority": 90,
+      "conditions": {
+        "output_format": "image"
+      },
+      "ranking_boosts": {
+        "image_generation": 35,
+        "style_control": 20,
+        "prompt_following_visual": 15
+      },
+      "recommendation_behavior": "Ne pas recommander un LLM texte seul pour créer l’image finale ; proposer un générateur image dédié.",
+      "explain_to_user": "Pour un rendu visuel final, un modèle image spécialisé donne généralement un meilleur résultat qu’un assistant texte seul."
+    },
+    {
+      "id": "rule_code_repository_prioritize_coding_agents",
+      "priority": 93,
+      "conditions": {
+        "task_contains_codebase": true
+      },
+      "ranking_boosts": {
+        "repo_understanding": 25,
+        "terminal_use": 20,
+        "multi_file_edit": 20
+      },
+      "recommendation_behavior": "Recommander agent de code ou IDE IA plutôt qu’un simple chatbot.",
+      "explain_to_user": "Sur un vrai projet code, la capacité à lire plusieurs fichiers et tester compte autant que la qualité du modèle."
+    },
+    {
+      "id": "rule_low_budget_show_value_options",
+      "priority": 80,
+      "conditions": {
+        "budget_level": "low"
+      },
+      "ranking_boosts": {
+        "free_plan": 20,
+        "low_api_cost": 20,
+        "open_weight": 10
+      },
+      "recommendation_behavior": "Afficher le meilleur rapport qualité/prix et signaler les limites du plan gratuit.",
+      "explain_to_user": "Le moins cher n’est pas toujours le plus rentable si le résultat demande beaucoup de corrections."
+    },
+    {
+      "id": "rule_need_google_ecosystem",
+      "priority": 75,
+      "conditions": {
+        "ecosystem": "google"
+      },
+      "ranking_boosts": {
+        "google_workspace_integration": 30,
+        "drive_docs_gmail": 20
+      },
+      "recommendation_behavior": "Prioriser Gemini et Workspace Studio pour workflows Google.",
+      "explain_to_user": "Quand toute l’équipe utilise Google, l’intégration peut compter plus que le benchmark brut."
+    },
+    {
+      "id": "rule_need_microsoft_ecosystem",
+      "priority": 75,
+      "conditions": {
+        "ecosystem": "microsoft"
+      },
+      "ranking_boosts": {
+        "microsoft_365_integration": 30,
+        "office_files": 20
+      },
+      "recommendation_behavior": "Prioriser Microsoft Copilot pour Word, Excel, PowerPoint, Outlook et Teams.",
+      "explain_to_user": "Pour une équipe Microsoft 365, Copilot peut être plus pratique qu’une IA plus générale."
+    },
+    {
+      "id": "rule_open_source_control",
+      "priority": 85,
+      "conditions": {
+        "preference": "open_source_or_open_weight"
+      },
+      "ranking_boosts": {
+        "open_weight": 30,
+        "self_hostable": 20,
+        "community_ecosystem": 15
+      },
+      "recommendation_behavior": "Séparer open source réel, open-weight et modèle propriétaire avec API ouverte.",
+      "explain_to_user": "Open source, open-weight et API publique ne signifient pas la même chose."
+    }
+  ],
+  "decision_trees": [
+    {
+      "id": "tree_choose_ai_by_output",
+      "title": "Trouver la meilleure IA selon le résultat attendu",
+      "entry_question": "Quel résultat veux-tu obtenir ?",
+      "nodes": [
+        {
+          "id": "start",
+          "question": "Quel résultat veux-tu obtenir ?",
+          "answers": {
+            "texte": "text_goal",
+            "image": "image_goal",
+            "code": "code_goal",
+            "recherche": "research_goal",
+            "document": "document_goal",
+            "automatisation": "agent_goal"
+          }
+        },
+        {
+          "id": "text_goal",
+          "question": "Le texte doit-il être créatif, professionnel ou très factuel ?",
+          "answers": {
+            "créatif": "recommend_claude_or_gpt",
+            "professionnel": "recommend_claude_gpt_gemini",
+            "factuel": "recommend_research_tools"
+          }
+        },
+        {
+          "id": "image_goal",
+          "question": "Tu veux un visuel réaliste, une identité de marque ou une illustration stylisée ?",
+          "answers": {
+            "réaliste": "recommend_gpt_image_seedream",
+            "marque": "recommend_gpt_image_nano_banana",
+            "stylisé": "recommend_seedream_flux"
+          }
+        },
+        {
+          "id": "code_goal",
+          "question": "Tu veux corriger un bug simple ou travailler sur un vrai projet multi-fichiers ?",
+          "answers": {
+            "bug_simple": "recommend_gpt_claude",
+            "projet": "recommend_claude_code_codex_cursor"
+          }
+        },
+        {
+          "id": "research_goal",
+          "question": "As-tu besoin de sources vérifiables ?",
+          "answers": {
+            "oui": "recommend_perplexity_gpt_gemini",
+            "non": "recommend_gpt_claude"
+          }
+        },
+        {
+          "id": "document_goal",
+          "question": "Le document est-il sensible/confidentiel ?",
+          "answers": {
+            "oui": "recommend_enterprise_or_private",
+            "non": "recommend_gpt_claude_gemini"
+          }
+        },
+        {
+          "id": "agent_goal",
+          "question": "Veux-tu un agent prêt à l’emploi ou open-source/self-hosted ?",
+          "answers": {
+            "prêt": "recommend_chatgpt_agent_manus",
+            "open_source": "recommend_openclaw_hermes"
+          }
+        }
+      ],
+      "terminal_recommendations": {
+        "recommend_claude_or_gpt": [
+          "claude-opus-4-7",
+          "gpt-5-5"
+        ],
+        "recommend_claude_gpt_gemini": [
+          "claude-opus-4-7",
+          "gpt-5-5",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_research_tools": [
+          "perplexity",
+          "gpt-5-5",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_gpt_image_seedream": [
+          "gpt-image-2-high",
+          "seedream-4-0"
+        ],
+        "recommend_gpt_image_nano_banana": [
+          "gpt-image-2-high",
+          "nano-banana-2",
+          "nano-banana-pro"
+        ],
+        "recommend_seedream_flux": [
+          "seedream-4-0",
+          "flux-2-dev-turbo",
+          "flux-2-dev"
+        ],
+        "recommend_gpt_claude": [
+          "gpt-5-5",
+          "claude-opus-4-7"
+        ],
+        "recommend_claude_code_codex_cursor": [
+          "claude-code",
+          "codex-cli",
+          "cursor"
+        ],
+        "recommend_perplexity_gpt_gemini": [
+          "perplexity",
+          "gpt-5-5",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_enterprise_or_private": [
+          "microsoft-copilot",
+          "google-workspace-studio",
+          "mistral-large-3",
+          "llama-4-scout"
+        ],
+        "recommend_chatgpt_agent_manus": [
+          "chatgpt-agent",
+          "manus"
+        ],
+        "recommend_openclaw_hermes": [
+          "openclaw",
+          "hermes-agent"
+        ]
+      }
+    },
+    {
+      "id": "tree_choose_coding_ai",
+      "title": "Choisir une IA pour coder",
+      "entry_question": "Ton besoin code concerne quoi ?",
+      "nodes": [
+        {
+          "id": "start",
+          "question": "Ton besoin code concerne quoi ?",
+          "answers": {
+            "apprendre": "learn_code",
+            "debug": "debug_scope",
+            "gros_projet": "repo_scope",
+            "ide": "ide_needed"
+          }
+        },
+        {
+          "id": "learn_code",
+          "question": "Tu veux une explication simple ou produire du code ?",
+          "answers": {
+            "expliquer": "recommend_gpt_claude",
+            "produire": "recommend_gpt_claude_code"
+          }
+        },
+        {
+          "id": "debug_scope",
+          "question": "As-tu accès au repo complet ?",
+          "answers": {
+            "oui": "recommend_agent_code",
+            "non": "recommend_chat_code"
+          }
+        },
+        {
+          "id": "repo_scope",
+          "question": "L’IA doit-elle modifier les fichiers et lancer des tests ?",
+          "answers": {
+            "oui": "recommend_agent_code",
+            "non": "recommend_model_code"
+          }
+        },
+        {
+          "id": "ide_needed",
+          "question": "Tu veux rester dans ton éditeur ?",
+          "answers": {
+            "oui": "recommend_cursor",
+            "non": "recommend_codex_claude_code"
+          }
+        }
+      ],
+      "terminal_recommendations": {
+        "recommend_gpt_claude": [
+          "gpt-5-5",
+          "claude-opus-4-7"
+        ],
+        "recommend_gpt_claude_code": [
+          "gpt-5-5",
+          "claude-opus-4-7",
+          "claude-code"
+        ],
+        "recommend_agent_code": [
+          "claude-code",
+          "codex-cli",
+          "cursor"
+        ],
+        "recommend_chat_code": [
+          "gpt-5-5",
+          "claude-opus-4-7"
+        ],
+        "recommend_model_code": [
+          "claude-opus-4-7",
+          "gpt-5-5",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_cursor": [
+          "cursor"
+        ],
+        "recommend_codex_claude_code": [
+          "codex-cli",
+          "claude-code"
+        ]
+      }
+    },
+    {
+      "id": "tree_privacy_and_compliance",
+      "title": "Choisir selon confidentialité et conformité",
+      "entry_question": "Les données sont-elles sensibles ?",
+      "nodes": [
+        {
+          "id": "start",
+          "question": "Les données sont-elles sensibles ?",
+          "answers": {
+            "non": "standard_tools",
+            "oui": "sensitivity_type"
+          }
+        },
+        {
+          "id": "sensitivity_type",
+          "question": "S’agit-il de données client, santé, juridique, RH ou code propriétaire ?",
+          "answers": {
+            "client": "enterprise_needed",
+            "santé": "legal_review_needed",
+            "juridique": "legal_review_needed",
+            "rh": "enterprise_needed",
+            "code": "private_code_needed"
+          }
+        },
+        {
+          "id": "enterprise_needed",
+          "question": "Ton organisation utilise surtout Microsoft ou Google ?",
+          "answers": {
+            "microsoft": "recommend_microsoft",
+            "google": "recommend_google",
+            "aucun": "recommend_private_or_contract"
+          }
+        },
+        {
+          "id": "private_code_needed",
+          "question": "Peux-tu utiliser un outil cloud pour le code ?",
+          "answers": {
+            "oui": "recommend_code_agents_with_policy",
+            "non": "recommend_open_weight_local"
+          }
+        }
+      ],
+      "terminal_recommendations": {
+        "standard_tools": [
+          "gpt-5-5",
+          "claude-opus-4-7",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_microsoft": [
+          "microsoft-copilot"
+        ],
+        "recommend_google": [
+          "google-workspace-studio",
+          "gemini-3-1-pro-preview"
+        ],
+        "recommend_private_or_contract": [
+          "mistral-large-3",
+          "llama-4-scout",
+          "gpt-5-5",
+          "claude-opus-4-7"
+        ],
+        "recommend_code_agents_with_policy": [
+          "claude-code",
+          "codex-cli",
+          "cursor"
+        ],
+        "recommend_open_weight_local": [
+          "mistral-large-3",
+          "llama-4-scout",
+          "llama-4-maverick"
+        ]
+      },
+      "safety_note": "Ce guide ne remplace pas un avis juridique ou sécurité. Pour données sensibles, vérifier contrat, hébergement, rétention et permissions."
+    }
+  ],
+  "capabilities_matrix": [
+    {
+      "entity_id": "gpt-5-5",
+      "name": "GPT-5.5",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": true,
+        "web_research": true,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Excellent choix par défaut quand le besoin est large ou mal défini.",
+        "À éviter comme premier choix si l’utilisateur demande uniquement une image ou un outil local."
+      ]
+    },
+    {
+      "entity_id": "claude-opus-4-7",
+      "name": "Claude Opus 4.7",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Très fort pour rédaction, code, documents longs et raisonnement.",
+        "Bon choix quand la qualité du texte final compte beaucoup."
+      ]
+    },
+    {
+      "entity_id": "gemini-3-1-pro-preview",
+      "name": "Gemini 3.1 Pro Preview",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": true,
+        "web_research": true,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Pertinent si l’utilisateur utilise l’écosystème Google ou a des documents/contenus multimodaux."
+      ]
+    },
+    {
+      "entity_id": "mistral-large-3",
+      "name": "Mistral Large 3",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "llama-4-scout",
+      "name": "Llama 4 Scout",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "llama-4-maverick",
+      "name": "Llama 4 Maverick",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "deepseek-v3-2",
+      "name": "DeepSeek-V3.2",
+      "entity_type": "model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "qwen3",
+      "name": "Qwen3",
+      "entity_type": "model_family",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "gpt-image-2-high",
+      "name": "GPT Image 2 high",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "gpt-image-1-5-high",
+      "name": "GPT Image 1.5 high",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "nano-banana-2",
+      "name": "Nano Banana 2 / Gemini 3.1 Flash Image Preview",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "nano-banana-pro",
+      "name": "Nano Banana Pro / Gemini 3 Pro Image",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "seedream-4-0",
+      "name": "Seedream 4.0",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "flux-2-dev-turbo",
+      "name": "FLUX.2 dev Turbo",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "openclaw",
+      "name": "OpenClaw",
+      "entity_type": "agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "À proposer aux profils techniques qui veulent un agent personnel open-source."
+      ]
+    },
+    {
+      "entity_id": "hermes-agent",
+      "name": "Hermes Agent",
+      "entity_type": "agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "À proposer aux profils techniques qui veulent un agent autonome extensible."
+      ]
+    },
+    {
+      "entity_id": "chatgpt-agent",
+      "name": "ChatGPT Agent",
+      "entity_type": "agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": true,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "claude-code",
+      "name": "Claude Code",
+      "entity_type": "coding_agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": true,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier pour développement logiciel complexe et modification de projet."
+      ]
+    },
+    {
+      "entity_id": "codex-cli",
+      "name": "Codex CLI",
+      "entity_type": "coding_agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": true,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier pour workflows terminal, debug et tâches dev agentiques."
+      ]
+    },
+    {
+      "entity_id": "cursor",
+      "name": "Cursor",
+      "entity_type": "coding_tool",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": true,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": true,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier si l’utilisateur veut rester dans un IDE."
+      ]
+    },
+    {
+      "entity_id": "perplexity",
+      "name": "Perplexity",
+      "entity_type": "answer_engine",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": true,
+        "citations": true,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier quand la priorité est recherche sourcée et réponse avec citations."
+      ]
+    },
+    {
+      "entity_id": "manus",
+      "name": "Manus",
+      "entity_type": "agent",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": true,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "microsoft-copilot",
+      "name": "Microsoft Copilot",
+      "entity_type": "assistant",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": true,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": true,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": true,
+        "developer_ide_workflow": false,
+        "best_for_beginner": true,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier pour équipes Microsoft 365 et documents Office."
+      ]
+    },
+    {
+      "entity_id": "google-workspace-studio",
+      "name": "Google Workspace Studio",
+      "entity_type": "agent_builder",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": false,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": true,
+        "open_weight_or_open_source": false,
+        "enterprise_productivity": true,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": false
+      },
+      "routing_notes": [
+        "À privilégier pour automatisations Google Workspace."
+      ]
+    },
+    {
+      "entity_id": "flux-2-dev",
+      "name": "FLUX.2 dev",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    },
+    {
+      "entity_id": "qwen-image-max-2512",
+      "name": "Qwen Image Max 2512",
+      "entity_type": "image_model",
+      "capability_status": "derived_from_verified_catalog_categories",
+      "capabilities": {
+        "text_generation": false,
+        "image_generation": true,
+        "video_generation": false,
+        "code_assistance": false,
+        "document_analysis": false,
+        "web_research": false,
+        "citations": false,
+        "agentic_workflows": false,
+        "open_weight_or_open_source": true,
+        "enterprise_productivity": false,
+        "developer_ide_workflow": false,
+        "best_for_beginner": false,
+        "requires_technical_setup": true
+      },
+      "routing_notes": [
+        "Utiliser selon les capacités indiquées et vérifier les sources/conditions avant recommandation publique."
+      ]
+    }
+  ],
+  "jobs_to_be_done": [
+    {
+      "id": "solo_founder_launch_mvp",
+      "persona": "solo_founder",
+      "job": "Transformer une idée en MVP testable",
+      "recommended_stack_ids": [
+        "stack_mvp_no_code",
+        "stack_product_strategy"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "claude-code",
+        "cursor",
+        "codex-cli"
+      ],
+      "workflow": [
+        "clarifier le problème",
+        "définir les écrans",
+        "créer le schéma de données",
+        "générer les prompts Lovable/Cursor",
+        "tester les parcours",
+        "préparer lancement bêta"
+      ],
+      "success_criteria": [
+        "un utilisateur comprend l’app en moins d’une minute",
+        "le parcours principal fonctionne",
+        "les données clés sont persistées",
+        "les bugs critiques sont listés"
+      ],
+      "premium_angle": "Pack prompts MVP + audit UX + checklist lancement"
+    },
+    {
+      "id": "student_learn_faster",
+      "persona": "student",
+      "job": "Comprendre un cours et préparer un examen",
+      "recommended_stack_ids": [
+        "stack_student_revision"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "workflow": [
+        "résumer le cours",
+        "identifier les points faibles",
+        "créer fiches",
+        "faire quiz",
+        "corriger erreurs"
+      ],
+      "success_criteria": [
+        "l’étudiant peut expliquer le sujet simplement",
+        "les questions difficiles sont isolées",
+        "un plan de révision existe"
+      ],
+      "premium_angle": "Mode coach de révision + quiz adaptatif"
+    },
+    {
+      "id": "freelance_create_client_proposal",
+      "persona": "freelance",
+      "job": "Créer une proposition client professionnelle",
+      "recommended_stack_ids": [
+        "stack_freelance_sales"
+      ],
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "microsoft-copilot"
+      ],
+      "workflow": [
+        "analyser le besoin",
+        "structurer l’offre",
+        "chiffrer les livrables",
+        "rédiger le mail",
+        "préparer objections"
+      ],
+      "success_criteria": [
+        "offre claire",
+        "valeur visible",
+        "périmètre cadré",
+        "prochaines étapes explicites"
+      ],
+      "premium_angle": "Templates devis, mail de relance et argumentaire"
+    },
+    {
+      "id": "creator_make_visual_campaign",
+      "persona": "content_creator",
+      "job": "Créer une campagne visuelle cohérente",
+      "recommended_stack_ids": [
+        "stack_visual_brand_campaign"
+      ],
+      "recommended_entity_ids": [
+        "gpt-image-2-high",
+        "nano-banana-2",
+        "seedream-4-0",
+        "claude-opus-4-7"
+      ],
+      "workflow": [
+        "définir style",
+        "écrire prompts visuels",
+        "générer variantes",
+        "sélectionner direction",
+        "adapter formats"
+      ],
+      "success_criteria": [
+        "cohérence de marque",
+        "formats adaptés",
+        "texte lisible",
+        "variantes exploitables"
+      ],
+      "premium_angle": "Prompt pack image premium + grille de sélection"
+    },
+    {
+      "id": "manager_summarize_team_information",
+      "persona": "manager",
+      "job": "Transformer documents et réunions en décisions actionnables",
+      "recommended_stack_ids": [
+        "stack_team_productivity"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "microsoft-copilot",
+        "google-workspace-studio"
+      ],
+      "workflow": [
+        "centraliser notes",
+        "extraire décisions",
+        "assigner actions",
+        "résumer risques",
+        "préparer suivi"
+      ],
+      "success_criteria": [
+        "actions assignées",
+        "décisions visibles",
+        "points bloquants listés",
+        "résumé partageable"
+      ],
+      "premium_angle": "Assistant réunion + suivi automatique"
+    },
+    {
+      "id": "developer_fix_production_bug",
+      "persona": "developer",
+      "job": "Diagnostiquer et corriger un bug logiciel",
+      "recommended_stack_ids": [
+        "stack_code_debug"
+      ],
+      "recommended_entity_ids": [
+        "claude-code",
+        "codex-cli",
+        "cursor",
+        "gpt-5-5"
+      ],
+      "workflow": [
+        "reproduire erreur",
+        "lire logs",
+        "identifier fichiers",
+        "proposer patch",
+        "lancer tests",
+        "documenter correction"
+      ],
+      "success_criteria": [
+        "bug reproduit",
+        "cause racine identifiée",
+        "tests passent",
+        "risque de régression réduit"
+      ],
+      "premium_angle": "Debug checklist + prompts multi-fichiers"
+    },
+    {
+      "id": "small_business_choose_ai_stack",
+      "persona": "small_business_owner",
+      "job": "Choisir les IA utiles sans gaspiller d’abonnements",
+      "recommended_stack_ids": [
+        "stack_small_business_core"
+      ],
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "perplexity",
+        "microsoft-copilot"
+      ],
+      "workflow": [
+        "lister besoins récurrents",
+        "classer par gain de temps",
+        "choisir 2 à 4 outils",
+        "tester sur tâches réelles",
+        "retirer doublons"
+      ],
+      "success_criteria": [
+        "moins de doublons",
+        "budget maîtrisé",
+        "cas d’usage clairs",
+        "adoption équipe"
+      ],
+      "premium_angle": "Audit abonnements IA + plan d’adoption"
+    },
+    {
+      "id": "teacher_prepare_lesson",
+      "persona": "teacher",
+      "job": "Préparer un cours, des exercices et une évaluation",
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "hr_screen_and_write_job_post",
+      "persona": "hr",
+      "job": "Rédiger une offre d’emploi et préparer une grille d’entretien",
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "microsoft-copilot"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "lawyer_first_document_review",
+      "persona": "legal_professional",
+      "job": "Faire une première lecture structurée d’un document",
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "microsoft-copilot"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "analyst_research_market",
+      "persona": "analyst",
+      "job": "Faire une veille marché avec sources",
+      "recommended_entity_ids": [
+        "perplexity",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "designer_generate_concepts",
+      "persona": "designer",
+      "job": "Générer des pistes créatives visuelles",
+      "recommended_entity_ids": [
+        "gpt-image-2-high",
+        "seedream-4-0",
+        "nano-banana-pro"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "support_write_help_center",
+      "persona": "support",
+      "job": "Créer des réponses support et articles d’aide",
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5",
+        "microsoft-copilot"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "marketer_build_campaign",
+      "persona": "marketer",
+      "job": "Construire une campagne marketing multicanal",
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gpt-image-2-high"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "ops_automate_repetitive_tasks",
+      "persona": "operations",
+      "job": "Automatiser des tâches opérationnelles répétitives",
+      "recommended_entity_ids": [
+        "chatgpt-agent",
+        "manus",
+        "google-workspace-studio",
+        "openclaw"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "researcher_compare_papers",
+      "persona": "researcher",
+      "job": "Comparer plusieurs documents ou articles",
+      "recommended_entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview",
+        "perplexity"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    },
+    {
+      "id": "founder_prepare_investor_update",
+      "persona": "founder",
+      "job": "Rédiger une update investisseur claire",
+      "recommended_entity_ids": [
+        "claude-opus-4-7",
+        "gpt-5-5"
+      ],
+      "workflow": [
+        "définir objectif",
+        "fournir contexte",
+        "produire version 1",
+        "vérifier exactitude",
+        "adapter au public cible"
+      ],
+      "success_criteria": [
+        "sortie claire",
+        "actionnable",
+        "adaptée au public",
+        "vérifiée avant usage"
+      ],
+      "premium_angle": "Workflow guidé + template dédié"
+    }
+  ],
+  "ai_stacks": [
+    {
+      "id": "stack_mvp_no_code",
+      "title": "Créer un MVP app/web",
+      "for_personas": [
+        "solo_founder",
+        "maker",
+        "no_code_builder"
+      ],
+      "entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "claude-code",
+        "cursor",
+        "codex-cli"
+      ],
+      "steps": [
+        "cahier des charges",
+        "architecture data",
+        "UI mobile/web",
+        "développement",
+        "tests",
+        "lancement bêta"
+      ],
+      "budget_level": "medium",
+      "difficulty": "intermediate",
+      "when_to_use": "Quand l’objectif est de livrer une première version testable rapidement."
+    },
+    {
+      "id": "stack_product_strategy",
+      "title": "Valider une idée produit",
+      "for_personas": [
+        "founder",
+        "product_manager"
+      ],
+      "entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "perplexity"
+      ],
+      "steps": [
+        "étude problème",
+        "personas",
+        "proposition de valeur",
+        "concurrents",
+        "roadmap"
+      ],
+      "budget_level": "low",
+      "difficulty": "beginner",
+      "when_to_use": "Avant de construire, pour éviter de développer une fonctionnalité inutile."
+    },
+    {
+      "id": "stack_student_revision",
+      "title": "Réviser efficacement",
+      "for_personas": [
+        "student"
+      ],
+      "entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "steps": [
+        "résumé",
+        "fiche",
+        "quiz",
+        "correction",
+        "plan de révision"
+      ],
+      "budget_level": "low",
+      "difficulty": "beginner",
+      "when_to_use": "Quand l’utilisateur veut apprendre plutôt que simplement obtenir une réponse."
+    },
+    {
+      "id": "stack_visual_brand_campaign",
+      "title": "Créer une campagne visuelle de marque",
+      "for_personas": [
+        "creator",
+        "designer",
+        "marketer"
+      ],
+      "entity_ids": [
+        "gpt-image-2-high",
+        "nano-banana-2",
+        "seedream-4-0",
+        "claude-opus-4-7"
+      ],
+      "steps": [
+        "brief créatif",
+        "direction artistique",
+        "prompts image",
+        "sélection",
+        "déclinaisons"
+      ],
+      "budget_level": "medium",
+      "difficulty": "beginner",
+      "when_to_use": "Pour produire des visuels cohérents et non de simples images isolées."
+    },
+    {
+      "id": "stack_code_debug",
+      "title": "Corriger un bug logiciel",
+      "for_personas": [
+        "developer"
+      ],
+      "entity_ids": [
+        "claude-code",
+        "codex-cli",
+        "cursor",
+        "gpt-5-5"
+      ],
+      "steps": [
+        "reproduction",
+        "analyse logs",
+        "patch",
+        "tests",
+        "PR"
+      ],
+      "budget_level": "medium",
+      "difficulty": "advanced",
+      "when_to_use": "Quand le problème implique plusieurs fichiers ou un repo."
+    },
+    {
+      "id": "stack_team_productivity",
+      "title": "Productivité équipe et documents",
+      "for_personas": [
+        "manager",
+        "team_lead",
+        "operations"
+      ],
+      "entity_ids": [
+        "microsoft-copilot",
+        "google-workspace-studio",
+        "gpt-5-5",
+        "claude-opus-4-7"
+      ],
+      "steps": [
+        "collecte infos",
+        "synthèse",
+        "actions",
+        "suivi",
+        "communication"
+      ],
+      "budget_level": "medium",
+      "difficulty": "beginner",
+      "when_to_use": "Quand la valeur vient de l’intégration aux outils de travail."
+    },
+    {
+      "id": "stack_research_verified",
+      "title": "Recherche fiable avec sources",
+      "for_personas": [
+        "analyst",
+        "student",
+        "founder",
+        "journalist"
+      ],
+      "entity_ids": [
+        "perplexity",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview",
+        "claude-opus-4-7"
+      ],
+      "steps": [
+        "questions de recherche",
+        "sources officielles",
+        "comparaison",
+        "synthèse",
+        "vérification"
+      ],
+      "budget_level": "low",
+      "difficulty": "intermediate",
+      "when_to_use": "Quand une mauvaise information peut coûter du temps ou de l’argent."
+    },
+    {
+      "id": "stack_open_source_control",
+      "title": "IA avec plus de contrôle technique",
+      "for_personas": [
+        "developer",
+        "enterprise_architect",
+        "privacy_sensitive_team"
+      ],
+      "entity_ids": [
+        "mistral-large-3",
+        "llama-4-scout",
+        "llama-4-maverick",
+        "deepseek-v3-2",
+        "qwen3"
+      ],
+      "steps": [
+        "choisir modèle",
+        "évaluer infra",
+        "tester qualité",
+        "sécuriser données",
+        "monitorer coûts"
+      ],
+      "budget_level": "variable",
+      "difficulty": "advanced",
+      "when_to_use": "Quand contrôle, hébergement ou souveraineté comptent plus que simplicité."
+    },
+    {
+      "id": "stack_personal_agent_open_source",
+      "title": "Agent personnel open-source",
+      "for_personas": [
+        "power_user",
+        "developer"
+      ],
+      "entity_ids": [
+        "openclaw",
+        "hermes-agent"
+      ],
+      "steps": [
+        "installation",
+        "connexions canaux",
+        "mémoire",
+        "outils",
+        "règles de sécurité"
+      ],
+      "budget_level": "variable",
+      "difficulty": "advanced",
+      "when_to_use": "Quand l’utilisateur veut contrôler son agent et ses connexions."
+    },
+    {
+      "id": "stack_small_business_core",
+      "title": "Pack IA minimal pour petite entreprise",
+      "for_personas": [
+        "small_business_owner"
+      ],
+      "entity_ids": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "perplexity",
+        "microsoft-copilot"
+      ],
+      "steps": [
+        "contenu",
+        "recherche",
+        "documents",
+        "support",
+        "suivi"
+      ],
+      "budget_level": "medium",
+      "difficulty": "beginner",
+      "when_to_use": "Quand il faut éviter d’empiler trop d’abonnements IA."
+    }
+  ],
+  "risk_compliance_notes": [
+    {
+      "entity_id": "gpt-5-5",
+      "name": "GPT-5.5",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier politique de données avant usage sensible.",
+        "Ne pas envoyer de données confidentielles sans cadre contractuel adapté.",
+        "Relire les sorties avant décision importante."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "claude-opus-4-7",
+      "name": "Claude Opus 4.7",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier politique de données avant usage sensible.",
+        "Ne pas envoyer de données confidentielles sans cadre contractuel adapté.",
+        "Relire les sorties avant décision importante."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "gemini-3-1-pro-preview",
+      "name": "Gemini 3.1 Pro Preview",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier politique de données avant usage sensible.",
+        "Ne pas envoyer de données confidentielles sans cadre contractuel adapté.",
+        "Relire les sorties avant décision importante."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "mistral-large-3",
+      "name": "Mistral Large 3",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "llama-4-scout",
+      "name": "Llama 4 Scout",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "llama-4-maverick",
+      "name": "Llama 4 Maverick",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "deepseek-v3-2",
+      "name": "DeepSeek-V3.2",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "qwen3",
+      "name": "Qwen3",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "gpt-image-2-high",
+      "name": "GPT Image 2 high",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier droits d’usage commercial des images générées.",
+        "Éviter de reproduire une marque, une personne ou un style protégé sans droit.",
+        "Contrôler lisibilité du texte et cohérence avant publication."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "gpt-image-1-5-high",
+      "name": "GPT Image 1.5 high",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier droits d’usage commercial des images générées.",
+        "Éviter de reproduire une marque, une personne ou un style protégé sans droit.",
+        "Contrôler lisibilité du texte et cohérence avant publication."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "nano-banana-2",
+      "name": "Nano Banana 2 / Gemini 3.1 Flash Image Preview",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier droits d’usage commercial des images générées.",
+        "Éviter de reproduire une marque, une personne ou un style protégé sans droit.",
+        "Contrôler lisibilité du texte et cohérence avant publication."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "nano-banana-pro",
+      "name": "Nano Banana Pro / Gemini 3 Pro Image",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier droits d’usage commercial des images générées.",
+        "Éviter de reproduire une marque, une personne ou un style protégé sans droit.",
+        "Contrôler lisibilité du texte et cohérence avant publication."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "seedream-4-0",
+      "name": "Seedream 4.0",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier droits d’usage commercial des images générées.",
+        "Éviter de reproduire une marque, une personne ou un style protégé sans droit.",
+        "Contrôler lisibilité du texte et cohérence avant publication."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "flux-2-dev-turbo",
+      "name": "FLUX.2 dev Turbo",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "openclaw",
+      "name": "OpenClaw",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "hermes-agent",
+      "name": "Hermes Agent",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "chatgpt-agent",
+      "name": "ChatGPT Agent",
+      "risk_level": "medium_high",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Limiter les permissions de l’agent au strict nécessaire.",
+        "Prévoir validation humaine pour actions sensibles.",
+        "Journaliser les actions et gérer les secrets/API keys avec prudence."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "claude-code",
+      "name": "Claude Code",
+      "risk_level": "medium_high",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Limiter les permissions de l’agent au strict nécessaire.",
+        "Prévoir validation humaine pour actions sensibles.",
+        "Journaliser les actions et gérer les secrets/API keys avec prudence."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "codex-cli",
+      "name": "Codex CLI",
+      "risk_level": "medium_high",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Limiter les permissions de l’agent au strict nécessaire.",
+        "Prévoir validation humaine pour actions sensibles.",
+        "Journaliser les actions et gérer les secrets/API keys avec prudence."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "cursor",
+      "name": "Cursor",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier politique de données avant usage sensible.",
+        "Ne pas envoyer de données confidentielles sans cadre contractuel adapté.",
+        "Relire les sorties avant décision importante."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "perplexity",
+      "name": "Perplexity",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier politique de données avant usage sensible.",
+        "Ne pas envoyer de données confidentielles sans cadre contractuel adapté.",
+        "Relire les sorties avant décision importante."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "manus",
+      "name": "Manus",
+      "risk_level": "medium_high",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Limiter les permissions de l’agent au strict nécessaire.",
+        "Prévoir validation humaine pour actions sensibles.",
+        "Journaliser les actions et gérer les secrets/API keys avec prudence."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "microsoft-copilot",
+      "name": "Microsoft Copilot",
+      "risk_level": "medium_low",
+      "recommended_for_sensitive_data_without_review": true,
+      "notes": [
+        "Vérifier le contrat entreprise, les permissions et la configuration admin.",
+        "Convient mieux aux organisations déjà dans cet écosystème.",
+        "Former les utilisateurs à ne pas partager inutilement des données sensibles."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "google-workspace-studio",
+      "name": "Google Workspace Studio",
+      "risk_level": "medium_low",
+      "recommended_for_sensitive_data_without_review": true,
+      "notes": [
+        "Vérifier le contrat entreprise, les permissions et la configuration admin.",
+        "Convient mieux aux organisations déjà dans cet écosystème.",
+        "Former les utilisateurs à ne pas partager inutilement des données sensibles."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "flux-2-dev",
+      "name": "FLUX.2 dev",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    },
+    {
+      "entity_id": "qwen-image-max-2512",
+      "name": "Qwen Image Max 2512",
+      "risk_level": "medium",
+      "recommended_for_sensitive_data_without_review": false,
+      "notes": [
+        "Vérifier la licence exacte avant usage commercial.",
+        "Prévoir compétence technique, hébergement, sécurité et monitoring.",
+        "Ne pas confondre modèle ouvert et absence de contraintes juridiques."
+      ],
+      "disclaimer": "Information produit générale, pas un avis juridique."
+    }
+  ],
+  "beginner_explanations": [
+    {
+      "term": "LLM",
+      "simple_explanation": "Un LLM est une IA entraînée à comprendre et produire du texte.",
+      "example": "ChatGPT, Claude et Gemini sont des assistants basés sur des LLM.",
+      "when_it_matters": "Utile pour rédaction, conversation, code, synthèse et raisonnement."
+    },
+    {
+      "term": "Modèle multimodal",
+      "simple_explanation": "C’est une IA qui peut traiter plusieurs types de contenus, comme texte, image, audio, vidéo ou document.",
+      "example": "Un modèle peut lire une capture d’écran et répondre à une question dessus.",
+      "when_it_matters": "Important si l’utilisateur travaille avec PDF, images ou vidéos."
+    },
+    {
+      "term": "Agent IA",
+      "simple_explanation": "Un agent IA ne fait pas que répondre : il peut utiliser des outils et enchaîner des actions.",
+      "example": "Chercher une information, remplir un tableau, puis générer un rapport.",
+      "when_it_matters": "Utile pour automatiser des workflows, mais demande plus de contrôle sécurité."
+    },
+    {
+      "term": "Benchmark",
+      "simple_explanation": "Un benchmark est un test utilisé pour comparer des IA sur une tâche précise.",
+      "example": "SWE-bench teste des IA sur des problèmes de code réels.",
+      "when_it_matters": "Important pour vérifier une performance, mais aucun benchmark ne résume toute la qualité d’une IA."
+    },
+    {
+      "term": "Score composite",
+      "simple_explanation": "C’est une note calculée à partir de plusieurs critères.",
+      "example": "IA Match peut combiner performance, prix, facilité et sources.",
+      "when_it_matters": "Utile pour classer, mais doit être expliqué clairement."
+    },
+    {
+      "term": "Open source",
+      "simple_explanation": "Un projet open source rend son code accessible selon une licence précise.",
+      "example": "Certains agents ou outils publient leur code sur GitHub.",
+      "when_it_matters": "Utile pour transparence, personnalisation et contrôle."
+    },
+    {
+      "term": "Open-weight",
+      "simple_explanation": "Un modèle open-weight donne accès à ses poids, mais ce n’est pas toujours open source complet.",
+      "example": "Un modèle peut être téléchargeable sans que tout l’entraînement soit public.",
+      "when_it_matters": "Important pour usage local, souveraineté et conformité."
+    },
+    {
+      "term": "Contexte",
+      "simple_explanation": "Le contexte est la quantité d’information qu’une IA peut prendre en compte dans une conversation ou une requête.",
+      "example": "Un grand contexte aide à analyser de longs documents.",
+      "when_it_matters": "Important pour PDF, contrats, rapports, codebases et longues conversations."
+    },
+    {
+      "term": "Prompt",
+      "simple_explanation": "Un prompt est l’instruction donnée à l’IA.",
+      "example": "Rédige un mail professionnel de 120 mots pour relancer un client.",
+      "when_it_matters": "Un bon prompt améliore fortement la qualité du résultat."
+    },
+    {
+      "term": "Prompt Builder",
+      "simple_explanation": "C’est un outil qui aide à construire un prompt étape par étape.",
+      "example": "Il demande rôle, contexte, objectif, contraintes et format attendu.",
+      "when_it_matters": "Très utile pour débutants et tâches importantes."
+    },
+    {
+      "term": "API",
+      "simple_explanation": "Une API permet à une application d’utiliser une IA automatiquement.",
+      "example": "Une app peut envoyer une question au modèle et recevoir une réponse.",
+      "when_it_matters": "Important pour développeurs, automatisations et produits SaaS."
+    },
+    {
+      "term": "Hallucination",
+      "simple_explanation": "C’est quand l’IA donne une réponse fausse avec assurance.",
+      "example": "Inventer une source, un chiffre ou une fonctionnalité.",
+      "when_it_matters": "Il faut vérifier les informations importantes avec des sources."
+    },
+    {
+      "term": "RAG",
+      "simple_explanation": "Le RAG consiste à donner à l’IA des documents ou sources pour répondre plus précisément.",
+      "example": "Une IA répond à partir de la base de connaissances d’une entreprise.",
+      "when_it_matters": "Utile pour support client, documentation et recherche interne."
+    },
+    {
+      "term": "Fine-tuning",
+      "simple_explanation": "Le fine-tuning adapte un modèle à un style ou domaine précis grâce à des exemples.",
+      "example": "Adapter une IA au ton d’une marque.",
+      "when_it_matters": "Utile pour cas répétitifs, mais pas nécessaire pour tous les projets."
+    },
+    {
+      "term": "Tool calling",
+      "simple_explanation": "C’est la capacité d’une IA à appeler des outils comme recherche web, calcul, base de données ou calendrier.",
+      "example": "L’IA peut chercher un prix puis remplir une fiche produit.",
+      "when_it_matters": "Indispensable pour agents et automatisations."
+    }
+  ],
+  "prompt_quality_rules": [
+    {
+      "id": "has_clear_goal",
+      "rule": "Le prompt indique clairement le résultat attendu.",
+      "score_weight": 15,
+      "bad_example": "Aide-moi.",
+      "good_example": "Crée un plan de lancement en 7 étapes pour une app mobile IA.",
+      "fix_tip": "Commencer par un verbe d’action et un livrable précis."
+    },
+    {
+      "id": "has_context",
+      "rule": "Le prompt fournit le contexte utile.",
+      "score_weight": 15,
+      "bad_example": "Fais une stratégie.",
+      "good_example": "Je lance une app qui recommande la meilleure IA selon le besoin de l’utilisateur.",
+      "fix_tip": "Ajouter projet, cible, situation et contraintes."
+    },
+    {
+      "id": "defines_audience",
+      "rule": "Le public cible est indiqué.",
+      "score_weight": 10,
+      "bad_example": "Écris un texte de vente.",
+      "good_example": "Écris pour des freelances débutants qui veulent gagner du temps avec l’IA.",
+      "fix_tip": "Préciser qui va lire ou utiliser le résultat."
+    },
+    {
+      "id": "specifies_format",
+      "rule": "Le format de sortie est demandé.",
+      "score_weight": 10,
+      "bad_example": "Donne-moi des idées.",
+      "good_example": "Réponds sous forme de tableau avec idée, bénéfice, difficulté et priorité.",
+      "fix_tip": "Demander tableau, JSON, plan, checklist, mail ou script."
+    },
+    {
+      "id": "adds_constraints",
+      "rule": "Le prompt contient les contraintes importantes.",
+      "score_weight": 10,
+      "bad_example": "Crée une page d’accueil.",
+      "good_example": "Crée une page d’accueil mobile, style premium, ton simple, maximum 5 sections.",
+      "fix_tip": "Ajouter longueur, style, langue, budget, délai, technologies ou interdits."
+    },
+    {
+      "id": "asks_for_reasoning_summary",
+      "rule": "Le prompt demande une justification courte des choix.",
+      "score_weight": 8,
+      "bad_example": "Classe ces outils.",
+      "good_example": "Classe ces outils et explique chaque choix en une phrase.",
+      "fix_tip": "Demander une justification visible sans exiger de raisonnement caché."
+    },
+    {
+      "id": "requires_verification",
+      "rule": "Le prompt demande de distinguer faits vérifiés, hypothèses et avis.",
+      "score_weight": 12,
+      "bad_example": "Donne les meilleurs modèles IA.",
+      "good_example": "Sépare les benchmarks sourcés, les notes éditoriales et les points à vérifier.",
+      "fix_tip": "Ajouter une règle anti-invention pour les chiffres et sources."
+    },
+    {
+      "id": "includes_examples",
+      "rule": "Le prompt donne un exemple de sortie attendue quand la tâche est complexe.",
+      "score_weight": 8,
+      "bad_example": "Fais un JSON.",
+      "good_example": "Fais un JSON avec les champs id, title, category, pros, cons et confidence.",
+      "fix_tip": "Montrer un mini modèle de structure."
+    },
+    {
+      "id": "sets_role",
+      "rule": "Le prompt donne un rôle utile à l’IA.",
+      "score_weight": 6,
+      "bad_example": "Analyse mon app.",
+      "good_example": "Agis comme un product manager senior spécialisé en apps IA grand public.",
+      "fix_tip": "Utiliser un rôle seulement s’il améliore la réponse."
+    },
+    {
+      "id": "defines_success_criteria",
+      "rule": "Le prompt précise ce qui rend la réponse réussie.",
+      "score_weight": 6,
+      "bad_example": "Améliore ça.",
+      "good_example": "La réponse doit être actionnable, prête à coller dans Lovable, sans changer le design existant.",
+      "fix_tip": "Ajouter 2 ou 3 critères de réussite."
+    }
+  ],
+  "market_map": [
+    {
+      "segment": "General AI assistants",
+      "leaders_or_key_players": [
+        "gpt-5-5",
+        "claude-opus-4-7",
+        "gemini-3-1-pro-preview"
+      ],
+      "user_problem": "Remplacer ou augmenter un assistant généraliste pour écrire, analyser, coder et chercher.",
+      "selection_factors": [
+        "qualité globale",
+        "outils disponibles",
+        "documents",
+        "prix",
+        "confiance"
+      ],
+      "ia_match_angle": "Proposer le meilleur assistant selon niveau, budget et écosystème."
+    },
+    {
+      "segment": "AI search and answer engines",
+      "leaders_or_key_players": [
+        "perplexity",
+        "gpt-5-5",
+        "gemini-3-1-pro-preview"
+      ],
+      "user_problem": "Obtenir une réponse avec sources plutôt qu’une simple opinion du modèle.",
+      "selection_factors": [
+        "citations",
+        "fraîcheur",
+        "qualité des sources",
+        "synthèse"
+      ],
+      "ia_match_angle": "Séparer recherche sourcée, deep research et résumé web rapide."
+    },
+    {
+      "segment": "Coding agents and AI IDEs",
+      "leaders_or_key_players": [
+        "claude-code",
+        "codex-cli",
+        "cursor"
+      ],
+      "user_problem": "Faire évoluer un vrai projet logiciel, pas seulement générer un snippet.",
+      "selection_factors": [
+        "compréhension repo",
+        "multi-fichiers",
+        "tests",
+        "terminal",
+        "sécurité"
+      ],
+      "ia_match_angle": "Router selon bug simple, repo complet, IDE ou terminal."
+    },
+    {
+      "segment": "Image generation",
+      "leaders_or_key_players": [
+        "gpt-image-2-high",
+        "nano-banana-2",
+        "seedream-4-0",
+        "flux-2-dev-turbo"
+      ],
+      "user_problem": "Créer des visuels utilisables sans designer ou comme base créative.",
+      "selection_factors": [
+        "qualité visuelle",
+        "respect du prompt",
+        "texte dans image",
+        "style",
+        "droits"
+      ],
+      "ia_match_angle": "Recommander selon logo, réalisme, campagne, open-weight ou usage commercial."
+    },
+    {
+      "segment": "Enterprise productivity assistants",
+      "leaders_or_key_players": [
+        "microsoft-copilot",
+        "google-workspace-studio",
+        "gpt-5-5",
+        "claude-opus-4-7"
+      ],
+      "user_problem": "Utiliser l’IA dans les documents, mails, réunions et workflows d’équipe.",
+      "selection_factors": [
+        "écosystème existant",
+        "permissions",
+        "documents",
+        "admin",
+        "adoption"
+      ],
+      "ia_match_angle": "Comparer Microsoft-first, Google-first et assistant généraliste."
+    },
+    {
+      "segment": "Open-weight and self-hostable models",
+      "leaders_or_key_players": [
+        "mistral-large-3",
+        "llama-4-scout",
+        "llama-4-maverick",
+        "deepseek-v3-2",
+        "qwen3"
+      ],
+      "user_problem": "Garder plus de contrôle sur coûts, données, hébergement ou personnalisation.",
+      "selection_factors": [
+        "licence",
+        "infra",
+        "qualité",
+        "contexte",
+        "communauté"
+      ],
+      "ia_match_angle": "Expliquer clairement open source vs open-weight vs API propriétaire."
+    },
+    {
+      "segment": "Personal AI agents",
+      "leaders_or_key_players": [
+        "openclaw",
+        "hermes-agent",
+        "chatgpt-agent",
+        "manus"
+      ],
+      "user_problem": "Automatiser des tâches multi-outils avec mémoire et actions.",
+      "selection_factors": [
+        "permissions",
+        "canaux",
+        "mémoire",
+        "sécurité",
+        "facilité"
+      ],
+      "ia_match_angle": "Router entre agent prêt à l’emploi et agent open-source technique."
+    }
+  ],
+  "scoring_engine": {
+    "id": "ia_match_recommendation_scoring_v1",
+    "purpose": "Transformer une intention utilisateur en classement contextuel sans inventer de benchmarks.",
+    "base_score_inputs": [
+      {
+        "field": "ia_match_score",
+        "weight": 35,
+        "source": "catalog_verified_score"
+      },
+      {
+        "field": "category_match",
+        "weight": 20,
+        "source": "knowledge_intelligence"
+      },
+      {
+        "field": "capability_match",
+        "weight": 15,
+        "source": "capabilities_matrix"
+      },
+      {
+        "field": "user_level_fit",
+        "weight": 10,
+        "source": "recommendation_rules"
+      },
+      {
+        "field": "budget_fit",
+        "weight": 8,
+        "source": "pricing_when_available"
+      },
+      {
+        "field": "source_confidence",
+        "weight": 7,
+        "source": "verification_level"
+      },
+      {
+        "field": "risk_fit",
+        "weight": 5,
+        "source": "risk_compliance_notes"
+      }
+    ],
+    "hard_filters": [
+      "Do not recommend image-only models for pure text tasks unless visual output is requested.",
+      "Do not present needs_source_verification entities as verified production recommendations.",
+      "When data_sensitivity is high, show privacy warning and prioritize enterprise/private options.",
+      "When needs_citations is true, prioritize tools with research/citation capability."
+    ],
+    "output_contract": {
+      "top_pick": "single best recommendation",
+      "alternatives": "two alternatives with distinct reasons",
+      "why": "short explanation based on user intent",
+      "watch_out": "one limitation or caution",
+      "best_prompt_template_group": "template group to open in Prompt Builder"
+    }
+  },
+  "quality_audit": {
+    "audit_status": "PASS",
+    "bad_values_count": 0,
+    "bad_references_count": 0,
+    "counts": {
+      "import_order": 11,
+      "user_intents": 20,
+      "recommendation_rules": 10,
+      "decision_trees": 3,
+      "capabilities_matrix": 26,
+      "jobs_to_be_done": 17,
+      "ai_stacks": 10,
+      "risk_compliance_notes": 26,
+      "beginner_explanations": 15,
+      "prompt_quality_rules": 10,
+      "market_map": 7
+    },
+    "verified_entity_reference_count": 26,
+    "notes": [
+      "This audit checks file integrity, empty values and invalid references to verified entity IDs.",
+      "It does not certify third-party claims; factual performance data remains in verified benchmark/source files."
+    ]
+  }
+}

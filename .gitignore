@@ -75,9 +75,33 @@ agenthub/agents/youtube/db
 
 # Build caches
 .cache/
+.expo/
+.metro-cache/
+frontend/.expo/
+frontend/.metro-cache/
+frontend/dist/
+backend/.pytest_cache/
+frontend/.pytest_cache/
+.pytest_cache/
+**/__pycache__/
+*.py[cod]
 
+# Local/generated artifacts
+*.log
+*.tmp
+*.bak
+.DS_Store
+backend/database.json
+frontend/serve_spa.py
+app-complete-clean.zip
+ia-match-emergent.zip
+android-sdk/ia-match-emergent.zip
+
+# Local secrets / credentials
+.env
+*.env
+backend/.env
+frontend/.env
 memory/test_credentials.md
 
 # Mobile development
-android-sdk/ia-match-emergent.zip
-ia-match-emergent.zip

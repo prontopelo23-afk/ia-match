@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { Sparkles, Zap, Target } from "lucide-react-native";
+import { ArrowRight, Sparkles, Zap, Target } from "lucide-react-native";
 import { fonts, radius, spacing } from "../theme";
 import { useTheme } from "../theme-context";
 import ScoreRing from "./ScoreRing";
@@ -116,6 +116,11 @@ export default function ToolCard({ tool, matchScore, onCompare, inCompare, activ
           </Text>
         </TouchableOpacity>
       ) : null}
+
+      <View style={[styles.detailHint, { borderTopColor: colors.borderSubtle }]}>
+        <Text style={[styles.detailHintText, { color: colors.coral }]}>Voir la fiche</Text>
+        <ArrowRight size={15} color={colors.coral} strokeWidth={2.5} />
+      </View>
     </TouchableOpacity>
   );
 }
@@ -162,4 +167,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   compareText: { fontFamily: fonts.bodySemi, fontSize: 13 },
+  detailHint: {
+    marginTop: spacing.sm,
+    paddingTop: spacing.sm,
+    borderTopWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  detailHintText: { fontFamily: fonts.bodyBold, fontSize: 13 },
 });

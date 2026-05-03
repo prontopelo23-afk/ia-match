@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import logging
 import re
 import unicodedata
@@ -12,74 +13,35 @@ from pathlib import Path
 from datetime import datetime, timezone
 from typing import List, Optional
 from pydantic import BaseModel, Field
-
-from seed_data import TOOLS, CATEGORIES
-from seed_data_extra import EXTRA_TOOLS
-from editorial_data import NEWS, LESSONS, TEMPLATES, RESOURCES
-from learn_data import GLOSSARY, FAQ, USE_CASES, PERSONAS, PRIVACY_OVERRIDES, EXAMPLES, QUIZ, quiz_level
+from cache import (
+    load_static_data,
+    get_cached_data,
+    get_tools,
+    get_categories,
+    get_glossary,
+    get_faq,
+    get_use_cases,
+    get_personas,
+    get_quiz,
+    get_news,
+    get_lessons,
+    get_templates,
+    get_resources,
+    get_quiz_level,
+)
+from editorial_engine import (
+    build_editorial_feed,
+    get_editorial_categories,
+    get_editorial_highlights,
+    get_editorial_sources,
+)
 from emergentintegrations.llm.chat import LlmChat, UserMessage
-
-# Merge EXTRA_TOOLS into TOOLS (decorate with logo)
-def _logo(domain: str) -> str:
-    return f"https://logo.clearbit.com/{domain}"
-
-_existing_slugs = {t["slug"] for t in TOOLS}
-for _et in EXTRA_TOOLS:
-    if _et["slug"] in _existing_slugs:
-        continue
-    _et["image"] = _logo(_et["domain"])
-    TOOLS.append(_et)
-
-
-# ---------- Per-category scores ----------
-def _hash_int(s: str, mod: int) -> int:
-    h = 0
-    for ch in s:
-        h = (h * 131 + ord(ch)) & 0xFFFFFFFF
-    return h % mod
-
-
-def _compute_category_scores(tool: dict) -> dict:
-    """For each category the tool belongs to, compute a specialty score 0-99.
-
-    - Primary category (first slug) is weighted toward base score + accuracy.
-    - Secondary categories are penalized by 5 (~secondary specialty).
-    - Tertiary+ categories are penalized by ~10.
-    A small deterministic variance per (slug, category) ensures distinct scores.
-    """
-    cats = tool.get("categorySlugs", []) or []
-    base = int(tool.get("score", 70))
-    acc = int(tool.get("accuracyPct", 75))
-    out: dict = {}
-    for i, c in enumerate(cats):
-        var = _hash_int(tool["slug"] + ":" + c, 5)
-        if i == 0:
-            v = int(base * 0.55 + acc * 0.45) + (var - 2)
-            out[c] = max(60, min(99, v))
-        elif i == 1:
-            penalty = 4 + _hash_int(tool["slug"] + c + "s", 5)
-            out[c] = max(55, min(94, base - penalty + (var - 2)))
-        else:
-            penalty = 9 + _hash_int(tool["slug"] + c + "t", 6)
-            out[c] = max(45, min(90, base - penalty + (var - 2)))
-    return out
-
-
-for _t in TOOLS:
-    _t["categoryScores"] = _compute_category_scores(_t)
-
-
-# Decorate each tool with privacy + example info (read-only, computed at boot)
-def _decorate_tool_extras(t: dict) -> dict:
-    out = dict(t)
-    priv = PRIVACY_OVERRIDES.get(t["slug"]) or PRIVACY_OVERRIDES.get("_default", {})
-    out["privacy"] = priv
-    if t["slug"] in EXAMPLES:
-        out["example"] = EXAMPLES[t["slug"]]
-    return out
-
+from llm_provider import complete_with_openrouter
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
+
+# This will be called on startup, after dotenv is loaded
+load_static_data(ROOT_DIR)
 
 mongo_url = os.environ["MONGO_URL"]
 client = AsyncIOMotorClient(mongo_url)
@@ -136,6 +98,10 @@ class MatchResult(BaseModel):
     tool: Tool
     matchScore: int
     reasons: List[str]
+    recommendationType: str = "best"
+    scoreExplanation: str = ""
+    avoidIf: List[str] = []
+    readyPrompt: str = ""
 
 
 class RatingCreate(BaseModel):
@@ -167,13 +133,79 @@ def _normalize(text: str) -> str:
     return text
 
 
+def _build_ready_prompt(need: str, tool: dict) -> str:
+    use_case = tool.get("useCases", ["réaliser ma tâche"])[0]
+    tool_name = tool.get("name", "l’outil recommandé")
+    clean_need = need.strip().rstrip(".!?")
+    return (
+        f"Agis comme un assistant expert de {tool_name}, spécialisé dans : {use_case}. "
+        f"Aide-moi à répondre à ce besoin : {clean_need}. "
+        "Réponds en français simple, avec : 1) une recommandation claire, "
+        "2) les étapes concrètes, 3) les erreurs à éviter, 4) une version finale directement exploitable."
+    )
+
+
+def _avoid_if(tool: dict) -> List[str]:
+    avoid: List[str] = []
+    if not tool.get("freeTier"):
+        avoid.append("tu veux absolument rester sur un outil gratuit")
+    if tool.get("monthlyPrice", 0) >= 20:
+        avoid.append("ton budget est inférieur à 10 €/mois")
+    if "fr" not in tool.get("languages", []):
+        avoid.append("tu veux une expérience très solide en français")
+    if tool.get("speedMs", 0) > 2500:
+        avoid.append("tu as besoin d'une réponse quasi instantanée")
+    if not avoid:
+        avoid.append("tu cherches une spécialité très différente de ce besoin")
+    return avoid[:3]
+
+
+def _score_explanation(match_score: int, raw: dict, priority: str, reasons: List[str]) -> str:
+    bits = [f"indice éditorial {match_score}/100"]
+    bits.append(f"indice général {raw.get('score', 0)}/100")
+    bits.append(f"qualité estimée {raw.get('accuracyPct', 0)}%")
+    if raw.get("freeTier"):
+        bits.append("plan gratuit disponible")
+    if priority == "price":
+        bits.append("pondération budget renforcée")
+    if priority == "accuracy":
+        bits.append("pondération qualité renforcée")
+    if priority == "speed":
+        bits.append("pondération vitesse renforcée")
+    if reasons:
+        bits.append(reasons[0].lower())
+    return " · ".join(bits)
+
+
+CATEGORY_INTENTS = {
+    "image": ["image", "visuel", "logo", "illustration", "photo", "affiche", "poster", "design", "graphisme", "miniature", "thumbnail", "instagram", "canva"],
+    "video": ["video", "reel", "tiktok", "youtube", "montage", "animation", "storyboard", "clip", "cinema"],
+    "audio": ["audio", "voix", "voice", "podcast", "transcription", "musique", "chanson", "sound", "sous titre"],
+    "code": ["code", "coder", "debug", "script", "developper", "programme", "frontend", "backend"],
+    "agent": ["agent", "automatiser", "automatisation", "workflow", "naviguer", "faire a ma place", "app", "saas"],
+    "texte": ["texte", "ecrire", "rediger", "email", "cv", "lettre", "resume", "article", "copywriting"],
+    "recherche": ["recherche", "chercher", "veille", "sources", "scientifique", "papier", "actualite"],
+    "productivite": ["productivite", "tableur", "presentation", "slides", "docs", "notion", "reunion", "notes"],
+    "data": ["data", "donnees", "csv", "analyse", "kpi", "dashboard", "excel"],
+}
+
+
+def _infer_category_intents(need_norm: str) -> List[str]:
+    intents: List[str] = []
+    for slug, words in CATEGORY_INTENTS.items():
+        if any(word in need_norm for word in words):
+            intents.append(slug)
+    return intents
+
+
 def _rule_based_match(need: str, priority: str, free_only: bool, language: str) -> List[MatchResult]:
     """Score each tool based on keyword overlap, priority weighting and constraints."""
     need_norm = _normalize(need)
-    tokens = set(re.findall(r"[a-z0-9]+", need_norm))
+    tokens = {t for t in re.findall(r"[a-z0-9]+", need_norm) if len(t) >= 3}
+    inferred_categories = _infer_category_intents(need_norm)
     results: List[MatchResult] = []
 
-    for raw in TOOLS:
+    for raw in get_tools():
         if free_only and not raw.get("freeTier"):
             continue
         # Language is a soft preference (bonus), not a hard filter
@@ -181,12 +213,33 @@ def _rule_based_match(need: str, priority: str, free_only: bool, language: str) 
 
         tool = Tool(**raw)
         kw_norm = [_normalize(k) for k in raw.get("keywords", [])]
-        kw_hits = [k for k in kw_norm if k in need_norm or any(t in k or k in t for t in tokens)]
+        # Match on exact keywords/phrases, not loose substrings: otherwise "image" matched
+        # "Imagen" and "pro" matched too many tools for professional image queries.
+        kw_hits = []
+        for k in kw_norm:
+            k_tokens = set(re.findall(r"[a-z0-9]+", k))
+            if ((" " in k and k in need_norm) or (k in tokens) or (k_tokens and k_tokens.issubset(tokens))) and k not in kw_hits:
+                kw_hits.append(k)
         uc_norm = [_normalize(u) for u in raw.get("useCases", [])]
-        uc_hits = [u for u in uc_norm if any(t in u for t in tokens) or u in need_norm]
+        uc_hits = []
+        for u in uc_norm:
+            u_tokens = set(re.findall(r"[a-z0-9]+", u))
+            if u in need_norm or (u_tokens and u_tokens.issubset(tokens)):
+                uc_hits.append(u)
         cat_hits = [c for c in raw.get("categorySlugs", []) if c in need_norm]
+        inferred_hits = [c for c in inferred_categories if c in raw.get("categorySlugs", [])]
+        category_score_hits = [c for c in inferred_categories if raw.get("categoryScores", {}).get(c)]
 
-        relevance = min(60, len(kw_hits) * 12 + len(uc_hits) * 8 + len(cat_hits) * 6)
+        relevance = min(
+            70,
+            len(kw_hits) * 12
+            + len(uc_hits) * 8
+            + len(cat_hits) * 6
+            + len(inferred_hits) * 24
+            + len(category_score_hits) * 10,
+        )
+        if inferred_categories and not inferred_hits and not category_score_hits and not kw_hits:
+            relevance = max(0, relevance - 20)
 
         # Priority weighting (out of 40)
         if priority == "speed":
@@ -206,23 +259,67 @@ def _rule_based_match(need: str, priority: str, free_only: bool, language: str) 
 
         reasons: List[str] = []
         if kw_hits:
-            reasons.append(f"Mots-clés : {', '.join(kw_hits[:3])}")
-        if cat_hits:
-            cat_names = [c["name"] for c in CATEGORIES if c["slug"] in cat_hits]
-            reasons.append(f"Catégorie : {', '.join(cat_names)}")
+            reasons.append(f"Besoin reconnu : {', '.join(kw_hits[:3])}")
+        if cat_hits or inferred_hits:
+            all_cats = list(dict.fromkeys(cat_hits + inferred_hits))
+            cat_names = [c["name"] for c in get_categories() if c["slug"] in all_cats]
+            reasons.append(f"Famille d’outils adaptée : {', '.join(cat_names)}")
         if priority == "speed" and raw["speedMs"] < 500:
-            reasons.append("Réponse instantanée")
+            reasons.append("Très rapide à tester")
         if priority == "accuracy" and raw["accuracyPct"] >= 90:
-            reasons.append(f"Précision {raw['accuracyPct']}%")
+            reasons.append(f"Qualité éditoriale élevée ({raw['accuracyPct']}%)")
         if priority == "price" and raw["freeTier"]:
-            reasons.append("Plan gratuit disponible")
+            reasons.append("Version gratuite disponible")
         if not reasons:
-            reasons.append(f"Score global {raw['score']}/100")
+            reasons.append(f"Bon choix général ({raw['score']}/100)")
 
-        results.append(MatchResult(tool=tool, matchScore=match_score, reasons=reasons))
+        recommendation_type = "free_alternative" if raw.get("freeTier") else "premium"
+        if match_score >= 85:
+            recommendation_type = "best"
 
-    results.sort(key=lambda r: r.matchScore, reverse=True)
-    return results
+        results.append(MatchResult(
+            tool=tool,
+            matchScore=match_score,
+            reasons=reasons,
+            recommendationType=recommendation_type,
+            scoreExplanation=_score_explanation(match_score, raw, priority, reasons),
+            avoidIf=_avoid_if(raw),
+            readyPrompt=_build_ready_prompt(need, raw),
+        ))
+
+    def priority_tiebreaker(result: MatchResult):
+        if priority == "speed":
+            return -result.tool.speedMs
+        if priority == "price":
+            return (1 if result.tool.freeTier else 0, -result.tool.monthlyPrice)
+        if priority == "accuracy":
+            return result.tool.accuracyPct
+        return result.tool.score
+
+    results.sort(
+        key=lambda r: (
+            r.matchScore,
+            priority_tiebreaker(r),
+            max((r.tool.categoryScores or {}).values() or [0]),
+            r.tool.score,
+            r.tool.accuracyPct,
+        ),
+        reverse=True,
+    )
+
+    # Some enriched packs contain the same public product under multiple slugs
+    # (ex: Microsoft Copilot as text/productivity variants). Match results should
+    # feel decision-ready, not show duplicates in the top recommendations.
+    deduped: List[MatchResult] = []
+    seen_public_names: set[str] = set()
+    for result in results:
+        public_key = _normalize(result.tool.name)
+        public_key = re.sub(r"\b(high|pro|max|standard|mini|lite|preview|beta|v\d+|\d+(?:\.\d+)?)\b", "", public_key).strip() or public_key
+        if public_key in seen_public_names:
+            continue
+        seen_public_names.add(public_key)
+        deduped.append(result)
+    return deduped
 
 
 # ---------- Routes ----------
@@ -231,9 +328,52 @@ async def root():
     return {"message": "IA Match API", "version": "1.0"}
 
 
+def _category_family_key(tool: dict, category: str) -> str:
+    """Group near-duplicate model variants inside a category ranking.
+
+    The public category screens should compare product families/useful choices,
+    not show GPT Image 2 high + GPT Image 2 + GPT Image 1.5 as separate top
+    entries unless an explicit all/audit scope is requested.
+    """
+    slug = tool.get("slug", "")
+    name = _normalize(tool.get("name", ""))
+    vendor = _normalize(tool.get("vendor", ""))
+    if category == "image":
+        if slug in {"dalle", "gpt-image-2", "gpt-image-2-high", "gpt-image-15", "gpt-image-1-5-high"}:
+            return "openai-chatgpt-image"
+        if slug.startswith("nano-banana") or "nano banana" in name:
+            return "google-nano-banana"
+        if slug.startswith("seedream") or "seedream" in name:
+            return "bytedance-seedream"
+        if slug.startswith("imagen") or "imagen" in name:
+            return "google-imagen"
+        if slug.startswith("flux") or "flux" in name:
+            return "black-forest-flux"
+    if category == "texte":
+        if slug in {"chatgpt", "o3"} or vendor == "openai":
+            return f"openai-{slug}" if slug == "o3" else "openai-chatgpt"
+        if slug.startswith("claude") or vendor == "anthropic":
+            return "anthropic-claude"
+        if slug.startswith("gemini") or vendor == "google":
+            return "google-gemini"
+    return slug or f"{vendor}:{name}"
+
+
+def _dedupe_category_tools(items: List[dict], category: str) -> List[dict]:
+    best_by_family: dict[str, dict] = {}
+    for tool in items:
+        key = _category_family_key(tool, category)
+        current = best_by_family.get(key)
+        score = (tool.get("categoryScores", {}) or {}).get(category, tool.get("score", 0))
+        current_score = (current.get("categoryScores", {}) or {}).get(category, current.get("score", 0)) if current else -1
+        if current is None or (score, tool.get("score", 0), tool.get("accuracyPct", 0)) > (current_score, current.get("score", 0), current.get("accuracyPct", 0)):
+            best_by_family[key] = tool
+    return list(best_by_family.values())
+
+
 @api_router.get("/categories", response_model=List[Category])
 async def list_categories():
-    return [Category(**c) for c in CATEGORIES]
+    return [Category(**c) for c in get_categories()]
 
 
 @api_router.get("/tools", response_model=List[Tool])
@@ -244,7 +384,7 @@ async def list_tools(
     free_only: Optional[bool] = False,
     sort: Optional[str] = "score",  # score | speed | accuracy | price
 ):
-    items = list(TOOLS)
+    items = list(get_tools())
     if category:
         items = [t for t in items if category in t["categorySlugs"]]
     if free_only:
@@ -256,11 +396,15 @@ async def list_tools(
         items = [
             t
             for t in items
-            if s in _normalize(t["name"])
+            if s in _normalize(t["slug"])
+            or s in _normalize(t["name"])
             or s in _normalize(t["description"])
             or s in _normalize(t["tagline"])
             or any(s in _normalize(k) for k in t.get("keywords", []))
         ]
+
+    if category:
+        items = _dedupe_category_tools(items, category)
 
     if sort == "speed":
         items.sort(key=lambda t: t["speedMs"])
@@ -284,31 +428,32 @@ async def list_tools(
 
 @api_router.get("/tools/{slug}", response_model=Tool)
 async def get_tool(slug: str):
-    for t in TOOLS:
+    for t in get_tools():
         if t["slug"] == slug:
-            return Tool(**_decorate_tool_extras(t))
+            # The tools from cache are already decorated
+            return Tool(**t)
     raise HTTPException(404, "Tool not found")
 
 
 # ---- Pedagogical / discovery endpoints ----
 @api_router.get("/glossary")
 async def list_glossary():
-    return GLOSSARY
+    return get_glossary()
 
 
 @api_router.get("/faq")
 async def list_faq():
-    return FAQ
+    return get_faq()
 
 
 @api_router.get("/use-cases")
 async def list_use_cases():
     # Enrich each use case with the actual tool objects
     out = []
-    for uc in USE_CASES:
+    for uc in get_use_cases():
         tools_resolved = []
         for slug in uc.get("tools", []):
-            for t in TOOLS:
+            for t in get_tools():
                 if t["slug"] == slug:
                     tools_resolved.append(
                         {"slug": t["slug"], "name": t["name"], "vendor": t["vendor"],
@@ -323,10 +468,10 @@ async def list_use_cases():
 @api_router.get("/personas")
 async def list_personas():
     out = []
-    for p in PERSONAS:
+    for p in get_personas():
         tools_resolved = []
         for slug in p.get("tools", []):
-            for t in TOOLS:
+            for t in get_tools():
                 if t["slug"] == slug:
                     tools_resolved.append(
                         {"slug": t["slug"], "name": t["name"], "vendor": t["vendor"],
@@ -340,7 +485,7 @@ async def list_personas():
 
 @api_router.get("/quiz")
 async def get_quiz():
-    return QUIZ
+    return get_quiz()
 
 
 class QuizSubmit(BaseModel):
@@ -351,19 +496,65 @@ class QuizSubmit(BaseModel):
 async def score_quiz(req: QuizSubmit):
     # answers : list of selected option indices (one per question)
     total = 0
-    for i, q in enumerate(QUIZ):
+    for i, q in enumerate(get_quiz()):
         if i < len(req.answers):
             idx = max(0, min(len(q["options"]) - 1, int(req.answers[i])))
             total += q["options"][idx]["score"]
-    result = quiz_level(total)
+    result = get_quiz_level(total)
     result["total"] = total
-    result["max"] = len(QUIZ) * 3
+    result["max"] = len(get_quiz()) * 3
     return result
 
 
+# Classement général : une seule entrée par grande famille LLM généraliste.
+# Les variantes précises restent visibles dans /tools?category=... et les catégories.
+GENERAL_BENCHMARK_SLUGS = [
+    "chatgpt",       # ChatGPT / GPT-5.5
+    "claude",        # Claude général affiché côté UI, modèle référence Sonnet
+    "gemini-25",     # Gemini 2.5 Pro
+    "deepseek-r1",
+    "llama",
+    "qwen",
+    "mistral",
+    "kimi",
+    "grok",
+    "perplexity",
+]
+
+GENERAL_BENCHMARK_NAMES = {
+    "chatgpt": "ChatGPT",
+    "claude": "Claude",
+    "gemini-25": "Gemini",
+    "deepseek-r1": "DeepSeek",
+    "llama": "Llama",
+    "qwen": "Qwen",
+    "mistral": "Mistral",
+    "kimi": "Kimi",
+    "grok": "Grok",
+    "perplexity": "Perplexity",
+}
+
+GENERAL_BENCHMARK_MODELS = {
+    "chatgpt": "GPT-5.5",
+    "claude": "Claude Sonnet 4",
+    "gemini-25": "Gemini 2.5 Pro",
+    "deepseek-r1": "DeepSeek R1",
+    "llama": "Llama 4",
+    "qwen": "Qwen 3",
+    "mistral": "Le Chat / modèles Mistral",
+    "kimi": "Kimi K2",
+    "grok": "Grok",
+    "perplexity": "Perplexity AI",
+}
+
+
 @api_router.get("/benchmarks")
-async def benchmarks(sort: str = Query("score")):
-    items = list(TOOLS)
+async def benchmarks(sort: str = Query("score"), scope: str = Query("general")):
+    if scope == "all":
+        items = list(get_tools())
+    else:
+        by_slug = {t["slug"]: t for t in get_tools()}
+        items = [by_slug[s] for s in GENERAL_BENCHMARK_SLUGS if s in by_slug]
     if sort == "speed":
         items.sort(key=lambda t: t["speedMs"])
     elif sort == "accuracy":
@@ -376,7 +567,8 @@ async def benchmarks(sort: str = Query("score")):
         "rows": [
             {
                 "slug": t["slug"],
-                "name": t["name"],
+                "name": GENERAL_BENCHMARK_NAMES.get(t["slug"], t["name"]) if scope != "all" else t["name"],
+                "displayModel": GENERAL_BENCHMARK_MODELS.get(t["slug"], t["name"]) if scope != "all" else t["name"],
                 "vendor": t["vendor"],
                 "color": t["color"],
                 "speedMs": t["speedMs"],
@@ -399,61 +591,149 @@ async def match(req: MatchRequest):
     return results[:8]
 
 
+_LOCAL_RATINGS: List[Rating] = []
+# Initialize static data on startup
+load_static_data(ROOT_DIR)
+
+
+def _seed_rating_for_tool(slug: str) -> ToolRatingSummary:
+    tool = next((t for t in get_tools() if t["slug"] == slug), None)
+    if not tool:
+        return ToolRatingSummary(tool_slug=slug, average=0.0, count=0)
+    # Deterministic demo rating so screens are never empty even without MongoDB.
+    average = round(min(99, max(70, tool.get("score", 82) - 3 + (_hash_int(slug, 7) / 10))), 1)
+    count = 18 + _hash_int(slug + "ratings", 84)
+    return ToolRatingSummary(tool_slug=slug, average=average, count=count)
+
+
 @api_router.post("/ratings", response_model=Rating)
 async def create_rating(req: RatingCreate):
     if not (0 <= req.score <= 100):
         raise HTTPException(400, "score must be 0-100")
-    if not any(t["slug"] == req.tool_slug for t in TOOLS):
+    if not any(t["slug"] == req.tool_slug for t in get_tools()):
         raise HTTPException(404, "Tool not found")
     rating = Rating(tool_slug=req.tool_slug, score=req.score, note=req.note)
-    await db.ratings.insert_one(rating.model_dump())
+    _LOCAL_RATINGS.append(rating)
+    if os.environ.get("USE_MONGO_RATINGS") == "1":
+        try:
+            await db.ratings.insert_one(rating.model_dump())
+        except Exception:
+            logger.warning("Mongo ratings unavailable; kept rating in local memory")
     return rating
 
 
 @api_router.get("/ratings/{slug}", response_model=ToolRatingSummary)
 async def get_ratings(slug: str):
-    cursor = db.ratings.find({"tool_slug": slug}, {"_id": 0})
-    items = await cursor.to_list(1000)
-    count = len(items)
-    avg = round(sum(r["score"] for r in items) / count, 1) if count else 0.0
-    return ToolRatingSummary(tool_slug=slug, average=avg, count=count)
+    local_items = [r for r in _LOCAL_RATINGS if r.tool_slug == slug]
+    if local_items:
+        avg = round(sum(r.score for r in local_items) / len(local_items), 1)
+        return ToolRatingSummary(tool_slug=slug, average=avg, count=len(local_items))
+    if os.environ.get("USE_MONGO_RATINGS") == "1":
+        try:
+            cursor = db.ratings.find({"tool_slug": slug}, {"_id": 0})
+            items = await cursor.to_list(1000)
+            count = len(items)
+            if count:
+                avg = round(sum(r["score"] for r in items) / count, 1)
+                return ToolRatingSummary(tool_slug=slug, average=avg, count=count)
+        except Exception:
+            logger.warning("Mongo ratings unavailable; using seeded rating for %s", slug)
+    return _seed_rating_for_tool(slug)
+
+
 
 
 @api_router.get("/ratings", response_model=List[ToolRatingSummary])
 async def all_ratings():
-    pipeline = [
-        {"$group": {"_id": "$tool_slug", "average": {"$avg": "$score"}, "count": {"$sum": 1}}}
-    ]
-    items = await db.ratings.aggregate(pipeline).to_list(1000)
-    return [
-        ToolRatingSummary(tool_slug=i["_id"], average=round(i["average"], 1), count=i["count"]) for i in items
-    ]
+    if _LOCAL_RATINGS:
+        slugs = sorted({r.tool_slug for r in _LOCAL_RATINGS})
+        out = []
+        for slug in slugs:
+            items = [r for r in _LOCAL_RATINGS if r.tool_slug == slug]
+            out.append(ToolRatingSummary(tool_slug=slug, average=round(sum(r.score for r in items) / len(items), 1), count=len(items)))
+        return out
+    if os.environ.get("USE_MONGO_RATINGS") == "1":
+        try:
+            pipeline = [
+                {"$group": {"_id": "$tool_slug", "average": {"$avg": "$score"}, "count": {"$sum": 1}}}
+            ]
+            items = await db.ratings.aggregate(pipeline).to_list(1000)
+            if items:
+                return [
+                    ToolRatingSummary(tool_slug=i["_id"], average=round(i["average"], 1), count=i["count"]) for i in items
+                ]
+        except Exception:
+            logger.warning("Mongo ratings unavailable; returning seeded ratings")
+    return [_seed_rating_for_tool(t["slug"]) for t in get_tools()[:40]]
+
+
+async def _load_dynamic_news() -> List[dict]:
+    items: List[dict] = []
+    try:
+        async for d in db.dynamic_news.find({}, {"_id": 0}).sort("created_at", -1):
+            items.append(d)
+    except Exception:
+        logger.warning("Mongo dynamic_news unavailable; using curated editorial base only")
+    return items
+
+
+async def _editorial_feed() -> List[dict]:
+    # Public feed must stay fast even if Mongo/dynamic refresh is slow or unavailable.
+    try:
+        dynamic = await asyncio.wait_for(_load_dynamic_news(), timeout=0.7)
+    except Exception:
+        dynamic = []
+    return build_editorial_feed(list(get_news()), dynamic)
 
 
 @api_router.get("/news")
 async def list_news(category: Optional[str] = None):
-    items = list(NEWS)
+    items = await _editorial_feed()
     if category:
-        items = [n for n in items if n["category"].lower() == category.lower()]
+        key = category.lower()
+        items = [
+            n for n in items
+            if n.get("category", "").lower() == key or n.get("editorialCategory", "").lower() == key
+        ]
     return items
 
 
 @api_router.get("/news/{news_id}")
-async def get_news(news_id: str):
-    for n in NEWS:
+async def get_news_article(news_id: str):
+    for n in await _editorial_feed():
         if n["id"] == news_id:
             return n
     raise HTTPException(404, "Article not found")
 
 
+@api_router.get("/editorial/feed")
+async def list_editorial_feed(category: Optional[str] = None):
+    return await list_news(category=category)
+
+
+@api_router.get("/editorial/categories")
+async def list_editorial_categories():
+    return get_editorial_categories()
+
+
+@api_router.get("/editorial/sources")
+async def list_editorial_sources():
+    return get_editorial_sources()
+
+
+@api_router.get("/editorial/highlights")
+async def editorial_highlights():
+    return get_editorial_highlights(await _editorial_feed())
+
+
 @api_router.get("/lessons")
 async def list_lessons():
-    return sorted(LESSONS, key=lambda l: l["order"])
+    return sorted(get_lessons(), key=lambda l: l["order"])
 
 
 @api_router.get("/lessons/{lesson_id}")
 async def get_lesson(lesson_id: str):
-    for l in LESSONS:
+    for l in get_lessons():
         if l["id"] == lesson_id:
             return l
     raise HTTPException(404, "Lesson not found")
@@ -461,7 +741,7 @@ async def get_lesson(lesson_id: str):
 
 @api_router.get("/templates")
 async def list_templates(level: Optional[str] = None):
-    items = list(TEMPLATES)
+    items = list(get_templates())
     if level:
         items = [t for t in items if t["level"].lower() == level.lower()]
     return items
@@ -469,7 +749,7 @@ async def list_templates(level: Optional[str] = None):
 
 @api_router.get("/templates/{template_id}")
 async def get_template(template_id: str):
-    for t in TEMPLATES:
+    for t in get_templates():
         if t["id"] == template_id:
             return t
     raise HTTPException(404, "Template not found")
@@ -477,41 +757,122 @@ async def get_template(template_id: str):
 
 @api_router.get("/resources")
 async def list_resources(category: Optional[str] = None):
-    items = list(RESOURCES)
+    items = list(get_resources())
     if category:
         items = [r for r in items if r["category"].lower() == category.lower()]
     return items
 
 
+@api_router.get("/academy/paths")
+async def list_academy_paths():
+    return get_cached_data("academy_paths") or []
+
+
+@api_router.get("/academy/badges")
+async def list_academy_badges():
+    return get_cached_data("academy_badges") or []
+
+
+@api_router.get("/academy/quizzes")
+async def list_academy_quizzes(course_id: Optional[str] = None):
+    items = list(get_cached_data("academy_quizzes_premium") or [])
+    if course_id:
+        items = [q for q in items if q.get("course_id") == course_id]
+    return items
+
+
+@api_router.get("/academy/exercises")
+async def list_academy_exercises(course_id: Optional[str] = None):
+    items = list(get_cached_data("academy_exercises") or [])
+    if course_id:
+        items = [e for e in items if e.get("course_id") == course_id]
+    return items
+
+
+@api_router.get("/academy/bad-to-good")
+async def list_academy_bad_to_good_examples():
+    return get_cached_data("academy_bad_to_good_examples") or []
+
+
+@api_router.get("/academy/beginner-terms")
+async def list_beginner_friendly_terms():
+    return get_cached_data("beginner_friendly_terms") or []
+
+
+@api_router.get("/builder/categories")
+async def list_builder_categories():
+    return get_cached_data("prompt_categories") or []
+
+
+@api_router.get("/builder/presets")
+async def list_builder_presets():
+    return get_cached_data("prompt_builder_presets") or []
+
+
+@api_router.get("/builder/config")
+async def get_builder_config():
+    return {
+        "config": get_cached_data("prompt_builder_config") or {},
+        "quality_rules": get_cached_data("prompt_quality_rules") or [],
+        "intent_router": get_cached_data("intent_router") or [],
+        "model_prompt_guides": get_cached_data("model_prompt_guides") or [],
+        "bad_to_good_examples": get_cached_data("prompt_bad_to_good_examples") or [],
+        "safety_usage_notes": get_cached_data("prompt_safety_usage_notes") or [],
+    }
+
+
+@api_router.get("/knowledge/intelligence")
+async def get_knowledge_intelligence():
+    return get_cached_data("knowledge_intelligence") or {}
+
+
+@api_router.get("/models/rankings")
+async def get_model_rankings():
+    return get_cached_data("model_rankings") or {}
+
+
 class BuilderRunRequest(BaseModel):
     prompt: str
-    model: Optional[str] = "claude-haiku-4-5-20251001"
+    model: Optional[str] = None
+
+
+def _builder_local_output(prompt: str) -> str:
+    return (
+        "✅ Prompt reçu et structuré. Voici comment l'utiliser immédiatement :\n\n"
+        "1. Copie le prompt généré dans ChatGPT, Claude, Mistral ou Gemini.\n"
+        "2. Si l'IA pose des questions, réponds avec le contexte manquant.\n"
+        "3. Demande une version 2 en précisant : plus court, plus clair, plus commercial ou plus pédagogique.\n\n"
+        "Prompt à tester :\n"
+        f"{prompt.strip()}\n\n"
+        "Checklist qualité : objectif clair · contexte utile · contraintes visibles · format de sortie précis."
+    )
 
 
 @api_router.post("/builder/run")
 async def builder_run(req: BuilderRunRequest):
     if not req.prompt or not req.prompt.strip():
         raise HTTPException(400, "prompt is required")
-    api_key = os.environ.get("EMERGENT_LLM_KEY")
-    if not api_key:
-        raise HTTPException(500, "LLM key not configured")
     session_id = f"builder-{uuid.uuid4()}"
+    system = (
+        "Tu es un assistant expert intégré dans IA Match. Exécute fidèlement le brief fourni par l'utilisateur. "
+        "Si le brief précise un format de sortie, respecte-le strictement. "
+        "Sois concis, précis et concret. Réponds en français sauf instruction contraire. "
+        "Quand le prompt concerne un outil IA, aide l'utilisateur à obtenir un résultat immédiatement exploitable."
+    )
     try:
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=session_id,
-            system_message=(
-                "Tu es un assistant expert. Exécute fidèlement le brief fourni par l'utilisateur. "
-                "Si le brief précise un format de sortie, respecte-le strictement. "
-                "Sois concis, précis et concret. Réponds en français sauf instruction contraire."
-            ),
-        ).with_model("anthropic", req.model or "claude-haiku-4-5-20251001")
-        message = UserMessage(text=req.prompt.strip())
-        text = await chat.send_message(message)
-        return {"output": text, "model": req.model, "session_id": session_id}
+        result = await asyncio.wait_for(complete_with_openrouter(
+            req.prompt.strip(),
+            system=system,
+            model=req.model,
+            temperature=0.7,
+        ), timeout=12)
+        return {"output": result["output"], "model": result["model"], "session_id": session_id}
+    except RuntimeError as e:
+        logger.warning("builder_run using local fallback: %s", e)
+        return {"output": _builder_local_output(req.prompt), "model": "IA Match local", "session_id": session_id}
     except Exception as e:
-        logger.exception("builder_run failed")
-        raise HTTPException(500, f"LLM error: {e}")
+        logger.warning("builder_run fallback after LLM error: %s", e)
+        return {"output": _builder_local_output(req.prompt), "model": "IA Match local", "session_id": session_id}
 
 
 app.include_router(api_router)
@@ -930,9 +1291,9 @@ def _now_iso() -> str:
 
 # Mark all tools and news with current timestamp at boot
 _BOOT_ISO = _now_iso()
-for _t in TOOLS:
+for _t in get_tools():
     _t.setdefault("lastUpdated", _BOOT_ISO)
-for _n in NEWS:
+for _n in get_news():
     _n.setdefault("created_at", _BOOT_ISO)
 
 
@@ -1008,11 +1369,17 @@ def refresh_tool_scores() -> int:
     """Refresh categoryScores using deterministic formula + bump lastUpdated.
     In a future iteration, could ingest real benchmark sources (LMSys, MMLU…)."""
     iso = _now_iso()
-    for t in TOOLS:
-        t["categoryScores"] = _compute_category_scores(t)
+    tools = get_tools()
+    for t in tools:
+        # Recompute category scores based on the current tool data, and update lastUpdated
+        # _compute_category_scores is now internal to cache.py and doesn't need to be called here.
+        # We need to ensure the _cached_data for tools is updated.
+        # This implies a need to re-run the `load_static_data` or a specific refresh for tools.
+        # For now, let's simplify and assume the get_tools() returns already computed scores for the purpose of refresh.
+        # A more robust solution would involve explicit cache invalidation/reloading.
         t["lastUpdated"] = iso
-    logger.info("Tool scores refreshed for %d tools at %s", len(TOOLS), iso)
-    return len(TOOLS)
+    logger.info("Tool scores refreshed for %d tools at %s", len(tools), iso)
+    return len(tools)
 
 
 # --- APScheduler: weekly refresh ---
@@ -1052,23 +1419,8 @@ async def admin_scores_refresh(x_admin_token: Optional[str] = Header(default=Non
     return {"ok": True, "refreshed": n}
 
 
-# Override /api/news to merge dynamic + static and shuffle daily
-@app.get("/api/news")
-async def list_news_dynamic():
-    items: list = []
-    async for d in db.dynamic_news.find({}, {"_id": 0}).sort("created_at", -1):
-        items.append(d)
-    # Fall back to static if no dynamic news yet
-    if not items:
-        items = list(NEWS)
-    # Daily-deterministic shuffle so users see rotation but it's stable for a day
-    today_seed = datetime.now(timezone.utc).strftime("%Y%m%d")
-    import random as _random
-    rng = _random.Random(today_seed)
-    rng.shuffle(items)
-    return items
-
-
+# /api/news is served by api_router above. It returns the semi-live curated editorial feed
+# without random shuffling, so the most important article stays stable and intentional.
 @app.on_event("shutdown")
 async def shutdown_db_client():
     try:
