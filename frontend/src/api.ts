@@ -329,30 +329,73 @@ function resolveTools(slugs: readonly string[]) {
     .map((t) => ({ slug: t!.slug, name: t!.name, vendor: t!.vendor, image: t!.image, domain: t!.domain, color: t!.color, tagline: t!.tagline }));
 }
 
+function inferFallbackCategories(q: string): string[] {
+  const rules: { category: string; words: string[] }[] = [
+    { category: "video", words: ["vidéo", "video", "tiktok", "reel", "short", "youtube", "storyboard", "montage", "clip", "animation"] },
+    { category: "audio", words: ["audio", "voix", "voice", "podcast", "doublage", "musique", "son", "transcription", "voix-off"] },
+    { category: "image", words: ["image", "photo", "logo", "visuel", "illustration", "design", "miniature", "affiche", "créatif"] },
+    { category: "code", words: ["code", "coder", "bug", "debug", "dev", "site", "app", "application", "python", "javascript", "typescript", "mvp", "saas"] },
+    { category: "agent", words: ["automatiser", "automation", "workflow", "agent", "zapier", "make", "tâche répétitive", "process"] },
+    { category: "recherche", words: ["recherche", "source", "actualité", "veille", "article", "résumer", "synthèse", "pdf", "document", "contrat", "analyse"] },
+    { category: "data", words: ["data", "données", "tableau", "csv", "excel", "statistique", "dashboard", "analyse de données"] },
+    { category: "productivite", words: ["productivité", "organisation", "planning", "notion", "réunion", "compte rendu", "emails", "admin"] },
+    { category: "texte", words: ["écrire", "texte", "email", "mail", "rédaction", "post", "cv", "lettre", "blog", "linkedin", "marketing", "vente", "landing"] },
+  ];
+  const found = rules.filter((rule) => rule.words.some((w) => q.includes(w))).map((rule) => rule.category);
+  return found.length ? found : ["texte"];
+}
+
 function fallbackMatch(need: string, priority: string, freeOnly: boolean): MatchResult[] {
   const q = need.toLowerCase();
-  const keywords: Record<string, string[]> = {
-    coding: ["code", "coder", "bug", "dev", "site", "app", "python", "javascript"],
-    image: ["image", "photo", "logo", "visuel", "illustration", "design"],
-    research: ["recherche", "source", "actualité", "veille", "article", "résumer"],
-    writing: ["écrire", "texte", "email", "mail", "rédaction", "post", "cv"],
+  const categories = inferFallbackCategories(q);
+  const userTask = need
+    .split(". Mon niveau est ")[0]
+    .replace(/\s+/g, " ")
+    .replace(/^je\s+(veux|souhaite|cherche|dois|voudrais)\s+/i, "")
+    .trim();
+  const categoryLabels: Record<string, string> = {
+    texte: "texte & écriture",
+    image: "image & design",
+    code: "code & dev",
+    video: "vidéo",
+    audio: "audio & voix",
+    productivite: "productivité",
+    recherche: "recherche & analyse",
+    agent: "agents & automatisation",
+    data: "data & analyse",
   };
-  let category = "writing";
-  for (const [cat, words] of Object.entries(keywords)) if (words.some((w) => q.includes(w))) category = cat;
-  let tools = fallbackTools({ category, sort: priority === "price" ? "price" : priority === "accuracy" ? "accuracy" : priority === "speed" ? "speed" : "score", free_only: freeOnly });
+  let tools = asMutableArray<Tool>(FALLBACK_DATA.TOOLS).filter((tool) =>
+    tool.categorySlugs?.some((slug) => categories.includes(slug)) && (!freeOnly || tool.freeTier)
+  );
+  if (!tools.length && freeOnly) {
+    tools = asMutableArray<Tool>(FALLBACK_DATA.TOOLS).filter((tool) => tool.categorySlugs?.some((slug) => categories.includes(slug)));
+  }
   if (!tools.length) tools = fallbackTools({ sort: "score", free_only: freeOnly });
+
+  const scoreFor = (tool: Tool) => {
+    const categoryScore = Math.max(...categories.map((cat) => tool.categoryScores?.[cat] ?? (tool.categorySlugs?.includes(cat) ? tool.score : 0)));
+    const text = `${tool.name} ${tool.vendor} ${tool.tagline} ${tool.description} ${tool.features?.join(" ") ?? ""} ${tool.useCases?.join(" ") ?? ""}`.toLowerCase();
+    const keywordBonus = ["tiktok", "video", "vidéo", "image", "logo", "code", "pdf", "voix", "marketing", "automation"].reduce((sum, word) => sum + (q.includes(word) && text.includes(word) ? 4 : 0), 0);
+    const priceBonus = priority === "price" && tool.freeTier ? 8 : priority === "price" ? -Math.min(8, tool.monthlyPrice / 5) : 0;
+    const speedBonus = priority === "speed" ? Math.max(0, 8 - tool.speedMs / 100) : 0;
+    const accuracyBonus = priority === "accuracy" ? tool.accuracyPct / 12 : 0;
+    return categoryScore + keywordBonus + priceBonus + speedBonus + accuracyBonus;
+  };
+
+  tools.sort((a, b) => scoreFor(b) - scoreFor(a) || b.score - a.score || a.monthlyPrice - b.monthlyPrice);
+
   return tools.slice(0, 8).map((tool, index) => ({
     tool,
-    matchScore: Math.max(72, 96 - index * 4),
+    matchScore: Math.max(72, Math.min(98, Math.round(scoreFor(tool) - index * 1.5))),
     reasons: [
-      `Adapté à ton besoin “${need.slice(0, 70)}${need.length > 70 ? "…" : ""}”`,
-      priority === "price" && tool.freeTier ? "Plan gratuit disponible" : `Indice éditorial IA Match ${tool.score}/100`,
-      tool.useCases?.[0] ?? "Bon choix pour démarrer simplement",
+      `Aligné avec la famille “${categoryLabels[categories[0]] ?? categories[0]}” détectée dans ton besoin`,
+      priority === "price" && tool.freeTier ? "Plan gratuit disponible pour tester sans risque" : `Indice éditorial IA Match ${tool.score}/100`,
+      tool.useCases?.[0] ?? tool.tagline ?? "Bon choix pour démarrer simplement",
     ],
     recommendationType: index === 0 ? "best" : tool.freeTier ? "free_alternative" : "premium",
-    scoreExplanation: "Recommandation de secours basée sur l’usage, le budget, les prix publics et l’indice éditorial IA Match embarqué.",
-    avoidIf: tool.monthlyPrice > 0 ? ["À éviter si tu veux absolument rester gratuit."] : [],
-    readyPrompt: `Aide-moi à ${need}. Pose-moi 3 questions si nécessaire, puis propose une réponse claire et actionnable.`,
+    scoreExplanation: "Recommandation locale basée sur les catégories détectées, le budget, les prix publics, la vitesse, la qualité estimée et l’indice éditorial IA Match embarqué.",
+    avoidIf: !tool.freeTier ? ["À éviter si tu veux absolument rester gratuit."] : [],
+    readyPrompt: `Aide-moi pour : ${userTask.replace(/[.!?]+$/g, "")}. Pose-moi jusqu’à 3 questions si une information essentielle manque, puis propose une réponse claire, concrète et directement actionnable.`,
   }));
 }
 
