@@ -18,6 +18,7 @@ import { ThemeProvider, PremiumProvider, useTheme } from "../src/theme-context";
 import { I18nProvider } from "../src/i18n";
 import { betaAccessStore, onboardingStore } from "../src/api";
 import CookieConsent from "../src/components/CookieConsent";
+import { ToastProvider } from "../src/components/Toast";
 
 function StackContent() {
   const { colors, mode } = useTheme();
@@ -137,7 +138,9 @@ export default function RootLayout() {
       <I18nProvider>
         <ThemeProvider>
           <PremiumProvider>
-            <StackContent />
+            <ToastProvider>
+              <StackContent />
+            </ToastProvider>
           </PremiumProvider>
         </ThemeProvider>
       </I18nProvider>

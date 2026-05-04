@@ -20,6 +20,7 @@ import {
 } from "../../src/api";
 import { auth, AuthUser, consent } from "../../src/auth";
 import LogoTile from "../../src/components/LogoTile";
+import { useToast } from "../../src/components/Toast";
 import { useI18n } from "../../src/i18n";
 import { openNewsletterSignup } from "../../src/utils/contactLinks";
 
@@ -28,6 +29,7 @@ export default function ProfileScreen() {
   const { colors, mode, toggle } = useTheme();
   const { t, language, setLanguage, languages } = useI18n();
   const { isPremium } = usePremium();
+  const { showToast } = useToast();
   const [items, setItems] = useState<HistoryItem[]>([]);
   const [savedTools, setSavedTools] = useState<Tool[]>([]);
   const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
@@ -91,7 +93,7 @@ export default function ProfileScreen() {
             try {
               await auth.deleteAccount();
               setUser(null);
-              Alert.alert("Compte supprimé", "Tes données ont été effacées.");
+              showToast({ title: "Compte supprimé", message: "Tes données ont été effacées." });
             } catch (e: any) {
               Alert.alert("Erreur", e?.message || "Impossible de supprimer pour l'instant.");
             }
@@ -103,7 +105,7 @@ export default function ProfileScreen() {
 
   const resetCookieConsent = async () => {
     await consent.clear();
-    Alert.alert("Préférences cookies", "Tes préférences ont été réinitialisées. La bannière apparaîtra au prochain démarrage.");
+    showToast({ title: "Préférences cookies", message: "La bannière apparaîtra au prochain démarrage." });
   };
 
   const clear = () => {
@@ -122,7 +124,7 @@ export default function ProfileScreen() {
     if (!prompt) return;
     try {
       await Clipboard.setStringAsync(prompt);
-      Alert.alert("Prompt copié", "Tu peux le coller dans l’IA recommandée.");
+      showToast({ title: "Prompt copié", message: "Tu peux le coller dans l’IA recommandée." });
     } catch {}
   };
 
@@ -219,8 +221,24 @@ export default function ProfileScreen() {
               </Text>
             </View>
           </View>
+          <View style={styles.planChoices}>
+            <View style={[styles.planChoice, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+              <Text style={[styles.planChoiceLabel, { color: colors.coral }]}>MENSUEL</Text>
+              <Text style={[styles.planChoicePrice, { color: colors.textPrimary }]}>6,99 €</Text>
+              <Text style={[styles.planChoiceHelp, { color: colors.textSecondary }]}>Tester sans engagement</Text>
+            </View>
+            <View style={[styles.planChoice, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
+              <Text style={[styles.planChoiceLabel, { color: colors.coral }]}>ANNUEL</Text>
+              <Text style={[styles.planChoicePrice, { color: colors.textPrimary }]}>49,99 €</Text>
+              <Text style={[styles.planChoiceHelp, { color: colors.textSecondary }]}>Meilleur prix</Text>
+            </View>
+          </View>
+          <View style={[styles.planBoundary, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+            <Text style={[styles.planBoundaryTitle, { color: colors.textPrimary }]}>Ce que Premium ajoute vraiment</Text>
+            <Text style={[styles.planBoundaryText, { color: colors.textSecondary }]}>Match illimité, prompts avancés, comparateur complet, Academy complète, historique/favoris enrichis et repères prix/sources plus détaillés.</Text>
+          </View>
           <TouchableOpacity
-            onPress={() => Alert.alert("Premium IA Match", "Premium public : 6,99 €/mois ou 49,99 €/an. Le paiement réel sera branché avant ouverture commerciale.")}
+            onPress={() => showToast({ title: "Premium bientôt branché", message: "Prix public prévu : 6,99 €/mois ou 49,99 €/an. Paiement Stripe serveur avant ouverture commerciale.", kind: "info" })}
             style={[styles.planBtn, { backgroundColor: isPremium ? colors.surface : colors.coral, borderColor: colors.coral }]}
             testID="profile-toggle-premium"
           >
@@ -531,6 +549,14 @@ const styles = StyleSheet.create({
   planLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2 },
   planName: { fontFamily: fonts.serif, fontSize: 26, marginTop: 4 },
   planDesc: { fontFamily: fonts.body, fontSize: 13, lineHeight: 20, marginTop: 6 },
+  planChoices: { flexDirection: "row", gap: 8, marginBottom: spacing.sm },
+  planChoice: { flex: 1, borderWidth: 1, borderRadius: radius.lg, padding: spacing.sm },
+  planChoiceLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.3 },
+  planChoicePrice: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 28, marginTop: 2 },
+  planChoiceHelp: { fontFamily: fonts.body, fontSize: 11, lineHeight: 15, marginTop: 2 },
+  planBoundary: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.sm, marginBottom: spacing.sm },
+  planBoundaryTitle: { fontFamily: fonts.bodyBold, fontSize: 13, marginBottom: 3 },
+  planBoundaryText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
   planBtn: {
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
     paddingVertical: 12, borderRadius: radius.pill, borderWidth: 1.5,

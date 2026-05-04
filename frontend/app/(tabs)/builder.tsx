@@ -19,6 +19,7 @@ import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import { api, builderHistory, BuilderHistoryItem, BuilderPreset } from "../../src/api";
 import PremiumGate from "../../src/components/PremiumGate";
+import { useToast } from "../../src/components/Toast";
 import { ScoreGauge, WorkflowMap } from "../../src/components/VisualExplainers";
 
 type Field = { key: string; label: string; placeholder: string; help: string; multiline?: boolean };
@@ -56,6 +57,7 @@ const RANDOM_IDEAS: { title: string; modelKey: string; values: Record<string, st
 
 export default function BuilderScreen() {
   const { colors } = useTheme();
+  const { showToast } = useToast();
   const { isPremium } = usePremium();
   const [values, setValues] = useState<Record<string, string>>({});
   const [targetModel, setTargetModel] = useState(TARGET_MODELS[0]);
@@ -154,6 +156,7 @@ export default function BuilderScreen() {
     if (!text) return;
     try { await Clipboard.setStringAsync(text); } catch {}
     setCopied(true);
+    showToast({ title: "Prompt copié", message: "Tu peux le coller dans ChatGPT, Claude, Gemini, Mistral ou Perplexity." });
     setTimeout(() => setCopied(false), 1500);
   };
   const reset = () => { setValues({}); setOutput(null); setError(null); };
@@ -164,6 +167,7 @@ export default function BuilderScreen() {
     setOutput(null);
     setError(null);
     setCopied(false);
+    showToast({ title: "Exemple prêt", message: idea.title });
   };
   const makeLocalOutput = (sourcePrompt: string) => {
     const objective = (values.objective || "ta demande").replace(/\.$/, "");
@@ -249,7 +253,7 @@ export default function BuilderScreen() {
             testID="builder-random"
           >
             <Shuffle size={16} color="#fff" strokeWidth={2.5} />
-            <Text style={styles.randomText}>Générer une idée aléatoire</Text>
+            <Text style={styles.randomText}>Me proposer un exemple concret</Text>
           </TouchableOpacity>
           <Text style={[styles.randomHint, { color: colors.textSecondary }]}>Un appui remplit les 7 blocs avec un cas concret, puis tu peux copier ou tester le prompt.</Text>
 

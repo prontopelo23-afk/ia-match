@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowRight, Image as ImageIcon, Code2, Mic2, Video, PenLine, Search, Bot, BarChart3, BriefcaseBusiness } from "lucide-react-native";
+import { ArrowRight, Image as ImageIcon, Code2, Mic2, Video, PenLine, Search, Bot, BarChart3, BriefcaseBusiness, Wand2 } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { useI18n } from "../../src/i18n";
@@ -79,6 +79,8 @@ export default function CategoriesScreen() {
   const [selected, setSelected] = useState<string>("ALL");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [query, setQuery] = useState("");
+  const [quickFilter, setQuickFilter] = useState<"all" | "free" | "beginner" | "french">("all");
 
   useEffect(() => {
     Promise.all([api.listCategories(), api.listTools({ sort: "score" })])
@@ -106,8 +108,22 @@ export default function CategoriesScreen() {
   }), [cats, tools, colors.coral, t]);
 
   const selectedBlocks = selected === "ALL" ? blocks : blocks.filter((block) => block.slug === selected);
-  const visibleBlocks = selected === "ALL" && !showAllCategories ? selectedBlocks.slice(0, 6) : selectedBlocks;
-  const hasHiddenCategories = selected === "ALL" && selectedBlocks.length > visibleBlocks.length;
+  const normalizedQuery = query.trim().toLowerCase();
+  const matchesFilters = (tool: Tool) => {
+    const text = [tool.name, tool.vendor, tool.tagline, tool.description, ...(tool.features ?? []), ...(tool.useCases ?? [])].join(" ").toLowerCase();
+    const matchesQuery = !normalizedQuery || text.includes(normalizedQuery);
+    const matchesQuick = quickFilter === "all" ||
+      (quickFilter === "free" && tool.freeTier) ||
+      (quickFilter === "beginner" && (text.includes("débutant") || tool.score >= 84 || tool.freeTier)) ||
+      (quickFilter === "french" && (tool.languages ?? []).some((lang) => lang.toLowerCase().startsWith("fr")));
+    return matchesQuery && matchesQuick;
+  };
+  const filteredBlocks = selectedBlocks
+    .map((block) => ({ ...block, tools: block.tools.filter(matchesFilters) }))
+    .filter((block) => block.tools.length > 0 || (!normalizedQuery && quickFilter === "all"));
+  const visibleBlocks = selected === "ALL" && !showAllCategories ? filteredBlocks.slice(0, 6) : filteredBlocks;
+  const hasHiddenCategories = selected === "ALL" && filteredBlocks.length > visibleBlocks.length;
+  const searchActive = normalizedQuery.length > 0 || quickFilter !== "all";
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
@@ -115,6 +131,33 @@ export default function CategoriesScreen() {
         <Text style={[styles.eyebrow, { color: colors.coral }]}>{t("catalog.eyebrow")}</Text>
         <Text style={[styles.title, { color: colors.textPrimary }]}>{t("catalog.title")}</Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>{t("catalog.subtitle")}</Text>
+
+        <TouchableOpacity style={[styles.matchCta, { backgroundColor: colors.coral }]} onPress={() => router.push("/match")} activeOpacity={0.86}>
+          <Wand2 size={16} color="#fff" strokeWidth={2.5} />
+          <Text style={styles.matchCtaText}>Je ne sais pas quoi choisir · lancer le Match</Text>
+          <ArrowRight size={15} color="#fff" strokeWidth={2.5} />
+        </TouchableOpacity>
+
+        <View style={[styles.searchBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+          <Search size={17} color={colors.textSecondary} strokeWidth={2.4} />
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder="Rechercher un outil ou un usage"
+            placeholderTextColor={colors.textSecondary}
+            style={[styles.searchInput, { color: colors.textPrimary }]}
+            autoCapitalize="none"
+            autoCorrect={false}
+            testID="catalog-search"
+          />
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.quickFilterRow}>
+          <FilterChip label="Tous" active={quickFilter === "all"} onPress={() => setQuickFilter("all")} />
+          <FilterChip label="Gratuit" active={quickFilter === "free"} onPress={() => setQuickFilter("free")} />
+          <FilterChip label="Débutant" active={quickFilter === "beginner"} onPress={() => setQuickFilter("beginner")} />
+          <FilterChip label="Bon en français" active={quickFilter === "french"} onPress={() => setQuickFilter("french")} />
+        </ScrollView>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
           <FilterChip label={t("common.all")} active={selected === "ALL"} onPress={() => setSelected("ALL")} />
@@ -125,8 +168,8 @@ export default function CategoriesScreen() {
 
         {!loading ? (
           <View style={[styles.guideBox, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
-            <Text style={[styles.guideTitle, { color: colors.coral }]}>Choisis d’abord un usage</Text>
-            <Text style={[styles.guideText, { color: colors.textSecondary }]}>Chaque famille montre trois repères simples : le plus simple, le meilleur résultat, puis une alternative gratuite quand elle existe.</Text>
+            <Text style={[styles.guideTitle, { color: colors.coral }]}>{searchActive ? "Résultats filtrés" : "Choisis d’abord un usage"}</Text>
+            <Text style={[styles.guideText, { color: colors.textSecondary }]}>{searchActive ? "La recherche combine nom, usage, fonctionnalités, prix et langue. Touche une IA pour ouvrir sa fiche." : "Chaque famille montre trois repères simples : le plus simple, le meilleur résultat, puis une alternative gratuite quand elle existe."}</Text>
           </View>
         ) : null}
 
@@ -188,11 +231,25 @@ export default function CategoriesScreen() {
                     <Text style={[styles.toolName, { color: colors.textPrimary }]} numberOfLines={1}>{tool.name}</Text>
                     <Text style={[styles.toolMeta, { color: colors.textSecondary }]} numberOfLines={1}>{tool.freeTier ? t("tool.freeAvailable") : `${tool.monthlyPrice} €/mois`} · {t("tool.index")} {tool.categoryScores?.[cat.slug] ?? tool.score}</Text>
                   </View>
+                  <View style={[styles.toolHint, { backgroundColor: colors.coralSoft }]}>
+                    <Text style={[styles.toolHintText, { color: colors.coral }]}>Voir la fiche</Text>
+                    <ArrowRight size={13} color={colors.coral} strokeWidth={2.6} />
+                  </View>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
         ))}
+
+        {!loading && visibleBlocks.length === 0 ? (
+          <View style={[styles.emptyState, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+            <Text style={[styles.emptyTitle, { color: colors.textPrimary }]}>Aucun outil trouvé</Text>
+            <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Essaie un autre mot-clé, retire un filtre ou lance le Match pour partir de ton besoin.</Text>
+            <TouchableOpacity onPress={() => { setQuery(""); setQuickFilter("all"); setSelected("ALL"); }} style={[styles.emptyBtn, { borderColor: colors.coral }]}>
+              <Text style={[styles.emptyBtnText, { color: colors.coral }]}>Réinitialiser</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         {hasHiddenCategories || showAllCategories ? (
           <TouchableOpacity onPress={() => setShowAllCategories((v) => !v)} style={[styles.moreBtn, { borderColor: colors.borderSubtle }]}>
@@ -228,6 +285,11 @@ const styles = StyleSheet.create({
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 38, lineHeight: 43, letterSpacing: -1 },
   subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm, marginBottom: spacing.md },
+  matchCta: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: radius.pill, paddingVertical: 13, paddingHorizontal: spacing.md, marginBottom: spacing.sm },
+  matchCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13, flex: 1, textAlign: "center" },
+  searchBox: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: radius.lg, paddingHorizontal: 12, paddingVertical: 10, marginBottom: spacing.sm },
+  searchInput: { flex: 1, fontFamily: fonts.bodySemi, fontSize: 14, paddingVertical: 0, outlineWidth: 0 } as any,
+  quickFilterRow: { gap: 8, paddingBottom: spacing.sm },
   filterRow: { gap: 8, paddingBottom: spacing.md },
   filterChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
   filterChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
@@ -248,6 +310,13 @@ const styles = StyleSheet.create({
   rank: { width: 62, fontFamily: fonts.bodyBold, fontSize: 11 },
   toolName: { fontFamily: fonts.bodyBold, fontSize: 13 },
   toolMeta: { fontFamily: fonts.body, fontSize: 11, marginTop: 1 },
+  toolHint: { flexDirection: "row", alignItems: "center", gap: 3, borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 6 },
+  toolHintText: { fontFamily: fonts.bodyBold, fontSize: 10 },
+  emptyState: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.lg, alignItems: "center", gap: 8, marginTop: spacing.sm },
+  emptyTitle: { fontFamily: fonts.serif, fontSize: 22 },
+  emptyText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, textAlign: "center" },
+  emptyBtn: { borderWidth: 1.5, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9, marginTop: 4 },
+  emptyBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   moreBtn: { alignSelf: "center", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 16, paddingVertical: 10, marginTop: spacing.sm },
   moreBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
 });

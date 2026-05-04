@@ -69,7 +69,8 @@ export default function Accueil() {
         <ConceptCard icon="layers" title="Lis moins, décide mieux" text="Chaque écran doit te montrer une carte mentale : usage, score, limite, prochaine action." bullets={["Pas un annuaire de pavés", "Des repères visuels pour débuter", "Un prompt prêt à tester"]} />
 
         <View style={[styles.moreCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
-          <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Autres raccourcis utiles</Text>
+          <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Explorer plus</Text>
+          <Text style={[styles.moreSub, { color: theme.textSecondary }]}>Décider, apprendre ou préparer une offre pro — tout reste accessible sans surcharger le premier choix.</Text>
           <View style={styles.moreGrid}>
             <CompactLink icon={<Newspaper size={15} color={theme.coral} />} title="Actu" onPress={() => router.push("/(tabs)/actue")} />
             <CompactLink icon={<Sparkles size={15} color={theme.coral} />} title={t("home.quickRankingsTitle")} onPress={() => router.push("/(tabs)/benchmarks")} />
@@ -205,12 +206,12 @@ function CompactToolRow({ tool, rank, onPress }: { tool: Tool; rank: number; onP
 
 function QuickCard({ icon, title, text, onPress }: { icon: React.ReactNode; title: string; text: string; onPress: () => void }) {
   const { colors } = useTheme();
-  return <TouchableOpacity onPress={onPress} style={[styles.quickCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><View style={[styles.quickIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.quickTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.quickText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
+  return <TouchableOpacity onPress={onPress} activeOpacity={0.84} style={[styles.quickCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><View style={[styles.quickIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.quickTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.quickText, { color: colors.textSecondary }]}>{text}</Text><View style={styles.quickAction}><Text style={[styles.quickActionText, { color: colors.coral }]}>Commencer</Text><ArrowRight size={14} color={colors.coral} strokeWidth={2.6} /></View></TouchableOpacity>;
 }
 
 function CompactLink({ icon, title, onPress }: { icon: React.ReactNode; title: string; onPress: () => void }) {
   const { colors } = useTheme();
-  return <TouchableOpacity onPress={onPress} style={[styles.compactLink, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>{icon}<Text style={[styles.compactLinkText, { color: colors.textPrimary }]}>{title}</Text></TouchableOpacity>;
+  return <TouchableOpacity onPress={onPress} activeOpacity={0.84} style={[styles.compactLink, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>{icon}<Text style={[styles.compactLinkText, { color: colors.textPrimary }]}>{title}</Text><ArrowRight size={12} color={colors.coral} strokeWidth={2.6} /></TouchableOpacity>;
 }
 
 const styles = StyleSheet.create({
@@ -233,8 +234,11 @@ const styles = StyleSheet.create({
   quickIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   quickTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
   quickText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 4 },
+  quickAction: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: spacing.sm },
+  quickActionText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   moreCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.sm },
-  moreTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: spacing.sm },
+  moreTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: 4 },
+  moreSub: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginBottom: spacing.sm },
   moreGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   compactLink: { width: "48%", minHeight: 42, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 10, flexDirection: "row", alignItems: "center", gap: 7 },
   compactLinkText: { flex: 1, fontFamily: fonts.bodyBold, fontSize: 13 },

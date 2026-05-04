@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Linking,
-  Alert,
 } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -23,11 +22,13 @@ import { editorialTrustFor } from "../../src/utils/editorialTrust";
 import CategoryScoreBars from "../../src/components/CategoryScoreBars";
 import ScoreRing from "../../src/components/ScoreRing";
 import LogoTile from "../../src/components/LogoTile";
+import { useToast } from "../../src/components/Toast";
 
 export default function ToolDetail() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
   const { colors: theme } = useTheme();
+  const { showToast } = useToast();
   const [tool, setTool] = useState<Tool | null>(null);
   const [summary, setSummary] = useState<RatingSummary | null>(null);
   const [userScore, setUserScore] = useState(50);
@@ -102,7 +103,7 @@ export default function ToolDetail() {
     const prompt = tool.example?.prompt || `Tu es ${tool.name}. Aide-moi à ${tool.useCases[0] || "réaliser mon objectif"}. Donne-moi une réponse claire, actionnable, en français, avec les étapes, les erreurs à éviter et une version finale prête à utiliser.`;
     await Clipboard.setStringAsync(prompt);
     await analyticsStore.track("tool_prompt_copied", { slug: tool.slug });
-    Alert.alert("Prompt copié", "Tu peux maintenant le coller dans l'outil recommandé.");
+    showToast({ title: "Prompt copié", message: "Tu peux maintenant le coller dans l’outil recommandé." });
   };
 
   const toggleSection = (key: string) => setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -343,9 +344,9 @@ Prompt conseillé
             <Text style={styles.reportTitle}>Tu vois une erreur ?</Text>
             <Text style={styles.reportText}>Aide IA Match à rester fiable : signale un prix, un logo ou une recommandation qui ne colle pas.</Text>
             <View style={styles.reportRow}>
-              <TouchableOpacity style={styles.reportBtn} onPress={() => Alert.alert("Merci", "Signalement logo enregistré pour la bêta.")}><Text style={styles.reportBtnText}>Logo faux</Text></TouchableOpacity>
-              <TouchableOpacity style={styles.reportBtn} onPress={() => Alert.alert("Merci", "Signalement prix enregistré pour la bêta.")}><Text style={styles.reportBtnText}>Prix faux</Text></TouchableOpacity>
-              <TouchableOpacity style={styles.reportBtn} onPress={() => Alert.alert("Merci", "Suggestion enregistrée pour la bêta.")}><Text style={styles.reportBtnText}>Suggérer</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.reportBtn} onPress={() => showToast({ title: "Merci", message: "Signalement logo enregistré pour la bêta." })}><Text style={styles.reportBtnText}>Logo faux</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.reportBtn} onPress={() => showToast({ title: "Merci", message: "Signalement prix enregistré pour la bêta." })}><Text style={styles.reportBtnText}>Prix faux</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.reportBtn} onPress={() => showToast({ title: "Merci", message: "Suggestion enregistrée pour la bêta." })}><Text style={styles.reportBtnText}>Suggérer</Text></TouchableOpacity>
             </View>
           </View>
 
