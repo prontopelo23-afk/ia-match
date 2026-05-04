@@ -5,16 +5,16 @@ import { useRouter } from "expo-router";
 import { BookOpen, ChevronRight, Layers3, Sparkles } from "lucide-react-native";
 import { fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
-import { api, BenchmarkRow, ModelRankings } from "../../src/api";
+import { api, BenchmarkRow } from "../../src/api";
 import { GENERAL_MODEL_BY_SLUG } from "../../src/utils/generalRanking";
-import { CONTENT_FAMILIES, familyCategoryCoverage, rowMatchesFamily } from "../../src/utils/contentArchitecture";
+import { CONTENT_FAMILIES, rowMatchesFamily } from "../../src/utils/contentArchitecture";
 
 type SortKey = "score" | "speed" | "accuracy" | "price";
 const SORTS: { key: SortKey; label: string; helper: string }[] = [
-  { key: "score", label: "Recommandé", helper: "facilité + polyvalence" },
-  { key: "accuracy", label: "Qualité", helper: "réponses fiables" },
-  { key: "speed", label: "Rapide", helper: "réponses courtes" },
-  { key: "price", label: "Prix", helper: "tester sans risque" },
+  { key: "score", label: "Commencer", helper: "simple et polyvalent" },
+  { key: "accuracy", label: "Résultat", helper: "qualité d’abord" },
+  { key: "speed", label: "Rapide", helper: "répond vite" },
+  { key: "price", label: "Budget", helper: "coût réduit" },
 ];
 
 export default function BenchmarksScreen() {
@@ -23,34 +23,31 @@ export default function BenchmarksScreen() {
   const [sort, setSort] = useState<SortKey>("score");
   const [generalRows, setGeneralRows] = useState<BenchmarkRow[]>([]);
   const [allRows, setAllRows] = useState<BenchmarkRow[]>([]);
-  const [modelRankings, setModelRankings] = useState<ModelRankings>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([api.benchmarks(sort, "general"), api.benchmarks(sort, "all"), api.getModelRankings()])
-      .then(([general, all, rankings]) => {
+    Promise.all([api.benchmarks(sort, "general"), api.benchmarks(sort, "all")])
+      .then(([general, all]) => {
         setGeneralRows(general.rows);
         setAllRows(all.rows);
-        setModelRankings(rankings);
       })
       .finally(() => setLoading(false));
   }, [sort]);
 
-  const modelCount = modelRankings.import_ready_records?.length ?? 91;
   const activeSort = SORTS.find((s) => s.key === sort) ?? SORTS[0];
   const familyStats = useMemo(() => CONTENT_FAMILIES.map((family) => ({ family, count: allRows.filter((row) => rowMatchesFamily(row, family)).length })), [allRows]);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={[styles.eyebrow, { color: colors.coral }]}>BENCHMARKS · AIDE AU CHOIX</Text>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Les meilleurs choix pour commencer.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Ce classement privilégie la facilité, la polyvalence, le français, le prix et la maturité produit — pas seulement la puissance brute.</Text>
+        <Text style={[styles.eyebrow, { color: colors.coral }]}>CLASSEMENTS</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Quel outil choisir selon ton besoin ?</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Des cartes simples : meilleur usage, raison principale, limite à connaître.</Text>
 
         <View style={[styles.helpCard, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
           <BookOpen size={18} color={colors.coral} />
-          <Text style={[styles.helpText, { color: colors.textSecondary }]}>Les scores sont des indices éditoriaux IA Match. Pour choisir vite : regarde “meilleur pour”, “pourquoi ici” et la limite à connaître.</Text>
+          <Text style={[styles.helpText, { color: colors.textSecondary }]}>Pour choisir vite : regarde “meilleur pour”, “pourquoi ici” et la limite à connaître.</Text>
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.sorts}>
@@ -63,14 +60,14 @@ export default function BenchmarksScreen() {
         </ScrollView>
 
         <View style={styles.sectionHead}>
-          <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Top IA Match · {activeSort.label}</Text>
-          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Tri actuel : {activeSort.helper}</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Top · {activeSort.label}</Text>
+          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Tri : {activeSort.helper}</Text>
         </View>
         {loading ? <ActivityIndicator color={colors.coral} /> : generalRows.map((row, index) => <RankCard key={row.slug} row={row} rank={index + 1} onPress={() => router.push(`/tool/${row.slug}`)} />)}
 
         <View style={styles.sectionHead}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Choisir selon ton besoin</Text>
-          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>{CONTENT_FAMILIES.length} familles lisibles · {familyCategoryCoverage()} catégories regroupées · {modelCount} entrées modèles</Text>
+          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Usages regroupés pour éviter les classements interminables</Text>
         </View>
         <View style={styles.familyList}>
           {familyStats.map(({ family, count }) => (
@@ -108,13 +105,13 @@ function RankCard({ row, rank, onPress }: { row: BenchmarkRow; rank: number; onP
         </View>
         <View style={[styles.scoreBox, { backgroundColor: colors.coralSoft }]}>
           <Text style={[styles.score, { color: colors.textPrimary }]}>{row.score}</Text>
-          <Text style={[styles.scoreLabel, { color: colors.textSecondary }]}>indice</Text>
+          <Text style={[styles.scoreLabel, { color: colors.textSecondary }]}>repère</Text>
         </View>
       </View>
       <Text style={[styles.pill, { color: colors.coral }]}><Sparkles size={12} color={colors.coral} /> Meilleur pour : {bestFor}</Text>
       <Text style={[styles.cardLine, { color: colors.textSecondary }]}><Text style={{ fontFamily: fonts.bodyBold }}>Pourquoi ici : </Text>{whyRanked}</Text>
       <Text style={[styles.cardLine, { color: colors.textSecondary }]}><Text style={{ fontFamily: fonts.bodyBold }}>Limite : </Text>{limitation}</Text>
-      <Text style={[styles.confidence, { color: colors.textSecondary }]}>Confiance IA Match : {confidence}</Text>
+      {confidence === "haute" ? <Text style={[styles.confidence, { color: colors.textSecondary }]}>Confiance élevée</Text> : null}
     </TouchableOpacity>
   );
 }

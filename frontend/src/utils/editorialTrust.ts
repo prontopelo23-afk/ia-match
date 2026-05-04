@@ -22,12 +22,17 @@ const SOURCE_BY_CATEGORY: Record<string, string[]> = {
 export function editorialTrustFor(tool: Tool): EditorialTrust {
   const categories = tool.categorySlugs ?? [];
   const firstCategory = categories[0] ?? "texte";
-  const sources = Array.from(new Set([...(SOURCE_BY_CATEGORY[firstCategory] ?? ["docs officielles", "tests éditoriaux IA Match"]), "prix/limites publics vérifiés manuellement"]));
-  const updatedAt = tool.lastUpdated
-    ? new Date(tool.lastUpdated).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
+  const sourcesFromTool = (tool.sources ?? tool.scoreDetails?.sources ?? []).map((source) => source.label).filter(Boolean);
+  const sources = Array.from(new Set([
+    ...sourcesFromTool,
+    ...(SOURCE_BY_CATEGORY[firstCategory] ?? ["docs officielles", "tests éditoriaux IA Match"]),
+    "prix/limites publics vérifiés manuellement",
+  ]));
+  const updatedAt = tool.dataVerifiedAt || tool.lastUpdated
+    ? new Date(tool.dataVerifiedAt || tool.lastUpdated || "").toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
     : "mai 2026";
-  const confidence: EditorialTrust["confidence"] = tool.score >= 92 ? "élevée" : tool.score >= 84 ? "moyenne" : "prudente";
-  const freeCopy = tool.freeTier ? "Gratuit disponible, souvent avec quotas ou fonctions avancées limitées." : `Payant autour de ${tool.monthlyPrice} €/mois, à valider selon pays/offre.`;
+  const confidence: EditorialTrust["confidence"] = (tool.confidence as EditorialTrust["confidence"]) || (tool.score >= 92 ? "élevée" : tool.score >= 84 ? "moyenne" : "prudente");
+  const freeCopy = tool.pricingSummary || (tool.freeTier ? "Gratuit disponible, souvent avec quotas ou fonctions avancées limitées." : `Payant autour de ${tool.monthlyPrice} €/mois, à valider selon pays/offre.`);
 
   return {
     why: `${tool.name} ressort parce qu’il combine une bonne adéquation au cas d’usage, un indice éditorial IA Match de ${tool.score}/100 et des forces concrètes : ${(tool.features ?? []).slice(0, 3).join(", ") || tool.tagline}.`,

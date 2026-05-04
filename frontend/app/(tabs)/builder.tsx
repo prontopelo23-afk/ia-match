@@ -17,7 +17,7 @@ import * as Clipboard from "expo-clipboard";
 import { Sparkles, Copy, Check, RotateCcw, Play, Clock, Trash2, ChevronDown, ChevronUp, Wand2, Shuffle } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
-import { api, builderHistory, BuilderHistoryItem, BuilderPreset, ModelRankings } from "../../src/api";
+import { api, builderHistory, BuilderHistoryItem, BuilderPreset } from "../../src/api";
 import PremiumGate from "../../src/components/PremiumGate";
 import { ScoreGauge, WorkflowMap } from "../../src/components/VisualExplainers";
 
@@ -65,11 +65,10 @@ export default function BuilderScreen() {
   const [error, setError] = useState<string | null>(null);
   const [hist, setHist] = useState<BuilderHistoryItem[]>([]);
   const [presets, setPresets] = useState<BuilderPreset[]>([]);
-  const [modelRankings, setModelRankings] = useState<ModelRankings>({});
   const [qualityRulesCount, setQualityRulesCount] = useState(0);
-  const [builderPackStats, setBuilderPackStats] = useState({ modelGuides: 0, examples: 0, safetyNotes: 0 });
   const [expandedHist, setExpandedHist] = useState<string | null>(null);
   const [showGuides, setShowGuides] = useState(false);
+  const [showAdvancedFields, setShowAdvancedFields] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
   useFocusEffect(
@@ -78,13 +77,7 @@ export default function BuilderScreen() {
       api.listBuilderPresets().then((items) => setPresets(items.slice(0, 12))).catch(() => {});
       api.getBuilderConfig().then((cfg) => {
         setQualityRulesCount(cfg.quality_rules?.length ?? 0);
-        setBuilderPackStats({
-          modelGuides: cfg.model_prompt_guides?.length ?? 0,
-          examples: cfg.bad_to_good_examples?.length ?? 0,
-          safetyNotes: cfg.safety_usage_notes?.length ?? 0,
-        });
       }).catch(() => {});
-      api.getModelRankings().then(setModelRankings).catch(() => {});
     }, [])
   );
 
@@ -120,7 +113,8 @@ export default function BuilderScreen() {
 
   const filled = Object.values(values).filter((v) => v.trim()).length;
   const estimatedQuality = Math.min(100, Math.round((filled / FIELDS.length) * 70 + (values.criteria?.trim() ? 10 : 0) + (values.format?.trim() ? 10 : 0) + (qualityRulesCount ? 10 : 0)));
-  const topModelHints = (modelRankings.models_general ?? []).slice(0, 4);
+  const essentialFields = FIELDS.filter((f) => ["objective", "context", "format"].includes(f.key));
+  const advancedFields = FIELDS.filter((f) => !["objective", "context", "format"].includes(f.key));
 
   const applyPreset = (preset: BuilderPreset) => {
     const steps = preset.steps?.map((s) => s.purpose).filter(Boolean).join("\n") || preset.blocks?.join(", ") || "";
@@ -239,13 +233,12 @@ export default function BuilderScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <Text style={[styles.crumb, { color: colors.textSecondary }]}>Workspace · Builder</Text>
-          <Text style={[styles.eyebrow, { color: colors.coral }]}>PROMPT BUILDER · 7 BLOCS</Text>
+          <Text style={[styles.eyebrow, { color: colors.coral }]}>BUILDER</Text>
           <Text style={[styles.title, { color: colors.textPrimary }]}>
-            Fabrique une bonne demande, <Text style={[styles.titleAccent, { color: colors.coral }]}>sans savoir prompter</Text>.
+            Transforme une idée vague en <Text style={[styles.titleAccent, { color: colors.coral }]}>prompt prêt à copier</Text>.
           </Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-            Le Builder te guide comme un jeu : choisis un exemple, remplis les cases, copie le prompt ou lance-le. Pas besoin de connaître les termes techniques.
+            Commence avec 3 champs simples. Les options avancées restent disponibles si tu veux affiner.
           </Text>
 
           <TouchableOpacity
@@ -258,7 +251,7 @@ export default function BuilderScreen() {
           </TouchableOpacity>
           <Text style={[styles.randomHint, { color: colors.textSecondary }]}>Un appui remplit les 7 blocs avec un cas concret, puis tu peux copier ou tester le prompt.</Text>
 
-          <ToggleCard title="Guides et repères" subtitle="Logique simple, anatomie du prompt et score qualité" open={showGuides} onPress={() => setShowGuides((v) => !v)} />
+          <ToggleCard title="Méthode rapide" subtitle="Comprendre ce qui rend un prompt clair" open={showGuides} onPress={() => setShowGuides((v) => !v)} />
           {showGuides ? (
             <>
               <View style={[styles.lessonCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
@@ -283,18 +276,6 @@ export default function BuilderScreen() {
           </ScrollView>
           <Text style={[styles.modelTip, { color: colors.textSecondary }]}>{targetModel.tip}</Text>
 
-          {topModelHints.length > 0 && showGuides ? (
-            <View style={[styles.modelHintBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}> 
-              <Text style={[styles.lessonTitle, { color: colors.textPrimary }]}>Repères modèles IA Match</Text>
-              <Text style={[styles.lessonText, { color: colors.textSecondary }]}>Pour les prompts exigeants, ces modèles ressortent du pack benchmarks enrichi.</Text>
-              <View style={styles.modelHintRow}>
-                {topModelHints.map((m: any) => (
-                  <Text key={m.id ?? m.name} style={[styles.modelHintPill, { color: colors.coral, backgroundColor: colors.coralSoft }]}>#{m.rank} {m.name}</Text>
-                ))}
-              </View>
-            </View>
-          ) : null}
-
           <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>2. Ou pars d’un exemple</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
             {EXAMPLES.map((ex) => (
@@ -306,7 +287,7 @@ export default function BuilderScreen() {
 
           {presets.length > 0 ? (
             <>
-              <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>3. Ou choisis un workflow premium IA Match</Text>
+              <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>3. Ou choisis un modèle de travail guidé</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
                 {presets.map((preset) => (
                   <TouchableOpacity key={preset.id} onPress={() => applyPreset(preset)} style={[styles.presetChip, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} testID={`builder-preset-${preset.id}`}>
@@ -319,13 +300,12 @@ export default function BuilderScreen() {
           ) : null}
 
           {showGuides ? (
-              <View style={[styles.qualityBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
-              <Text style={[styles.qualityLabel, { color: colors.textSecondary }]}>Score qualité estimé</Text>
+            <View style={[styles.qualityBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
+              <Text style={[styles.qualityLabel, { color: colors.textSecondary }]}>Formule simple</Text>
               <Text style={[styles.qualityScore, { color: colors.coral }]}>{estimatedQuality}/100</Text>
-              <Text style={[styles.qualityHint, { color: colors.textSecondary }]}>Basé sur les 7 blocs et les règles du pack Prompt Builder.</Text>
-              <Text style={[styles.qualityHint, { color: colors.textSecondary }]}>Données chargées : {qualityRulesCount} règles · {builderPackStats.modelGuides} guides modèles · {builderPackStats.examples} exemples · {builderPackStats.safetyNotes} notes sécurité.</Text>
+              <Text style={[styles.qualityHint, { color: colors.textSecondary }]}>Un bon prompt dit quoi produire, avec quel contexte, dans quel format. Le score est juste un repère pour t’aider à compléter.</Text>
             </View>
-) : null}
+          ) : null}
 
           <View style={[styles.progressBar, { backgroundColor: colors.borderSubtle }]}>
             <View style={[styles.progressFill, { backgroundColor: colors.coral, width: `${(filled / FIELDS.length) * 100}%` }]} />
@@ -334,25 +314,11 @@ export default function BuilderScreen() {
             {filled} / {FIELDS.length} blocs renseignés
           </Text>
 
-          {FIELDS.map((f) => (
-            <View key={f.key} style={styles.fieldBlock}>
-              <Text style={[styles.fieldLabel, { color: colors.coral }]}>{f.label}</Text>
-              <Text style={[styles.fieldHelp, { color: colors.textSecondary }]}>{f.help}</Text>
-              <TextInput
-                value={values[f.key] || ""}
-                onChangeText={(v) => setValues((s) => ({ ...s, [f.key]: v }))}
-                placeholder={f.placeholder}
-                placeholderTextColor={colors.textSecondary}
-                multiline={f.multiline}
-                style={[
-                  styles.input,
-                  { backgroundColor: colors.surface, borderColor: colors.borderSubtle, color: colors.textPrimary },
-                  f.multiline && { minHeight: 70, textAlignVertical: "top" },
-                ]}
-                testID={`builder-field-${f.key}`}
-              />
-            </View>
-          ))}
+          <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>4. Remplis l’essentiel</Text>
+          {essentialFields.map((f) => <PromptField key={f.key} field={f} value={values[f.key] || ""} onChange={(v) => setValues((state) => ({ ...state, [f.key]: v }))} />)}
+
+          <ToggleCard title="Options avancées" subtitle="Rôle, public, contraintes et critère de réussite" open={showAdvancedFields} onPress={() => setShowAdvancedFields((v) => !v)} />
+          {showAdvancedFields ? advancedFields.map((f) => <PromptField key={f.key} field={f} value={values[f.key] || ""} onChange={(v) => setValues((state) => ({ ...state, [f.key]: v }))} />) : null}
 
           <View style={[styles.previewBlock, { backgroundColor: colors.surface, borderColor: colors.coral }]}>
             <View style={styles.previewHeader}>
@@ -509,10 +475,28 @@ function ToggleCard({ title, subtitle, open, onPress }: { title: string; subtitl
   );
 }
 
+function PromptField({ field, value, onChange }: { field: Field; value: string; onChange: (value: string) => void }) {
+  const { colors } = useTheme();
+  return (
+    <View style={styles.fieldBlock}>
+      <Text style={[styles.fieldLabel, { color: colors.coral }]}>{field.label}</Text>
+      <Text style={[styles.fieldHelp, { color: colors.textSecondary }]}>{field.help}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChange}
+        placeholder={field.placeholder}
+        placeholderTextColor={colors.textSecondary}
+        multiline={field.multiline}
+        style={[styles.input, { backgroundColor: colors.surface, borderColor: colors.borderSubtle, color: colors.textPrimary }, field.multiline && { minHeight: 70, textAlignVertical: "top" }]}
+        testID={`builder-field-${field.key}`}
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
-  crumb: { fontFamily: fonts.body, fontSize: 12, marginBottom: spacing.md },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1 },
   titleAccent: { fontStyle: "italic" },
@@ -544,9 +528,6 @@ const styles = StyleSheet.create({
   lessonText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
   miniTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginTop: spacing.md },
   modelTip: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: -6, marginBottom: spacing.sm },
-  modelHintBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.sm },
-  modelHintRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: spacing.sm },
-  modelHintPill: { overflow: "hidden", borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 5, fontFamily: fonts.bodyBold, fontSize: 11 },
   exampleRow: { gap: 8, paddingVertical: spacing.md },
   exampleChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 10 },
   exampleText: { fontFamily: fonts.bodyBold, fontSize: 13 },

@@ -193,7 +193,7 @@ const base: TranslationDict = {
   "premium.desc": "Passe du simple catalogue à un vrai copilote de décision : Match illimité, sources, Academy complète, Builder avancé et comparatifs détaillés.",
   "premium.activate": "Activer Premium",
   "cookies.title": "Confidentialité & cookies",
-  "cookies.body": "IA Match utilise uniquement le stockage local pour tes préférences, favoris, historique et réglages de démo. Tu gardes le contrôle.",
+  "cookies.body": "IA Match utilise uniquement le stockage local pour tes préférences, favoris, historique et réglages. Tu gardes le contrôle.",
   "cookies.accept": "Accepter",
   "cookies.refuse": "Refuser",
 };

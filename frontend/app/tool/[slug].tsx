@@ -23,7 +23,6 @@ import { editorialTrustFor } from "../../src/utils/editorialTrust";
 import CategoryScoreBars from "../../src/components/CategoryScoreBars";
 import ScoreRing from "../../src/components/ScoreRing";
 import LogoTile from "../../src/components/LogoTile";
-import { ScoreGauge, WorkflowMap } from "../../src/components/VisualExplainers";
 
 export default function ToolDetail() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
@@ -36,7 +35,7 @@ export default function ToolDetail() {
   const [submitted, setSubmitted] = useState(false);
   const [inCompare, setInCompare] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({ prompt: true });
   const scale = useSharedValue(1);
 
   const animatedScore = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
@@ -92,9 +91,10 @@ export default function ToolDetail() {
   };
 
   const openOfficial = async () => {
-    if (!tool?.domain) return;
-    await analyticsStore.track("official_link_clicked", { slug: tool.slug, domain: tool.domain });
-    Linking.openURL(`https://${tool.domain}`).catch(() => {});
+    const targetUrl = tool?.officialUrl || (tool?.domain ? `https://${tool.domain}` : undefined);
+    if (!tool || !targetUrl) return;
+    await analyticsStore.track("official_link_clicked", { slug: tool.slug, domain: tool.domain, url: targetUrl });
+    Linking.openURL(targetUrl).catch(() => {});
   };
 
   const copySuggestedPrompt = async () => {
@@ -171,7 +171,7 @@ export default function ToolDetail() {
             </View>
           </View>
 
-          <CompactSection title="Pourquoi le choisir" subtitle="Recommandation, limites et cas où l’éviter" open={!!openSections.trust} onToggle={() => toggleSection("trust")}>
+          <CompactSection title="Pourquoi le choisir" subtitle="Résumé court : meilleur usage, limite, confiance" open={!!openSections.trust} onToggle={() => toggleSection("trust")}>
             {editorialTrust ? (
               <View style={styles.trustCard}>
                 <Text style={styles.trustTitle}>Pourquoi IA Match le recommande</Text>
@@ -196,7 +196,16 @@ export default function ToolDetail() {
             ) : null}
           </CompactSection>
 
-          <CompactSection title="Prix et score" subtitle="Plans, indice éditorial et méthode" open={!!openSections.score} onToggle={() => toggleSection("score")}>
+          <CompactSection title="Prix" subtitle="Gratuit, payant, limites à connaître" open={!!openSections.score} onToggle={() => toggleSection("score")}>
+            {tool.pricingSummary ? (
+              <View style={styles.pricingVerifiedCard}>
+                <Text style={styles.pricingVerifiedTitle}>Prix vérifiés · mai 2026</Text>
+                <Text style={styles.pricingVerifiedText}>{tool.pricingSummary}</Text>
+                {(tool.pricingPlans ?? []).map((plan) => (
+                  <Text key={`${plan.name}-${plan.price}`} style={styles.pricingVerifiedPlan}>• {plan.name} · {plan.price}{plan.note ? ` — ${plan.note}` : ""}</Text>
+                ))}
+              </View>
+            ) : null}
             {pricing ? (
               <View style={styles.pricingCard}>
                 <Text style={styles.pricingTitle}>💸 Prix expliqué simplement</Text>
@@ -219,23 +228,24 @@ export default function ToolDetail() {
             <View style={styles.scoreInfoCard}>
               <Text style={styles.scoreInfoTitle}>Comment est calculé ce score ?</Text>
               <Text style={styles.scoreInfoText}>
-                IA Match combine des benchmarks publics quand ils existent, les prix officiels, les limites produit, les langues, les tests internes et des indices éditoriaux par catégorie. Le chiffre sert à aider le choix : ce n’est pas une mesure scientifique absolue ni une promesse de performance réelle.
+                {tool.benchmarkSummary || "IA Match combine des benchmarks publics quand ils existent, les prix officiels, les limites produit, les langues, les tests internes et des indices éditoriaux par catégorie. Le chiffre sert à aider le choix : ce n’est pas une mesure scientifique absolue ni une promesse de performance réelle."}
               </Text>
+              {(tool.sources ?? []).slice(0, 4).map((source) => (
+                <Text key={`${source.label}-${source.url}`} style={styles.sourceLine}>🔗 {source.label} · {source.url.replace(/^https?:\/\//, "")}</Text>
+              ))}
             </View>
-            <ScoreGauge label="Indice éditorial IA Match" value={Math.max(tool.score, tool.accuracyPct)} helper="Repère d’aide au choix basé sur sources publiques, prix, limites et tests éditoriaux. Ce n’est pas un benchmark scientifique absolu." />
             {tool.lastUpdated ? (
               <Text style={{ fontFamily: fonts.body, fontSize: 11, color: colors.textSecondary, fontStyle: "italic", marginTop: spacing.sm }}>
-                ⓘ Indice éditorial IA Match mis à jour le {new Date(tool.lastUpdated).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })} · sources publiques, prix officiels et tests éditoriaux
+                ⓘ Repère IA Match mis à jour le {new Date(tool.lastUpdated).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })} · prix officiels et revue éditoriale
               </Text>
             ) : null}
           </CompactSection>
 
-          <CompactSection title="Prompt et méthode" subtitle="Prompt prêt à copier + workflow" open={!!openSections.prompt} onToggle={() => toggleSection("prompt")}>
-            <WorkflowMap title="Comment l’utiliser proprement" steps={["Choisir le bon cas d’usage", "Préparer un prompt clair", "Tester une première sortie", "Comparer avec une alternative", "Garder seulement si le résultat est meilleur"]} />
+          <CompactSection title="Prompt prêt à copier" subtitle="Un exemple concret pour tester l’outil" open={!!openSections.prompt} onToggle={() => toggleSection("prompt")}>
             {tool.example ? (
               <View style={{ backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md }}>
                 <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, marginBottom: 8 }}>
-                  ✨ Prompt conseillé : Avant / Après
+Prompt conseillé
                 </Text>
                 <Text style={{ fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5, color: colors.coral, marginBottom: 4 }}>PROMPT À COPIER</Text>
                 <View style={{ backgroundColor: colors.bg, padding: 10, borderRadius: 8, marginBottom: 10 }}>
@@ -251,7 +261,7 @@ export default function ToolDetail() {
               </View>
             ) : (
               <View style={{ backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md }}>
-                <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, marginBottom: 8 }}>✨ Prompt conseillé</Text>
+                <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: colors.textPrimary, marginBottom: 8 }}>Prompt conseillé</Text>
                 <Text style={{ fontFamily: fonts.body, fontSize: 12, lineHeight: 18, color: colors.textPrimary }}>
                   Tu es {tool.name}. Aide-moi à {tool.useCases[0] || "réaliser mon objectif"}. Donne-moi une réponse claire, actionnable, en français, avec les étapes et les erreurs à éviter.
                 </Text>
@@ -262,7 +272,7 @@ export default function ToolDetail() {
             )}
           </CompactSection>
 
-          <CompactSection title="Détails complets" subtitle="Confidentialité, points forts, cas d’usage" open={!!openSections.details} onToggle={() => toggleSection("details")}>
+          <CompactSection title="Détails" subtitle="Confidentialité, points forts, cas d’usage" open={!!openSections.details} onToggle={() => toggleSection("details")}>
             <Text style={styles.section}>À propos</Text>
             <Text style={styles.desc}>{tool.description}</Text>
             {tool.privacy ? (
@@ -350,17 +360,22 @@ export default function ToolDetail() {
             </Text>
           </TouchableOpacity>
 
-          {tool.domain ? (
-            <TouchableOpacity
-            onPress={openOfficial}
-              style={[styles.visitBtn, { borderColor: theme.borderSubtle }]}
-              testID="tool-visit-website"
-            >
-              <ExternalLink size={16} color={theme.textPrimary} strokeWidth={2} />
-              <Text style={[styles.visitText, { color: theme.textPrimary }]}>
-                Visiter {tool.domain}
+          {(tool.domain || tool.officialUrl) ? (
+            <>
+              <TouchableOpacity
+                onPress={openOfficial}
+                style={[styles.visitBtn, { borderColor: theme.borderSubtle }]}
+                testID="tool-visit-website"
+              >
+                <ExternalLink size={16} color={theme.textPrimary} strokeWidth={2} />
+                <Text style={[styles.visitText, { color: theme.textPrimary }]}>
+                  Visiter {tool.domain || "le site officiel"}
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.externalDisclaimer}>
+                {tool.externalDisclaimer || "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources."}
               </Text>
-            </TouchableOpacity>
+            </>
           ) : null}
         </View>
       </ScrollView>
@@ -493,9 +508,14 @@ const styles = StyleSheet.create({
   scoreInfoCard: { backgroundColor: colors.coralSoft, borderRadius: radius.lg, padding: spacing.md, marginTop: -spacing.sm, marginBottom: spacing.md },
   scoreInfoTitle: { fontFamily: fonts.bodyBold, fontSize: 13, color: colors.textPrimary, marginBottom: 4 },
   scoreInfoText: { fontFamily: fonts.body, fontSize: 12, color: colors.textSecondary, lineHeight: 18 },
+  sourceLine: { fontFamily: fonts.body, fontSize: 10, color: colors.coral, lineHeight: 15, marginTop: 5 },
   copyPromptBtn: { backgroundColor: colors.coral, paddingVertical: 11, borderRadius: radius.pill, alignItems: "center", marginBottom: 4 },
   copyPromptText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
   pricingCard: { backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  pricingVerifiedCard: { backgroundColor: colors.coralSoft, borderColor: colors.coral, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  pricingVerifiedTitle: { fontFamily: fonts.bodyBold, fontSize: 13, color: colors.textPrimary, marginBottom: 4, letterSpacing: 0.3 },
+  pricingVerifiedText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18, color: colors.textPrimary },
+  pricingVerifiedPlan: { fontFamily: fonts.body, fontSize: 11, lineHeight: 17, color: colors.textSecondary, marginTop: 4 },
   pricingTitle: { fontFamily: fonts.serif, fontSize: 20, color: colors.textPrimary, marginBottom: 6 },
   pricingNote: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18, color: colors.textSecondary, marginBottom: spacing.sm },
   planRow: { borderTopWidth: 1, borderTopColor: colors.borderSubtle, paddingTop: spacing.sm, marginTop: spacing.sm },
@@ -580,4 +600,5 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   visitText: { fontFamily: fonts.bodySemi, fontSize: 14 },
+  externalDisclaimer: { fontFamily: fonts.body, fontSize: 10, lineHeight: 14, color: colors.textSecondary, textAlign: "center", marginTop: 6, paddingHorizontal: spacing.md, fontStyle: "italic" },
 });

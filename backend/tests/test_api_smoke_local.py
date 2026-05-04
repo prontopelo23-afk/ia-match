@@ -63,3 +63,18 @@ def test_match_recommendations_do_not_repeat_public_products():
     assert response.status_code == 200
     names = [item["tool"]["name"].lower() for item in response.json()[:10]]
     assert len(names) == len(set(names))
+
+
+def test_match_image_recommendations_group_model_variants():
+    response = client.post("/api/match", json={
+        "need": "Je veux créer une image pour une publicité Instagram",
+        "priority": "price",
+        "free_only": True,
+        "language": "fr",
+    })
+    assert response.status_code == 200
+    names = [item["tool"]["name"].lower() for item in response.json()[:8]]
+    assert sum("flux" in name for name in names) <= 1
+    assert sum("stable diffusion" in name for name in names) <= 1
+    assert sum("nano banana" in name for name in names) <= 1
+    assert sum("gpt image" in name or "chatgpt image" in name for name in names) <= 1

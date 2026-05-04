@@ -284,7 +284,17 @@ def load_static_data(base_path: Path):
         # make the problem visible in backend logs during validation.
         print(f"IA Match imported data enrichment skipped: {exc}")
 
-    # 3) Decorate after every import/enrichment step. Previously this happened
+    # 3) Apply the May 2026 source-backed static data refresh after every import
+    # so seed tools and rich-pack tools share the same official-link/pricing/source
+    # schema before decoration/fallback export.
+    try:
+        from static_data_updates import apply_static_data_updates
+
+        _cached_data["tools"] = apply_static_data_updates(_cached_data.get("tools", []))
+    except Exception as exc:
+        print(f"IA Match May 2026 static data refresh skipped: {exc}")
+
+    # 4) Decorate after every import/enrichment step. Previously this happened
     # before the rich JSON merge, so newly imported tools could stay invisible.
     _cached_data["decorated_tools"] = [_decorate_tool_extras(t) for t in _cached_data.get("tools", [])]
 

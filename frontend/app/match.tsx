@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowRight, Check, Copy, ExternalLink, X, GitCompare, ThumbsUp, ThumbsDown, Bookmark } from "lucide-react-native";
+import { ArrowRight, Check, Copy, ExternalLink, X, GitCompare, ThumbsUp, ThumbsDown, Bookmark, ChevronDown, ChevronUp } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
 import { colors, fonts, radius, shadow, spacing } from "../src/theme";
 import { api, history, MatchResult, matchUsageStore, FREE_MATCH_LIMIT, analyticsStore } from "../src/api";
@@ -21,7 +21,6 @@ import { usePremium } from "../src/theme-context";
 import { useI18n } from "../src/i18n";
 import PremiumGate from "../src/components/PremiumGate";
 import ToolCard from "../src/components/ToolCard";
-import { ScoreGauge, ToolBattleStrip, WorkflowMap } from "../src/components/VisualExplainers";
 import { editorialTrustFor } from "../src/utils/editorialTrust";
 
 type Level = "beginner" | "intermediate" | "pro";
@@ -96,6 +95,8 @@ export default function MatchWizard() {
   const [usedMatches, setUsedMatches] = useState(0);
   const [copiedPrompt, setCopiedPrompt] = useState(false);
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [showAlternatives, setShowAlternatives] = useState(false);
 
   useEffect(() => { matchUsageStore.get().then(setUsedMatches); }, []);
 
@@ -141,7 +142,6 @@ export default function MatchWizard() {
   const usedRecommendationSlugs = new Set<string>(best ? [best.tool.slug] : []);
   const freeAlternative = firstDistinctResult(results, usedRecommendationSlugs, (r) => r.tool.freeTier);
   const premium = firstDistinctResult(results, usedRecommendationSlugs, (r) => !r.tool.freeTier);
-  const visibleRecommendations = [best, freeAlternative, premium].filter(Boolean) as MatchResult[];
   const bestTrust = best ? editorialTrustFor(best.tool) : null;
   const readyPrompt = best?.readyPrompt || (best ? `Agis comme un assistant expert de ${best.tool.name}. Aide-moi à ${selectedTask}. Mon niveau est ${level === "beginner" ? "débutant" : level === "intermediate" ? "intermédiaire" : "professionnel"}. Réponds en français simple, avec les étapes concrètes, les erreurs à éviter et une version finale prête à utiliser.` : "");
   const openBestTool = async () => {
@@ -303,11 +303,8 @@ export default function MatchWizard() {
           {step === 3 && !( !isPremium && usedMatches >= FREE_MATCH_LIMIT && results.length === 0) && (
             <View>
               <Text style={styles.stepLabel}>RÉSULTATS</Text>
-              <Text style={styles.stepTitle}>{visibleRecommendations.length >= 3 ? "Voici tes 3 IA les plus adaptées." : "Voici les IA les plus adaptées."}</Text>
-              <Text style={styles.stepSub}>{buildNeed(selectedTask, level || "beginner", budget || "best", priority || "balanced")}</Text>
-              {visibleRecommendations.length ? <ToolBattleStrip items={visibleRecommendations.map((r) => ({ name: r.tool.name, role: r.reasons[0] || r.tool.tagline, score: r.matchScore }))} /> : null}
-              {best ? <ScoreGauge label="Confiance du Match" value={best.matchScore} helper="Indice éditorial IA Match : besoin exact, catégorie, qualité métier, budget, vitesse et contraintes de langue. Ce n’est pas une mesure scientifique absolue." /> : null}
-              <WorkflowMap title="Plan d’action après le Match" steps={["Tester le meilleur choix", "Comparer l’alternative", "Copier le prompt", "Valider le résultat réel"]} />
+              <Text style={styles.stepTitle}>{best ? `Je te recommande ${best.tool.name}.` : "Voici les IA les plus adaptées."}</Text>
+              <Text style={styles.stepSub}>Besoin : {selectedTask}</Text>
 
               {best ? (
                 <View style={styles.resultHero}>
@@ -327,21 +324,21 @@ export default function MatchWizard() {
                       <Text style={styles.reasonText}>2. Ouvre {best.tool.name}.</Text>
                       <Text style={styles.reasonText}>3. Colle, teste, puis ajuste avec ton contexte.</Text>
                     </View>
-                    {best.scoreExplanation ? <Text style={styles.scoreExplanation}>Indice éditorial IA Match : {best.scoreExplanation}</Text> : null}
-                    {bestTrust ? (
+                    <TouchableOpacity onPress={() => setShowDetails((v) => !v)} style={styles.detailsToggle}>
+                      <Text style={styles.detailsToggleText}>Pourquoi ce classement ?</Text>
+                      {showDetails ? <ChevronUp size={16} color={colors.coral} /> : <ChevronDown size={16} color={colors.coral} />}
+                    </TouchableOpacity>
+                    {showDetails ? (
                       <View style={styles.avoidBox}>
-                        <Text style={styles.avoidTitle}>Pour qui / quand éviter / confiance</Text>
-                        <Text style={styles.reasonText}>👤 Pour qui : {bestTrust.bestFor}</Text>
-                        <Text style={styles.reasonText}>⚠️ À éviter si : {bestTrust.avoidIf.join(" · ")}</Text>
-                        <Text style={styles.reasonText}>💸 Prix / limites : {bestTrust.pricing}</Text>
-                        <Text style={styles.reasonText}>🔎 Sources : {bestTrust.sources.join(" · ")}</Text>
-                        <Text style={styles.reasonText}>🧭 Confiance : {bestTrust.confidence} · MAJ : {bestTrust.updatedAt}</Text>
-                      </View>
-                    ) : null}
-                    {best.avoidIf?.length ? (
-                      <View style={styles.avoidBox}>
-                        <Text style={styles.avoidTitle}>À éviter si :</Text>
-                        {best.avoidIf.map((item) => <Text key={item} style={styles.reasonText}>• {item}</Text>)}
+                        {best.scoreExplanation ? <Text style={styles.scoreExplanation}>Méthode : {best.scoreExplanation}</Text> : null}
+                        {bestTrust ? <>
+                          <Text style={styles.avoidTitle}>Détails utiles</Text>
+                          <Text style={styles.reasonText}>👤 Pour qui : {bestTrust.bestFor}</Text>
+                          <Text style={styles.reasonText}>⚠️ À éviter si : {bestTrust.avoidIf.join(" · ")}</Text>
+                          <Text style={styles.reasonText}>💸 Prix / limites : {bestTrust.pricing}</Text>
+                          <Text style={styles.reasonText}>🔎 Sources : {bestTrust.sources.join(" · ")}</Text>
+                        </> : null}
+                        {best.avoidIf?.length ? best.avoidIf.map((item) => <Text key={item} style={styles.reasonText}>• {item}</Text>) : null}
                       </View>
                     ) : null}
                   </View>
@@ -350,17 +347,24 @@ export default function MatchWizard() {
                 <Text style={styles.empty}>Aucun match. Reformule ton besoin.</Text>
               )}
 
-              {freeAlternative ? (
+              {(freeAlternative || premium) ? (
                 <View style={styles.resultBlock}>
-                  <Text style={styles.blockLabel}>ALTERNATIVE GRATUITE</Text>
-                  <ToolCard tool={freeAlternative.tool} matchScore={freeAlternative.matchScore} testID={`match-free-${freeAlternative.tool.slug}`} />
-                </View>
-              ) : null}
-
-              {premium ? (
-                <View style={styles.resultBlock}>
-                  <Text style={styles.blockLabel}>OPTION PREMIUM</Text>
-                  <ToolCard tool={premium.tool} matchScore={premium.matchScore} testID={`match-premium-${premium.tool.slug}`} />
+                  <TouchableOpacity onPress={() => setShowAlternatives((v) => !v)} style={styles.altToggle}>
+                    <Text style={styles.blockLabel}>ALTERNATIVES</Text>
+                    {showAlternatives ? <ChevronUp size={16} color={colors.coral} /> : <ChevronDown size={16} color={colors.coral} />}
+                  </TouchableOpacity>
+                  {showAlternatives && freeAlternative ? (
+                    <View style={styles.altCard}>
+                      <Text style={styles.blockLabel}>GRATUIT</Text>
+                      <ToolCard tool={freeAlternative.tool} matchScore={freeAlternative.matchScore} testID={`match-free-${freeAlternative.tool.slug}`} />
+                    </View>
+                  ) : null}
+                  {showAlternatives && premium ? (
+                    <View style={styles.altCard}>
+                      <Text style={styles.blockLabel}>OPTION PAYANTE</Text>
+                      <ToolCard tool={premium.tool} matchScore={premium.matchScore} testID={`match-premium-${premium.tool.slug}`} />
+                    </View>
+                  ) : null}
                 </View>
               ) : null}
 
@@ -450,6 +454,8 @@ const styles = StyleSheet.create({
   decisionPillText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 11 },
   resultHeroLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.7, color: colors.coral, marginBottom: spacing.sm },
   resultBlock: { marginTop: spacing.lg },
+  altToggle: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderWidth: 1, borderColor: colors.borderSubtle, borderRadius: radius.lg, padding: spacing.md },
+  altCard: { marginTop: spacing.sm },
   blockLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.7, color: colors.coral, marginBottom: spacing.sm },
   reasonsBox: { backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.md, padding: spacing.md, marginTop: -spacing.sm, marginBottom: spacing.md },
   resultSummaryTitle: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.textPrimary, marginBottom: 8 },
@@ -459,6 +465,8 @@ const styles = StyleSheet.create({
   scoreExplanation: { fontFamily: fonts.bodySemi, fontSize: 12, color: colors.textPrimary, lineHeight: 18, marginTop: spacing.sm },
   avoidBox: { marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: colors.borderSubtle },
   avoidTitle: { fontFamily: fonts.bodyBold, fontSize: 12, color: colors.textPrimary, marginBottom: 4 },
+  detailsToggle: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: spacing.sm, paddingTop: spacing.sm, borderTopWidth: 1, borderTopColor: colors.borderSubtle },
+  detailsToggleText: { fontFamily: fonts.bodyBold, fontSize: 12, color: colors.coral },
   promptBox: { backgroundColor: colors.darkCard, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.lg },
   promptText: { fontFamily: fonts.body, fontSize: 13, color: colors.textInverse, lineHeight: 20 },
   actionRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: spacing.md },

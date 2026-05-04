@@ -61,14 +61,20 @@ export default function Accueil() {
         <View style={styles.quickGrid}>
           <QuickCard icon={<Layers3 size={20} color={colors.coral} />} title={t("home.quickCatalogTitle")} text={t("home.quickCatalog")} onPress={() => router.push("/(tabs)/categories")} />
           <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title={t("home.quickAcademyTitle")} text={t("home.quickAcademy")} onPress={() => router.push("/(tabs)/academy")} />
-          <QuickCard icon={<Sparkles size={20} color={colors.coral} />} title={t("home.quickRankingsTitle")} text={t("home.quickRankings")} onPress={() => router.push("/(tabs)/benchmarks")} />
           <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title={t("home.quickPromptTitle")} text={t("home.quickPrompt")} onPress={() => router.push("/(tabs)/builder")} />
           <QuickCard icon={<Newspaper size={20} color={colors.coral} />} title="Actu" text="Radar IA, sources et conseils actionnables." onPress={() => router.push("/(tabs)/actue")} />
-          <QuickCard icon={<GitCompare size={20} color={colors.coral} />} title="Comparer" text="Comparer jusqu’à 4 outils avec favoris et notes." onPress={() => router.push("/(tabs)/compare")} />
-          <QuickCard icon={<GraduationCap size={20} color={colors.coral} />} title="Apprendre" text="Glossaire, FAQ, cas d’usage et quiz gratuit." onPress={() => router.push("/learn")} />
-          <QuickCard icon={<Network size={20} color={colors.coral} />} title="Écosystème" text="Stacks IA, ressources et workflows concrets." onPress={() => router.push("/ecosystem")} />
-          <QuickCard icon={<Mail size={20} color={colors.coral} />} title={t("home.quickNewsletterTitle")} text={t("home.quickNewsletter")} onPress={() => router.push("/newsletter")} />
-          <QuickCard icon={<BriefcaseBusiness size={20} color={colors.coral} />} title={t("home.quickBusinessTitle")} text={t("home.quickBusiness")} onPress={() => router.push("/business")} />
+        </View>
+
+        <View style={[styles.moreCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
+          <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Autres raccourcis utiles</Text>
+          <View style={styles.moreGrid}>
+            <CompactLink icon={<Sparkles size={15} color={theme.coral} />} title={t("home.quickRankingsTitle")} onPress={() => router.push("/(tabs)/benchmarks")} />
+            <CompactLink icon={<GitCompare size={15} color={theme.coral} />} title="Comparer" onPress={() => router.push("/(tabs)/compare")} />
+            <CompactLink icon={<GraduationCap size={15} color={theme.coral} />} title="Apprendre" onPress={() => router.push("/learn")} />
+            <CompactLink icon={<Network size={15} color={theme.coral} />} title="Écosystème" onPress={() => router.push("/ecosystem")} />
+            <CompactLink icon={<Mail size={15} color={theme.coral} />} title={t("home.quickNewsletterTitle")} onPress={() => router.push("/newsletter")} />
+            <CompactLink icon={<BriefcaseBusiness size={15} color={theme.coral} />} title={t("home.quickBusinessTitle")} onPress={() => router.push("/business")} />
+          </View>
         </View>
 
         <MiniRadar onOpen={() => router.push("/(tabs)/actue")} />
@@ -81,7 +87,7 @@ export default function Accueil() {
               <Text style={[styles.retentionTitle, { color: theme.textPrimary }]}>3 IA utiles, 1 piège à éviter, 1 prompt prêt à copier.</Text>
             </View>
           </View>
-          <Text style={[styles.retentionText, { color: theme.textSecondary }]}>La newsletter quitte le centre de l’accueil : elle devient un rappel compact et personnalisable dans Profil → Préférences de veille.</Text>
+          <Text style={[styles.retentionText, { color: theme.textSecondary }]}>Un résumé court pour suivre l’IA sans te noyer : recommandations, pièges concrets et prompts prêts à essayer.</Text>
           <View style={styles.retentionActions}>
             <TouchableOpacity style={[styles.retentionCta, { backgroundColor: theme.coral }]} onPress={() => openNewsletterSignup("Digest compact IA Match") }>
               <Text style={styles.retentionCtaText}>Recevoir le digest</Text>
@@ -178,6 +184,11 @@ function QuickCard({ icon, title, text, onPress }: { icon: React.ReactNode; titl
   return <TouchableOpacity onPress={onPress} style={[styles.quickCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><View style={[styles.quickIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.quickTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.quickText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
 }
 
+function CompactLink({ icon, title, onPress }: { icon: React.ReactNode; title: string; onPress: () => void }) {
+  const { colors } = useTheme();
+  return <TouchableOpacity onPress={onPress} style={[styles.compactLink, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>{icon}<Text style={[styles.compactLinkText, { color: colors.textPrimary }]}>{title}</Text></TouchableOpacity>;
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
@@ -185,9 +196,9 @@ const styles = StyleSheet.create({
   brandLockup: { flexDirection: "row", alignItems: "center", gap: 10 },
   brandLogo: { width: 44, height: 44, borderRadius: 8 },
   brandName: { fontFamily: fonts.serif, fontSize: 18, lineHeight: 20 },
-  brandSub: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 1.5 },
+  brandSub: { fontFamily: fonts.bodySemi, fontSize: 11, letterSpacing: 1.2 },
   hero: { backgroundColor: colors.darkCard, borderRadius: radius.xl, padding: spacing.lg, paddingVertical: spacing.xl, marginTop: spacing.sm, ...shadow.dark },
-  heroLabel: { fontFamily: fonts.bodySemi, fontSize: 10, letterSpacing: 2, color: colors.coral, marginBottom: spacing.sm },
+  heroLabel: { fontFamily: fonts.bodySemi, fontSize: 12, letterSpacing: 1.6, color: colors.coral, marginBottom: spacing.sm },
   heroTitle: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, color: colors.textInverse, letterSpacing: -1 },
   heroTitleAccent: { color: colors.coral, fontStyle: "italic" },
   heroSub: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, color: "rgba(253,251,247,0.72)", marginTop: spacing.sm, marginBottom: spacing.md },
@@ -197,16 +208,21 @@ const styles = StyleSheet.create({
   quickCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 118 },
   quickIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   quickTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
-  quickText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
+  quickText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 4 },
+  moreCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.sm },
+  moreTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: spacing.sm },
+  moreGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  compactLink: { width: "48%", minHeight: 42, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 10, flexDirection: "row", alignItems: "center", gap: 7 },
+  compactLinkText: { flex: 1, fontFamily: fonts.bodyBold, fontSize: 13 },
   hubCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
   sectionHeadCompact: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginBottom: spacing.sm },
   familyGrid: { gap: 8 },
   familyPill: { borderRadius: radius.lg, padding: spacing.sm },
   familyTitle: { fontFamily: fonts.bodyBold, fontSize: 13 },
-  familyText: { fontFamily: fonts.body, fontSize: 11, lineHeight: 16, marginTop: 2 },
+  familyText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 2 },
   newsCard: { borderWidth: 1.5, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
   newsTopRow: { flexDirection: "row", alignItems: "center", gap: 7, marginBottom: 6 },
-  newsLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  newsLabel: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.2 },
   newsTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 26 },
   newsText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4 },
   sectionHead: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
@@ -221,22 +237,22 @@ const styles = StyleSheet.create({
   radarMini: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginTop: spacing.md, ...shadow.soft },
   radarMiniHead: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: spacing.sm },
   radarOrb: { width: 42, height: 42, borderRadius: 16, alignItems: "center", justifyContent: "center" },
-  radarMiniLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  radarMiniLabel: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.2 },
   radarMiniTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25, marginTop: 2 },
   radarMiniGrid: { gap: 7 },
   radarMiniPill: { flexDirection: "row", alignItems: "flex-start", gap: 7, borderWidth: 1, borderRadius: radius.md, padding: 9 },
-  radarMiniPillLabel: { fontFamily: fonts.bodyBold, fontSize: 9, letterSpacing: 0.8, textTransform: "uppercase" },
-  radarMiniPillText: { fontFamily: fonts.bodySemi, fontSize: 12, lineHeight: 16, marginTop: 1 },
-  radarMiniOpen: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: spacing.sm },
+  radarMiniPillLabel: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 0.6, textTransform: "uppercase" },
+  radarMiniPillText: { fontFamily: fonts.bodySemi, fontSize: 13, lineHeight: 18, marginTop: 1 },
+  radarMiniOpen: { fontFamily: fonts.bodyBold, fontSize: 13, marginTop: spacing.sm },
   retentionCard: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginTop: spacing.md },
   retentionIconRow: { flexDirection: "row", alignItems: "flex-start", gap: 10 },
   retentionIcon: { width: 40, height: 40, borderRadius: 15, alignItems: "center", justifyContent: "center" },
-  retentionLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.4 },
+  retentionLabel: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.1 },
   retentionTitle: { fontFamily: fonts.serif, fontSize: 22, lineHeight: 26, marginTop: 2 },
-  retentionText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18, marginTop: spacing.sm },
+  retentionText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm },
   retentionActions: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: spacing.md },
   retentionCta: { borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 11 },
-  retentionCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
+  retentionCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
   retentionGhost: { flexDirection: "row", alignItems: "center", gap: 6, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 10 },
-  retentionGhostText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  retentionGhostText: { fontFamily: fonts.bodyBold, fontSize: 13 },
 });

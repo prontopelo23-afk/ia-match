@@ -76,6 +76,15 @@ class Tool(BaseModel):
     categoryScores: dict = {}
     color: str
     image: str
+    officialUrl: Optional[str] = None
+    pricingSummary: Optional[str] = None
+    pricingPlans: List[dict] = []
+    benchmarkSummary: Optional[str] = None
+    dataVerifiedAt: Optional[str] = None
+    confidence: Optional[str] = None
+    sources: List[dict] = []
+    scoreDetails: Optional[dict] = None
+    externalDisclaimer: Optional[str] = None
     lastUpdated: Optional[str] = None
     privacy: Optional[dict] = None
     example: Optional[dict] = None
@@ -313,8 +322,11 @@ def _rule_based_match(need: str, priority: str, free_only: bool, language: str) 
     deduped: List[MatchResult] = []
     seen_public_names: set[str] = set()
     for result in results:
-        public_key = _normalize(result.tool.name)
-        public_key = re.sub(r"\b(high|pro|max|standard|mini|lite|preview|beta|v\d+|\d+(?:\.\d+)?)\b", "", public_key).strip() or public_key
+        if inferred_categories:
+            public_key = _category_family_key(result.tool.model_dump(), inferred_categories[0])
+        else:
+            public_key = _normalize(result.tool.name)
+            public_key = re.sub(r"\b(high|pro|max|standard|mini|lite|preview|beta|dev|turbo|flash|preview|image|v\d+|\d+(?:\.\d+)?)\b", "", public_key).strip() or public_key
         if public_key in seen_public_names:
             continue
         seen_public_names.add(public_key)
@@ -349,6 +361,8 @@ def _category_family_key(tool: dict, category: str) -> str:
             return "google-imagen"
         if slug.startswith("flux") or "flux" in name:
             return "black-forest-flux"
+        if slug.startswith("stable-diffusion") or "stable diffusion" in name:
+            return "stability-stable-diffusion"
     if category == "texte":
         if slug in {"chatgpt", "o3"} or vendor == "openai":
             return f"openai-{slug}" if slug == "o3" else "openai-chatgpt"

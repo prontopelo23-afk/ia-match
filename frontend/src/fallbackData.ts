@@ -28,6 +28,156 @@
 export const FALLBACK_DATA = {
   "TOOLS": [
     {
+      "slug": "chatgpt",
+      "name": "ChatGPT",
+      "vendor": "OpenAI",
+      "domain": "chatgpt.com",
+      "tagline": "Assistant OpenAI polyvalent : Free, Go, Plus, Pro, Business",
+      "description": "Assistant OpenAI pour écrire, coder, analyser fichiers/images, naviguer et utiliser des agents/GPTs. Les modèles et quotas varient selon le plan et le pays.",
+      "categorySlugs": [
+        "texte",
+        "productivite",
+        "recherche",
+        "code"
+      ],
+      "speedMs": 180,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.002,
+      "monthlyPrice": 20.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en",
+        "es",
+        "de",
+        "it",
+        "ja",
+        "zh"
+      ],
+      "features": [
+        "GPT-5.5",
+        "Multimodal",
+        "Vision",
+        "Navigation web",
+        "Custom GPTs",
+        "Free",
+        "Go",
+        "Plus",
+        "Pro",
+        "fichiers",
+        "image",
+        "voix",
+        "agents"
+      ],
+      "useCases": [
+        "Rédiger un CV",
+        "Résumer un document",
+        "Brainstorming",
+        "Apprendre"
+      ],
+      "keywords": [
+        "cv",
+        "resume",
+        "résumé",
+        "lettre",
+        "motivation",
+        "email",
+        "écrire",
+        "rédiger",
+        "brainstorm",
+        "gpt5",
+        "gpt-5"
+      ],
+      "score": 97,
+      "categoryScores": {
+        "texte": 95,
+        "productivite": 88,
+        "recherche": 82,
+        "code": 78
+      },
+      "color": "#10A37F",
+      "image": "https://logo.clearbit.com/chatgpt.com",
+      "officialUrl": "https://chatgpt.com/pricing/",
+      "pricingSummary": "Gratuit disponible ; Plus ≈ 20 $/mois ; Pro ≈ 200 $/mois ; Go disponible selon pays. Vérifier les prix locaux sur ChatGPT.",
+      "pricingPlans": [
+        {
+          "name": "Free",
+          "price": "0 $",
+          "note": "Découverte, quotas bas et accès variable aux modèles avancés."
+        },
+        {
+          "name": "Go",
+          "price": "selon pays",
+          "note": "Palier léger quand disponible, au-dessus du gratuit."
+        },
+        {
+          "name": "Plus",
+          "price": "≈ 20 $/mois",
+          "note": "Usage régulier, fichiers, images, outils et meilleurs quotas."
+        },
+        {
+          "name": "Pro",
+          "price": "≈ 200 $/mois",
+          "note": "Usage intensif et quotas beaucoup plus élevés."
+        }
+      ],
+      "benchmarkSummary": "Artificial Analysis classe GPT-5.5 parmi les tout premiers modèles d’intelligence en mai 2026 ; l’indice IA Match reste un indice éditorial.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Chatbot Arena",
+          "url": "https://lmarena.ai/leaderboard",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 97,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Artificial Analysis classe GPT-5.5 parmi les tout premiers modèles d’intelligence en mai 2026 ; l’indice IA Match reste un indice éditorial.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Chatbot Arena",
+            "url": "https://lmarena.ai/leaderboard",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 55,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Stockage US. Désactiver « Improve the model for everyone » dans Data controls. ChatGPT Plus n'utilise PAS tes données par défaut."
+      },
+      "example": null
+    },
+    {
       "slug": "dalle",
       "name": "ChatGPT Image 2.0",
       "vendor": "OpenAI",
@@ -92,142 +242,62 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B35",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://openai.com/api/pricing/",
+      "pricingSummary": "Inclus dans ChatGPT selon plan ; prix API séparé pour GPT Image. Vérifier OpenAI pricing.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
         "trains_on_data": "opt-out",
         "rgpd": true,
         "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
-      },
-      "example": null
-    },
-    {
-      "slug": "chatgpt",
-      "name": "ChatGPT",
-      "vendor": "OpenAI",
-      "domain": "openai.com",
-      "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5",
-      "description": "Assistant conversationnel OpenAI propulsé par GPT-5.5. Rédaction, brainstorming, code, analyse de documents, vision, navigation web et GPTs personnalisés.",
-      "categorySlugs": [
-        "texte",
-        "productivite",
-        "recherche",
-        "code"
-      ],
-      "speedMs": 180,
-      "accuracyPct": 95,
-      "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "it",
-        "ja",
-        "zh"
-      ],
-      "features": [
-        "GPT-5.5",
-        "Multimodal",
-        "Vision",
-        "Navigation web",
-        "Custom GPTs"
-      ],
-      "useCases": [
-        "Rédiger un CV",
-        "Résumer un document",
-        "Brainstorming",
-        "Apprendre"
-      ],
-      "keywords": [
-        "cv",
-        "resume",
-        "résumé",
-        "lettre",
-        "motivation",
-        "email",
-        "écrire",
-        "rédiger",
-        "brainstorm",
-        "gpt5",
-        "gpt-5"
-      ],
-      "score": 96,
-      "categoryScores": {
-        "texte": 95,
-        "productivite": 88,
-        "recherche": 82,
-        "code": 78
-      },
-      "color": "#10A37F",
-      "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 55,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Stockage US. Désactiver « Improve the model for everyone » dans Data controls. ChatGPT Plus n'utilise PAS tes données par défaut."
-      },
-      "example": null
-    },
-    {
-      "slug": "claude-opus",
-      "name": "Claude Opus 4",
-      "vendor": "Anthropic",
-      "domain": "claude.ai",
-      "tagline": "Le modèle de raisonnement Anthropic premium",
-      "description": "Le plus puissant des Claude, raisonnement de pointe, contexte 200k+.",
-      "categorySlugs": [
-        "texte",
-        "code",
-        "recherche"
-      ],
-      "speedMs": 400,
-      "accuracyPct": 96,
-      "costPerPrompt": 0.015,
-      "monthlyPrice": 200.0,
-      "freeTier": false,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "ja"
-      ],
-      "features": [
-        "Raisonnement profond",
-        "Tool use",
-        "Vision"
-      ],
-      "useCases": [
-        "Décisions stratégiques",
-        "Audit complexe"
-      ],
-      "keywords": [
-        "claude",
-        "opus",
-        "anthropic",
-        "raisonnement"
-      ],
-      "score": 96,
-      "categoryScores": {
-        "texte": 96,
-        "code": 89,
-        "recherche": 83
-      },
-      "color": "#CC785C",
-      "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 75,
-        "eu_hosted": false,
-        "trains_on_data": "no",
-        "rgpd": true,
-        "note": "Identique à Claude. Plan Max 200€/mois, données non utilisées pour entraînement."
       },
       "example": null
     },
@@ -279,7 +349,7 @@ export const FALLBACK_DATA = {
         "recherche web complexe",
         "analyse de documents"
       ],
-      "score": 96,
+      "score": 97,
       "categoryScores": {
         "texte": 96,
         "code": 90,
@@ -289,58 +359,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-02",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://openai.com/api/pricing/",
+      "pricingSummary": "Modèle/API ou inclus selon produit OpenAI ; vérifier prix API et plan ChatGPT officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 97,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "gpt-image-2-high",
-      "name": "GPT Image 2 high",
-      "vendor": "OpenAI",
-      "domain": "openai.com",
-      "tagline": "images photoréalistes",
-      "description": "images photoréalistes; visuels marketing; création grand public; Classé premier sur Artificial Analysis Text-to-Image Arena; Très fort signal de préférence humaine via votes à l’aveugle",
-      "categorySlugs": [
-        "image"
-      ],
-      "speedMs": 192,
-      "accuracyPct": 96,
-      "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en"
-      ],
-      "features": [
-        "image_generation"
-      ],
-      "useCases": [
-        "images photoréalistes",
-        "visuels marketing",
-        "création grand public"
-      ],
-      "keywords": [
-        "GPT Image 2 high",
-        "OpenAI",
-        "image",
-        "images photoréalistes",
-        "visuels marketing",
-        "création grand public"
-      ],
-      "score": 96,
-      "categoryScores": {
-        "image": 96
-      },
-      "color": "#10A37F",
-      "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-02",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -392,13 +450,52 @@ export const FALLBACK_DATA = {
         "documents",
         "analyse de données"
       ],
-      "score": 96,
+      "score": 97,
       "categoryScores": {
         "texte": 96
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com/api/pricing/",
+      "pricingSummary": "Alias de modèle OpenAI : prix selon API/plan ChatGPT, pas un abonnement séparé.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 97,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -421,7 +518,7 @@ export const FALLBACK_DATA = {
       "speedMs": 192,
       "accuracyPct": 96,
       "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
+      "monthlyPrice": 200.0,
       "freeTier": true,
       "languages": [
         "fr",
@@ -446,13 +543,52 @@ export const FALLBACK_DATA = {
         "stratégie",
         "documents longs"
       ],
-      "score": 96,
+      "score": 97,
       "categoryScores": {
         "texte": 96
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://chatgpt.com/pricing/",
+      "pricingSummary": "Usage Pro ChatGPT ≈ 200 $/mois ; vérifier disponibilité locale.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 97,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -465,8 +601,8 @@ export const FALLBACK_DATA = {
     {
       "slug": "chatgpt-gpt55",
       "name": "ChatGPT avec GPT-5.5",
-      "vendor": "IA",
-      "domain": "ia.com",
+      "vendor": "OpenAI",
+      "domain": "chatgpt.com",
       "tagline": "assistant polyvalent",
       "description": "assistant polyvalent; fichiers; outils; image; recherche; Écosystème complet",
       "categorySlugs": [
@@ -501,13 +637,52 @@ export const FALLBACK_DATA = {
         "image",
         "recherche"
       ],
-      "score": 96,
+      "score": 97,
       "categoryScores": {
         "texte": 96
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/ia.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/chatgpt.com",
+      "officialUrl": "https://chatgpt.com/pricing/",
+      "pricingSummary": "Inclus selon plan ChatGPT, pas un produit tiers affilié.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 97,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -518,21 +693,415 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "claude",
-      "name": "Claude Sonnet 4.6",
+      "slug": "claude-opus",
+      "name": "Claude Opus 4.7",
       "vendor": "Anthropic",
       "domain": "claude.ai",
-      "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)",
-      "description": "Excellent pour l'analyse de documents longs, le raisonnement nuancé et l'écriture soignée.",
+      "tagline": "Le modèle de raisonnement Anthropic premium",
+      "description": "Le plus puissant des Claude, raisonnement de pointe, contexte 200k+.",
       "categorySlugs": [
         "texte",
-        "recherche",
-        "productivite"
+        "code",
+        "recherche"
       ],
-      "speedMs": 220,
-      "accuracyPct": 95,
-      "costPerPrompt": 0.003,
+      "speedMs": 400,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.015,
+      "monthlyPrice": 100.0,
+      "freeTier": false,
+      "languages": [
+        "fr",
+        "en",
+        "es",
+        "de",
+        "ja"
+      ],
+      "features": [
+        "Raisonnement profond",
+        "Tool use",
+        "Vision"
+      ],
+      "useCases": [
+        "Décisions stratégiques",
+        "Audit complexe"
+      ],
+      "keywords": [
+        "claude",
+        "opus",
+        "anthropic",
+        "raisonnement"
+      ],
+      "score": 96,
+      "categoryScores": {
+        "texte": 96,
+        "code": 89,
+        "recherche": 83
+      },
+      "color": "#CC785C",
+      "image": "https://logo.clearbit.com/claude.ai",
+      "officialUrl": "https://claude.ai/pricing",
+      "pricingSummary": "Opus est surtout pertinent via plans Max/entreprise ou API ; vérifier quotas sur Anthropic.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 75,
+        "eu_hosted": false,
+        "trains_on_data": "no",
+        "rgpd": true,
+        "note": "Identique à Claude. Plan Max 200€/mois, données non utilisées pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "claude-opus-4-7",
+      "name": "Claude Opus 4.7",
+      "vendor": "Anthropic",
+      "domain": "anthropic.com",
+      "tagline": "rédaction premium",
+      "description": "rédaction premium; code complexe; documents longs; agents d’entreprise; Très fort pour les tâches longues et la qualité rédactionnelle; Prix API officiel clair et inchangé vs Opus 4.6",
+      "categorySlugs": [
+        "texte",
+        "code",
+        "productivite",
+        "agent"
+      ],
+      "speedMs": 195,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.002,
+      "monthlyPrice": 100.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en"
+      ],
+      "features": [
+        "text",
+        "documents",
+        "code"
+      ],
+      "useCases": [
+        "rédaction premium",
+        "code complexe",
+        "documents longs",
+        "agents d’entreprise"
+      ],
+      "keywords": [
+        "Claude Opus 4.7",
+        "Anthropic",
+        "texte",
+        "code",
+        "productivite",
+        "agent",
+        "rédaction premium",
+        "code complexe",
+        "documents longs",
+        "agents d’entreprise"
+      ],
+      "score": 96,
+      "categoryScores": {
+        "texte": 95,
+        "code": 89,
+        "productivite": 83,
+        "agent": 77
+      },
+      "color": "#CC785C",
+      "image": "https://logo.clearbit.com/anthropic.com",
+      "officialUrl": "https://www.anthropic.com/pricing",
+      "pricingSummary": "Modèle haut de gamme Anthropic : prix selon Claude Max/API.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "gpt-image-2-high",
+      "name": "GPT Image 2 high",
+      "vendor": "OpenAI",
+      "domain": "openai.com",
+      "tagline": "images photoréalistes",
+      "description": "images photoréalistes; visuels marketing; création grand public; Classé premier sur Artificial Analysis Text-to-Image Arena; Très fort signal de préférence humaine via votes à l’aveugle",
+      "categorySlugs": [
+        "image"
+      ],
+      "speedMs": 192,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.002,
       "monthlyPrice": 20.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en"
+      ],
+      "features": [
+        "image_generation"
+      ],
+      "useCases": [
+        "images photoréalistes",
+        "visuels marketing",
+        "création grand public"
+      ],
+      "keywords": [
+        "GPT Image 2 high",
+        "OpenAI",
+        "image",
+        "images photoréalistes",
+        "visuels marketing",
+        "création grand public"
+      ],
+      "score": 96,
+      "categoryScores": {
+        "image": 96
+      },
+      "color": "#10A37F",
+      "image": "https://logo.clearbit.com/openai.com",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "claude-opus-47",
+      "name": "Claude Opus 4.7",
+      "vendor": "Anthropic",
+      "domain": "anthropic.com",
+      "tagline": "code complexe",
+      "description": "code complexe; rédaction premium; documents longs; raisonnement; agents; Très fort en rédaction naturelle et analyse longue; Excellent pour code complexe et documents; Contexte 1M tokens selon documentation Anthropic; Tarif officiel clair",
+      "categorySlugs": [
+        "texte"
+      ],
+      "speedMs": 195,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.002,
+      "monthlyPrice": 20.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en"
+      ],
+      "features": [
+        "Très fort en rédaction naturelle et analyse longue",
+        "Excellent pour code complexe et documents",
+        "Contexte 1M tokens selon documentation Anthropic",
+        "Tarif officiel clair"
+      ],
+      "useCases": [
+        "code complexe",
+        "rédaction premium",
+        "documents longs",
+        "raisonnement",
+        "agents"
+      ],
+      "keywords": [
+        "Claude Opus 4.7",
+        "Anthropic",
+        "texte",
+        "code complexe",
+        "rédaction premium",
+        "documents longs",
+        "raisonnement",
+        "agents"
+      ],
+      "score": 96,
+      "categoryScores": {
+        "texte": 95
+      },
+      "color": "#CC785C",
+      "image": "https://logo.clearbit.com/anthropic.com",
+      "officialUrl": "https://www.anthropic.com/pricing",
+      "pricingSummary": "Alias Opus 4.7 : prix selon plan Claude/API.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "elevenlabs",
+      "name": "ElevenLabs",
+      "vendor": "ElevenLabs",
+      "domain": "elevenlabs.io",
+      "tagline": "Voix synthétiques d'un réalisme stupéfiant",
+      "description": "Synthèse vocale et clonage de voix multilingue ultra-réaliste.",
+      "categorySlugs": [
+        "audio"
+      ],
+      "speedMs": 1500,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.18,
+      "monthlyPrice": 5.0,
       "freeTier": true,
       "languages": [
         "fr",
@@ -540,48 +1109,77 @@ export const FALLBACK_DATA = {
         "es",
         "de",
         "it",
-        "ja"
+        "ja",
+        "zh",
+        "ko",
+        "pt"
       ],
       "features": [
-        "Contexte 200k",
-        "Artefacts",
-        "Analyse fichiers"
+        "Voice cloning",
+        "Multi-langue",
+        "API"
       ],
       "useCases": [
-        "Analyser un long PDF",
-        "Écrire un essai",
-        "Audit juridique"
+        "Voix-off",
+        "Podcast",
+        "Audiolivre"
       ],
       "keywords": [
-        "analyse",
-        "long",
-        "document",
-        "pdf",
-        "rapport",
-        "essai",
-        "juridique",
-        "synthèse",
-        "rédaction"
+        "voix",
+        "audio",
+        "podcast",
+        "narration",
+        "voice",
+        "off",
+        "audiolivre",
+        "clonage"
       ],
       "score": 95,
       "categoryScores": {
-        "texte": 95,
-        "recherche": 88,
-        "productivite": 82
+        "audio": 94
       },
-      "color": "#CC785C",
-      "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "color": "#000000",
+      "image": "https://logo.clearbit.com/elevenlabs.io",
+      "officialUrl": "https://www.elevenlabs.io/pricing",
+      "pricingSummary": "Free disponible ; Starter ≈ 5 $/mois ; paliers Creator/Pro/Scale selon caractères et droits.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Elevenlabs Pricing",
+          "url": "https://www.elevenlabs.io/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Elevenlabs Pricing",
+            "url": "https://www.elevenlabs.io/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
-        "privacy_score": 75,
+        "privacy_score": 60,
         "eu_hosted": false,
-        "trains_on_data": "no",
+        "trains_on_data": "opt-out",
         "rgpd": true,
-        "note": "Anthropic n'utilise PAS tes conversations pour entraîner par défaut. Stockage US."
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": {
-        "prompt": "Tu es éditeur littéraire. Réécris ce paragraphe en gardant les idées mais avec un style plus fluide :\n\n« Le chat sortit. Il était noir. Il avait faim. La lune brillait. »",
-        "output": "Sous le clair de lune, le chat noir se glissa au-dehors, l'estomac creux et l'œil aux aguets."
+        "prompt": "Voix-off française, ton chaleureux, 60 ans, lecture d'un conte pour enfants : « Il était une fois une petite fille qui aimait les étoiles... »",
+        "output": "[Audio] Voix synthétique humaine et chaleureuse, lecture posée avec inflexions naturelles, indiscernable d'un comédien doublage."
       }
     },
     {
@@ -638,7 +1236,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Accès via Gemini/Google AI Pro ou API selon disponibilité ; vérifier pays et quotas.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 65,
         "eu_hosted": false,
@@ -649,22 +1286,21 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "claude-opus-4-7",
-      "name": "Claude Opus 4.7",
-      "vendor": "Anthropic",
-      "domain": "anthropic.com",
-      "tagline": "rédaction premium",
-      "description": "rédaction premium; code complexe; documents longs; agents d’entreprise; Très fort pour les tâches longues et la qualité rédactionnelle; Prix API officiel clair et inchangé vs Opus 4.6",
+      "slug": "gemini-3-1-pro-preview",
+      "name": "Gemini 3.1 Pro Preview",
+      "vendor": "Google",
+      "domain": "gemini.google.com",
+      "tagline": "écosystème Google",
+      "description": "écosystème Google; multimodal; gros contexte; recherche avec grounding; Pricing officiel détaillé par taille de prompt; Bon choix si l’utilisateur travaille dans Google Workspace",
       "categorySlugs": [
-        "texte",
-        "code",
+        "recherche",
         "productivite",
-        "agent"
+        "code"
       ],
-      "speedMs": 195,
+      "speedMs": 201,
       "accuracyPct": 95,
       "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
+      "monthlyPrice": 19.99,
       "freeTier": true,
       "languages": [
         "fr",
@@ -672,37 +1308,77 @@ export const FALLBACK_DATA = {
       ],
       "features": [
         "text",
+        "image",
+        "video",
+        "audio",
         "documents",
         "code"
       ],
       "useCases": [
-        "rédaction premium",
-        "code complexe",
-        "documents longs",
-        "agents d’entreprise"
+        "écosystème Google",
+        "multimodal",
+        "gros contexte",
+        "recherche avec grounding"
       ],
       "keywords": [
-        "Claude Opus 4.7",
-        "Anthropic",
-        "texte",
-        "code",
+        "Gemini 3.1 Pro Preview",
+        "Google",
+        "recherche",
         "productivite",
-        "agent",
-        "rédaction premium",
-        "code complexe",
-        "documents longs",
-        "agents d’entreprise"
+        "code",
+        "écosystème Google",
+        "multimodal",
+        "gros contexte",
+        "recherche avec grounding"
       ],
       "score": 95,
       "categoryScores": {
-        "texte": 95,
-        "code": 89,
-        "productivite": 83,
-        "agent": 77
+        "recherche": 93,
+        "productivite": 87,
+        "code": 81
       },
-      "color": "#CC785C",
-      "image": "https://logo.clearbit.com/anthropic.com",
-      "lastUpdated": "2026-05-02",
+      "color": "#4285F4",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 19.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -716,7 +1392,7 @@ export const FALLBACK_DATA = {
       "slug": "nano-banana-2",
       "name": "Nano Banana 2 / Gemini 3.1 Flash Image Preview",
       "vendor": "Google",
-      "domain": "google.com",
+      "domain": "gemini.google.com",
       "tagline": "images rapides",
       "description": "images rapides; intégration Gemini; création social media; Top 3 Artificial Analysis text-to-image; Bon candidat Google ecosystem",
       "categorySlugs": [
@@ -752,8 +1428,47 @@ export const FALLBACK_DATA = {
         "image": 95
       },
       "color": "#4285F4",
-      "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Capacité image Google/Gemini : vérifier Gemini/Google AI et API.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -764,54 +1479,93 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "claude-opus-47",
-      "name": "Claude Opus 4.7",
-      "vendor": "Anthropic",
-      "domain": "anthropic.com",
-      "tagline": "code complexe",
-      "description": "code complexe; rédaction premium; documents longs; raisonnement; agents; Très fort en rédaction naturelle et analyse longue; Excellent pour code complexe et documents; Contexte 1M tokens selon documentation Anthropic; Tarif officiel clair",
+      "slug": "gemini-31-pro",
+      "name": "Gemini 3.1 Pro",
+      "vendor": "Google",
+      "domain": "gemini.google.com",
+      "tagline": "multimodal",
+      "description": "multimodal; Google Workspace; gros contexte; PDF; analyse de codebase; Très fort multimodal; 1M de contexte selon Google Cloud; Très bon avec PDF, vidéo, audio et repositories; Écosystème Google très puissant",
       "categorySlugs": [
         "texte"
       ],
-      "speedMs": 195,
+      "speedMs": 198,
       "accuracyPct": 95,
       "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
+      "monthlyPrice": 19.99,
       "freeTier": true,
       "languages": [
         "fr",
         "en"
       ],
       "features": [
-        "Très fort en rédaction naturelle et analyse longue",
-        "Excellent pour code complexe et documents",
-        "Contexte 1M tokens selon documentation Anthropic",
-        "Tarif officiel clair"
+        "Très fort multimodal",
+        "1M de contexte selon Google Cloud",
+        "Très bon avec PDF, vidéo, audio et repositories",
+        "Écosystème Google très puissant"
       ],
       "useCases": [
-        "code complexe",
-        "rédaction premium",
-        "documents longs",
-        "raisonnement",
-        "agents"
+        "multimodal",
+        "Google Workspace",
+        "gros contexte",
+        "PDF",
+        "analyse de codebase"
       ],
       "keywords": [
-        "Claude Opus 4.7",
-        "Anthropic",
+        "Gemini 3.1 Pro",
+        "Google",
         "texte",
-        "code complexe",
-        "rédaction premium",
-        "documents longs",
-        "raisonnement",
-        "agents"
+        "multimodal",
+        "Google Workspace",
+        "gros contexte",
+        "PDF",
+        "analyse de codebase"
       ],
       "score": 95,
       "categoryScores": {
-        "texte": 95
+        "texte": 94
       },
-      "color": "#CC785C",
-      "image": "https://logo.clearbit.com/anthropic.com",
-      "lastUpdated": null,
+      "color": "#4285F4",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Plan Google AI Pro/Ultra ou API selon usage.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -865,7 +1619,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 96,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -921,7 +1724,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 95,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -932,19 +1784,21 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "elevenlabs",
-      "name": "ElevenLabs",
-      "vendor": "ElevenLabs",
-      "domain": "elevenlabs.io",
-      "tagline": "Voix synthétiques d'un réalisme stupéfiant",
-      "description": "Synthèse vocale et clonage de voix multilingue ultra-réaliste.",
+      "slug": "claude",
+      "name": "Claude Sonnet 4.6",
+      "vendor": "Anthropic",
+      "domain": "claude.ai",
+      "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code",
+      "description": "Excellent pour l'analyse de documents longs, le raisonnement nuancé et l'écriture soignée.",
       "categorySlugs": [
-        "audio"
+        "texte",
+        "recherche",
+        "productivite"
       ],
-      "speedMs": 1500,
-      "accuracyPct": 96,
-      "costPerPrompt": 0.18,
-      "monthlyPrice": 5.0,
+      "speedMs": 220,
+      "accuracyPct": 95,
+      "costPerPrompt": 0.003,
+      "monthlyPrice": 20.0,
       "freeTier": true,
       "languages": [
         "fr",
@@ -952,48 +1806,215 @@ export const FALLBACK_DATA = {
         "es",
         "de",
         "it",
-        "ja",
-        "zh",
-        "ko",
-        "pt"
+        "ja"
       ],
       "features": [
-        "Voice cloning",
-        "Multi-langue",
-        "API"
+        "Contexte 200k",
+        "Artefacts",
+        "Analyse fichiers",
+        "Free",
+        "Pro",
+        "Max",
+        "Projects",
+        "analyse fichiers"
       ],
       "useCases": [
-        "Voix-off",
-        "Podcast",
-        "Audiolivre"
+        "Analyser un long PDF",
+        "Écrire un essai",
+        "Audit juridique"
       ],
       "keywords": [
-        "voix",
-        "audio",
-        "podcast",
-        "narration",
-        "voice",
-        "off",
-        "audiolivre",
-        "clonage"
+        "analyse",
+        "long",
+        "document",
+        "pdf",
+        "rapport",
+        "essai",
+        "juridique",
+        "synthèse",
+        "rédaction"
       ],
       "score": 94,
       "categoryScores": {
-        "audio": 94
+        "texte": 95,
+        "recherche": 88,
+        "productivite": 82
+      },
+      "color": "#CC785C",
+      "image": "https://logo.clearbit.com/claude.ai",
+      "officialUrl": "https://claude.ai/pricing",
+      "pricingSummary": "Gratuit disponible ; Pro ≈ 20 $/mois ; Max ≈ 100–200 $/mois selon volume. Prix/quotas à confirmer sur Claude.",
+      "pricingPlans": [
+        {
+          "name": "Free",
+          "price": "0 $",
+          "note": "Tester Claude avec quotas limités."
+        },
+        {
+          "name": "Pro",
+          "price": "≈ 20 $/mois",
+          "note": "Usage régulier, projets et meilleurs quotas."
+        },
+        {
+          "name": "Max",
+          "price": "≈ 100–200 $/mois",
+          "note": "Usage intensif avec beaucoup plus de volume."
+        }
+      ],
+      "benchmarkSummary": "Claude Opus 4.7 et Sonnet 4.6 figurent dans le haut des classements Artificial Analysis ; Sonnet reste l’option équilibrée.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Claude Pricing",
+          "url": "https://claude.ai/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Claude Opus 4.7 et Sonnet 4.6 figurent dans le haut des classements Artificial Analysis ; Sonnet reste l’option équilibrée.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Claude Pricing",
+            "url": "https://claude.ai/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 75,
+        "eu_hosted": false,
+        "trains_on_data": "no",
+        "rgpd": true,
+        "note": "Anthropic n'utilise PAS tes conversations pour entraîner par défaut. Stockage US."
+      },
+      "example": {
+        "prompt": "Tu es éditeur littéraire. Réécris ce paragraphe en gardant les idées mais avec un style plus fluide :\n\n« Le chat sortit. Il était noir. Il avait faim. La lune brillait. »",
+        "output": "Sous le clair de lune, le chat noir se glissa au-dehors, l'estomac creux et l'œil aux aguets."
+      }
+    },
+    {
+      "slug": "midjourney",
+      "name": "Midjourney",
+      "vendor": "Midjourney",
+      "domain": "midjourney.com",
+      "tagline": "Le maître de l'image artistique",
+      "description": "Génération d'images d'une qualité artistique exceptionnelle.",
+      "categorySlugs": [
+        "image"
+      ],
+      "speedMs": 30000,
+      "accuracyPct": 96,
+      "costPerPrompt": 0.04,
+      "monthlyPrice": 10.0,
+      "freeTier": false,
+      "languages": [
+        "en"
+      ],
+      "features": [
+        "Style references",
+        "Upscale",
+        "V6"
+      ],
+      "useCases": [
+        "Illustration",
+        "Concept art",
+        "Visuel marketing"
+      ],
+      "keywords": [
+        "image",
+        "illustration",
+        "art",
+        "dessin",
+        "visuel",
+        "design",
+        "logo",
+        "affiche",
+        "poster"
+      ],
+      "score": 94,
+      "categoryScores": {
+        "image": 96
       },
       "color": "#000000",
-      "image": "https://logo.clearbit.com/elevenlabs.io",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "image": "https://logo.clearbit.com/midjourney.com",
+      "officialUrl": "https://www.midjourney.com/plans",
+      "pricingSummary": "Plan Basic ≈ 10 $/mois ; paliers Standard/Pro/Mega plus élevés. Pas de vrai gratuit durable.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Midjourney Plans",
+          "url": "https://www.midjourney.com/plans",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 96,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Midjourney Plans",
+            "url": "https://www.midjourney.com/plans",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
-        "trains_on_data": "opt-out",
+        "trains_on_data": "yes_default",
         "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+        "note": "Tes images en mode public sont visibles + utilisées pour entraînement. Mode Stealth en Premium."
       },
       "example": {
-        "prompt": "Voix-off française, ton chaleureux, 60 ans, lecture d'un conte pour enfants : « Il était une fois une petite fille qui aimait les étoiles... »",
-        "output": "[Audio] Voix synthétique humaine et chaleureuse, lecture posée avec inflexions naturelles, indiscernable d'un comédien doublage."
+        "prompt": "Cinematic portrait of a French baker in his bakery at dawn, warm light, shallow depth of field, 35mm film grain --ar 3:2 --v 7",
+        "output": "[Image] Boulanger français photoréaliste dans sa boulangerie, lumière chaude rasante d'aurore, vapeur des fournils, 35mm grain de pellicule, ratio 3:2 — qualité prête pour magazine."
       }
     },
     {
@@ -1035,7 +2056,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://google.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1046,17 +2106,17 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "gemini-31-pro",
-      "name": "Gemini 3.1 Pro",
-      "vendor": "Google",
-      "domain": "google.com",
-      "tagline": "multimodal",
-      "description": "multimodal; Google Workspace; gros contexte; PDF; analyse de codebase; Très fort multimodal; 1M de contexte selon Google Cloud; Très bon avec PDF, vidéo, audio et repositories; Écosystème Google très puissant",
+      "slug": "claude-sonnet-46",
+      "name": "Claude Sonnet 4.6",
+      "vendor": "Anthropic",
+      "domain": "claude.ai",
+      "tagline": "production",
+      "description": "production; code quotidien; rédaction; analyse de documents; rapport qualité/prix; Excellent compromis prix/performance; Très bon pour code et rédaction; Tarif officiel stable",
       "categorySlugs": [
         "texte"
       ],
-      "speedMs": 198,
-      "accuracyPct": 94,
+      "speedMs": 210,
+      "accuracyPct": 95,
       "costPerPrompt": 0.002,
       "monthlyPrice": 20.0,
       "freeTier": true,
@@ -1065,35 +2125,73 @@ export const FALLBACK_DATA = {
         "en"
       ],
       "features": [
-        "Très fort multimodal",
-        "1M de contexte selon Google Cloud",
-        "Très bon avec PDF, vidéo, audio et repositories",
-        "Écosystème Google très puissant"
+        "Excellent compromis prix/performance",
+        "Très bon pour code et rédaction",
+        "Tarif officiel stable"
       ],
       "useCases": [
-        "multimodal",
-        "Google Workspace",
-        "gros contexte",
-        "PDF",
-        "analyse de codebase"
+        "production",
+        "code quotidien",
+        "rédaction",
+        "analyse de documents",
+        "rapport qualité/prix"
       ],
       "keywords": [
-        "Gemini 3.1 Pro",
-        "Google",
+        "Claude Sonnet 4.6",
+        "Anthropic",
         "texte",
-        "multimodal",
-        "Google Workspace",
-        "gros contexte",
-        "PDF",
-        "analyse de codebase"
+        "production",
+        "code quotidien",
+        "rédaction",
+        "analyse de documents",
+        "rapport qualité/prix"
       ],
       "score": 94,
       "categoryScores": {
-        "texte": 94
+        "texte": 90
       },
-      "color": "#4285F4",
-      "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": null,
+      "color": "#CC785C",
+      "image": "https://logo.clearbit.com/claude.ai",
+      "officialUrl": "https://claude.ai/pricing",
+      "pricingSummary": "Disponible selon plan Claude et API Anthropic ; Pro ≈ 20 $/mois pour usage grand public.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Claude Pricing",
+          "url": "https://claude.ai/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Claude Pricing",
+            "url": "https://claude.ai/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1107,7 +2205,7 @@ export const FALLBACK_DATA = {
       "slug": "happyhorse-10",
       "name": "HappyHorse-1.0",
       "vendor": "Alibaba-ATH / selon sources leaderboard",
-      "domain": "alibaba-ath-selon-sources-leaderboard.com",
+      "domain": "alibaba.com",
       "tagline": "qualité brute text-to-video",
       "description": "qualité brute text-to-video; clips réalistes; N°1 AA text-to-video sans audio",
       "categorySlugs": [
@@ -1141,8 +2239,37 @@ export const FALLBACK_DATA = {
         "video": 94
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/alibaba-ath-selon-sources-leaderboard.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/alibaba.com",
+      "officialUrl": "https://alibaba.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 94,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1198,7 +2325,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/anthropic.com",
-      "lastUpdated": null,
+      "officialUrl": "https://anthropic.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 94,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1207,64 +2373,6 @@ export const FALLBACK_DATA = {
         "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": null
-    },
-    {
-      "slug": "midjourney",
-      "name": "Midjourney",
-      "vendor": "Midjourney",
-      "domain": "midjourney.com",
-      "tagline": "Le maître de l'image artistique",
-      "description": "Génération d'images d'une qualité artistique exceptionnelle.",
-      "categorySlugs": [
-        "image"
-      ],
-      "speedMs": 30000,
-      "accuracyPct": 96,
-      "costPerPrompt": 0.04,
-      "monthlyPrice": 10.0,
-      "freeTier": false,
-      "languages": [
-        "en"
-      ],
-      "features": [
-        "Style references",
-        "Upscale",
-        "V6"
-      ],
-      "useCases": [
-        "Illustration",
-        "Concept art",
-        "Visuel marketing"
-      ],
-      "keywords": [
-        "image",
-        "illustration",
-        "art",
-        "dessin",
-        "visuel",
-        "design",
-        "logo",
-        "affiche",
-        "poster"
-      ],
-      "score": 93,
-      "categoryScores": {
-        "image": 96
-      },
-      "color": "#000000",
-      "image": "https://logo.clearbit.com/midjourney.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "yes_default",
-        "rgpd": true,
-        "note": "Tes images en mode public sont visibles + utilisées pour entraînement. Mode Stealth en Premium."
-      },
-      "example": {
-        "prompt": "Cinematic portrait of a French baker in his bakery at dawn, warm light, shallow depth of field, 35mm film grain --ar 3:2 --v 7",
-        "output": "[Image] Boulanger français photoréaliste dans sa boulangerie, lumière chaude rasante d'aurore, vapeur des fournils, 35mm grain de pellicule, ratio 3:2 — qualité prête pour magazine."
-      }
     },
     {
       "slug": "cursor",
@@ -1311,7 +2419,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F0F0F",
       "image": "https://logo.clearbit.com/cursor.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://cursor.com/pricing",
+      "pricingSummary": "Hobby/free disponible ; Pro ≈ 20 $/mois ; Business/Ultra selon besoin.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Cursor Pricing",
+          "url": "https://cursor.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 93,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Cursor Pricing",
+            "url": "https://cursor.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1328,7 +2465,7 @@ export const FALLBACK_DATA = {
       "slug": "nano-banana",
       "name": "Nano Banana 2",
       "vendor": "Google",
-      "domain": "deepmind.google",
+      "domain": "gemini.google.com",
       "tagline": "Le modèle image Gemini hyper-fidèle",
       "description": "Modèle image Gemini 2.0 dernière génération, suit le prompt à la lettre, édition par phrase.",
       "categorySlugs": [
@@ -1368,8 +2505,47 @@ export const FALLBACK_DATA = {
         "image": 94
       },
       "color": "#4285F4",
-      "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Nom courant pour capacités image Gemini/Google ; accès selon Gemini/API, pas un abonnement séparé.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 94,
+        "qualityEstimate": 94,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1383,68 +2559,102 @@ export const FALLBACK_DATA = {
       }
     },
     {
-      "slug": "gemini-3-1-pro-preview",
-      "name": "Gemini 3.1 Pro Preview",
-      "vendor": "Google",
-      "domain": "google.com",
-      "tagline": "écosystème Google",
-      "description": "écosystème Google; multimodal; gros contexte; recherche avec grounding; Pricing officiel détaillé par taille de prompt; Bon choix si l’utilisateur travaille dans Google Workspace",
+      "slug": "deepseek-r1",
+      "name": "DeepSeek R1",
+      "vendor": "DeepSeek",
+      "domain": "deepseek.com",
+      "tagline": "Le raisonneur open-source de référence",
+      "description": "Reasoning model open-source au niveau o1 mais 30× moins cher.",
       "categorySlugs": [
-        "recherche",
-        "productivite",
-        "code"
+        "texte",
+        "code",
+        "recherche"
       ],
-      "speedMs": 201,
+      "speedMs": 600,
       "accuracyPct": 93,
-      "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
+      "costPerPrompt": 0.0002,
+      "monthlyPrice": 0.0,
       "freeTier": true,
       "languages": [
         "fr",
-        "en"
+        "en",
+        "zh"
       ],
       "features": [
-        "text",
-        "image",
-        "video",
-        "audio",
-        "documents",
-        "code"
+        "Reasoning",
+        "Open-weight",
+        "30x moins cher"
       ],
       "useCases": [
-        "écosystème Google",
-        "multimodal",
-        "gros contexte",
-        "recherche avec grounding"
+        "Maths",
+        "Code complexe",
+        "Volume"
       ],
       "keywords": [
-        "Gemini 3.1 Pro Preview",
-        "Google",
-        "recherche",
-        "productivite",
-        "code",
-        "écosystème Google",
-        "multimodal",
-        "gros contexte",
-        "recherche avec grounding"
+        "deepseek",
+        "r1",
+        "raisonnement",
+        "open"
       ],
       "score": 93,
       "categoryScores": {
-        "recherche": 93,
-        "productivite": 87,
-        "code": 81
+        "texte": 92,
+        "code": 85,
+        "recherche": 79
       },
-      "color": "#4285F4",
-      "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": "2026-05-02",
+      "color": "#4D6BFE",
+      "image": "https://logo.clearbit.com/deepseek.com",
+      "officialUrl": "https://www.deepseek.com",
+      "pricingSummary": "Open-weight/API économique ; pas un abonnement mensuel grand public unique.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 93,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+        "trains_on_data": "no",
+        "rgpd": false,
+        "note": "Open-weight : self-hostable pour garder le contrôle. Sinon API en Chine."
       },
-      "example": null
+      "example": {
+        "prompt": "Démontre que la somme des angles d'un triangle = 180°.",
+        "output": "Soit ABC un triangle. Trace par A la parallèle (d) à (BC). Les angles alternes-internes donnent : angle(BAC') = angle(ABC) et angle(CAC'') = angle(ACB). Or angle(BAC') + angle(BAC) + angle(CAC'') = 180° (angle plat). Donc angle(ABC) + angle(BAC) + angle(ACB) = 180°. CQFD."
+      }
     },
     {
       "slug": "claude-code",
@@ -1492,7 +2702,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/anthropic.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://anthropic.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 93,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1543,7 +2792,215 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/bytedance.com",
-      "lastUpdated": null,
+      "officialUrl": "https://bytedance.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 93,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "perplexity",
+      "name": "Perplexity",
+      "vendor": "Perplexity AI",
+      "domain": "perplexity.ai",
+      "tagline": "Le moteur de recherche IA avec sources",
+      "description": "Recherche web en temps réel avec citations vérifiables.",
+      "categorySlugs": [
+        "recherche"
+      ],
+      "speedMs": 140,
+      "accuracyPct": 90,
+      "costPerPrompt": 0.001,
+      "monthlyPrice": 20.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en",
+        "es",
+        "de"
+      ],
+      "features": [
+        "Citations",
+        "Recherche temps réel",
+        "Pro Search"
+      ],
+      "useCases": [
+        "Recherche académique",
+        "Veille",
+        "Fact-checking"
+      ],
+      "keywords": [
+        "recherche",
+        "veille",
+        "actualité",
+        "source",
+        "citation",
+        "fact",
+        "article",
+        "web"
+      ],
+      "score": 92,
+      "categoryScores": {
+        "recherche": 88
+      },
+      "color": "#20B8CD",
+      "image": "https://logo.clearbit.com/perplexity.ai",
+      "officialUrl": "https://www.perplexity.ai/pro",
+      "pricingSummary": "Gratuit disponible ; Pro ≈ 20 $/mois pour recherches avancées, fichiers et choix de modèles.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Perplexity Pricing",
+          "url": "https://www.perplexity.ai/pro",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Perplexity Pricing",
+            "url": "https://www.perplexity.ai/pro",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 65,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Stockage US. Tes recherches peuvent être utilisées pour entraînement. Désactivable."
+      },
+      "example": {
+        "prompt": "Combien d'eau consomme un kilo de bœuf vs un kilo de soja ? Sources scientifiques 2024.",
+        "output": "Le bœuf consomme environ 15 400 L d'eau par kg, le soja environ 2 100 L par kg. Sources : Mekonnen & Hoekstra (2012), revue Science of the Total Environment 2023, FAO 2024.\n\n[3 sources cliquables avec dates]"
+      }
+    },
+    {
+      "slug": "flux",
+      "name": "Flux",
+      "vendor": "Black Forest Labs",
+      "domain": "blackforestlabs.ai",
+      "tagline": "Le nouveau standard du photoréalisme",
+      "description": "Modèle open d'image au photoréalisme bluffant, créé par les ex-Stable Diffusion.",
+      "categorySlugs": [
+        "image"
+      ],
+      "speedMs": 6000,
+      "accuracyPct": 93,
+      "costPerPrompt": 0.025,
+      "monthlyPrice": 0.0,
+      "freeTier": true,
+      "languages": [
+        "en"
+      ],
+      "features": [
+        "Photoréalisme",
+        "Open-weight",
+        "Fast variant"
+      ],
+      "useCases": [
+        "Photo produit",
+        "Mode",
+        "Portraits"
+      ],
+      "keywords": [
+        "photo",
+        "photoréalisme",
+        "réaliste",
+        "portrait",
+        "produit"
+      ],
+      "score": 92,
+      "categoryScores": {
+        "image": 92
+      },
+      "color": "#000000",
+      "image": "https://logo.clearbit.com/blackforestlabs.ai",
+      "officialUrl": "https://blackforestlabs.ai",
+      "pricingSummary": "Open-weight/API selon fournisseur ; coût mensuel dépend de l’hébergement ou de la plateforme utilisée.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1607,7 +3064,128 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F2B46",
       "image": "https://logo.clearbit.com/deepl.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://deepl.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 8.74 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 95,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "veo",
+      "name": "Veo 3",
+      "vendor": "Google DeepMind",
+      "domain": "deepmind.google",
+      "tagline": "La vidéo IA cinéma de Google",
+      "description": "Modèle vidéo dernière génération avec audio synchronisé et 1080p natif.",
+      "categorySlugs": [
+        "video",
+        "audio"
+      ],
+      "speedMs": 60000,
+      "accuracyPct": 92,
+      "costPerPrompt": 0.6,
+      "monthlyPrice": 19.99,
+      "freeTier": false,
+      "languages": [
+        "en",
+        "fr"
+      ],
+      "features": [
+        "Audio sync",
+        "1080p",
+        "Cinéma"
+      ],
+      "useCases": [
+        "Pub vidéo",
+        "Court-métrage"
+      ],
+      "keywords": [
+        "veo",
+        "google",
+        "vidéo",
+        "cinéma",
+        "audio"
+      ],
+      "score": 92,
+      "categoryScores": {
+        "video": 91,
+        "audio": 84
+      },
+      "color": "#4285F4",
+      "image": "https://logo.clearbit.com/deepmind.google",
+      "officialUrl": "https://deepmind.google/technologies/veo/",
+      "pricingSummary": "Accès via Google AI/Gemini/Vertex selon pays et produit.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1663,7 +3241,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#111827",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Prix non standardisé : vérifier le site officiel (API, entreprise ou open-source).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 94,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1672,65 +3299,6 @@ export const FALLBACK_DATA = {
         "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": null
-    },
-    {
-      "slug": "deepseek-r1",
-      "name": "DeepSeek R1",
-      "vendor": "DeepSeek",
-      "domain": "deepseek.com",
-      "tagline": "Le raisonneur open-source de référence",
-      "description": "Reasoning model open-source au niveau o1 mais 30× moins cher.",
-      "categorySlugs": [
-        "texte",
-        "code",
-        "recherche"
-      ],
-      "speedMs": 600,
-      "accuracyPct": 94,
-      "costPerPrompt": 0.0002,
-      "monthlyPrice": 0.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "zh"
-      ],
-      "features": [
-        "Reasoning",
-        "Open-weight",
-        "30x moins cher"
-      ],
-      "useCases": [
-        "Maths",
-        "Code complexe",
-        "Volume"
-      ],
-      "keywords": [
-        "deepseek",
-        "r1",
-        "raisonnement",
-        "open"
-      ],
-      "score": 92,
-      "categoryScores": {
-        "texte": 92,
-        "code": 85,
-        "recherche": 79
-      },
-      "color": "#4D6BFE",
-      "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "no",
-        "rgpd": false,
-        "note": "Open-weight : self-hostable pour garder le contrôle. Sinon API en Chine."
-      },
-      "example": {
-        "prompt": "Démontre que la somme des angles d'un triangle = 180°.",
-        "output": "Soit ABC un triangle. Trace par A la parallèle (d) à (BC). Les angles alternes-internes donnent : angle(BAC') = angle(ABC) et angle(CAC'') = angle(ACB). Or angle(BAC') + angle(BAC) + angle(CAC'') = 180° (angle plat). Donc angle(ABC) + angle(BAC) + angle(ACB) = 180°. CQFD."
-      }
     },
     {
       "slug": "chatgpt-agent",
@@ -1776,7 +3344,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1832,7 +3449,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1843,53 +3509,127 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "flux",
-      "name": "Flux",
-      "vendor": "Black Forest Labs",
-      "domain": "blackforestlabs.ai",
-      "tagline": "Le nouveau standard du photoréalisme",
-      "description": "Modèle open d'image au photoréalisme bluffant, créé par les ex-Stable Diffusion.",
+      "slug": "gemini",
+      "name": "Gemini",
+      "vendor": "Google",
+      "domain": "gemini.google.com",
+      "tagline": "Assistant Google : Free, AI Pro et Ultra selon pays",
+      "description": "Assistant multimodal Google relié à l’écosystème Google. Les plans AI Pro/Ultra donnent plus de quotas, meilleurs modèles et intégrations selon pays.",
       "categorySlugs": [
+        "texte",
+        "productivite",
+        "recherche",
         "image"
       ],
-      "speedMs": 6000,
-      "accuracyPct": 93,
-      "costPerPrompt": 0.025,
-      "monthlyPrice": 0.0,
+      "speedMs": 160,
+      "accuracyPct": 92,
+      "costPerPrompt": 0.0015,
+      "monthlyPrice": 19.99,
       "freeTier": true,
       "languages": [
-        "en"
+        "fr",
+        "en",
+        "es",
+        "de",
+        "ja",
+        "zh",
+        "ko"
       ],
       "features": [
-        "Photoréalisme",
-        "Open-weight",
-        "Fast variant"
+        "Multimodal",
+        "Workspace",
+        "Recherche temps réel",
+        "Free",
+        "Google AI Pro",
+        "Google AI Ultra",
+        "multimodal"
       ],
       "useCases": [
-        "Photo produit",
-        "Mode",
-        "Portraits"
+        "Recherche web",
+        "Email",
+        "Docs Google"
       ],
       "keywords": [
-        "photo",
-        "photoréalisme",
-        "réaliste",
-        "portrait",
-        "produit"
+        "recherche",
+        "google",
+        "email",
+        "gmail",
+        "docs",
+        "tableur",
+        "actualité",
+        "web"
       ],
       "score": 91,
       "categoryScores": {
-        "image": 92
+        "texte": 90,
+        "productivite": 83,
+        "recherche": 77,
+        "image": 73
       },
-      "color": "#000000",
-      "image": "https://logo.clearbit.com/blackforestlabs.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "color": "#4285F4",
+      "image": "https://logo.clearbit.com/gemini.google.com",
+      "officialUrl": "https://gemini.google/subscriptions/",
+      "pricingSummary": "Gratuit disponible ; Google AI Pro ≈ 19,99 €/mois ; Ultra plus cher selon pays. Vérifier sur Gemini Subscriptions.",
+      "pricingPlans": [
+        {
+          "name": "Free",
+          "price": "0 €",
+          "note": "Usage courant et découverte."
+        },
+        {
+          "name": "Google AI Pro",
+          "price": "≈ 19,99 €/mois",
+          "note": "Modèles avancés, contexte/fichiers et intégrations Google selon pays."
+        },
+        {
+          "name": "Google AI Ultra",
+          "price": "prix premium selon pays",
+          "note": "Quota et accès plus élevés pour power users."
+        }
+      ],
+      "benchmarkSummary": "Artificial Analysis cite Gemini 3.1 Pro Preview dans les modèles d’intelligence de tête en mai 2026.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 91,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Artificial Analysis cite Gemini 3.1 Pro Preview dans les modèles d’intelligence de tête en mai 2026.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
-        "privacy_score": 60,
+        "privacy_score": 50,
         "eu_hosted": false,
-        "trains_on_data": "opt-out",
+        "trains_on_data": "yes_default",
         "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+        "note": "Free utilise tes conversations par défaut. Désactivable dans Activity. Workspace n'utilise PAS."
       },
       "example": null
     },
@@ -1904,10 +3644,10 @@ export const FALLBACK_DATA = {
         "code"
       ],
       "speedMs": 80,
-      "accuracyPct": 89,
+      "accuracyPct": 90,
       "costPerPrompt": 0.0,
       "monthlyPrice": 10.0,
-      "freeTier": false,
+      "freeTier": true,
       "languages": [
         "en"
       ],
@@ -1935,7 +3675,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#181717",
       "image": "https://logo.clearbit.com/github.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://github.com/features/copilot/plans",
+      "pricingSummary": "Free disponible ; Pro ≈ 10 $/mois ; Pro+ et Business/Enterprise plus élevés.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Github Copilot Pricing",
+          "url": "https://github.com/features/copilot/plans",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 91,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Github Copilot Pricing",
+            "url": "https://github.com/features/copilot/plans",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1946,108 +3715,79 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "llama",
-      "name": "Llama 4",
-      "vendor": "Meta",
-      "domain": "llama.com",
-      "tagline": "Le LLM open-weight de référence",
-      "description": "Famille de modèles Meta open-weight (Scout, Maverick, Behemoth) avec multimodal natif.",
+      "slug": "sora",
+      "name": "Sora",
+      "vendor": "OpenAI",
+      "domain": "sora.com",
+      "tagline": "Le générateur vidéo nouvelle génération",
+      "description": "Génération vidéo cinématographique à partir de texte.",
       "categorySlugs": [
-        "texte",
-        "code",
-        "image"
-      ],
-      "speedMs": 200,
-      "accuracyPct": 90,
-      "costPerPrompt": 0.0003,
-      "monthlyPrice": 0.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "hi",
-        "pt"
-      ],
-      "features": [
-        "Open-weight",
-        "Multimodal",
-        "Self-host"
-      ],
-      "useCases": [
-        "Self-hosting",
-        "Apps embarquées",
-        "Recherche académique"
-      ],
-      "keywords": [
-        "llama",
-        "meta",
-        "open",
-        "facebook"
-      ],
-      "score": 91,
-      "categoryScores": {
-        "texte": 90,
-        "code": 83,
-        "image": 77
-      },
-      "color": "#0866FF",
-      "image": "https://logo.clearbit.com/llama.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
-      },
-      "example": null
-    },
-    {
-      "slug": "veo",
-      "name": "Veo 3",
-      "vendor": "Google DeepMind",
-      "domain": "deepmind.google",
-      "tagline": "La vidéo IA cinéma de Google",
-      "description": "Modèle vidéo dernière génération avec audio synchronisé et 1080p natif.",
-      "categorySlugs": [
-        "video",
-        "audio"
+        "video"
       ],
       "speedMs": 60000,
-      "accuracyPct": 93,
-      "costPerPrompt": 0.6,
-      "monthlyPrice": 19.99,
+      "accuracyPct": 92,
+      "costPerPrompt": 0.5,
+      "monthlyPrice": 20.0,
       "freeTier": false,
       "languages": [
         "en",
         "fr"
       ],
       "features": [
-        "Audio sync",
-        "1080p",
-        "Cinéma"
+        "Text-to-video",
+        "Storyboard",
+        "Remix"
       ],
       "useCases": [
         "Pub vidéo",
         "Court-métrage"
       ],
       "keywords": [
-        "veo",
-        "google",
         "vidéo",
-        "cinéma",
-        "audio"
+        "video",
+        "film",
+        "court",
+        "métrage",
+        "pub",
+        "animation",
+        "clip"
       ],
       "score": 91,
       "categoryScores": {
-        "video": 91,
-        "audio": 84
+        "video": 89
       },
-      "color": "#4285F4",
-      "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "color": "#000000",
+      "image": "https://logo.clearbit.com/sora.com",
+      "officialUrl": "https://sora.com",
+      "pricingSummary": "Accès selon plan ChatGPT/Sora et région ; vérifier Sora/OpenAI.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 91,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2102,7 +3842,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#111111",
       "image": "https://logo.clearbit.com/x.ai",
-      "lastUpdated": null,
+      "officialUrl": "https://x.ai",
+      "pricingSummary": "Modèle xAI : accès selon offres Grok/X et API.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 91,
+        "qualityEstimate": 91,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2154,7 +3923,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/kuaishou.com",
-      "lastUpdated": null,
+      "officialUrl": "https://kuaishou.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 91,
+        "qualityEstimate": 91,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2165,68 +3963,93 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "gemini",
-      "name": "Gemini",
-      "vendor": "Google",
-      "domain": "gemini.google.com",
-      "tagline": "L'assistant Google grand public (Free + Advanced 19,99€)",
-      "description": "Multimodal natif, intégré à Gmail, Docs et la recherche Google.",
+      "slug": "runway",
+      "name": "Runway",
+      "vendor": "Runway",
+      "domain": "runwayml.com",
+      "tagline": "La suite vidéo IA professionnelle",
+      "description": "Outils complets : génération, montage, effets visuels IA.",
       "categorySlugs": [
-        "texte",
-        "productivite",
-        "recherche",
-        "image"
+        "video"
       ],
-      "speedMs": 160,
-      "accuracyPct": 90,
-      "costPerPrompt": 0.0015,
-      "monthlyPrice": 19.99,
+      "speedMs": 45000,
+      "accuracyPct": 88,
+      "costPerPrompt": 0.3,
+      "monthlyPrice": 15.0,
       "freeTier": true,
       "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "ja",
-        "zh",
-        "ko"
+        "en"
       ],
       "features": [
-        "Multimodal",
-        "Workspace",
-        "Recherche temps réel"
+        "Gen-3",
+        "Motion brush",
+        "Inpainting"
       ],
       "useCases": [
-        "Recherche web",
-        "Email",
-        "Docs Google"
+        "VFX",
+        "Court vidéo",
+        "Édition"
       ],
       "keywords": [
-        "recherche",
-        "google",
-        "email",
-        "gmail",
-        "docs",
-        "tableur",
-        "actualité",
-        "web"
+        "vidéo",
+        "video",
+        "vfx",
+        "montage",
+        "effet",
+        "édition"
       ],
       "score": 90,
       "categoryScores": {
-        "texte": 90,
-        "productivite": 83,
-        "recherche": 77,
-        "image": 73
+        "video": 85
       },
-      "color": "#4285F4",
-      "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "color": "#01FF61",
+      "image": "https://logo.clearbit.com/runwayml.com",
+      "officialUrl": "https://runwayml.com/pricing",
+      "pricingSummary": "Free pour tester ; Standard ≈ 15 $/mois (≈ 12 $/mois annuel) puis Pro/Unlimited/Enterprise.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Runway Pricing",
+          "url": "https://runwayml.com/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Runway Pricing",
+            "url": "https://runwayml.com/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
-        "privacy_score": 50,
+        "privacy_score": 60,
         "eu_hosted": false,
-        "trains_on_data": "yes_default",
+        "trains_on_data": "opt-out",
         "rgpd": true,
-        "note": "Free utilise tes conversations par défaut. Désactivable dans Activity. Workspace n'utilise PAS."
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": null
     },
@@ -2282,7 +4105,140 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "suno",
+      "name": "Suno",
+      "vendor": "Suno",
+      "domain": "suno.com",
+      "tagline": "Compose des chansons en quelques secondes",
+      "description": "Génération de chansons complètes (musique + voix) à partir de texte.",
+      "categorySlugs": [
+        "audio"
+      ],
+      "speedMs": 30000,
+      "accuracyPct": 87,
+      "costPerPrompt": 0.0,
+      "monthlyPrice": 10.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en",
+        "es",
+        "ja"
+      ],
+      "features": [
+        "Chanson complète",
+        "Voix",
+        "Style"
+      ],
+      "useCases": [
+        "Musique d'ambiance",
+        "Jingle",
+        "Démo"
+      ],
+      "keywords": [
+        "musique",
+        "chanson",
+        "song",
+        "jingle",
+        "instrumental",
+        "mélodie"
+      ],
+      "score": 90,
+      "categoryScores": {
+        "audio": 84
+      },
+      "color": "#1A1A1A",
+      "image": "https://logo.clearbit.com/suno.com",
+      "officialUrl": "https://suno.com/pricing",
+      "pricingSummary": "Free limité ; Pro ≈ 10 $/mois ; Premier plus élevé selon crédits/droits.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Suno Pricing",
+          "url": "https://suno.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Suno Pricing",
+            "url": "https://suno.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2346,13 +4302,235 @@ export const FALLBACK_DATA = {
       },
       "color": "#615CED",
       "image": "https://logo.clearbit.com/qwen.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://qwen.ai",
+      "pricingSummary": "Open-weight + API/Alibaba Cloud selon usage ; coût mensuel non applicable en local.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 91,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 50,
         "eu_hosted": false,
         "trains_on_data": "no",
         "rgpd": false,
         "note": "Open-weight. Servi par Alibaba en Chine ou self-host pour rester maître."
+      },
+      "example": null
+    },
+    {
+      "slug": "kimi",
+      "name": "Kimi K2",
+      "vendor": "Moonshot AI",
+      "domain": "kimi.com",
+      "tagline": "Le contexte 2M tokens du chinois Moonshot",
+      "description": "Modèle de raisonnement chinois avec contexte ultra-long (2M tokens), excellent en agentique.",
+      "categorySlugs": [
+        "texte",
+        "recherche",
+        "agent"
+      ],
+      "speedMs": 350,
+      "accuracyPct": 92,
+      "costPerPrompt": 0.0006,
+      "monthlyPrice": 0.0,
+      "freeTier": true,
+      "languages": [
+        "zh",
+        "en",
+        "fr"
+      ],
+      "features": [
+        "Contexte 2M",
+        "Agent natif",
+        "Open-weight"
+      ],
+      "useCases": [
+        "Analyser dossiers volumineux",
+        "Agents long-running"
+      ],
+      "keywords": [
+        "kimi",
+        "moonshot",
+        "long contexte",
+        "agent",
+        "open"
+      ],
+      "score": 90,
+      "categoryScores": {
+        "texte": 90,
+        "recherche": 83,
+        "agent": 77
+      },
+      "color": "#000000",
+      "image": "https://logo.clearbit.com/kimi.com",
+      "officialUrl": "https://kimi.com",
+      "pricingSummary": "Accès chat/API Moonshot selon disponibilité ; prix variables par région/API.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 40,
+        "eu_hosted": false,
+        "trains_on_data": "yes_default",
+        "rgpd": false,
+        "note": "API en Chine. Préférer self-host de la version open-weight pour données sensibles."
+      },
+      "example": null
+    },
+    {
+      "slug": "llama",
+      "name": "Llama 4",
+      "vendor": "Meta",
+      "domain": "llama.com",
+      "tagline": "Le LLM open-weight de référence",
+      "description": "Famille de modèles Meta open-weight (Scout, Maverick, Behemoth) avec multimodal natif.",
+      "categorySlugs": [
+        "texte",
+        "code",
+        "image"
+      ],
+      "speedMs": 200,
+      "accuracyPct": 90,
+      "costPerPrompt": 0.0003,
+      "monthlyPrice": 0.0,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en",
+        "es",
+        "de",
+        "hi",
+        "pt"
+      ],
+      "features": [
+        "Open-weight",
+        "Multimodal",
+        "Self-host"
+      ],
+      "useCases": [
+        "Self-hosting",
+        "Apps embarquées",
+        "Recherche académique"
+      ],
+      "keywords": [
+        "llama",
+        "meta",
+        "open",
+        "facebook"
+      ],
+      "score": 90,
+      "categoryScores": {
+        "texte": 90,
+        "code": 83,
+        "image": 77
+      },
+      "color": "#0866FF",
+      "image": "https://logo.clearbit.com/llama.com",
+      "officialUrl": "https://www.llama.com",
+      "pricingSummary": "Open-weight : gratuit à télécharger selon licence ; coûts = hébergement/inférence.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": null
     },
@@ -2397,7 +4575,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://deepmind.google",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2460,64 +4677,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://claude.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://www.anthropic.com/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Anthropic Pricing",
+            "url": "https://www.anthropic.com/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "claude-sonnet-46",
-      "name": "Claude Sonnet 4.6",
-      "vendor": "Anthropic",
-      "domain": "anthropic.com",
-      "tagline": "production",
-      "description": "production; code quotidien; rédaction; analyse de documents; rapport qualité/prix; Excellent compromis prix/performance; Très bon pour code et rédaction; Tarif officiel stable",
-      "categorySlugs": [
-        "texte"
-      ],
-      "speedMs": 210,
-      "accuracyPct": 90,
-      "costPerPrompt": 0.002,
-      "monthlyPrice": 20.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en"
-      ],
-      "features": [
-        "Excellent compromis prix/performance",
-        "Très bon pour code et rédaction",
-        "Tarif officiel stable"
-      ],
-      "useCases": [
-        "production",
-        "code quotidien",
-        "rédaction",
-        "analyse de documents",
-        "rapport qualité/prix"
-      ],
-      "keywords": [
-        "Claude Sonnet 4.6",
-        "Anthropic",
-        "texte",
-        "production",
-        "code quotidien",
-        "rédaction",
-        "analyse de documents",
-        "rapport qualité/prix"
-      ],
-      "score": 90,
-      "categoryScores": {
-        "texte": 90
-      },
-      "color": "#CC785C",
-      "image": "https://logo.clearbit.com/anthropic.com",
-      "lastUpdated": null,
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2572,7 +4771,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": null,
+      "officialUrl": "https://google.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2623,7 +4861,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 90,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2634,118 +4921,268 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "perplexity",
-      "name": "Perplexity",
-      "vendor": "Perplexity AI",
-      "domain": "perplexity.ai",
-      "tagline": "Le moteur de recherche IA avec sources",
-      "description": "Recherche web en temps réel avec citations vérifiables.",
+      "slug": "mistral",
+      "name": "Mistral Le Chat",
+      "vendor": "Mistral AI",
+      "domain": "chat.mistral.ai",
+      "tagline": "Le champion européen open-weight",
+      "description": "Modèle français performant, rapide, avec versions open-weight pour déploiement custom.",
       "categorySlugs": [
-        "recherche"
+        "texte",
+        "code",
+        "productivite"
       ],
-      "speedMs": 140,
-      "accuracyPct": 88,
+      "speedMs": 130,
+      "accuracyPct": 90,
       "costPerPrompt": 0.001,
-      "monthlyPrice": 20.0,
+      "monthlyPrice": 14.99,
       "freeTier": true,
       "languages": [
         "fr",
         "en",
         "es",
-        "de"
+        "de",
+        "it"
       ],
       "features": [
-        "Citations",
-        "Recherche temps réel",
-        "Pro Search"
+        "Open-weight",
+        "Code Mistral",
+        "API"
       ],
       "useCases": [
-        "Recherche académique",
-        "Veille",
-        "Fact-checking"
+        "Apps européennes",
+        "Code",
+        "Souveraineté data"
       ],
       "keywords": [
-        "recherche",
-        "veille",
-        "actualité",
-        "source",
-        "citation",
-        "fact",
-        "article",
-        "web"
+        "français",
+        "europe",
+        "souveraineté",
+        "open",
+        "mistral",
+        "le chat"
       ],
       "score": 89,
       "categoryScores": {
-        "recherche": 88
+        "texte": 87,
+        "code": 80,
+        "productivite": 74
       },
-      "color": "#20B8CD",
-      "image": "https://logo.clearbit.com/perplexity.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "color": "#FA520F",
+      "image": "https://logo.clearbit.com/chat.mistral.ai",
+      "officialUrl": "https://chat.mistral.ai",
+      "pricingSummary": "Le Chat gratuit disponible ; plans Pro/Team/Enterprise selon pays et organisation. Vérifier prix Mistral officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Mistral Pricing",
+          "url": "https://mistral.ai/pricing",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Mistral Pricing",
+            "url": "https://mistral.ai/pricing",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
-        "privacy_score": 65,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
+        "privacy_score": 95,
+        "eu_hosted": true,
+        "trains_on_data": "no",
         "rgpd": true,
-        "note": "Stockage US. Tes recherches peuvent être utilisées pour entraînement. Désactivable."
+        "note": "🇪🇺 Hébergé en France. Données européennes. Conforme RGPD natif. Le choix souveraineté."
       },
       "example": {
-        "prompt": "Combien d'eau consomme un kilo de bœuf vs un kilo de soja ? Sources scientifiques 2024.",
-        "output": "Le bœuf consomme environ 15 400 L d'eau par kg, le soja environ 2 100 L par kg. Sources : Mekonnen & Hoekstra (2012), revue Science of the Total Environment 2023, FAO 2024.\n\n[3 sources cliquables avec dates]"
+        "prompt": "Rédige un email de relance pro à un client qui n'a pas répondu depuis 10 jours, ton aimable mais ferme, en français, max 80 mots.",
+        "output": "Bonjour [Prénom],\n\nJe me permets de revenir vers vous concernant ma proposition du [date]. Je n'ai pas eu de retour de votre part et reste à votre disposition pour répondre à vos éventuelles questions ou ajuster les modalités.\n\nPourriez-vous me confirmer si le projet est toujours d'actualité d'ici la fin de la semaine ?\n\nMerci par avance pour votre retour.\n\nCordialement,\n[Ton nom]"
       }
     },
     {
-      "slug": "kimi",
-      "name": "Kimi K2",
-      "vendor": "Moonshot AI",
-      "domain": "kimi.com",
-      "tagline": "Le contexte 2M tokens du chinois Moonshot",
-      "description": "Modèle de raisonnement chinois avec contexte ultra-long (2M tokens), excellent en agentique.",
+      "slug": "grok",
+      "name": "Grok 4.3",
+      "vendor": "xAI",
+      "domain": "x.ai",
+      "tagline": "L'IA xAI temps-réel branchée sur X",
+      "description": "Famille Grok récente avec accès à l’actualité/X selon le produit utilisé, ton direct et capacités de raisonnement.",
       "categorySlugs": [
         "texte",
-        "recherche",
-        "agent"
+        "recherche"
       ],
-      "speedMs": 350,
-      "accuracyPct": 92,
-      "costPerPrompt": 0.0006,
-      "monthlyPrice": 0.0,
+      "speedMs": 200,
+      "accuracyPct": 89,
+      "costPerPrompt": 0.002,
+      "monthlyPrice": 16.0,
       "freeTier": true,
       "languages": [
-        "zh",
         "en",
-        "fr"
+        "fr",
+        "es"
       ],
       "features": [
-        "Contexte 2M",
-        "Agent natif",
-        "Open-weight"
+        "Temps réel X",
+        "Mode Think",
+        "Vision"
       ],
       "useCases": [
-        "Analyser dossiers volumineux",
-        "Agents long-running"
+        "Veille X/Twitter",
+        "Réactivité actualité"
       ],
       "keywords": [
-        "kimi",
-        "moonshot",
-        "long contexte",
-        "agent",
-        "open"
+        "temps réel",
+        "twitter",
+        "x",
+        "actualité",
+        "veille"
       ],
       "score": 89,
       "categoryScores": {
-        "texte": 90,
-        "recherche": 83,
-        "agent": 77
+        "texte": 83,
+        "recherche": 76
       },
       "color": "#000000",
-      "image": "https://logo.clearbit.com/kimi.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "image": "https://logo.clearbit.com/x.ai",
+      "officialUrl": "https://x.ai",
+      "pricingSummary": "Accès selon offres xAI/X et régions ; prix/quotas à vérifier dans l’app X/Grok.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
-        "privacy_score": 40,
+        "privacy_score": 60,
         "eu_hosted": false,
-        "trains_on_data": "yes_default",
-        "rgpd": false,
-        "note": "API en Chine. Préférer self-host de la version open-weight pour données sensibles."
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "windsurf",
+      "name": "Windsurf",
+      "vendor": "Windsurf",
+      "domain": "windsurf.com",
+      "tagline": "L'éditeur cascade-flow",
+      "description": "IDE IA avec un agent qui anticipe l'intention sur plusieurs fichiers.",
+      "categorySlugs": [
+        "code",
+        "agent"
+      ],
+      "speedMs": 130,
+      "accuracyPct": 90,
+      "costPerPrompt": 0.0,
+      "monthlyPrice": 15.0,
+      "freeTier": true,
+      "languages": [
+        "en"
+      ],
+      "features": [
+        "Cascade",
+        "Multi-file edit",
+        "Plan mode"
+      ],
+      "useCases": [
+        "Refactor complexe",
+        "Migration de stack"
+      ],
+      "keywords": [
+        "code",
+        "refactor",
+        "migration",
+        "cascade",
+        "agent"
+      ],
+      "score": 89,
+      "categoryScores": {
+        "code": 88,
+        "agent": 81
+      },
+      "color": "#09B6A2",
+      "image": "https://logo.clearbit.com/windsurf.com",
+      "officialUrl": "https://windsurf.com/pricing",
+      "pricingSummary": "Gratuit/Pro/Teams selon offres Windsurf ; vérifier pricing officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
       },
       "example": null
     },
@@ -2798,7 +5235,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://mistral.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 95,
         "eu_hosted": true,
@@ -2847,7 +5323,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/bytedance.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://bytedance.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2901,7 +5406,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2953,7 +5507,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/bytedance.com",
-      "lastUpdated": null,
+      "officialUrl": "https://bytedance.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 89,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2976,7 +5559,7 @@ export const FALLBACK_DATA = {
         "data"
       ],
       "speedMs": 240,
-      "accuracyPct": 89,
+      "accuracyPct": 90,
       "costPerPrompt": 0.0002,
       "monthlyPrice": 0.0,
       "freeTier": true,
@@ -3012,7 +5595,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4D6BFE",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://www.deepseek.com",
+      "pricingSummary": "Chat gratuit/API économique selon disponibilité ; vérifier prix API DeepSeek.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 35,
         "eu_hosted": false,
@@ -3023,102 +5645,76 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "windsurf",
-      "name": "Windsurf",
-      "vendor": "Codeium",
-      "domain": "codeium.com",
-      "tagline": "L'éditeur cascade-flow",
-      "description": "IDE IA avec un agent qui anticipe l'intention sur plusieurs fichiers.",
+      "slug": "ideogram",
+      "name": "Ideogram",
+      "vendor": "Ideogram",
+      "domain": "ideogram.ai",
+      "tagline": "L'IA image qui sait écrire",
+      "description": "Génération d'images avec texte intégré net et lisible — affiches, logos.",
       "categorySlugs": [
-        "code",
-        "agent"
+        "image"
       ],
-      "speedMs": 130,
-      "accuracyPct": 90,
-      "costPerPrompt": 0.0,
-      "monthlyPrice": 15.0,
+      "speedMs": 7000,
+      "accuracyPct": 89,
+      "costPerPrompt": 0.02,
+      "monthlyPrice": 8.0,
       "freeTier": true,
       "languages": [
         "en"
       ],
       "features": [
-        "Cascade",
-        "Multi-file edit",
-        "Plan mode"
+        "Texte dans l'image",
+        "Magic Prompt",
+        "Tile"
       ],
       "useCases": [
-        "Refactor complexe",
-        "Migration de stack"
+        "Affiches typographiques",
+        "Logos",
+        "Posters"
       ],
       "keywords": [
-        "code",
-        "refactor",
-        "migration",
-        "cascade",
-        "agent"
+        "affiche",
+        "poster",
+        "logo",
+        "texte",
+        "typographie"
       ],
       "score": 88,
       "categoryScores": {
-        "code": 88,
-        "agent": 81
+        "image": 85
       },
-      "color": "#09B6A2",
-      "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "color": "#FF4F8B",
+      "image": "https://logo.clearbit.com/ideogram.ai",
+      "officialUrl": "https://ideogram.ai/pricing",
+      "pricingSummary": "Gratuit limité ; Basic ≈ 8 $/mois et paliers supérieurs selon crédits.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "sora",
-      "name": "Sora",
-      "vendor": "OpenAI",
-      "domain": "sora.com",
-      "tagline": "Le générateur vidéo nouvelle génération",
-      "description": "Génération vidéo cinématographique à partir de texte.",
-      "categorySlugs": [
-        "video"
-      ],
-      "speedMs": 60000,
-      "accuracyPct": 91,
-      "costPerPrompt": 0.5,
-      "monthlyPrice": 20.0,
-      "freeTier": false,
-      "languages": [
-        "en",
-        "fr"
-      ],
-      "features": [
-        "Text-to-video",
-        "Storyboard",
-        "Remix"
-      ],
-      "useCases": [
-        "Pub vidéo",
-        "Court-métrage"
-      ],
-      "keywords": [
-        "vidéo",
-        "video",
-        "film",
-        "court",
-        "métrage",
-        "pub",
-        "animation",
-        "clip"
-      ],
-      "score": 88,
-      "categoryScores": {
-        "video": 89
-      },
-      "color": "#000000",
-      "image": "https://logo.clearbit.com/sora.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3171,7 +5767,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#F55036",
       "image": "https://logo.clearbit.com/groq.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://groq.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3222,7 +5857,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/magnific.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://magnific.ai",
+      "pricingSummary": "Payant ; premier prix public autour de 39.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3276,7 +5940,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cartesia.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://cartesia.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 5.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 92,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3331,7 +6012,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#1A53E0",
       "image": "https://logo.clearbit.com/assemblyai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://assemblyai.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 93,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3385,7 +6083,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/openclaw.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://openclaw.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3399,7 +6136,7 @@ export const FALLBACK_DATA = {
       "slug": "qwen3-max",
       "name": "Qwen3-Max",
       "vendor": "Alibaba / Qwen",
-      "domain": "alibaba-qwen.com",
+      "domain": "qwen.ai",
       "tagline": "code",
       "description": "code; raisonnement; rapport prix/performance; marché asiatique; Très bon score coding annoncé officiellement; Écosystème Qwen très actif; Bon choix pour agents et développeurs",
       "categorySlugs": [
@@ -3439,8 +6176,47 @@ export const FALLBACK_DATA = {
         "texte": 88
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/alibaba-qwen.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/qwen.ai",
+      "officialUrl": "https://qwen.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3490,7 +6266,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 93,
+        "qualityEstimate": 93,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3540,7 +6365,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#111111",
       "image": "https://logo.clearbit.com/x.ai",
-      "lastUpdated": null,
+      "officialUrl": "https://x.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3592,7 +6446,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/kuaishou.com",
-      "lastUpdated": null,
+      "officialUrl": "https://kuaishou.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3646,7 +6529,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#111827",
       "image": "https://logo.clearbit.com/runwayml.com",
-      "lastUpdated": null,
+      "officialUrl": "https://runwayml.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Runway Pricing",
+          "url": "https://runwayml.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Runway Pricing",
+            "url": "https://runwayml.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3695,7 +6607,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": null,
+      "officialUrl": "https://google.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3749,125 +6700,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/totalum.com",
-      "lastUpdated": null,
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://totalum.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 88,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "mistral",
-      "name": "Le Chat",
-      "vendor": "Mistral AI",
-      "domain": "mistral.ai",
-      "tagline": "Le champion européen open-weight",
-      "description": "Modèle français performant, rapide, avec versions open-weight pour déploiement custom.",
-      "categorySlugs": [
-        "texte",
-        "code",
-        "productivite"
-      ],
-      "speedMs": 130,
-      "accuracyPct": 88,
-      "costPerPrompt": 0.001,
-      "monthlyPrice": 14.99,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "it"
-      ],
-      "features": [
-        "Open-weight",
-        "Code Mistral",
-        "API"
-      ],
-      "useCases": [
-        "Apps européennes",
-        "Code",
-        "Souveraineté data"
-      ],
-      "keywords": [
-        "français",
-        "europe",
-        "souveraineté",
-        "open",
-        "mistral",
-        "le chat"
-      ],
-      "score": 87,
-      "categoryScores": {
-        "texte": 87,
-        "code": 80,
-        "productivite": 74
-      },
-      "color": "#FA520F",
-      "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 95,
-        "eu_hosted": true,
-        "trains_on_data": "no",
-        "rgpd": true,
-        "note": "🇪🇺 Hébergé en France. Données européennes. Conforme RGPD natif. Le choix souveraineté."
-      },
-      "example": {
-        "prompt": "Rédige un email de relance pro à un client qui n'a pas répondu depuis 10 jours, ton aimable mais ferme, en français, max 80 mots.",
-        "output": "Bonjour [Prénom],\n\nJe me permets de revenir vers vous concernant ma proposition du [date]. Je n'ai pas eu de retour de votre part et reste à votre disposition pour répondre à vos éventuelles questions ou ajuster les modalités.\n\nPourriez-vous me confirmer si le projet est toujours d'actualité d'ici la fin de la semaine ?\n\nMerci par avance pour votre retour.\n\nCordialement,\n[Ton nom]"
-      }
-    },
-    {
-      "slug": "zapier-ai",
-      "name": "Zapier Agents",
-      "vendor": "Zapier",
-      "domain": "zapier.com",
-      "tagline": "Les agents qui orchestrent ton stack",
-      "description": "Crée des agents qui connectent tes 7000+ apps avec déclencheurs IA.",
-      "categorySlugs": [
-        "agent",
-        "productivite"
-      ],
-      "speedMs": 2000,
-      "accuracyPct": 86,
-      "costPerPrompt": 0.0,
-      "monthlyPrice": 19.99,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en"
-      ],
-      "features": [
-        "7000+ intégrations",
-        "Triggers IA",
-        "No-code"
-      ],
-      "useCases": [
-        "Automatiser CRM",
-        "Workflows email",
-        "Lead capture"
-      ],
-      "keywords": [
-        "automatisation",
-        "automate",
-        "workflow",
-        "zap",
-        "intégration",
-        "no-code"
-      ],
-      "score": 87,
-      "categoryScores": {
-        "agent": 86,
-        "productivite": 79
-      },
-      "color": "#FF4F00",
-      "image": "https://logo.clearbit.com/zapier.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3923,7 +6795,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF1744",
       "image": "https://logo.clearbit.com/photoroom.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://photoroom.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3982,7 +6883,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#32A8E8",
       "image": "https://logo.clearbit.com/synthesia.io",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://synthesia.io",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 22.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 90,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4036,7 +6966,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#13EF93",
       "image": "https://logo.clearbit.com/deepgram.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://deepgram.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 91,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4094,7 +7041,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://microsoft.com",
+      "pricingSummary": "Payant ; premier prix public autour de 30.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4150,7 +7136,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://mistral.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 87,
+        "scoreType": "estimated",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4199,7 +7202,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 92,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4213,7 +7265,7 @@ export const FALLBACK_DATA = {
       "slug": "flux-2-dev-turbo",
       "name": "FLUX.2 dev Turbo",
       "vendor": "Black Forest Labs",
-      "domain": "black-forest-labs.com",
+      "domain": "blackforestlabs.ai",
       "tagline": "open-weight image",
       "description": "open-weight image; pipelines créatifs custom; self-hosting; Premier open-weight indiqué par Artificial Analysis dans l’extrait fourni; Bon choix pour développeurs créatifs",
       "categorySlugs": [
@@ -4249,8 +7301,37 @@ export const FALLBACK_DATA = {
         "image": 87
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/black-forest-labs.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/blackforestlabs.ai",
+      "officialUrl": "https://blackforestlabs.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4264,7 +7345,7 @@ export const FALLBACK_DATA = {
       "slug": "hermes-agent",
       "name": "Hermes Agent",
       "vendor": "Nous Research",
-      "domain": "nous-research.com",
+      "domain": "hermes-agent.nousresearch.com",
       "tagline": "agent personnel évolutif",
       "description": "agent personnel évolutif; mémoire persistante; automatisations planifiées; Open-source MIT selon le site officiel; Mémoire persistante, skills auto-générés et plateformes de messagerie multiples",
       "categorySlugs": [
@@ -4303,8 +7384,47 @@ export const FALLBACK_DATA = {
         "texte": 87
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/nous-research.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/hermes-agent.nousresearch.com",
+      "officialUrl": "https://hermes-agent.nousresearch.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4359,7 +7479,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#2563EB",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": null,
+      "officialUrl": "https://deepseek.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4373,7 +7532,7 @@ export const FALLBACK_DATA = {
       "slug": "flux-2",
       "name": "FLUX.2 dev / Turbo",
       "vendor": "Black Forest Labs",
-      "domain": "black-forest-labs.com",
+      "domain": "blackforestlabs.ai",
       "tagline": "open-weight",
       "description": "open-weight; pipelines créatifs; self-hosting image; Très bon choix open; Contrôle technique",
       "categorySlugs": [
@@ -4410,8 +7569,118 @@ export const FALLBACK_DATA = {
         "image": 87
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/black-forest-labs.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/blackforestlabs.ai",
+      "officialUrl": "https://blackforestlabs.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 87,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "recraft",
+      "name": "Recraft",
+      "vendor": "Recraft",
+      "domain": "recraft.ai",
+      "tagline": "Le compagnon des designers",
+      "description": "Vector + raster avec contrôle de style fin pour usages design pro.",
+      "categorySlugs": [
+        "image"
+      ],
+      "speedMs": 8000,
+      "accuracyPct": 88,
+      "costPerPrompt": 0.025,
+      "monthlyPrice": 12.0,
+      "freeTier": true,
+      "languages": [
+        "en"
+      ],
+      "features": [
+        "Vector",
+        "Brand kit",
+        "Style consistency"
+      ],
+      "useCases": [
+        "Icônes",
+        "Pictogrammes",
+        "Identité visuelle"
+      ],
+      "keywords": [
+        "vector",
+        "vectoriel",
+        "icône",
+        "icone",
+        "brand",
+        "identité"
+      ],
+      "score": 86,
+      "categoryScores": {
+        "image": 86
+      },
+      "color": "#000000",
+      "image": "https://logo.clearbit.com/recraft.ai",
+      "officialUrl": "https://www.recraft.ai/pricing",
+      "pricingSummary": "Gratuit limité ; paliers payants orientés design. Vérifier la page pricing Recraft.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4425,7 +7694,7 @@ export const FALLBACK_DATA = {
       "slug": "v0",
       "name": "v0",
       "vendor": "Vercel",
-      "domain": "vercel.com",
+      "domain": "v0.dev",
       "tagline": "Du prompt à l'UI React",
       "description": "Génère des composants Next.js + Tailwind directement depuis une description.",
       "categorySlugs": [
@@ -4462,8 +7731,47 @@ export const FALLBACK_DATA = {
         "code": 86
       },
       "color": "#000000",
-      "image": "https://logo.clearbit.com/vercel.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "image": "https://logo.clearbit.com/v0.dev",
+      "officialUrl": "https://v0.dev/pricing",
+      "pricingSummary": "Free/usage par crédits ; Premium/Team selon Vercel/v0. Vérifier v0 pricing.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4521,7 +7829,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/heygen.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://heygen.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 24.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4575,7 +7912,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#15C39A",
       "image": "https://logo.clearbit.com/grammarly.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://grammarly.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 91,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4629,7 +8005,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/gamma.app",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://gamma.app",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4681,7 +8074,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#EA4B71",
       "image": "https://logo.clearbit.com/n8n.io",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://n8n.io/pricing/",
+      "pricingSummary": "Community self-host gratuit ; Cloud Starter/Pro/Enterprise selon exécutions et collaboration.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "N8N Pricing",
+          "url": "https://n8n.io/pricing/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "N8N Pricing",
+            "url": "https://n8n.io/pricing/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4738,7 +8160,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/julius.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://julius.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4797,7 +8236,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#39594D",
       "image": "https://logo.clearbit.com/cohere.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://cohere.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4850,7 +8328,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA0F00",
       "image": "https://logo.clearbit.com/adobe.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://adobe.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 9.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4902,7 +8409,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B00",
       "image": "https://logo.clearbit.com/topazlabs.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://topazlabs.com",
+      "pricingSummary": "Payant ; premier prix public autour de 199.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 91,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4951,7 +8487,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/supermaven.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://supermaven.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5008,7 +8583,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/workspace.google.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://workspace.google.com",
+      "pricingSummary": "Payant ; premier prix public autour de 24.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5057,7 +8671,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/consensus.app",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://consensus.app",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 8.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 90,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5109,7 +8740,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#5A45FF",
       "image": "https://logo.clearbit.com/hex.tech",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://hex.tech",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 24.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5164,7 +8834,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#2563EB",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://deepseek.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5178,7 +8887,7 @@ export const FALLBACK_DATA = {
       "slug": "flux-2-dev",
       "name": "FLUX.2 dev",
       "vendor": "Black Forest Labs",
-      "domain": "black-forest-labs.com",
+      "domain": "blackforestlabs.ai",
       "tagline": "open-weight image",
       "description": "open-weight image; pipelines personnalisés; Classé parmi les meilleurs open-weight dans le leaderboard Artificial Analysis cité",
       "categorySlugs": [
@@ -5212,8 +8921,37 @@ export const FALLBACK_DATA = {
         "image": 86
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/black-forest-labs.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/blackforestlabs.ai",
+      "officialUrl": "https://blackforestlabs.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5227,7 +8965,7 @@ export const FALLBACK_DATA = {
       "slug": "qwen-image-max-2512",
       "name": "Qwen Image Max 2512",
       "vendor": "Qwen / Alibaba Cloud",
-      "domain": "qwen-alibaba-cloud.com",
+      "domain": "qwen.ai",
       "tagline": "open-weight image",
       "description": "open-weight image; écosystème Qwen; Mentionné dans le top open-weight Artificial Analysis cité",
       "categorySlugs": [
@@ -5261,8 +8999,37 @@ export const FALLBACK_DATA = {
         "image": 86
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/qwen-alibaba-cloud.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/qwen.ai",
+      "officialUrl": "https://qwen.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5276,7 +9043,7 @@ export const FALLBACK_DATA = {
       "slug": "kimi-k2-thinking",
       "name": "Kimi K2 Thinking",
       "vendor": "Moonshot AI",
-      "domain": "moonshot-ai.com",
+      "domain": "kimi.com",
       "tagline": "raisonnement",
       "description": "raisonnement; tâches complexes; alternatives prix/performance; Très bon potentiel reasoning; Souvent bien placé dans comparatifs tiers",
       "categorySlugs": [
@@ -5313,8 +9080,47 @@ export const FALLBACK_DATA = {
         "texte": 86
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/moonshot-ai.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/kimi.com",
+      "officialUrl": "https://kimi.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5366,7 +9172,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#111827",
       "image": "https://logo.clearbit.com/midjourney.com",
-      "lastUpdated": null,
+      "officialUrl": "https://midjourney.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Midjourney Plans",
+          "url": "https://www.midjourney.com/plans",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Midjourney Plans",
+            "url": "https://www.midjourney.com/plans",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5417,7 +9262,56 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://openai.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Openai Pricing",
+          "url": "https://chatgpt.com/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openai Api Pricing",
+          "url": "https://openai.com/api/pricing/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Openai Pricing",
+            "url": "https://chatgpt.com/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openai Api Pricing",
+            "url": "https://openai.com/api/pricing/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5466,7 +9360,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": null,
+      "officialUrl": "https://google.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 86,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5477,100 +9410,78 @@ export const FALLBACK_DATA = {
       "example": null
     },
     {
-      "slug": "recraft",
-      "name": "Recraft",
-      "vendor": "Recraft",
-      "domain": "recraft.ai",
-      "tagline": "Le compagnon des designers",
-      "description": "Vector + raster avec contrôle de style fin pour usages design pro.",
+      "slug": "make",
+      "name": "Make",
+      "vendor": "Make",
+      "domain": "make.com",
+      "tagline": "Le studio visuel d'automatisations",
+      "description": "Build des scénarios visuels avec routes, filtres et IA pour automatiser tout.",
       "categorySlugs": [
-        "image"
+        "agent",
+        "productivite"
       ],
-      "speedMs": 8000,
-      "accuracyPct": 88,
-      "costPerPrompt": 0.025,
-      "monthlyPrice": 12.0,
+      "speedMs": 1500,
+      "accuracyPct": 85,
+      "costPerPrompt": 0.0,
+      "monthlyPrice": 9.0,
       "freeTier": true,
       "languages": [
-        "en"
+        "fr",
+        "en",
+        "es"
       ],
       "features": [
-        "Vector",
-        "Brand kit",
-        "Style consistency"
+        "Scenarios visuels",
+        "Routeurs",
+        "Webhooks"
       ],
       "useCases": [
-        "Icônes",
-        "Pictogrammes",
-        "Identité visuelle"
+        "Sync CRM",
+        "Pipelines marketing"
       ],
       "keywords": [
-        "vector",
-        "vectoriel",
-        "icône",
-        "icone",
-        "brand",
-        "identité"
+        "automatisation",
+        "scenario",
+        "workflow",
+        "intégration"
       ],
       "score": 85,
       "categoryScores": {
-        "image": 86
+        "agent": 84,
+        "productivite": 77
       },
-      "color": "#000000",
-      "image": "https://logo.clearbit.com/recraft.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "color": "#6D00CC",
+      "image": "https://logo.clearbit.com/make.com",
+      "officialUrl": "https://make.com/en/pricing",
+      "pricingSummary": "Free disponible ; Core/Pro/Teams/Enterprise selon opérations et scénarios.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Make Pricing",
+          "url": "https://make.com/en/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Make Pricing",
+            "url": "https://make.com/en/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "runway",
-      "name": "Runway",
-      "vendor": "Runway",
-      "domain": "runwayml.com",
-      "tagline": "La suite vidéo IA professionnelle",
-      "description": "Outils complets : génération, montage, effets visuels IA.",
-      "categorySlugs": [
-        "video"
-      ],
-      "speedMs": 45000,
-      "accuracyPct": 86,
-      "costPerPrompt": 0.3,
-      "monthlyPrice": 15.0,
-      "freeTier": true,
-      "languages": [
-        "en"
-      ],
-      "features": [
-        "Gen-3",
-        "Motion brush",
-        "Inpainting"
-      ],
-      "useCases": [
-        "VFX",
-        "Court vidéo",
-        "Édition"
-      ],
-      "keywords": [
-        "vidéo",
-        "video",
-        "vfx",
-        "montage",
-        "effet",
-        "édition"
-      ],
-      "score": 85,
-      "categoryScores": {
-        "video": 85
-      },
-      "color": "#01FF61",
-      "image": "https://logo.clearbit.com/runwayml.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5625,7 +9536,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#76B900",
       "image": "https://logo.clearbit.com/nvidia.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://nvidia.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5679,7 +9629,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F6FFF",
       "image": "https://logo.clearbit.com/together.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://together.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5731,7 +9720,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/lovable.dev",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://lovable.dev",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5783,7 +9811,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/phind.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://phind.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5834,7 +9901,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://microsoft.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 87,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5886,7 +9970,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0866FF",
       "image": "https://logo.clearbit.com/meta.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://meta.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5900,7 +10023,7 @@ export const FALLBACK_DATA = {
       "slug": "qwen3",
       "name": "Qwen3",
       "vendor": "Alibaba Cloud / Qwen",
-      "domain": "alibaba-cloud-qwen.com",
+      "domain": "qwen.ai",
       "tagline": "modèles open-weight multilingues",
       "description": "modèles open-weight multilingues; code; tool-use; long contexte; Famille dense + MoE avec mode thinking/non-thinking; Long contexte 256k étendable jusqu’à 1M selon le repo officiel",
       "categorySlugs": [
@@ -5939,8 +10062,47 @@ export const FALLBACK_DATA = {
         "code": 85
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/alibaba-cloud-qwen.com",
-      "lastUpdated": "2026-05-02",
+      "image": "https://logo.clearbit.com/qwen.ai",
+      "officialUrl": "https://qwen.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5992,58 +10154,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/base44.com",
-      "lastUpdated": null,
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://base44.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 85,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "ideogram",
-      "name": "Ideogram",
-      "vendor": "Ideogram",
-      "domain": "ideogram.ai",
-      "tagline": "L'IA image qui sait écrire",
-      "description": "Génération d'images avec texte intégré net et lisible — affiches, logos.",
-      "categorySlugs": [
-        "image"
-      ],
-      "speedMs": 7000,
-      "accuracyPct": 87,
-      "costPerPrompt": 0.02,
-      "monthlyPrice": 8.0,
-      "freeTier": true,
-      "languages": [
-        "en"
-      ],
-      "features": [
-        "Texte dans l'image",
-        "Magic Prompt",
-        "Tile"
-      ],
-      "useCases": [
-        "Affiches typographiques",
-        "Logos",
-        "Posters"
-      ],
-      "keywords": [
-        "affiche",
-        "poster",
-        "logo",
-        "texte",
-        "typographie"
-      ],
-      "score": 84,
-      "categoryScores": {
-        "image": 85
-      },
-      "color": "#FF4F8B",
-      "image": "https://logo.clearbit.com/ideogram.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6057,7 +10207,7 @@ export const FALLBACK_DATA = {
       "slug": "bolt",
       "name": "Bolt.new",
       "vendor": "StackBlitz",
-      "domain": "stackblitz.com",
+      "domain": "bolt.new",
       "tagline": "Une app full-stack en un prompt",
       "description": "Build, run et déploie une app full-stack dans le navigateur.",
       "categorySlugs": [
@@ -6095,63 +10245,47 @@ export const FALLBACK_DATA = {
         "agent": 77
       },
       "color": "#1389FD",
-      "image": "https://logo.clearbit.com/stackblitz.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "image": "https://logo.clearbit.com/bolt.new",
+      "officialUrl": "https://bolt.new",
+      "pricingSummary": "Free + paliers payants par crédits/tokens selon StackBlitz Bolt.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "suno",
-      "name": "Suno",
-      "vendor": "Suno",
-      "domain": "suno.com",
-      "tagline": "Compose des chansons en quelques secondes",
-      "description": "Génération de chansons complètes (musique + voix) à partir de texte.",
-      "categorySlugs": [
-        "audio"
-      ],
-      "speedMs": 30000,
-      "accuracyPct": 85,
-      "costPerPrompt": 0.0,
-      "monthlyPrice": 10.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es",
-        "ja"
-      ],
-      "features": [
-        "Chanson complète",
-        "Voix",
-        "Style"
-      ],
-      "useCases": [
-        "Musique d'ambiance",
-        "Jingle",
-        "Démo"
-      ],
-      "keywords": [
-        "musique",
-        "chanson",
-        "song",
-        "jingle",
-        "instrumental",
-        "mélodie"
-      ],
-      "score": 84,
-      "categoryScores": {
-        "audio": 84
-      },
-      "color": "#1A1A1A",
-      "image": "https://logo.clearbit.com/suno.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6209,60 +10343,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/notion.so",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://notion.so",
+      "pricingSummary": "Payant ; premier prix public autour de 10.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "make",
-      "name": "Make",
-      "vendor": "Make",
-      "domain": "make.com",
-      "tagline": "Le studio visuel d'automatisations",
-      "description": "Build des scénarios visuels avec routes, filtres et IA pour automatiser tout.",
-      "categorySlugs": [
-        "agent",
-        "productivite"
-      ],
-      "speedMs": 1500,
-      "accuracyPct": 85,
-      "costPerPrompt": 0.0,
-      "monthlyPrice": 9.0,
-      "freeTier": true,
-      "languages": [
-        "fr",
-        "en",
-        "es"
-      ],
-      "features": [
-        "Scenarios visuels",
-        "Routeurs",
-        "Webhooks"
-      ],
-      "useCases": [
-        "Sync CRM",
-        "Pipelines marketing"
-      ],
-      "keywords": [
-        "automatisation",
-        "scenario",
-        "workflow",
-        "intégration"
-      ],
-      "score": 84,
-      "categoryScores": {
-        "agent": 84,
-        "productivite": 77
-      },
-      "color": "#6D00CC",
-      "image": "https://logo.clearbit.com/make.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6313,7 +10433,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/klingai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://klingai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 88,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6364,7 +10513,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/01.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://01.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6421,7 +10609,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/reka.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://reka.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6475,7 +10702,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5722",
       "image": "https://logo.clearbit.com/fireworks.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://fireworks.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6523,7 +10789,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/reve.art",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://reve.art",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 89,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6578,7 +10873,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5500",
       "image": "https://logo.clearbit.com/remove.bg",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://remove.bg",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 92,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6629,7 +10953,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/hailuoai.video",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://hailuoai.video",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6686,7 +11039,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#39EBA9",
       "image": "https://logo.clearbit.com/play.ht",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://play.ht",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 31.2 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 90,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6739,7 +11109,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#272727",
       "image": "https://logo.clearbit.com/resemble.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://resemble.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 19.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 91,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6789,7 +11176,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/aider.chat",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://aider.chat",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 87,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6838,7 +11264,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#09B6A2",
       "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://codeium.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6890,7 +11355,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/granola.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://granola.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 18.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 89,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6939,7 +11421,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/elicit.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://elicit.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 89,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6991,7 +11490,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lindy.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://lindy.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 49.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7043,7 +11581,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0866FF",
       "image": "https://logo.clearbit.com/meta.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://meta.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "high",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "high",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7096,7 +11673,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/manus.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://manus.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "estimated",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7150,7 +11744,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#7FBA00",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-02",
+      "officialUrl": "https://microsoft.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "estimated",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7202,7 +11813,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/zhipu-ai.com",
-      "lastUpdated": null,
+      "officialUrl": "https://zhipu-ai.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7254,7 +11904,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/ideogram.com",
-      "lastUpdated": null,
+      "officialUrl": "https://ideogram.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7268,7 +11947,7 @@ export const FALLBACK_DATA = {
       "slug": "copilot",
       "name": "Microsoft Copilot",
       "vendor": "IA",
-      "domain": "ia.com",
+      "domain": "copilot.microsoft.com",
       "tagline": "Microsoft 365",
       "description": "Microsoft 365; entreprise; Word/Excel/Teams/Outlook",
       "categorySlugs": [
@@ -7302,8 +11981,47 @@ export const FALLBACK_DATA = {
         "texte": 84
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/ia.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/copilot.microsoft.com",
+      "officialUrl": "https://copilot.microsoft.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7354,7 +12072,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#1FB8CD",
       "image": "https://logo.clearbit.com/perplexity.ai",
-      "lastUpdated": null,
+      "officialUrl": "https://perplexity.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7368,7 +12125,7 @@ export const FALLBACK_DATA = {
       "slug": "cline-roo-aider",
       "name": "Cline / Roo Code / Aider / OpenCode",
       "vendor": "Open-source",
-      "domain": "open-source.com",
+      "domain": "cline.bot",
       "tagline": "dev local",
       "description": "dev local; BYO model; open-source; Flexibles; Peuvent utiliser plusieurs modèles",
       "categorySlugs": [
@@ -7405,8 +12162,47 @@ export const FALLBACK_DATA = {
         "texte": 84
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/open-source.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/cline.bot",
+      "officialUrl": "https://cline.bot",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 84,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7457,7 +12253,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/leonardo.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://leonardo.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7508,7 +12333,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lumalabs.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://lumalabs.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 9.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7565,7 +12419,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#F0463A",
       "image": "https://logo.clearbit.com/fireflies.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://fireflies.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 88,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7619,7 +12490,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0066CC",
       "image": "https://logo.clearbit.com/zhipuai.cn",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://zhipuai.cn",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7669,7 +12579,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#6E40C9",
       "image": "https://logo.clearbit.com/tabnine.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://tabnine.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7720,7 +12669,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cognition.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://cognition.ai",
+      "pricingSummary": "Payant ; premier prix public autour de 500.0 $/mois, à vérifier sur le site officiel.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7770,7 +12758,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6E47",
       "image": "https://logo.clearbit.com/relevanceai.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://relevanceai.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 99.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 85,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7824,61 +12851,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/google.com",
-      "lastUpdated": "2026-05-02",
-      "privacy": {
-        "privacy_score": 60,
-        "eu_hosted": false,
-        "trains_on_data": "opt-out",
-        "rgpd": true,
-        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      "officialUrl": "https://google.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Gemini Subscriptions",
+          "url": "https://gemini.google/subscriptions/",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 83,
+        "qualityEstimate": 83,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Gemini Subscriptions",
+            "url": "https://gemini.google/subscriptions/",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
       },
-      "example": null
-    },
-    {
-      "slug": "grok",
-      "name": "Grok 4.3",
-      "vendor": "xAI",
-      "domain": "x.ai",
-      "tagline": "L'IA xAI temps-réel branchée sur X",
-      "description": "Famille Grok récente avec accès à l’actualité/X selon le produit utilisé, ton direct et capacités de raisonnement.",
-      "categorySlugs": [
-        "texte",
-        "recherche"
-      ],
-      "speedMs": 200,
-      "accuracyPct": 86,
-      "costPerPrompt": 0.002,
-      "monthlyPrice": 16.0,
-      "freeTier": true,
-      "languages": [
-        "en",
-        "fr",
-        "es"
-      ],
-      "features": [
-        "Temps réel X",
-        "Mode Think",
-        "Vision"
-      ],
-      "useCases": [
-        "Veille X/Twitter",
-        "Réactivité actualité"
-      ],
-      "keywords": [
-        "temps réel",
-        "twitter",
-        "x",
-        "actualité",
-        "veille"
-      ],
-      "score": 82,
-      "categoryScores": {
-        "texte": 83,
-        "recherche": 76
-      },
-      "color": "#000000",
-      "image": "https://logo.clearbit.com/x.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7928,7 +12940,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://stability.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7980,7 +13021,130 @@ export const FALLBACK_DATA = {
       },
       "color": "#F26207",
       "image": "https://logo.clearbit.com/replit.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://replit.com/pricing",
+      "pricingSummary": "Free/Starter/Core/Teams selon Replit ; agent avancé selon crédits/plan.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 83,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
+      "privacy": {
+        "privacy_score": 60,
+        "eu_hosted": false,
+        "trains_on_data": "opt-out",
+        "rgpd": true,
+        "note": "Hébergement variable. Vérifie les paramètres « Data controls » et désactive l'utilisation pour entraînement."
+      },
+      "example": null
+    },
+    {
+      "slug": "zapier-ai",
+      "name": "Zapier Agents",
+      "vendor": "Zapier",
+      "domain": "zapier.com",
+      "tagline": "Les agents qui orchestrent ton stack",
+      "description": "Crée des agents qui connectent tes 7000+ apps avec déclencheurs IA.",
+      "categorySlugs": [
+        "agent",
+        "productivite"
+      ],
+      "speedMs": 2000,
+      "accuracyPct": 86,
+      "costPerPrompt": 0.0,
+      "monthlyPrice": 19.99,
+      "freeTier": true,
+      "languages": [
+        "fr",
+        "en"
+      ],
+      "features": [
+        "7000+ intégrations",
+        "Triggers IA",
+        "No-code"
+      ],
+      "useCases": [
+        "Automatiser CRM",
+        "Workflows email",
+        "Lead capture"
+      ],
+      "keywords": [
+        "automatisation",
+        "automate",
+        "workflow",
+        "zap",
+        "intégration",
+        "no-code"
+      ],
+      "score": 82,
+      "categoryScores": {
+        "agent": 86,
+        "productivite": 79
+      },
+      "color": "#FF4F00",
+      "image": "https://logo.clearbit.com/zapier.com",
+      "officialUrl": "https://zapier.com/pricing",
+      "pricingSummary": "Free disponible ; Professional/Team/Enterprise selon tâches et automatisations.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "élevée",
+      "sources": [
+        {
+          "label": "Zapier Pricing",
+          "url": "https://zapier.com/pricing",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "élevée",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Zapier Pricing",
+            "url": "https://zapier.com/pricing",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8031,7 +13195,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F62FE",
       "image": "https://logo.clearbit.com/scribehow.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://scribehow.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 23.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 88,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8085,7 +13266,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://microsoft.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8140,7 +13360,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#7CB7FF",
       "image": "https://logo.clearbit.com/ai21.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://ai21.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8190,7 +13449,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/ltx.studio",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://ltx.studio",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 35.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 83,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8238,7 +13526,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/scite.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://scite.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 20.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 87,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8293,7 +13598,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#1FB8CD",
       "image": "https://logo.clearbit.com/perplexity.ai",
-      "lastUpdated": null,
+      "officialUrl": "https://perplexity.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 82,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8345,7 +13689,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/adobe.com",
-      "lastUpdated": null,
+      "officialUrl": "https://adobe.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 82,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8359,7 +13732,7 @@ export const FALLBACK_DATA = {
       "slug": "zapier-agents",
       "name": "Zapier Agents / Make AI / n8n AI",
       "vendor": "Zapier / Make / n8n",
-      "domain": "zapier-make-n8n.com",
+      "domain": "zapier.com",
       "tagline": "automatisation business",
       "description": "automatisation business; no-code; CRM; emails; workflows SaaS; Très utile pour workflows réels; Intégrations nombreuses",
       "categorySlugs": [
@@ -8400,8 +13773,47 @@ export const FALLBACK_DATA = {
         "texte": 82
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/zapier-make-n8n.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/zapier.com",
+      "officialUrl": "https://zapier.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 82,
+        "qualityEstimate": 82,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8450,7 +13862,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/udio.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://udio.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8510,7 +13939,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#00C4CC",
       "image": "https://logo.clearbit.com/canva.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://canva.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 83,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8563,7 +14021,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4500",
       "image": "https://logo.clearbit.com/krea.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://krea.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8614,7 +14101,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/pixverse.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://pixverse.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8668,7 +14184,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF7C00",
       "image": "https://logo.clearbit.com/d-id.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://d-id.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 6.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8717,7 +14262,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://stability.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8765,7 +14327,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/continue.dev",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://continue.dev",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8817,7 +14418,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/mem.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://mem.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 14.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 81,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8871,7 +14511,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#7C3AED",
       "image": "https://logo.clearbit.com/you.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://you.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 15.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 86,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8925,7 +14604,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/otter.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://otter.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 16.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 87,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8979,7 +14675,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#3F51B5",
       "image": "https://logo.clearbit.com/rows.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://rows.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 8.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 84,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9031,7 +14744,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tldraw.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://tldraw.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9079,7 +14831,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/multion.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://multion.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 19.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9128,7 +14919,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/murf.com",
-      "lastUpdated": null,
+      "officialUrl": "https://murf.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "low",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "estimated",
+        "confidence": "low",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9142,7 +14950,7 @@ export const FALLBACK_DATA = {
       "slug": "framework-agents",
       "name": "AutoGPT / CrewAI / LangGraph / AutoGen",
       "vendor": "Open-source / frameworks dev",
-      "domain": "open-source-frameworks-dev.com",
+      "domain": "github.com",
       "tagline": "frameworks agents",
       "description": "frameworks agents; multi-agent; prototype dev; orchestration; Très flexibles; Bon pour développeurs",
       "categorySlugs": [
@@ -9181,8 +14989,47 @@ export const FALLBACK_DATA = {
         "texte": 80
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/open-source-frameworks-dev.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/github.com",
+      "officialUrl": "https://github.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9196,7 +15043,7 @@ export const FALLBACK_DATA = {
       "slug": "codegen-factory-sweep",
       "name": "Codegen / Factory / Sweep-like agents",
       "vendor": "Divers",
-      "domain": "divers.com",
+      "domain": "factory.ai",
       "tagline": "PR automatiques",
       "description": "PR automatiques; maintenance repo; équipes dev; Automatisation utile",
       "categorySlugs": [
@@ -9232,8 +15079,47 @@ export const FALLBACK_DATA = {
         "texte": 80
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/divers.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/factory.ai",
+      "officialUrl": "https://factory.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "low",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "low",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9285,7 +15171,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/stackblitz.com",
-      "lastUpdated": null,
+      "officialUrl": "https://stackblitz.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 80,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9335,7 +15260,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tome.app",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://tome.app",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 16.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 79,
+        "qualityEstimate": 82,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9384,7 +15326,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/genmo.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://genmo.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 79,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9435,7 +15406,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/softgen.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://softgen.ai",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 19.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 79,
+        "qualityEstimate": 81,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9487,7 +15497,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/spell.so",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://spell.so",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 12.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 79,
+        "qualityEstimate": 84,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9538,7 +15587,36 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/pika.art",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://pika.art",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 10.0 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 78,
+        "qualityEstimate": 80,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9552,7 +15630,7 @@ export const FALLBACK_DATA = {
       "slug": "stable-diffusion-xl",
       "name": "Stable Diffusion XL / dérivés",
       "vendor": "Stability AI / communauté",
-      "domain": "stability-ai-communaute.com",
+      "domain": "stability.ai",
       "tagline": "open source",
       "description": "open source; custom models; LoRA; local; Écosystème énorme; Contrôle maximal",
       "categorySlugs": [
@@ -9591,8 +15669,37 @@ export const FALLBACK_DATA = {
         "image": 78
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/stability-ai-communaute.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/stability.ai",
+      "officialUrl": "https://stability.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 78,
+        "qualityEstimate": 78,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9606,7 +15713,7 @@ export const FALLBACK_DATA = {
       "slug": "ltx-23",
       "name": "LTX-2.3",
       "vendor": "Lightricks / open ecosystem",
-      "domain": "lightricks-open-ecosystem.com",
+      "domain": "ltx.studio",
       "tagline": "open-weight vidéo",
       "description": "open-weight vidéo; expérimentation; pipelines dev; Intéressant pour open-source vidéo",
       "categorySlugs": [
@@ -9642,8 +15749,37 @@ export const FALLBACK_DATA = {
         "video": 78
       },
       "color": "#FA520F",
-      "image": "https://logo.clearbit.com/lightricks-open-ecosystem.com",
-      "lastUpdated": null,
+      "image": "https://logo.clearbit.com/ltx.studio",
+      "officialUrl": "https://ltx.studio",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Image",
+          "url": "https://artificialanalysis.ai/text-to-image/",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 78,
+        "qualityEstimate": 78,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Image",
+            "url": "https://artificialanalysis.ai/text-to-image/",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9694,7 +15830,24 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/decktopus.com",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://decktopus.com",
+      "pricingSummary": "Gratuit limité disponible ; premier plan payant autour de 9.99 $/mois selon fournisseur.",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [],
+      "scoreDetails": {
+        "overall": 76,
+        "qualityEstimate": 80,
+        "scoreType": "estimated",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": []
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9744,7 +15897,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/agentgpt.reworkd.ai",
-      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
+      "officialUrl": "https://agentgpt.reworkd.ai",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "moyenne",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 76,
+        "qualityEstimate": 78,
+        "scoreType": "mixed",
+        "confidence": "moyenne",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9796,7 +15988,46 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/replit.com",
-      "lastUpdated": null,
+      "officialUrl": "https://replit.com",
+      "pricingSummary": "Gratuit/open-weight ou API selon fournisseur ; coûts variables (hébergement, crédits ou volume).",
+      "pricingPlans": [],
+      "benchmarkSummary": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+      "dataVerifiedAt": "2026-05-04",
+      "confidence": "medium",
+      "sources": [
+        {
+          "label": "Artificial Analysis Models",
+          "url": "https://artificialanalysis.ai/models",
+          "retrievedAt": "2026-05-04"
+        },
+        {
+          "label": "Openrouter Models",
+          "url": "https://openrouter.ai/models",
+          "retrievedAt": "2026-05-04"
+        }
+      ],
+      "scoreDetails": {
+        "overall": 76,
+        "qualityEstimate": 76,
+        "scoreType": "mixed",
+        "confidence": "medium",
+        "updatedAt": "2026-05-04",
+        "explanation": "Indice IA Match recalibré avec sources publiques quand elles existent, prix officiels, limites produit et tests éditoriaux ; ce n’est pas une mesure scientifique absolue.",
+        "sources": [
+          {
+            "label": "Artificial Analysis Models",
+            "url": "https://artificialanalysis.ai/models",
+            "retrievedAt": "2026-05-04"
+          },
+          {
+            "label": "Openrouter Models",
+            "url": "https://openrouter.ai/models",
+            "retrievedAt": "2026-05-04"
+          }
+        ]
+      },
+      "externalDisclaimer": "Les liens externes mènent vers des contenus tiers. IA Match n’est pas affilié à ces sources.",
+      "lastUpdated": "2026-05-04",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -10517,7 +16748,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10541,7 +16772,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10565,7 +16796,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10589,7 +16820,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10613,7 +16844,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11290,7 +17521,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11314,7 +17545,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11338,7 +17569,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11362,7 +17593,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11386,7 +17617,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T01:39:02.527352+00:00",
+      "created_at": "2026-05-04T02:19:29.383438+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -48323,14 +54554,14 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         },
@@ -48338,10 +54569,10 @@ export const FALLBACK_DATA = {
           "slug": "chatgpt",
           "name": "ChatGPT",
           "vendor": "OpenAI",
-          "image": "https://logo.clearbit.com/openai.com",
-          "domain": "openai.com",
+          "image": "https://logo.clearbit.com/chatgpt.com",
+          "domain": "chatgpt.com",
           "color": "#10A37F",
-          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
+          "tagline": "Assistant OpenAI polyvalent : Free, Go, Plus, Pro, Business"
         }
       ]
     },
@@ -48370,8 +54601,8 @@ export const FALLBACK_DATA = {
           "slug": "nano-banana",
           "name": "Nano Banana 2",
           "vendor": "Google",
-          "image": "https://logo.clearbit.com/deepmind.google",
-          "domain": "deepmind.google",
+          "image": "https://logo.clearbit.com/gemini.google.com",
+          "domain": "gemini.google.com",
           "color": "#4285F4",
           "tagline": "Le modèle image Gemini hyper-fidèle"
         },
@@ -48405,7 +54636,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "gemini-25",
@@ -48418,10 +54649,10 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         }
@@ -48446,16 +54677,16 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "chatgpt",
           "name": "ChatGPT",
           "vendor": "OpenAI",
-          "image": "https://logo.clearbit.com/openai.com",
-          "domain": "openai.com",
+          "image": "https://logo.clearbit.com/chatgpt.com",
+          "domain": "chatgpt.com",
           "color": "#10A37F",
-          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
+          "tagline": "Assistant OpenAI polyvalent : Free, Go, Plus, Pro, Business"
         },
         {
           "slug": "elevenlabs",
@@ -48493,8 +54724,8 @@ export const FALLBACK_DATA = {
           "slug": "v0",
           "name": "v0",
           "vendor": "Vercel",
-          "image": "https://logo.clearbit.com/vercel.com",
-          "domain": "vercel.com",
+          "image": "https://logo.clearbit.com/v0.dev",
+          "domain": "v0.dev",
           "color": "#000000",
           "tagline": "Du prompt à l'UI React"
         },
@@ -48502,8 +54733,8 @@ export const FALLBACK_DATA = {
           "slug": "bolt",
           "name": "Bolt.new",
           "vendor": "StackBlitz",
-          "image": "https://logo.clearbit.com/stackblitz.com",
-          "domain": "stackblitz.com",
+          "image": "https://logo.clearbit.com/bolt.new",
+          "domain": "bolt.new",
           "color": "#1389FD",
           "tagline": "Une app full-stack en un prompt"
         }
@@ -48687,10 +54918,10 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         },
@@ -48701,7 +54932,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "gemini-workspace",
@@ -48742,7 +54973,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "lovable",
@@ -48774,7 +55005,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "julius",
@@ -48823,7 +55054,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "perplexity",
@@ -48845,10 +55076,10 @@ export const FALLBACK_DATA = {
         },
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         },
@@ -48888,7 +55119,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "midjourney",
@@ -48953,7 +55184,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "perplexity",
@@ -49012,10 +55243,10 @@ export const FALLBACK_DATA = {
       "tools_resolved": [
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         },
@@ -49026,7 +55257,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "midjourney",
@@ -49071,14 +55302,14 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "mistral",
-          "name": "Le Chat",
+          "name": "Mistral Le Chat",
           "vendor": "Mistral AI",
-          "image": "https://logo.clearbit.com/mistral.ai",
-          "domain": "mistral.ai",
+          "image": "https://logo.clearbit.com/chat.mistral.ai",
+          "domain": "chat.mistral.ai",
           "color": "#FA520F",
           "tagline": "Le champion européen open-weight"
         },
@@ -49086,10 +55317,10 @@ export const FALLBACK_DATA = {
           "slug": "chatgpt",
           "name": "ChatGPT",
           "vendor": "OpenAI",
-          "image": "https://logo.clearbit.com/openai.com",
-          "domain": "openai.com",
+          "image": "https://logo.clearbit.com/chatgpt.com",
+          "domain": "chatgpt.com",
           "color": "#10A37F",
-          "tagline": "Assistant OpenAI polyvalent, aujourd’hui porté par la famille GPT-5.5"
+          "tagline": "Assistant OpenAI polyvalent : Free, Go, Plus, Pro, Business"
         }
       ]
     },
@@ -49118,7 +55349,7 @@ export const FALLBACK_DATA = {
           "image": "https://logo.clearbit.com/claude.ai",
           "domain": "claude.ai",
           "color": "#CC785C",
-          "tagline": "L'assistant Anthropic équilibré (Free + Pro 20€/mois)"
+          "tagline": "Assistant Anthropic fort en rédaction, analyse longue et code"
         },
         {
           "slug": "elevenlabs",

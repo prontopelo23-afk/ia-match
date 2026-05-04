@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { Award, BookOpen, ChevronRight, ClipboardList, FileText, Layers3, Library, Route, Sparkles } from "lucide-react-native";
+import { BookOpen, ChevronRight, ClipboardList, FileText, Library, Route } from "lucide-react-native";
 import { colors as baseColors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import { api, AcademyBadge, AcademyPath, Lesson, Resource, Template } from "../../src/api";
@@ -64,7 +64,6 @@ export default function AcademyScreen() {
 
   const visibleLessons = useMemo(() => level === "ALL" ? state.lessons : state.lessons.filter((lesson) => normalizeLevel(lesson.level) === level), [state.lessons, level]);
   const visiblePaths = useMemo(() => level === "ALL" ? state.paths : state.paths.filter((path) => normalizeLevel(path.level) === level || path.course_ids?.some((id) => visibleLessons.some((lesson) => lesson.id === id))), [state.paths, visibleLessons, level]);
-  const minutesTotal = useMemo(() => visibleLessons.reduce((sum, l) => sum + (l.minutes || 0), 0), [visibleLessons]);
   const firstLesson = visibleLessons[0] ?? state.lessons[0];
 
   if (!isPremium) {
@@ -72,8 +71,8 @@ export default function AcademyScreen() {
       <SafeAreaView style={[{ flex: 1 }, { backgroundColor: colors.bg }]} edges={["top"]}>
         <PremiumGate
           feature="Academy"
-          description="Débloque le parcours complet IA Match : leçons guidées, quiz, badges, templates copiables et ressources triées. Le contenu reste complet, mais il est organisé en sous-pages pour éviter le scroll infini."
-          benefits={["120 leçons progressives organisées en 10 parcours", "240 quiz courts liés aux leçons", "465 templates prêts à copier", "Ressources, exercices et badges de progression"]}
+          description="Débloque un parcours guidé pour comprendre l’IA, pratiquer avec des prompts copiables et progresser sans te perdre dans trop de contenu."
+          benefits={["Parcours guidés par niveau", "Prompts prêts à copier", "Exercices courts et quiz utiles", "Ressources triées pour apprendre vite"]}
         />
       </SafeAreaView>
     );
@@ -82,10 +81,9 @@ export default function AcademyScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={[styles.crumb, { color: colors.textSecondary }]}>Workspace · Academy</Text>
-        <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY · HUB</Text>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends sans te perdre dans une page infinie.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Débutant, intermédiaire, avancé : les contenus sont regroupés par parcours, templates et ressources pour garder une navigation courte.</Text>
+        <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends l’IA par petits pas.</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Choisis une porte d’entrée : commencer, pratiquer ou explorer. Le reste reste accessible, mais sans noyer l’écran.</Text>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
           {LEVEL_FILTERS.map((f) => (
@@ -97,19 +95,17 @@ export default function AcademyScreen() {
 
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
           <>
-            <View style={[styles.librarySummary, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-              <View style={[styles.summaryIcon, { backgroundColor: colors.coralSoft }]}><Library size={18} color={colors.coral} /></View>
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.summaryTitle, { color: colors.textPrimary }]}>Tout le contenu est gardé, mais rangé.</Text>
-                <Text style={[styles.summaryText, { color: colors.textSecondary }]}>{visiblePaths.length} parcours · {visibleLessons.length} leçons · {state.templates.length} templates · {state.exercises.length} exercices · {state.badges.length} badges · environ {Math.max(1, Math.round(minutesTotal / 60))}h</Text>
-              </View>
+            <View style={styles.doorGrid}>
+              <DoorCard title="Commencer" text="Le parcours le plus simple pour démarrer maintenant." />
+              <DoorCard title="Pratiquer" text="Prompts, exercices et avant/après à copier." />
+              <DoorCard title="Explorer" text="Ressources et chemins avancés quand tu es prêt." />
             </View>
 
             {firstLesson ? (
               <TouchableOpacity onPress={() => router.push(`/academy/lesson/${firstLesson.id}`)} style={[styles.continueCard, { backgroundColor: baseColors.darkCard }]} activeOpacity={0.86}>
-                <Text style={styles.continueLabel}>COMMENCER ICI · {level === "ALL" ? levelLabel(firstLesson.level) : LEVEL_FILTERS.find((f) => f.key === level)?.label}</Text>
+                <Text style={styles.continueLabel}>COMMENCER ICI</Text>
                 <Text style={styles.continueTitle}>{firstLesson.title}</Text>
-                <Text style={styles.continueText}>Leçon {firstLesson.order} · {firstLesson.minutes} min · ouvrir le détail complet</Text>
+                <Text style={styles.continueText}>Une leçon courte pour comprendre, voir un exemple, pratiquer puis vérifier.</Text>
                 <ChevronRight size={18} color="#fff" />
               </TouchableOpacity>
             ) : null}
@@ -117,7 +113,7 @@ export default function AcademyScreen() {
             <View style={styles.sectionHeaderRow}>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
-                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>3 aperçus seulement ici. La liste complète reste dans “Parcours”.</Text>
+                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Quelques chemins utiles. Le détail complet reste derrière “Tout voir”.</Text>
               </View>
               <TouchableOpacity onPress={() => router.push("/academy/paths")} style={[styles.smallLink, { borderColor: colors.borderSubtle }]}><Text style={[styles.smallLinkText, { color: colors.coral }]}>Tout voir</Text></TouchableOpacity>
             </View>
@@ -132,21 +128,14 @@ export default function AcademyScreen() {
               ))}
             </ScrollView>
 
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque complète</Text>
-            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Quatre portes d’entrée, pas une grille infinie. Tous les cours, quiz, exercices et templates restent accessibles dedans.</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque</Text>
+            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Accès rapide aux contenus utiles, sans afficher tout le catalogue ici.</Text>
             <View style={styles.grid}>
-              <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours" text={`${visiblePaths.length} chemins guidés par niveau`} onPress={() => router.push("/academy/paths")} />
-              <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text={`${state.templates.length} prompts triés par famille`} onPress={() => router.push("/academy/templates")} />
-              <HubCard icon={<ClipboardList size={19} color={colors.coral} />} title="Pratiquer" text={`${state.exercises.length} exercices · ${state.badExamples.length} avant/après`} onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
-              <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text={`${state.resources.length} sources et repères vérifiés`} onPress={() => router.push("/academy/resources")} />
+              <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours" text="Chemins guidés par niveau" onPress={() => router.push("/academy/paths")} />
+              <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text="Prompts prêts à adapter" onPress={() => router.push("/academy/templates")} />
+              <HubCard icon={<ClipboardList size={19} color={colors.coral} />} title="Pratiquer" text="Exercices courts et avant/après" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text="Repères fiables pour progresser" onPress={() => router.push("/academy/resources")} />
             </View>
-
-            {state.badges.length > 0 ? (
-              <View style={[styles.badgeBox, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-                <View style={styles.badgeTitleRow}><Award size={16} color={colors.coral} /><Text style={[styles.badgeTitle, { color: colors.textPrimary }]}>Badges à débloquer</Text></View>
-                <View style={styles.badgeRow}>{state.badges.slice(0, 10).map((badge) => <Text key={badge.id} style={[styles.badgeChip, { color: colors.coral, borderColor: colors.coral }]}>{badge.name}</Text>)}</View>
-              </View>
-            ) : null}
           </>
         )}
         <View style={{ height: 90 }} />
@@ -160,20 +149,24 @@ function HubCard({ icon, title, text, onPress }: { icon: React.ReactNode; title:
   return <TouchableOpacity onPress={onPress} style={[styles.hubCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}><View style={[styles.hubIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.hubTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.hubText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
 }
 
+function DoorCard({ title, text }: { title: string; text: string }) {
+  const { colors } = useTheme();
+  return <View style={[styles.doorCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><Text style={[styles.doorTitle, { color: colors.coral }]}>{title}</Text><Text style={[styles.doorText, { color: colors.textSecondary }]}>{text}</Text></View>;
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
-  crumb: { fontFamily: fonts.body, fontSize: 12, marginBottom: spacing.md },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1 },
   subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm, marginBottom: spacing.md },
   levelRow: { gap: 8, paddingBottom: spacing.md },
   levelChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
   levelChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
-  librarySummary: { flexDirection: "row", alignItems: "center", gap: spacing.sm, borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginBottom: spacing.md },
-  summaryIcon: { width: 42, height: 42, borderRadius: 16, alignItems: "center", justifyContent: "center" },
-  summaryTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: 3 },
-  summaryText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
+  doorGrid: { gap: 8, marginBottom: spacing.md },
+  doorCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
+  doorTitle: { fontFamily: fonts.bodyBold, fontSize: 13, marginBottom: 3 },
+  doorText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
   continueCard: { borderRadius: radius.xl, padding: spacing.lg, marginBottom: spacing.lg, ...shadow.dark },
   continueLabel: { fontFamily: fonts.bodyBold, color: baseColors.coral, fontSize: 10, letterSpacing: 1.7 },
   continueTitle: { fontFamily: fonts.serif, color: "#fff", fontSize: 25, lineHeight: 30, marginTop: 6 },
@@ -193,9 +186,4 @@ const styles = StyleSheet.create({
   hubIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   hubTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
   hubText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
-  badgeBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
-  badgeTitleRow: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: spacing.sm },
-  badgeTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
-  badgeRow: { flexDirection: "row", flexWrap: "wrap", gap: 7 },
-  badgeChip: { overflow: "hidden", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 5, fontFamily: fonts.bodyBold, fontSize: 10 },
 });

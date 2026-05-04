@@ -23,6 +23,23 @@ export type Tool = {
   categoryScores?: Record<string, number>;
   color: string;
   image: string;
+  officialUrl?: string;
+  pricingSummary?: string;
+  pricingPlans?: { name: string; price: string; note?: string }[];
+  benchmarkSummary?: string;
+  dataVerifiedAt?: string;
+  confidence?: "élevée" | "moyenne" | "prudente" | string;
+  sources?: { label: string; url: string; retrievedAt?: string }[];
+  scoreDetails?: {
+    overall?: number;
+    qualityEstimate?: number;
+    scoreType?: string;
+    confidence?: string;
+    updatedAt?: string;
+    explanation?: string;
+    sources?: { label: string; url: string; retrievedAt?: string }[];
+  };
+  externalDisclaimer?: string;
   lastUpdated?: string;
   privacy?: {
     privacy_score?: number;

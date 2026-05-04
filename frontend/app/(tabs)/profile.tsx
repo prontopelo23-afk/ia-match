@@ -27,7 +27,7 @@ export default function ProfileScreen() {
   const router = useRouter();
   const { colors, mode, toggle } = useTheme();
   const { t, language, setLanguage, languages } = useI18n();
-  const { isPremium, setPremium } = usePremium();
+  const { isPremium } = usePremium();
   const [items, setItems] = useState<HistoryItem[]>([]);
   const [savedTools, setSavedTools] = useState<Tool[]>([]);
   const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
@@ -214,19 +214,19 @@ export default function ProfileScreen() {
               </Text>
               <Text style={[styles.planDesc, { color: colors.textSecondary }]}>
                 {isPremium
-                  ? "Tu as accès à toutes les sections : Catalogue, Actue, Academy, Builder, Comparateur, Benchmarks."
-                  : "Tu as accès à : Catalogue, Actue, Profil. Premium débloque Academy, Builder, Comparateur et Benchmarks."}
+                  ? "Premium actif : Academy, Builder, Comparateur et Benchmarks sont débloqués."
+                  : "Découverte : lance un Match, explore le catalogue et suis l’actu. Premium débloque les parcours, le Builder et les comparatifs avancés."}
               </Text>
             </View>
           </View>
           <TouchableOpacity
-            onPress={() => setPremium(!isPremium)}
+            onPress={() => Alert.alert("Premium IA Match", "Premium public : 6,99 €/mois ou 49,99 €/an. Le paiement réel sera branché avant ouverture commerciale.")}
             style={[styles.planBtn, { backgroundColor: isPremium ? colors.surface : colors.coral, borderColor: colors.coral }]}
             testID="profile-toggle-premium"
           >
             <Crown size={14} color={isPremium ? colors.coral : "#fff"} strokeWidth={2.5} />
             <Text style={[styles.planBtnText, { color: isPremium ? colors.coral : "#fff" }]}>
-              {isPremium ? "Désactiver Premium" : "Activer Premium (démo)"}
+              {isPremium ? "Premium actif" : "Voir Premium"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -298,7 +298,7 @@ export default function ProfileScreen() {
         </ProfileSection>
 
 
-        <ProfileSection title="Préférences de veille IA" subtitle={`${newsletterPrefs.length || 0} thème(s) cochés · digest personnalisable`} open={!!openSections.newsletter} onToggle={() => toggleSection("newsletter")}>
+        <ProfileSection title="Digest IA" subtitle={`${newsletterPrefs.length || 0} thème(s) cochés · veille personnalisable`} open={!!openSections.newsletter} onToggle={() => toggleSection("newsletter")}>
           <View style={[styles.watchCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}> 
             <View style={styles.watchHeader}>
               <View style={[styles.watchIcon, { backgroundColor: colors.coralSoft }]}><Mail size={18} color={colors.coral} strokeWidth={2.5} /></View>
@@ -412,7 +412,7 @@ export default function ProfileScreen() {
           <Text style={[styles.sectionCount, { color: colors.textSecondary }]}>{savedNews.length}</Text>
         </View>
         {savedNews.length === 0 ? (
-          <Text style={[styles.empty, { color: colors.textSecondary }]}>Aucun article sauvegardé. Touche le marque-page sur un article dans Actue.</Text>
+          <Text style={[styles.empty, { color: colors.textSecondary }]}>Aucun article sauvegardé. Touche le marque-page sur un article dans Actu.</Text>
         ) : (
           savedNews.map((n) => (
             <TouchableOpacity
