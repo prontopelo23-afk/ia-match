@@ -83,51 +83,42 @@ export default function AcademyScreen() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY</Text>
         <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends l’IA par petits pas.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Les trois grandes cartes ci-dessous sont des boutons. Elles servent à choisir ton action : apprendre une base, copier un template, ou ouvrir des ressources fiables.</Text>
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
-          {LEVEL_FILTERS.map((f) => (
-            <TouchableOpacity key={f.key} onPress={() => setLevel(f.key)} style={[styles.levelChip, { backgroundColor: level === f.key ? colors.coral : colors.surface, borderColor: level === f.key ? colors.coral : colors.borderSubtle }]}>
-              <Text style={[styles.levelChipText, { color: level === f.key ? "#fff" : colors.textPrimary }]}>{f.label} · {levelCounts[f.key]}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Une entrée calme pour comprendre, pratiquer et garder les bons réflexes sans tout lire d’un coup.</Text>
 
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
           <>
-            <View style={styles.doorGrid}>
-              <DoorCard title="Commencer" cta="Ouvrir une leçon" text="Tu apprends une notion simple, tu vois un exemple, puis tu vérifies que tu as compris." steps={["Base", "Exemple", "Quiz"]} icon="1" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
-              <DoorCard title="Appliquer" cta="Copier un template" text="Tu prends un prompt prêt à l’emploi, tu l’adaptes à ton cas, puis tu améliores le résultat." steps={["Prompt", "Essai", "Corrige"]} icon="2" onPress={() => router.push("/academy/templates")} />
-              <DoorCard title="Explorer" cta="Voir les ressources" text="Tu vas plus loin avec des sources, parcours et idées d’usage sans te perdre dans le catalogue." steps={["Sources", "Parcours", "Usage"]} icon="3" onPress={() => router.push("/academy/resources")} />
-            </View>
-
-            <View style={[styles.visualLoop, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
-              <View style={styles.visualLoopHead}>
-                <View style={[styles.visualIcon, { backgroundColor: colors.coralSoft }]}><Sparkles size={17} color={colors.coral} strokeWidth={2.5} /></View>
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.visualTitle, { color: colors.textPrimary }]}>À quoi sert Academy ?</Text>
-                  <Text style={[styles.visualText, { color: colors.textSecondary }]}>Un petit cycle visuel : tu comprends, tu testes dans un outil, puis tu gardes seulement ce qui marche.</Text>
-                </View>
-              </View>
-              <LearningDiagram />
-            </View>
-
             {firstLesson ? (
               <TouchableOpacity onPress={() => router.push(`/academy/lesson/${firstLesson.id}`)} style={[styles.continueCard, { backgroundColor: baseColors.darkCard }]} activeOpacity={0.86}>
-                <Text style={styles.continueLabel}>COMMENCER ICI</Text>
+                <View style={styles.continueHead}>
+                  <Text style={styles.continueLabel}>COMMENCER ICI</Text>
+                  <ChevronRight size={18} color="#fff" />
+                </View>
                 <Text style={styles.continueTitle}>{firstLesson.title}</Text>
-                <Text style={styles.continueText}>Une leçon courte pour comprendre, voir un exemple, pratiquer puis vérifier.</Text>
-                <ChevronRight size={18} color="#fff" />
+                <Text style={styles.continueText}>Une leçon courte, un exemple, puis un petit quiz.</Text>
               </TouchableOpacity>
             ) : null}
+
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Choisis ton chemin</Text>
+            <View style={styles.doorGrid}>
+              <DoorCard title="Comprendre" cta="Leçons" text="Bases simples et quiz courts." steps={["Base", "Exemple", "Quiz"]} icon="1" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <DoorCard title="Utiliser" cta="Templates" text="Prompts prêts à adapter." steps={["Prompt", "Essai", "Corrige"]} icon="2" onPress={() => router.push("/academy/templates")} />
+              <DoorCard title="Progresser" cta="Ressources" text="Parcours et sources fiables." steps={["Sources", "Parcours", "Usage"]} icon="3" onPress={() => router.push("/academy/resources")} />
+            </View>
 
             <View style={styles.sectionHeaderRow}>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
-                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Quelques chemins utiles. Le détail complet reste derrière “Tout voir”.</Text>
+                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Trois chemins visibles ici. Le reste est rangé derrière “Tout voir”.</Text>
               </View>
               <TouchableOpacity onPress={() => router.push("/academy/paths")} style={[styles.smallLink, { borderColor: colors.borderSubtle }]}><Text style={[styles.smallLinkText, { color: colors.coral }]}>Tout voir</Text></TouchableOpacity>
             </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
+              {LEVEL_FILTERS.map((f) => (
+                <TouchableOpacity key={f.key} onPress={() => setLevel(f.key)} style={[styles.levelChip, { backgroundColor: level === f.key ? colors.coral : colors.surface, borderColor: level === f.key ? colors.coral : colors.borderSubtle }]}>
+                  <Text style={[styles.levelChipText, { color: level === f.key ? "#fff" : colors.textPrimary }]}>{f.label} · {levelCounts[f.key]}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pathRow}>
               {visiblePaths.slice(0, 3).map((path) => (
                 <TouchableOpacity key={path.id} onPress={() => router.push(`/academy/path/${path.id}`)} style={[styles.pathCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}>
@@ -139,8 +130,19 @@ export default function AcademyScreen() {
               ))}
             </ScrollView>
 
+            <View style={[styles.visualLoop, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
+              <View style={styles.visualLoopHead}>
+                <View style={[styles.visualIcon, { backgroundColor: colors.coralSoft }]}><Sparkles size={17} color={colors.coral} strokeWidth={2.5} /></View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.visualTitle, { color: colors.textPrimary }]}>Le réflexe Academy</Text>
+                  <Text style={[styles.visualText, { color: colors.textSecondary }]}>Comprendre, tester, vérifier. Le schéma reste là comme repère, sans bloquer le début.</Text>
+                </View>
+              </View>
+              <LearningDiagram />
+            </View>
+
             <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque</Text>
-            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Accès rapide aux contenus utiles, sans afficher tout le catalogue ici.</Text>
+            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Tout le contenu est gardé, mais rangé par type.</Text>
             <View style={styles.grid}>
               <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours" text="Chemins guidés par niveau" onPress={() => router.push("/academy/paths")} />
               <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text="Prompts prêts à adapter" onPress={() => router.push("/academy/templates")} />
@@ -212,16 +214,16 @@ const styles = StyleSheet.create({
   levelRow: { gap: 8, paddingBottom: spacing.md },
   levelChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
   levelChipText: { fontFamily: fonts.bodyBold, fontSize: 13 },
-  doorGrid: { gap: 10, marginBottom: spacing.md },
-  doorCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
-  doorTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
-  doorNumber: { width: 28, height: 28, borderRadius: 10, alignItems: "center", justifyContent: "center" },
-  doorNumberText: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  doorGrid: { gap: 9, marginBottom: spacing.lg },
+  doorCard: { borderWidth: 1, borderRadius: radius.lg, padding: 14 },
+  doorTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 6 },
+  doorNumber: { width: 24, height: 24, borderRadius: 9, alignItems: "center", justifyContent: "center" },
+  doorNumberText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   doorCtaRow: { flexDirection: "row", alignItems: "center", gap: 5 },
   doorCta: { fontFamily: fonts.bodyBold, fontSize: 13 },
-  doorTitle: { fontFamily: fonts.serif, fontSize: 23, lineHeight: 27, marginBottom: 5 },
-  doorText: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22 },
-  visualLoop: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  doorTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25, marginBottom: 3 },
+  doorText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20 },
+  visualLoop: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.lg }, 
   visualLoopHead: { flexDirection: "row", gap: 10, alignItems: "flex-start", marginBottom: spacing.sm },
   visualIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   visualTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25 },
@@ -239,6 +241,7 @@ const styles = StyleSheet.create({
   diagramText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: 2 },
   diagramArrow: { alignSelf: "center", width: 3, height: 18, borderRadius: 3 },
   continueCard: { borderRadius: radius.xl, padding: spacing.lg, marginBottom: spacing.lg, ...shadow.dark },
+  continueHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   continueLabel: { fontFamily: fonts.bodyBold, color: baseColors.coral, fontSize: 10, letterSpacing: 1.7 },
   continueTitle: { fontFamily: fonts.serif, color: "#fff", fontSize: 25, lineHeight: 30, marginTop: 6 },
   continueText: { fontFamily: fonts.body, color: "rgba(255,255,255,0.78)", fontSize: 14, lineHeight: 20, marginTop: 6 },
