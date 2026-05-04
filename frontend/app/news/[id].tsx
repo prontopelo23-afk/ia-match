@@ -112,11 +112,31 @@ function renderBlock(para: string, i: number, colors: any) {
   if (!trimmed) return null;
   if (trimmed.startsWith("## ")) return <Text key={i} style={[styles.h2, { color: colors.textPrimary }]}>{trimmed.replace(/^##\s+/, "")}</Text>;
   if (trimmed.startsWith("### ")) return <Text key={i} style={[styles.h3, { color: colors.textPrimary }]}>{trimmed.replace(/^###\s+/, "")}</Text>;
+  const schemaMatch = trimmed.match(/^`?([^`\n]*→[^`\n]*)`?$/);
+  if (schemaMatch) return <SchemaBlock key={i} steps={schemaMatch[1].split("→").map((x) => x.trim()).filter(Boolean)} colors={colors} />;
   if (trimmed.startsWith("- ")) {
     return <View key={i} style={{ marginVertical: spacing.sm }}>{trimmed.split("\n").map((l, j) => <View key={j} style={styles.bulletRow}><Text style={[styles.bulletDot, { color: colors.coral }]}>·</Text><Text style={[styles.bulletText, { color: colors.textPrimary }]}>{renderInline(l.replace(/^-\s+/, ""))}</Text></View>)}</View>;
   }
   if (/^\d+\.\s/.test(trimmed)) return <View key={i} style={{ marginVertical: spacing.sm }}>{trimmed.split("\n").map((b, j) => <Text key={j} style={[styles.numberedLine, { color: colors.textPrimary }]}>{renderInline(b)}</Text>)}</View>;
   return <Text key={i} style={[styles.para, { color: colors.textPrimary }]}>{renderInline(trimmed)}</Text>;
+}
+
+function SchemaBlock({ steps, colors }: { steps: string[]; colors: any }) {
+  return (
+    <View style={[styles.schemaCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
+      {steps.map((step, index) => (
+        <React.Fragment key={`${step}-${index}`}>
+          <View style={styles.schemaItem}>
+            <View style={[styles.schemaBubble, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
+              <Text style={[styles.schemaIndex, { color: colors.coral }]}>{index + 1}</Text>
+            </View>
+            <Text style={[styles.schemaText, { color: colors.textPrimary }]}>{step}</Text>
+          </View>
+          {index < steps.length - 1 ? <View style={[styles.schemaConnector, { backgroundColor: colors.borderSubtle }]} /> : null}
+        </React.Fragment>
+      ))}
+    </View>
+  );
 }
 
 function renderInline(text: string): React.ReactNode {
@@ -138,15 +158,15 @@ const styles = StyleSheet.create({
   title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1, marginBottom: spacing.sm },
   author: { fontFamily: fonts.body, fontSize: 13, marginBottom: spacing.sm },
   trustRow: { flexDirection: "row", gap: 8, alignItems: "flex-start", borderWidth: 1, borderRadius: radius.lg, padding: spacing.sm, marginBottom: spacing.lg },
-  trustText: { flex: 1, fontFamily: fonts.bodySemi, fontSize: 11, lineHeight: 16 },
+  trustText: { flex: 1, fontFamily: fonts.bodySemi, fontSize: 12, lineHeight: 17 },
   intro: { fontFamily: fonts.body, fontSize: 17, lineHeight: 26, marginBottom: spacing.lg, fontStyle: "italic" },
   summaryCard: { borderWidth: 1.5, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   cardTitleRow: { flexDirection: "row", alignItems: "center", gap: 7, marginBottom: 7 },
   summaryTitle: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  summaryLine: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginBottom: 3 },
+  summaryLine: { fontFamily: fonts.body, fontSize: 14, lineHeight: 21, marginBottom: 3 },
   decisionCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   decisionTitle: { fontFamily: fonts.serif, fontSize: 20, marginBottom: 6 },
-  decisionLine: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginBottom: 2 },
+  decisionLine: { fontFamily: fonts.body, fontSize: 14, lineHeight: 21, marginBottom: 2 },
   radarLine: { fontFamily: fonts.bodyBold, fontSize: 12, lineHeight: 18, marginTop: spacing.sm },
   nextAction: { fontFamily: fonts.bodyBold, fontSize: 13, lineHeight: 19, marginTop: spacing.sm },
   relatedCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
@@ -157,14 +177,20 @@ const styles = StyleSheet.create({
   toolScore: { fontFamily: fonts.bodyBold, fontSize: 13 },
   adviceCard: { flexDirection: "row", gap: spacing.sm, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   adviceTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
-  adviceText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 3 },
+  adviceText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 21, marginTop: 3 },
   matchBtn: { borderRadius: radius.pill, paddingVertical: 14, alignItems: "center", marginBottom: spacing.lg },
   matchText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
   h2: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 30, marginTop: spacing.lg, marginBottom: spacing.sm, letterSpacing: -0.5 },
   h3: { fontFamily: fonts.bodyBold, fontSize: 17, marginTop: spacing.md, marginBottom: 6 },
-  para: { fontFamily: fonts.body, fontSize: 15, lineHeight: 24, marginBottom: spacing.sm },
+  para: { fontFamily: fonts.body, fontSize: 16, lineHeight: 25, marginBottom: spacing.sm },
   bulletRow: { flexDirection: "row", gap: 8, marginVertical: 3 },
   bulletDot: { fontSize: 18, fontFamily: fonts.bodyBold, lineHeight: 22 },
   bulletText: { flex: 1, fontFamily: fonts.body, fontSize: 15, lineHeight: 22 },
-  numberedLine: { fontFamily: fonts.body, fontSize: 15, lineHeight: 24, marginVertical: 3 },
+  numberedLine: { fontFamily: fonts.body, fontSize: 16, lineHeight: 25, marginVertical: 3 },
+  schemaCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.sm, marginBottom: spacing.md },
+  schemaItem: { flexDirection: "row", alignItems: "center", gap: 10 },
+  schemaBubble: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  schemaIndex: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  schemaText: { flex: 1, fontFamily: fonts.bodySemi, fontSize: 14, lineHeight: 19 },
+  schemaConnector: { width: 2, height: 18, marginLeft: 14, marginVertical: 3 },
 });

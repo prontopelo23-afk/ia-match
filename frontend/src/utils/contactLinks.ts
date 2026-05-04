@@ -29,7 +29,24 @@ export function openBusinessContact(offerName?: string) {
   return openContactEmail(subject, body);
 }
 
-export function openNewsletterSignup(issueTitle?: string) {
+export function openFeedbackEmail(type: "avis" | "outil" | "erreur" = "avis") {
+  const labels = { avis: "avis bêta", outil: "outil à ajouter", erreur: "recommandation à corriger" };
+  const subject = `IA Match — ${labels[type]}`;
+  const body = [
+    "Bonjour,",
+    "",
+    type === "outil" ? "Je voudrais proposer un outil IA à ajouter :" : type === "erreur" ? "Je pense qu’une recommandation / actu est à corriger :" : "Voici mon retour sur la bêta IA Match :",
+    "",
+    "- Page concernée :",
+    "- Ce qui bloque / manque :",
+    "- Mon besoin principal :",
+    "",
+    "Merci,",
+  ].join("\n");
+  return openContactEmail(subject, body);
+}
+
+export function openNewsletterSignup(issueTitle?: string, email?: string) {
   const subject = "IA Match — inscription newsletter";
   const body = [
     "Bonjour,",
@@ -37,7 +54,7 @@ export function openNewsletterSignup(issueTitle?: string) {
     "Je souhaite recevoir le digest IA Match.",
     issueTitle ? `Format qui m’intéresse : ${issueTitle}` : "Format qui m’intéresse : digest IA / stacks métier / gratuit vs payant",
     "",
-    "Mon email d’inscription :",
+    `Mon email d’inscription : ${email?.trim() || ""}`,
     "",
     "Merci,",
   ].join("\n");

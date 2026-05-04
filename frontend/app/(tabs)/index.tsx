@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness, GitCompare, GraduationCap, Network, Send, CheckCircle2 } from "lucide-react-native";
+import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness, GitCompare, GraduationCap, Network, Send, CheckCircle2, MessageCircle } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { useI18n } from "../../src/i18n";
@@ -74,6 +74,7 @@ export default function Accueil() {
             <CompactLink icon={<Network size={15} color={theme.coral} />} title="Écosystème" onPress={() => router.push("/ecosystem")} />
             <CompactLink icon={<Mail size={15} color={theme.coral} />} title={t("home.quickNewsletterTitle")} onPress={() => router.push("/newsletter")} />
             <CompactLink icon={<BriefcaseBusiness size={15} color={theme.coral} />} title={t("home.quickBusinessTitle")} onPress={() => router.push("/business")} />
+            <CompactLink icon={<MessageCircle size={15} color={theme.coral} />} title="Avis bêta" onPress={() => router.push("/feedback" as any)} />
           </View>
         </View>
 

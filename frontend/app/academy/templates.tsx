@@ -11,8 +11,28 @@ import { api, Template } from "../../src/api";
 type TemplateWithMeta = Template & { category?: string; premium?: boolean; quality_checks?: string[] };
 
 const LEVELS = ["ALL", "BEGINNER", "INTERMEDIATE", "ADVANCED"];
+const LEVEL_LABELS: Record<string, string> = { ALL: "Tous", BEGINNER: "Débutant", INTERMEDIATE: "Intermédiaire", ADVANCED: "Avancé" };
 const FAMILY_LABELS: Record<string, string> = {
-  business: "Business",
+  business: "Entreprise",
+  business_strategy: "Stratégie d’entreprise",
+  marketing_sales: "Marketing & vente",
+  social_content: "Réseaux sociaux",
+  writing_communication: "Rédaction & communication",
+  education_learning: "Formation & apprentissage",
+  admin_daily_life: "Administratif & quotidien",
+  image_design: "Image & design",
+  video_creation: "Création vidéo",
+  audio_voice: "Audio & voix",
+  research_analysis: "Recherche & analyse",
+  documents_office: "Documents & bureautique",
+  coding_dev: "Code & développement",
+  nocode_app_builder: "No-code & création d’app",
+  productivity_organization: "Productivité & organisation",
+  customer_support: "Support client",
+  ecommerce: "E-commerce",
+  hr_career: "RH & carrière",
+  finance_lite: "Finance simple",
+  personal_life: "Vie perso",
   marketing: "Marketing",
   sales: "Vente",
   design: "Design",
@@ -24,9 +44,9 @@ const FAMILY_LABELS: Record<string, string> = {
   productivity: "Productivité",
   education: "Éducation",
   seo: "SEO",
-  support: "Support",
-  legal_safe: "Juridique safe",
-  finance_safe: "Finance safe",
+  support: "Service client",
+  legal_safe: "Juridique prudent",
+  finance_safe: "Finance prudente",
 };
 
 function familyOf(t: TemplateWithMeta) {
@@ -82,7 +102,7 @@ export default function AcademyTemplates() {
 
         <Text style={[styles.eyebrow, { color: colors.coral }]}>TEMPLATES · {items.length}</Text>
         <Text style={[styles.title, { color: colors.textPrimary }]}>Prompts rangés par famille.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Choisis d’abord une famille, puis un niveau. Ça évite la grande liste fouillis et garde tous les templates disponibles.</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Choisis une famille en français, puis un niveau. Les prompts restent copiables, sans jargon interne.</Text>
 
         <Text style={[styles.filterTitle, { color: colors.textPrimary }]}>Familles</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.familyRow}>
@@ -96,14 +116,14 @@ export default function AcademyTemplates() {
         <View style={styles.filters}>
           {LEVELS.map((l) => (
             <TouchableOpacity key={l} onPress={() => setLevel(l)} style={[styles.chip, { borderColor: level === l ? colors.coral : colors.borderSubtle, backgroundColor: level === l ? colors.coralSoft : colors.surface }]}>
-              <Text style={[styles.chipText, { color: level === l ? colors.coral : colors.textSecondary }]}>{l === "ALL" ? "Tous" : l}</Text>
+              <Text style={[styles.chipText, { color: level === l ? colors.coral : colors.textSecondary }]}>{LEVEL_LABELS[l] || l}</Text>
             </TouchableOpacity>
           ))}
         </View>
 
         <View style={[styles.summary, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
           <FolderOpen size={16} color={colors.coral} strokeWidth={2.5} />
-          <Text style={[styles.summaryText, { color: colors.textSecondary }]}>{filtered.length} template(s) dans cette sélection · corps vides masqués à la copie</Text>
+          <Text style={[styles.summaryText, { color: colors.textSecondary }]}>{filtered.length} template(s) dans cette sélection · copie disponible quand le prompt est prêt</Text>
         </View>
 
         {loading ? (
@@ -117,7 +137,7 @@ export default function AcademyTemplates() {
               <View key={t.id} style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
                 <View style={styles.cardHead}>
                   <View style={styles.pills}>
-                    <Text style={[styles.level, { color: colors.coral }]}>{t.level}</Text>
+                    <Text style={[styles.level, { color: colors.coral }]}>{LEVEL_LABELS[t.level] || t.level}</Text>
                     <Text style={[styles.familyPill, { color: colors.textSecondary, borderColor: colors.borderSubtle }]}>{familyLabel(familyOf(t))}</Text>
                   </View>
                   <TouchableOpacity disabled={!hasBody} onPress={() => copy(t)} style={!hasBody ? { opacity: 0.35 } : undefined}>
@@ -146,27 +166,27 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { padding: spacing.lg },
   back: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: spacing.md },
-  backText: { fontFamily: fonts.bodyBold, fontSize: 13 },
-  eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2 },
+  backText: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  eyebrow: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.6 },
   title: { fontFamily: fonts.serif, fontSize: 34, lineHeight: 40, marginVertical: spacing.sm },
-  subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginBottom: spacing.md },
-  filterTitle: { fontFamily: fonts.bodyBold, fontSize: 13, marginTop: spacing.sm, marginBottom: 8 },
+  subtitle: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: spacing.md },
+  filterTitle: { fontFamily: fonts.bodyBold, fontSize: 15, marginTop: spacing.sm, marginBottom: 8 },
   familyRow: { gap: 8, paddingBottom: spacing.md },
   familyChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 13, paddingVertical: 9 },
-  familyChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  familyChipText: { fontFamily: fonts.bodyBold, fontSize: 14 },
   filters: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: spacing.md },
   chip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8 },
-  chipText: { fontFamily: fonts.bodySemi, fontSize: 12 },
+  chipText: { fontFamily: fonts.bodySemi, fontSize: 13 },
   summary: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
-  summaryText: { flex: 1, fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
+  summaryText: { flex: 1, fontFamily: fonts.body, fontSize: 14, lineHeight: 20 },
   empty: { fontFamily: fonts.body, fontSize: 13, textAlign: "center", marginTop: spacing.lg },
   card: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   cardHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: spacing.sm },
   pills: { flexDirection: "row", flexWrap: "wrap", gap: 6, flex: 1 },
-  level: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
-  familyPill: { overflow: "hidden", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 3, fontFamily: fonts.bodyBold, fontSize: 10 },
+  level: { fontFamily: fonts.bodyBold, fontSize: 13, letterSpacing: 1 },
+  familyPill: { overflow: "hidden", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 4, fontFamily: fonts.bodyBold, fontSize: 13 },
   cardTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25, marginTop: 8 },
-  body: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: spacing.sm },
+  body: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginTop: spacing.sm },
   vars: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: spacing.sm },
-  var: { fontFamily: fonts.body, fontSize: 11 },
+  var: { fontFamily: fonts.body, fontSize: 13 },
 });

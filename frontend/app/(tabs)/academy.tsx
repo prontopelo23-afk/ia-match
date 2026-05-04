@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { BookOpen, ChevronRight, ClipboardList, FileText, Library, Route } from "lucide-react-native";
+import { BookOpen, ChevronRight, ClipboardList, FileText, Library, MousePointerClick, Route, Sparkles } from "lucide-react-native";
 import { colors as baseColors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import { api, AcademyBadge, AcademyPath, Lesson, Resource, Template } from "../../src/api";
@@ -83,7 +83,7 @@ export default function AcademyScreen() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY</Text>
         <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends l’IA par petits pas.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Choisis une porte d’entrée : commencer, pratiquer ou explorer. Le reste reste accessible, mais sans noyer l’écran.</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Les trois grandes cartes ci-dessous sont des boutons. Elles servent à choisir ton action : apprendre une base, copier un template, ou ouvrir des ressources fiables.</Text>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
           {LEVEL_FILTERS.map((f) => (
@@ -96,9 +96,20 @@ export default function AcademyScreen() {
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
           <>
             <View style={styles.doorGrid}>
-              <DoorCard title="Commencer" text="Le parcours le plus simple pour démarrer maintenant." />
-              <DoorCard title="Pratiquer" text="Prompts, exercices et avant/après à copier." />
-              <DoorCard title="Explorer" text="Ressources et chemins avancés quand tu es prêt." />
+              <DoorCard title="Commencer" cta="Ouvrir une leçon" text="Tu apprends une notion simple, tu vois un exemple, puis tu vérifies que tu as compris." steps={["Base", "Exemple", "Quiz"]} icon="1" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <DoorCard title="Appliquer" cta="Copier un template" text="Tu prends un prompt prêt à l’emploi, tu l’adaptes à ton cas, puis tu améliores le résultat." steps={["Prompt", "Essai", "Corrige"]} icon="2" onPress={() => router.push("/academy/templates")} />
+              <DoorCard title="Explorer" cta="Voir les ressources" text="Tu vas plus loin avec des sources, parcours et idées d’usage sans te perdre dans le catalogue." steps={["Sources", "Parcours", "Usage"]} icon="3" onPress={() => router.push("/academy/resources")} />
+            </View>
+
+            <View style={[styles.visualLoop, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
+              <View style={styles.visualLoopHead}>
+                <View style={[styles.visualIcon, { backgroundColor: colors.coralSoft }]}><Sparkles size={17} color={colors.coral} strokeWidth={2.5} /></View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.visualTitle, { color: colors.textPrimary }]}>À quoi sert Academy ?</Text>
+                  <Text style={[styles.visualText, { color: colors.textSecondary }]}>Un petit cycle visuel : tu comprends, tu testes dans un outil, puis tu gardes seulement ce qui marche.</Text>
+                </View>
+              </View>
+              <LearningDiagram />
             </View>
 
             {firstLesson ? (
@@ -149,9 +160,47 @@ function HubCard({ icon, title, text, onPress }: { icon: React.ReactNode; title:
   return <TouchableOpacity onPress={onPress} style={[styles.hubCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}><View style={[styles.hubIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.hubTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.hubText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
 }
 
-function DoorCard({ title, text }: { title: string; text: string }) {
+function DoorCard({ title, cta, text, steps, icon, onPress }: { title: string; cta: string; text: string; steps: string[]; icon: string; onPress: () => void }) {
   const { colors } = useTheme();
-  return <View style={[styles.doorCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><Text style={[styles.doorTitle, { color: colors.coral }]}>{title}</Text><Text style={[styles.doorText, { color: colors.textSecondary }]}>{text}</Text></View>;
+  return (
+    <TouchableOpacity onPress={onPress} style={[styles.doorCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}>
+      <View style={styles.doorTop}>
+        <View style={[styles.doorNumber, { backgroundColor: colors.coralSoft }]}><Text style={[styles.doorNumberText, { color: colors.coral }]}>{icon}</Text></View>
+        <View style={styles.doorCtaRow}><MousePointerClick size={14} color={colors.coral} strokeWidth={2.5} /><Text style={[styles.doorCta, { color: colors.coral }]}>{cta}</Text><ChevronRight size={15} color={colors.coral} strokeWidth={2.5} /></View>
+      </View>
+      <Text style={[styles.doorTitle, { color: colors.textPrimary }]}>{title}</Text>
+      <Text style={[styles.doorText, { color: colors.textSecondary }]}>{text}</Text>
+      <MiniWorkflow steps={steps} compact />
+    </TouchableOpacity>
+  );
+}
+
+function LearningDiagram() {
+  const { colors } = useTheme();
+  const cards = [
+    { title: "Comprendre", text: "une idée simple", emoji: "💡" },
+    { title: "Tester", text: "dans ChatGPT, Claude…", emoji: "🧪" },
+    { title: "Vérifier", text: "sources, limites, résultat", emoji: "✅" },
+  ];
+  return (
+    <View style={styles.diagramWrap}>
+      {cards.map((card, index) => (
+        <React.Fragment key={card.title}>
+          <View style={[styles.diagramCard, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+            <Text style={styles.diagramEmoji}>{card.emoji}</Text>
+            <Text style={[styles.diagramTitle, { color: colors.textPrimary }]}>{card.title}</Text>
+            <Text style={[styles.diagramText, { color: colors.textSecondary }]}>{card.text}</Text>
+          </View>
+          {index < cards.length - 1 ? <View style={[styles.diagramArrow, { backgroundColor: colors.coral }]} /> : null}
+        </React.Fragment>
+      ))}
+    </View>
+  );
+}
+
+function MiniWorkflow({ steps, compact = false }: { steps: string[]; compact?: boolean }) {
+  const { colors } = useTheme();
+  return <View style={[styles.workflowRow, compact && styles.workflowCompact]}>{steps.map((step, index) => <React.Fragment key={`${step}-${index}`}><View style={[styles.workflowDot, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}><Text style={[styles.workflowDotText, { color: colors.coral }]}>{index + 1}</Text></View><Text style={[styles.workflowStep, { color: colors.textPrimary }]} numberOfLines={1}>{step}</Text>{index < steps.length - 1 ? <View style={[styles.workflowLine, { backgroundColor: colors.borderSubtle }]} /> : null}</React.Fragment>)}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -159,31 +208,53 @@ const styles = StyleSheet.create({
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 2, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1 },
-  subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm, marginBottom: spacing.md },
+  subtitle: { fontFamily: fonts.body, fontSize: 16, lineHeight: 23, marginTop: spacing.sm, marginBottom: spacing.md },
   levelRow: { gap: 8, paddingBottom: spacing.md },
   levelChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
-  levelChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
-  doorGrid: { gap: 8, marginBottom: spacing.md },
+  levelChipText: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  doorGrid: { gap: 10, marginBottom: spacing.md },
   doorCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
-  doorTitle: { fontFamily: fonts.bodyBold, fontSize: 13, marginBottom: 3 },
-  doorText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
+  doorTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
+  doorNumber: { width: 28, height: 28, borderRadius: 10, alignItems: "center", justifyContent: "center" },
+  doorNumberText: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  doorCtaRow: { flexDirection: "row", alignItems: "center", gap: 5 },
+  doorCta: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  doorTitle: { fontFamily: fonts.serif, fontSize: 23, lineHeight: 27, marginBottom: 5 },
+  doorText: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22 },
+  visualLoop: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  visualLoopHead: { flexDirection: "row", gap: 10, alignItems: "flex-start", marginBottom: spacing.sm },
+  visualIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  visualTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25 },
+  visualText: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginTop: 2 },
+  workflowRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 4 },
+  workflowCompact: { marginTop: spacing.sm },
+  workflowDot: { width: 24, height: 24, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  workflowDotText: { fontFamily: fonts.bodyBold, fontSize: 11 },
+  workflowStep: { fontFamily: fonts.bodySemi, fontSize: 13, maxWidth: 86 },
+  workflowLine: { width: 16, height: 2, borderRadius: 2 },
+  diagramWrap: { gap: 8, marginTop: spacing.sm },
+  diagramCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 88 },
+  diagramEmoji: { fontSize: 24, marginBottom: 5 },
+  diagramTitle: { fontFamily: fonts.serif, fontSize: 22, lineHeight: 26 },
+  diagramText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: 2 },
+  diagramArrow: { alignSelf: "center", width: 3, height: 18, borderRadius: 3 },
   continueCard: { borderRadius: radius.xl, padding: spacing.lg, marginBottom: spacing.lg, ...shadow.dark },
   continueLabel: { fontFamily: fonts.bodyBold, color: baseColors.coral, fontSize: 10, letterSpacing: 1.7 },
   continueTitle: { fontFamily: fonts.serif, color: "#fff", fontSize: 25, lineHeight: 30, marginTop: 6 },
-  continueText: { fontFamily: fonts.body, color: "rgba(255,255,255,0.72)", fontSize: 12, marginTop: 6 },
+  continueText: { fontFamily: fonts.body, color: "rgba(255,255,255,0.78)", fontSize: 14, lineHeight: 20, marginTop: 6 },
   sectionHeaderRow: { flexDirection: "row", alignItems: "flex-start", gap: spacing.sm, marginTop: spacing.sm },
   sectionTitle: { fontFamily: fonts.serif, fontSize: 24, marginBottom: spacing.xs },
-  sectionHint: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginBottom: spacing.sm },
+  sectionHint: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginBottom: spacing.sm },
   smallLink: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8, marginTop: 2 },
   smallLinkText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   pathRow: { gap: 10, paddingBottom: spacing.md },
   pathCard: { width: 190, minHeight: 124, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
-  pathLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.2, textTransform: "uppercase", marginTop: 8 },
+  pathLevel: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.1, textTransform: "uppercase", marginTop: 8 },
   pathTitle: { fontFamily: fonts.serif, fontSize: 17, lineHeight: 21, marginTop: 5 },
-  pathMeta: { fontFamily: fonts.bodyBold, fontSize: 10, marginTop: 7, textTransform: "uppercase" },
+  pathMeta: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: 7, textTransform: "uppercase" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.sm },
   hubCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 120 },
   hubIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   hubTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
-  hubText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
+  hubText: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: 4 },
 });

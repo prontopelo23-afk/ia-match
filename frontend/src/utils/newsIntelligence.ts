@@ -19,8 +19,8 @@ export type NewsIntel = {
 const KEYWORDS: Record<string, string[]> = {
   Image: ["image", "visuel", "photo", "design", "midjourney", "dall", "imagen", "firefly", "canva"],
   Texte: ["texte", "écrire", "gpt", "claude", "mistral", "llm", "modèle", "chatbot"],
-  Code: ["code", "dev", "développe", "cursor", "copilot", "replit", "app"],
-  Agents: ["agent", "workflow", "automatis", "zapier", "make", "n8n", "tool-use"],
+  Code: ["code", "dev", "développe", "cursor", "copilot", "replit", "app", "claude code", "cline", "roo", "aider", "openclaw", "clawbot", "bolt", "lovable"],
+  Agents: ["agent", "workflow", "automatis", "zapier", "make", "n8n", "tool-use", "openclaw", "clawbot", "cline", "roo"],
   Business: ["prix", "tarif", "startup", "business", "offre", "abonnement", "pro"],
   Gratuit: ["gratuit", "open source", "open-source", "local", "ollama", "llama", "mistral"],
 };
@@ -29,7 +29,7 @@ function haystack(item: NewsItem) {
   return `${item.category} ${item.title} ${item.summary} ${item.intro ?? ""} ${item.body ?? ""}`.toLowerCase();
 }
 
-export const NEWS_FILTERS = ["Tout", "Modèles", "Outils", "Image", "Code", "Agents", "Business", "Local", "Confiance", "À surveiller"];
+export const NEWS_FILTERS = ["Tout", "Modèles", "Outils", "Claude", "Image", "Code", "Agents", "Business", "Local", "Confiance", "À surveiller"];
 
 const CATEGORY_TO_FILTER: Record<string, string> = {
   modeles: "Modèles",
@@ -44,7 +44,12 @@ const CATEGORY_TO_FILTER: Record<string, string> = {
 
 export function getNewsIntel(item: NewsItem): NewsIntel {
   const h = haystack(item);
-  const filter = item.editorialCategory ? CATEGORY_TO_FILTER[item.editorialCategory] ?? "Outils" : Object.entries(KEYWORDS).find(([, words]) => words.some((w) => h.includes(w)))?.[0] ?? "Outils";
+  let filter = item.editorialCategory ? CATEGORY_TO_FILTER[item.editorialCategory] ?? "Outils" : Object.entries(KEYWORDS).find(([, words]) => words.some((w) => h.includes(w)))?.[0] ?? "Outils";
+  if (item.editorialCategory === "code-agents") {
+    const codeSignal = /code|dévelop|dev|cursor|copilot|codex|claude code|cline|roo|aider|openclaw|clawbot|replit|github|bolt|lovable/.test(h);
+    filter = codeSignal ? "Code" : "Agents";
+  }
+  if (/claude|anthropic/.test(h) && filter === "Outils") filter = "Claude";
   const isPrice = /prix|tarif|abonnement|offre|plan|pro|gratuit/.test(h) || item.editorialCategory === "business-prix";
   const isFree = /gratuit|open source|open-source|local|ollama|llama/.test(h) || item.editorialCategory === "open-local";
   const isAgent = /agent|workflow|automatis|tool-use|zapier|make|n8n/.test(h) || item.editorialCategory === "code-agents";
@@ -98,7 +103,7 @@ export function getNewsIntel(item: NewsItem): NewsIntel {
           : "Si tu débutes, garde un assistant généraliste fiable et ajoute un outil spécialisé seulement quand le besoin devient clair.");
 
   const toolKeywords = [
-    "chatgpt", "claude", "gemini", "mistral", "perplexity", "midjourney", "canva", "cursor", "copilot", "zapier", "make", "ollama", "llama", "deepseek", "qwen", "runway", "suno",
+    "chatgpt", "claude", "anthropic", "gemini", "mistral", "perplexity", "midjourney", "canva", "cursor", "copilot", "cline", "roo", "aider", "openclaw", "clawbot", "zapier", "make", "ollama", "llama", "deepseek", "qwen", "runway", "suno",
   ].filter((k) => h.includes(k));
 
   return { filter, impact, quickSummary, changes, action, advice, toolKeywords };
@@ -107,6 +112,9 @@ export function getNewsIntel(item: NewsItem): NewsIntel {
 export function filterNews(items: NewsItem[], filter: string) {
   if (filter === "Tout") return items;
   if (filter === "À surveiller") return items.filter((item) => ["watch", "strong"].includes(getNewsIntel(item).impact.tone) || item.radarStatus?.toLowerCase().includes("surveiller"));
+  if (filter === "Claude") return items.filter((item) => haystack(item).includes("claude") || haystack(item).includes("anthropic") || item.toolSlugs?.includes("claude"));
+  if (filter === "Code") return items.filter((item) => getNewsIntel(item).filter === "Code" || /code|dev|cursor|copilot|claude code|cline|roo|aider|openclaw|clawbot|replit|bolt|lovable/.test(haystack(item)));
+  if (filter === "Agents") return items.filter((item) => getNewsIntel(item).filter === "Agents" || /agent|workflow|automatis|openclaw|clawbot|cline|roo|n8n|zapier|make/.test(haystack(item)));
   return items.filter((item) => getNewsIntel(item).filter === filter || (filter === "Local" && item.editorialCategory === "open-local"));
 }
 

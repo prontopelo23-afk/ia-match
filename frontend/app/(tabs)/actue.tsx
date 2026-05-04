@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-import { ArrowUpRight, Bookmark, Radar, ShieldCheck, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react-native";
+import { ArrowUpRight, Bookmark, Radar, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { api, EditorialHighlights, NewsItem, Tool, bookmarkNews } from "../../src/api";
@@ -33,7 +33,18 @@ export default function ActueScreen() {
 
   useFocusEffect(useCallback(() => { bookmarkNews.list().then(setBms); }, []));
 
-  const visibleItems = useMemo(() => filterNews(items, filter), [items, filter]);
+  const visibleItems = useMemo(() => {
+    const filtered = filterNews(items, filter);
+    if (filter !== "Tout") return filtered;
+    const priority = (item: NewsItem) => {
+      const h = `${item.title} ${item.summary} ${item.tag ?? ""} ${item.toolSlugs?.join(" ") ?? ""}`.toLowerCase();
+      if (h.includes("claude code") || h.includes("cline") || h.includes("roo") || h.includes("aider") || h.includes("openclaw") || h.includes("clawbot")) return 0;
+      if (h.includes("claude") || h.includes("anthropic")) return 1;
+      if (h.includes("agent") || h.includes("code")) return 2;
+      return 5;
+    };
+    return [...filtered].sort((a, b) => priority(a) - priority(b));
+  }, [items, filter]);
   const featured = visibleItems[0];
   const rest = visibleItems.slice(1);
 
@@ -50,10 +61,7 @@ export default function ActueScreen() {
           <Text style={[styles.eyebrow, { color: colors.coral }]}>ACTU IA</Text>
           <Text style={[styles.title, { color: colors.textPrimary }]}>Ce qu’il faut retenir, pas tout le bruit.</Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Chaque actu doit t’aider à décider : tester, surveiller, comparer ou ignorer.</Text>
-          <View style={[styles.methodBox, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }] }>
-            <ShieldCheck size={15} color={colors.coral} strokeWidth={2.5} />
-            <Text style={[styles.methodText, { color: colors.textSecondary }]}>Sélection courte, conseils actionnables, prix à vérifier sur les sites officiels.</Text>
-          </View>
+
         </Animated.View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
@@ -75,7 +83,7 @@ export default function ActueScreen() {
               <View style={[styles.radarIcon, { backgroundColor: colors.coralSoft }]}><Radar size={18} color={colors.coral} strokeWidth={2.5} /></View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.radarToggleTitle, { color: colors.textPrimary }]}>Radar IA Match</Text>
-                <Text style={[styles.radarToggleSub, { color: colors.textSecondary }]}>4 repères : tester, surveiller, éviter, apprendre.</Text>
+                <Text style={[styles.radarToggleSub, { color: colors.textSecondary }]}>Tendances à ouvrir seulement si tu veux creuser.</Text>
               </View>
               {showRadar ? <ChevronUp size={18} color={colors.coral} /> : <ChevronDown size={18} color={colors.coral} />}
             </TouchableOpacity>
@@ -113,9 +121,8 @@ function FeaturedNews({ item, tools, bookmarked, onBookmark, pulseStyle }: { ite
         <Text style={[styles.featuredSummary, { color: colors.textSecondary }]}>{item.summary}</Text>
   {item.confidence ? <Text style={[styles.confidenceText, { color: colors.textSecondary }]}>Confiance {item.confidence} · vérifié {formatDate(item.lastVerifiedAt || item.publishedAt)}</Text> : null}
         <View style={[styles.intelBox, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
-          <Text style={[styles.intelTitle, { color: colors.coral }]}>Résumé en 30 secondes</Text>
+          <Text style={[styles.intelTitle, { color: colors.coral }]}>À retenir</Text>
           {intel.quickSummary.map((line) => <Text key={line} style={[styles.intelLine, { color: colors.textPrimary }]}>• {line}</Text>)}
-          <Text style={[styles.advice, { color: colors.textSecondary }]}>Conseil IA Match : {intel.advice}</Text>
         </View>
         {related.length ? <RelatedMiniTools tools={related} /> : null}
         <View style={styles.readLink}><Text style={[styles.readLinkText, { color: colors.coral }]}>Pourquoi ça compte ?</Text><ArrowUpRight size={16} color={colors.coral} strokeWidth={2.5} /></View>
@@ -193,6 +200,7 @@ function RadarStrip() {
             </View>
             <Text style={[styles.radarCardTitle, { color: colors.textPrimary }]}>{trend.title}</Text>
             <Text style={[styles.radarAction, { color: colors.textSecondary }]}>{trend.short}</Text>
+            <SchemaMini steps={trend.schema} />
             <View style={[styles.whyBox, { borderColor: colors.borderSubtle }]}>
               <CheckCircle2 size={13} color={colors.coral} strokeWidth={2.5} />
               <Text style={[styles.whyText, { color: colors.textPrimary }]}>{trend.action}</Text>
@@ -208,6 +216,11 @@ function RadarStrip() {
       ) : null}
     </Animated.View>
   );
+}
+
+function SchemaMini({ steps }: { steps: string[] }) {
+  const { colors } = useTheme();
+  return <View style={[styles.schemaBox, { borderColor: colors.borderSubtle }]}>{steps.map((step, index) => <React.Fragment key={`${step}-${index}`}><View style={[styles.schemaNode, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}><Text style={[styles.schemaIndex, { color: colors.coral }]}>{index + 1}</Text></View><Text style={[styles.schemaLabel, { color: colors.textPrimary }]} numberOfLines={1}>{step}</Text>{index < steps.length - 1 ? <View style={[styles.schemaLine, { backgroundColor: colors.borderSubtle }]} /> : null}</React.Fragment>)}</View>;
 }
 
 function RelatedMiniTools({ tools, compact = false }: { tools: Tool[]; compact?: boolean }) {
@@ -241,24 +254,22 @@ const styles = StyleSheet.create({
   hero: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.lg },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.6, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 34, lineHeight: 40, letterSpacing: -1 },
-  subtitle: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: spacing.sm },
-  methodBox: { flexDirection: "row", gap: 8, borderWidth: 1, borderRadius: radius.lg, padding: spacing.sm, marginTop: spacing.md, alignItems: "flex-start" },
-  methodText: { flex: 1, fontFamily: fonts.body, fontSize: 13, lineHeight: 19 },
+  subtitle: { fontFamily: fonts.body, fontSize: 16, lineHeight: 23, marginTop: spacing.sm },
   filterRow: { gap: 8, paddingVertical: spacing.md },
   filterChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
-  filterText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  filterText: { fontFamily: fonts.bodyBold, fontSize: 14 },
   featuredCard: { borderRadius: radius.xl, padding: spacing.lg, borderWidth: 1.5, marginBottom: spacing.md },
   tagRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: spacing.sm },
   impactBadge: { overflow: "hidden", borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 5, fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 0.3 },
   impactCompact: { paddingHorizontal: 8, paddingVertical: 4, fontSize: 11 },
-  metaText: { fontFamily: fonts.body, fontSize: 12 },
+  metaText: { fontFamily: fonts.body, fontSize: 13 },
   bmBtn: { padding: 5 },
   featuredTitle: { fontFamily: fonts.serif, fontSize: 28, lineHeight: 34, letterSpacing: -0.5, marginBottom: spacing.sm },
-  featuredSummary: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginBottom: spacing.sm },
-  confidenceText: { fontFamily: fonts.bodySemi, fontSize: 12, marginBottom: spacing.md },
+  featuredSummary: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: spacing.sm },
+  confidenceText: { fontFamily: fonts.bodySemi, fontSize: 13, marginBottom: spacing.md },
   intelBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
-  intelTitle: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.1, marginBottom: 6 },
-  intelLine: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginBottom: 3 },
+  intelTitle: { fontFamily: fonts.bodyBold, fontSize: 13, letterSpacing: 1, marginBottom: 6 },
+  intelLine: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: 3 },
   advice: { fontFamily: fonts.bodySemi, fontSize: 13, lineHeight: 19, marginTop: 6 },
   relatedRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: spacing.sm },
   relatedPill: { borderWidth: 1, borderRadius: radius.pill, paddingVertical: 5, paddingHorizontal: 7, flexDirection: "row", alignItems: "center", gap: 6, maxWidth: 150 },
@@ -266,8 +277,8 @@ const styles = StyleSheet.create({
   readLink: { flexDirection: "row", alignItems: "center", gap: 6 },
   readLinkText: { fontFamily: fonts.bodySemi, fontSize: 14 },
   radarToggle: { flexDirection: "row", alignItems: "center", gap: 10, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
-  radarToggleTitle: { fontFamily: fonts.bodyBold, fontSize: 14 },
-  radarToggleSub: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 2 },
+  radarToggleTitle: { fontFamily: fonts.bodyBold, fontSize: 15 },
+  radarToggleSub: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: 2 },
   radarBox: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginBottom: spacing.md },
   radarHead: { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: spacing.sm },
   radarTitle: { fontFamily: fonts.serif, fontSize: 23, lineHeight: 27 },
@@ -279,14 +290,19 @@ const styles = StyleSheet.create({
   radarPriorityText: { fontFamily: fonts.bodySemi, fontSize: 13, lineHeight: 19, marginTop: 5 },
   laneRow: { gap: 7, paddingVertical: spacing.sm },
   laneChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8 },
-  laneText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  laneText: { fontFamily: fonts.bodyBold, fontSize: 13 },
   radarGrid: { gap: 8, marginTop: spacing.sm },
   radarRow: { gap: 8, paddingRight: spacing.md },
   radarCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
   radarCardTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 },
   radarStatus: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 0.9, textTransform: "uppercase", marginBottom: 6 },
   radarCardTitle: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 24, marginTop: 4 },
-  radarAction: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 6 },
+  radarAction: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, marginTop: 6 },
+  schemaBox: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, borderTopWidth: 1, marginTop: spacing.sm, paddingTop: spacing.sm },
+  schemaNode: { width: 22, height: 22, borderRadius: 11, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  schemaIndex: { fontFamily: fonts.bodyBold, fontSize: 10 },
+  schemaLabel: { fontFamily: fonts.bodySemi, fontSize: 12, maxWidth: 74 },
+  schemaLine: { width: 12, height: 2, borderRadius: 2 },
   whyBox: { flexDirection: "row", alignItems: "flex-start", gap: 6, borderTopWidth: 1, marginTop: spacing.sm, paddingTop: spacing.sm },
   whyText: { flex: 1, fontFamily: fonts.bodySemi, fontSize: 13, lineHeight: 19 },
   radarOpen: { fontFamily: fonts.bodyBold, fontSize: 13, marginTop: 10 },
@@ -294,9 +310,9 @@ const styles = StyleSheet.create({
   radarMoreText: { fontFamily: fonts.bodyBold, fontSize: 13 },
   rowCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.sm },
   rowTop: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 8 },
-  rowDate: { fontFamily: fonts.body, fontSize: 12, flex: 1 },
+  rowDate: { fontFamily: fonts.body, fontSize: 13, flex: 1 },
   rowTitle: { fontFamily: fonts.serif, fontSize: 20, lineHeight: 25, marginBottom: 4 },
-  rowSummary: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18 },
-  rowAction: { fontFamily: fonts.bodyBold, fontSize: 13, marginTop: spacing.sm, marginBottom: 6 },
+  rowSummary: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22 },
+  rowAction: { fontFamily: fonts.bodyBold, fontSize: 14, marginTop: spacing.sm, marginBottom: 6 },
   empty: { fontFamily: fonts.body, textAlign: "center", marginTop: spacing.xl },
 });

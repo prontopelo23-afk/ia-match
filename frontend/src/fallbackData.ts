@@ -2,8 +2,8 @@
 // Généré par scripts/generate_static_fallback_data.py depuis backend/server.py.
 // - TOOLS: 181 items
 // - CATEGORIES: 9 items
-// - NEWS: 23 items
-// - EDITORIAL_FEED: 23 items
+// - NEWS: 25 items
+// - EDITORIAL_FEED: 25 items
 // - EDITORIAL_CATEGORIES: 8 items
 // - EDITORIAL_SOURCES: 12 items
 // - EDITORIAL_HIGHLIGHTS: 5 keys
@@ -16273,6 +16273,83 @@ export const FALLBACK_DATA = {
       ]
     },
     {
+      "id": "ed-claude-code-assistants-dev",
+      "category": "CODE & AGENTS",
+      "editorialCategory": "code-agents",
+      "title": "Claude Code, Cline, Roo, Aider : les assistants IA de dev ne se valent pas",
+      "summary": "Au-delà de ChatGPT, les assistants de code deviennent des partenaires de repo : certains écrivent dans l’éditeur, d’autres travaillent en CLI ou orchestrent des tâches.",
+      "intro": "Si tu codes, la vraie question n’est plus seulement “GPT ou Gemini ?”. Il faut choisir entre un assistant dans l’éditeur, un agent de terminal, un copilote GitHub ou un workflow open-source contrôlable.",
+      "body": "## Ce qui change\n\nClaude Code, Cline, Roo Code, Aider, Cursor ou Copilot n’ont pas la même place dans le travail. Certains lisent ton repo, proposent un plan, éditent plusieurs fichiers et lancent des tests. D’autres restent meilleurs pour compléter une fonction ou expliquer une erreur.\n\n## Schéma simple\n\n`Brief court → lecture du repo → modification ciblée → tests → revue humaine`\n\n## Comment choisir\n\n- Débutant : commence avec explication + petits fichiers.\n- Projet réel : privilégie branche Git, diff lisible et tests.\n- Données sensibles : regarde où part le code et quels modèles sont appelés.\n- Gros refactor : Claude ou un agent CLI peut être plus utile qu’un simple autocompléteur.\n\n## Conseil IA Match\n\nUn assistant de dev doit être recommandé selon ton niveau, ton éditeur, la taille du projet et ta capacité à relire le diff. Sans tests, l’agent devient vite dangereux.",
+      "publishedAt": "2026-05-04",
+      "readMinutes": 4,
+      "tag": "Claude / Code",
+      "highlight": "Le bon assistant de code dépend du workflow, pas seulement du modèle.",
+      "author": "IA Match · Rédaction",
+      "impactLevel": "fort",
+      "impactLabel": "Code utile",
+      "confidence": "haute",
+      "verificationStatus": "curated_known_tools",
+      "lastVerifiedAt": "2026-05-04",
+      "sourceIds": [
+        "anthropic-docs",
+        "cursor"
+      ],
+      "toolSlugs": [
+        "claude",
+        "cursor",
+        "github-copilot",
+        "aider"
+      ],
+      "radarStatus": "À tester prudemment",
+      "decisionHint": "Choisis un assistant qui laisse un diff relisible et une validation humaine.",
+      "action": "Tester une petite correction avec branche Git + commande de test.",
+      "tags": [
+        "claude",
+        "code",
+        "agents",
+        "cline",
+        "aider",
+        "roo"
+      ]
+    },
+    {
+      "id": "ed-claude-documents-long-contexte",
+      "category": "MODÈLES",
+      "editorialCategory": "modeles",
+      "title": "Claude reste une référence pour lire, écrire et décider sur des documents longs",
+      "summary": "Claude n’est pas juste un concurrent de ChatGPT : il brille quand il faut garder le contexte, nuancer et travailler sur des dossiers longs.",
+      "intro": "Pour documents, notes, analyse juridique légère, stratégie ou rédaction longue, Claude garde une identité claire : moins spectaculaire parfois, mais très solide pour le travail de fond.",
+      "body": "## Pourquoi ça compte\n\nBeaucoup d’actus parlent de GPT, Gemini ou Ollama parce qu’ils bougent beaucoup. Mais dans l’usage quotidien, Claude reste souvent le meilleur choix pour lire un gros document, structurer une décision ou écrire sans ton robotique.\n\n## Schéma simple\n\n`Document long → questions ciblées → synthèse nuancée → limites → décision`\n\n## Quand le choisir\n\n- Dossier long à résumer ou comparer.\n- Texte sensible qui demande un ton précis.\n- Analyse avec nuances, risques et objections.\n- Code ou produit quand tu veux une explication propre du raisonnement.\n\n## Conseil IA Match\n\nNe compare pas Claude uniquement en “score général”. Compare-le sur ton vrai livrable : document, style, longueur, confidentialité et capacité à expliquer les limites.",
+      "publishedAt": "2026-05-04",
+      "readMinutes": 4,
+      "tag": "Claude",
+      "highlight": "Claude gagne souvent quand la nuance et le contexte long comptent.",
+      "author": "IA Match · Rédaction",
+      "impactLevel": "fort",
+      "impactLabel": "Impact fort",
+      "confidence": "haute",
+      "verificationStatus": "curated_official_sources",
+      "lastVerifiedAt": "2026-05-04",
+      "sourceIds": [
+        "anthropic-docs"
+      ],
+      "toolSlugs": [
+        "claude",
+        "chatgpt",
+        "gemini",
+        "mistral"
+      ],
+      "radarStatus": "À tester",
+      "decisionHint": "Pour lire et écrire long, teste Claude avant de payer un outil spécialisé.",
+      "action": "Comparer Claude et ton assistant actuel sur le même document.",
+      "tags": [
+        "claude",
+        "anthropic",
+        "documents",
+        "écriture"
+      ]
+    },
+    {
       "id": "ed-google-ai-mode-chrome",
       "category": "OUTILS",
       "editorialCategory": "outils",
@@ -16748,7 +16825,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -16772,7 +16849,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -16796,7 +16873,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -16820,7 +16897,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -16844,7 +16921,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -17046,6 +17123,83 @@ export const FALLBACK_DATA = {
       ]
     },
     {
+      "id": "ed-claude-code-assistants-dev",
+      "category": "CODE & AGENTS",
+      "editorialCategory": "code-agents",
+      "title": "Claude Code, Cline, Roo, Aider : les assistants IA de dev ne se valent pas",
+      "summary": "Au-delà de ChatGPT, les assistants de code deviennent des partenaires de repo : certains écrivent dans l’éditeur, d’autres travaillent en CLI ou orchestrent des tâches.",
+      "intro": "Si tu codes, la vraie question n’est plus seulement “GPT ou Gemini ?”. Il faut choisir entre un assistant dans l’éditeur, un agent de terminal, un copilote GitHub ou un workflow open-source contrôlable.",
+      "body": "## Ce qui change\n\nClaude Code, Cline, Roo Code, Aider, Cursor ou Copilot n’ont pas la même place dans le travail. Certains lisent ton repo, proposent un plan, éditent plusieurs fichiers et lancent des tests. D’autres restent meilleurs pour compléter une fonction ou expliquer une erreur.\n\n## Schéma simple\n\n`Brief court → lecture du repo → modification ciblée → tests → revue humaine`\n\n## Comment choisir\n\n- Débutant : commence avec explication + petits fichiers.\n- Projet réel : privilégie branche Git, diff lisible et tests.\n- Données sensibles : regarde où part le code et quels modèles sont appelés.\n- Gros refactor : Claude ou un agent CLI peut être plus utile qu’un simple autocompléteur.\n\n## Conseil IA Match\n\nUn assistant de dev doit être recommandé selon ton niveau, ton éditeur, la taille du projet et ta capacité à relire le diff. Sans tests, l’agent devient vite dangereux.",
+      "publishedAt": "2026-05-04",
+      "readMinutes": 4,
+      "tag": "Claude / Code",
+      "highlight": "Le bon assistant de code dépend du workflow, pas seulement du modèle.",
+      "author": "IA Match · Rédaction",
+      "impactLevel": "fort",
+      "impactLabel": "Code utile",
+      "confidence": "haute",
+      "verificationStatus": "curated_known_tools",
+      "lastVerifiedAt": "2026-05-04",
+      "sourceIds": [
+        "anthropic-docs",
+        "cursor"
+      ],
+      "toolSlugs": [
+        "claude",
+        "cursor",
+        "github-copilot",
+        "aider"
+      ],
+      "radarStatus": "À tester prudemment",
+      "decisionHint": "Choisis un assistant qui laisse un diff relisible et une validation humaine.",
+      "action": "Tester une petite correction avec branche Git + commande de test.",
+      "tags": [
+        "claude",
+        "code",
+        "agents",
+        "cline",
+        "aider",
+        "roo"
+      ]
+    },
+    {
+      "id": "ed-claude-documents-long-contexte",
+      "category": "MODÈLES",
+      "editorialCategory": "modeles",
+      "title": "Claude reste une référence pour lire, écrire et décider sur des documents longs",
+      "summary": "Claude n’est pas juste un concurrent de ChatGPT : il brille quand il faut garder le contexte, nuancer et travailler sur des dossiers longs.",
+      "intro": "Pour documents, notes, analyse juridique légère, stratégie ou rédaction longue, Claude garde une identité claire : moins spectaculaire parfois, mais très solide pour le travail de fond.",
+      "body": "## Pourquoi ça compte\n\nBeaucoup d’actus parlent de GPT, Gemini ou Ollama parce qu’ils bougent beaucoup. Mais dans l’usage quotidien, Claude reste souvent le meilleur choix pour lire un gros document, structurer une décision ou écrire sans ton robotique.\n\n## Schéma simple\n\n`Document long → questions ciblées → synthèse nuancée → limites → décision`\n\n## Quand le choisir\n\n- Dossier long à résumer ou comparer.\n- Texte sensible qui demande un ton précis.\n- Analyse avec nuances, risques et objections.\n- Code ou produit quand tu veux une explication propre du raisonnement.\n\n## Conseil IA Match\n\nNe compare pas Claude uniquement en “score général”. Compare-le sur ton vrai livrable : document, style, longueur, confidentialité et capacité à expliquer les limites.",
+      "publishedAt": "2026-05-04",
+      "readMinutes": 4,
+      "tag": "Claude",
+      "highlight": "Claude gagne souvent quand la nuance et le contexte long comptent.",
+      "author": "IA Match · Rédaction",
+      "impactLevel": "fort",
+      "impactLabel": "Impact fort",
+      "confidence": "haute",
+      "verificationStatus": "curated_official_sources",
+      "lastVerifiedAt": "2026-05-04",
+      "sourceIds": [
+        "anthropic-docs"
+      ],
+      "toolSlugs": [
+        "claude",
+        "chatgpt",
+        "gemini",
+        "mistral"
+      ],
+      "radarStatus": "À tester",
+      "decisionHint": "Pour lire et écrire long, teste Claude avant de payer un outil spécialisé.",
+      "action": "Comparer Claude et ton assistant actuel sur le même document.",
+      "tags": [
+        "claude",
+        "anthropic",
+        "documents",
+        "écriture"
+      ]
+    },
+    {
       "id": "ed-google-ai-mode-chrome",
       "category": "OUTILS",
       "editorialCategory": "outils",
@@ -17521,7 +17675,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -17545,7 +17699,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -17569,7 +17723,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -17593,7 +17747,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -17617,7 +17771,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T02:19:29.383438+00:00",
+      "created_at": "2026-05-04T05:10:33.564695+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
