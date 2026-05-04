@@ -245,7 +245,7 @@ export default function MatchWizard() {
                 {LEVELS.map((item) => {
                   const active = level === item.value;
                   return (
-                    <TouchableOpacity key={item.value} onPress={() => setLevel(item.value)} style={[styles.rowChoice, active && styles.choiceCardActive]} testID={`match-level-${item.value}`}>
+                    <TouchableOpacity key={item.value} onPress={() => { setLevel(item.value); setStep(2); }} style={[styles.rowChoice, active && styles.choiceCardActive]} testID={`match-level-${item.value}`}>
                       <View style={{ flex: 1 }}>
                         <Text style={[styles.rowTitle, active && styles.choiceTitleActive]}>{item.label}</Text>
                         <Text style={styles.choiceHint}>{item.hint}</Text>
