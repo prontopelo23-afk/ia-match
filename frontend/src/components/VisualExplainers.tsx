@@ -52,7 +52,7 @@ export function ConceptCard({ icon = "spark", title, text, bullets = [] }: { ico
 export function ToolBattleStrip({ items }: { items: { name: string; role: string; score: number }[] }) {
   return (
     <View style={[styles.battle, { backgroundColor: colors.darkCard }]}> 
-      <Text style={styles.battleTitle}>Lecture rapide du classement</Text>
+      <Text style={styles.battleTitle}>Comparer vite</Text>
       {items.map((item, index) => (
         <View key={item.name} style={styles.battleRow}>
           <Text style={styles.battleRank}>#{index + 1}</Text>

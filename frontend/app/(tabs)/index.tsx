@@ -12,7 +12,7 @@ import { CONTENT_FAMILIES } from "../../src/utils/contentArchitecture";
 import { RADAR_TRENDS } from "../../src/data/radarContent";
 import { openNewsletterSignup } from "../../src/utils/contactLinks";
 import { shareApp } from "../../src/utils/shareLinks";
-import { ConceptCard, ToolBattleStrip, WorkflowMap } from "../../src/components/VisualExplainers";
+import { WorkflowMap } from "../../src/components/VisualExplainers";
 
 export default function Accueil() {
   const router = useRouter();
@@ -66,14 +66,12 @@ export default function Accueil() {
           <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title="Apprendre" text="Comprends l’IA par petits pas, sans jargon." onPress={() => router.push("/(tabs)/academy")} />
         </View>
 
-        <ConceptCard icon="layers" title="Lis moins, décide mieux" text="Chaque écran doit te montrer une carte mentale : usage, score, limite, prochaine action." bullets={["Pas un annuaire de pavés", "Des repères visuels pour débuter", "Un prompt prêt à tester"]} />
-
         <View style={[styles.moreCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
           <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Explorer plus</Text>
           <Text style={[styles.moreSub, { color: theme.textSecondary }]}>Décider, apprendre ou préparer une offre pro — tout reste accessible sans surcharger le premier choix.</Text>
           <View style={styles.moreGrid}>
             <CompactLink icon={<Newspaper size={15} color={theme.coral} />} title="Actu" onPress={() => router.push("/(tabs)/actue")} />
-            <CompactLink icon={<Sparkles size={15} color={theme.coral} />} title={t("home.quickRankingsTitle")} onPress={() => router.push("/(tabs)/benchmarks")} />
+            <CompactLink icon={<Sparkles size={15} color={theme.coral} />} title="Classements" onPress={() => router.push("/(tabs)/benchmarks")} />
             <CompactLink icon={<GitCompare size={15} color={theme.coral} />} title="Comparer" onPress={() => router.push("/(tabs)/compare")} />
             <CompactLink icon={<GraduationCap size={15} color={theme.coral} />} title="Apprendre" onPress={() => router.push("/learn")} />
             <CompactLink icon={<Network size={15} color={theme.coral} />} title="Écosystème" onPress={() => router.push("/ecosystem")} />
@@ -132,12 +130,12 @@ export default function Accueil() {
         ) : null}
 
         <View style={styles.sectionHead}>
-          <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{t("home.topStart")}</Text>
-          <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>{t("common.fullTop")}</Text></TouchableOpacity>
+          <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>3 IA pour démarrer</Text>
+          <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>Classement complet</Text></TouchableOpacity>
         </View>
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : (
           <>
-            <ToolBattleStrip items={generalTools.map((tool) => ({ name: tool.name, role: tool.tagline, score: tool.score })).slice(0, 3)} />
+            <Text style={[styles.sectionIntro, { color: theme.textSecondary }]}>Une sélection courte pour commencer sans comparer 50 modèles.</Text>
             {generalTools.map((tool, index) => <CompactToolRow key={tool.slug} tool={tool} rank={index + 1} onPress={() => router.push(`/tool/${tool.slug}`)} />)}
           </>
         )}
@@ -254,6 +252,7 @@ const styles = StyleSheet.create({
   newsTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 26 },
   newsText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4 },
   sectionHead: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
+  sectionIntro: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginBottom: spacing.sm },
   sectionTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 30 },
   sectionLink: { fontFamily: fonts.bodyBold, fontSize: 12 },
   toolRow: { flexDirection: "row", alignItems: "center", gap: 10, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: 8 },

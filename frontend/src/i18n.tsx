@@ -103,7 +103,7 @@ const base: TranslationDict = {
   "home.newsletterCta": "Voir la newsletter publique",
   "home.exploreFamilies": "Explorer par famille",
   "home.radar": "RADAR IA MATCH",
-  "home.topStart": "Top 3 pour commencer",
+  "home.topStart": "3 IA pour démarrer",
   "profile.title": "Mon profil",
   "profile.language": "Langue",
   "profile.languageAuto": "Automatique au premier lancement, modifiable ici.",

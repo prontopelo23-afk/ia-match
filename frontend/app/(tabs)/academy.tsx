@@ -56,12 +56,6 @@ export default function AcademyScreen() {
       .finally(() => setLoading(false));
   }, []);
 
-  const levelCounts = useMemo(() => {
-    const counts: Record<LevelBucket, number> = { ALL: state.lessons.length, beginner: 0, intermediate: 0, advanced: 0 };
-    state.lessons.forEach((lesson) => { counts[normalizeLevel(lesson.level)] += 1; });
-    return counts;
-  }, [state.lessons]);
-
   const visibleLessons = useMemo(() => level === "ALL" ? state.lessons : state.lessons.filter((lesson) => normalizeLevel(lesson.level) === level), [state.lessons, level]);
   const visiblePaths = useMemo(() => level === "ALL" ? state.paths : state.paths.filter((path) => normalizeLevel(path.level) === level || path.course_ids?.some((id) => visibleLessons.some((lesson) => lesson.id === id))), [state.paths, visibleLessons, level]);
   const firstLesson = visibleLessons[0] ?? state.lessons[0];
@@ -108,14 +102,14 @@ export default function AcademyScreen() {
             <View style={styles.sectionHeaderRow}>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
-                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Trois chemins visibles ici. Le reste est rangé derrière “Tout voir”.</Text>
+                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Commence par un chemin simple. Les contenus complets restent accessibles derrière “Tout voir”.</Text>
               </View>
               <TouchableOpacity onPress={() => router.push("/academy/paths")} style={[styles.smallLink, { borderColor: colors.borderSubtle }]}><Text style={[styles.smallLinkText, { color: colors.coral }]}>Tout voir</Text></TouchableOpacity>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelRow}>
               {LEVEL_FILTERS.map((f) => (
                 <TouchableOpacity key={f.key} onPress={() => setLevel(f.key)} style={[styles.levelChip, { backgroundColor: level === f.key ? colors.coral : colors.surface, borderColor: level === f.key ? colors.coral : colors.borderSubtle }]}>
-                  <Text style={[styles.levelChipText, { color: level === f.key ? "#fff" : colors.textPrimary }]}>{f.label} · {levelCounts[f.key]}</Text>
+                  <Text style={[styles.levelChipText, { color: level === f.key ? "#fff" : colors.textPrimary }]}>{f.label}</Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>
@@ -142,7 +136,7 @@ export default function AcademyScreen() {
             </View>
 
             <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque</Text>
-            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Tout le contenu est gardé, mais rangé par type.</Text>
+            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Les parcours, exercices, templates et ressources sont séparés pour éviter les gros pavés.</Text>
             <View style={styles.grid}>
               <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours" text="Chemins guidés par niveau" onPress={() => router.push("/academy/paths")} />
               <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text="Prompts prêts à adapter" onPress={() => router.push("/academy/templates")} />
