@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from "rea
 import * as Clipboard from "expo-clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
-import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight, LogIn, LogOut, FileText, Cookie, User as UserIcon, Globe2, Check, ChevronDown } from "lucide-react-native";
+import { History, Trash2, Sparkles, Wand2, Sun, Moon, Crown, Bookmark, RefreshCw, ArrowRight, LogIn, LogOut, FileText, Cookie, User as UserIcon, Globe2, Check, ChevronDown, Mail } from "lucide-react-native";
 import { fonts, radius, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import {
@@ -15,10 +15,13 @@ import {
   bookmarkTools,
   bookmarkNews,
   onboardingStore,
+  NEWSLETTER_PREFERENCES,
+  newsletterPreferences,
 } from "../../src/api";
 import { auth, AuthUser, consent } from "../../src/auth";
 import LogoTile from "../../src/components/LogoTile";
 import { useI18n } from "../../src/i18n";
+import { openNewsletterSignup } from "../../src/utils/contactLinks";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -30,6 +33,7 @@ export default function ProfileScreen() {
   const [savedNews, setSavedNews] = useState<NewsItem[]>([]);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const [newsletterPrefs, setNewsletterPrefs] = useState<string[]>([]);
 
   const loadAuth = useCallback(async () => {
     setUser(await auth.getUser());
@@ -56,6 +60,7 @@ export default function ProfileScreen() {
       history.list().then(setItems);
       loadBookmarks();
       loadAuth();
+      newsletterPreferences.list().then(setNewsletterPrefs);
     }, [loadBookmarks, loadAuth])
   );
 
@@ -122,6 +127,11 @@ export default function ProfileScreen() {
   };
 
   const toggleSection = (key: string) => setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const toggleNewsletterPref = async (id: string) => {
+    const next = await newsletterPreferences.toggle(id);
+    setNewsletterPrefs(next);
+  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
@@ -285,6 +295,38 @@ export default function ProfileScreen() {
             <ArrowRight size={16} color={colors.textSecondary} strokeWidth={2} />
           </TouchableOpacity>
         </View>
+        </ProfileSection>
+
+
+        <ProfileSection title="Préférences de veille IA" subtitle={`${newsletterPrefs.length || 0} thème(s) cochés · digest personnalisable`} open={!!openSections.newsletter} onToggle={() => toggleSection("newsletter")}>
+          <View style={[styles.watchCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}> 
+            <View style={styles.watchHeader}>
+              <View style={[styles.watchIcon, { backgroundColor: colors.coralSoft }]}><Mail size={18} color={colors.coral} strokeWidth={2.5} /></View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.watchTitle, { color: colors.textPrimary }]}>Choisis ce que tu veux recevoir</Text>
+                <Text style={[styles.watchSub, { color: colors.textSecondary }]}>La newsletter devient utile : moins de bruit, plus d’actions concrètes selon tes intérêts.</Text>
+              </View>
+            </View>
+            <View style={styles.prefGrid}>
+              {NEWSLETTER_PREFERENCES.map((pref) => {
+                const active = newsletterPrefs.includes(pref.id);
+                return (
+                  <TouchableOpacity key={pref.id} onPress={() => toggleNewsletterPref(pref.id)} style={[styles.prefPill, { backgroundColor: active ? colors.coralSoft : colors.bg, borderColor: active ? colors.coral : colors.borderSubtle }]} activeOpacity={0.84}>
+                    <View style={[styles.prefCheck, { backgroundColor: active ? colors.coral : "transparent", borderColor: active ? colors.coral : colors.borderSubtle }]}>
+                      {active ? <Check size={12} color="#fff" strokeWidth={3} /> : null}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={[styles.prefLabel, { color: active ? colors.coral : colors.textPrimary }]}>{pref.label}</Text>
+                      <Text style={[styles.prefHelp, { color: colors.textSecondary }]}>{pref.helper}</Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+            <TouchableOpacity onPress={() => openNewsletterSignup(`Préférences : ${newsletterPrefs.join(", ") || "digest général"}`)} style={[styles.watchCta, { backgroundColor: colors.coral }]}>
+              <Text style={styles.watchCtaText}>Recevoir un digest adapté</Text>
+            </TouchableOpacity>
+          </View>
         </ProfileSection>
 
         <ProfileSection title="Infos légales" subtitle="Mentions, CGU, CGV, confidentialité" open={!!openSections.legal} onToggle={() => toggleSection("legal")}>
@@ -508,6 +550,18 @@ const styles = StyleSheet.create({
   settingText: { fontFamily: fonts.bodySemi, fontSize: 14 },
   settingValue: { fontFamily: fonts.bodyBold, fontSize: 13 },
   divider: { height: 1, marginVertical: 6 },
+  watchCard: { borderRadius: radius.lg, padding: spacing.md, borderWidth: 1 },
+  watchHeader: { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: spacing.sm },
+  watchIcon: { width: 40, height: 40, borderRadius: 15, alignItems: "center", justifyContent: "center" },
+  watchTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25 },
+  watchSub: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 3 },
+  prefGrid: { gap: 8 },
+  prefPill: { flexDirection: "row", alignItems: "flex-start", gap: 8, borderWidth: 1, borderRadius: radius.md, padding: 10 },
+  prefCheck: { width: 20, height: 20, borderRadius: 10, borderWidth: 1, alignItems: "center", justifyContent: "center", marginTop: 1 },
+  prefLabel: { fontFamily: fonts.bodyBold, fontSize: 13 },
+  prefHelp: { fontFamily: fonts.body, fontSize: 11, lineHeight: 15, marginTop: 2 },
+  watchCta: { alignItems: "center", borderRadius: radius.pill, paddingVertical: 12, marginTop: spacing.md },
+  watchCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 13 },
   heroBlock: { borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   heroTitle: { fontFamily: fonts.serif, fontSize: 22, marginTop: spacing.sm },
   heroSub: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 4, marginBottom: spacing.md },

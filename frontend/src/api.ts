@@ -494,8 +494,10 @@ const HISTORY_KEY = "ia_match_history_v1";
 const COMPARE_KEY = "ia_match_compare_v2"; // v2: up to 4 slugs
 const BOOKMARK_TOOLS_KEY = "ia_match_bm_tools_v1";
 const BOOKMARK_NEWS_KEY = "ia_match_bm_news_v1";
+const NEWSLETTER_PREFS_KEY = "ia_match_newsletter_prefs_v1";
 const BUILDER_HISTORY_KEY = "ia_match_builder_v1";
 const ONBOARD_KEY = "ia_match_onboarded_v1";
+
 const ANALYTICS_EVENTS_KEY = "ia_match_beta_events_v1";
 const MATCH_USAGE_KEY = "ia_match_free_match_usage_v1";
 export const FREE_MATCH_LIMIT = 7;
@@ -585,6 +587,44 @@ function makeBookmarkStore(key: string) {
 
 export const bookmarkTools = makeBookmarkStore(BOOKMARK_TOOLS_KEY);
 export const bookmarkNews = makeBookmarkStore(BOOKMARK_NEWS_KEY);
+
+export type NewsletterPreference = {
+  id: string;
+  label: string;
+  helper: string;
+};
+
+export const NEWSLETTER_PREFERENCES: NewsletterPreference[] = [
+  { id: "debutants", label: "Conseils débutants", helper: "Comprendre sans jargon et progresser par petits gestes." },
+  { id: "outils", label: "Nouveaux outils utiles", helper: "Seulement les outils qui changent vraiment un usage." },
+  { id: "gratuit", label: "Alternatives gratuites", helper: "Éviter de payer avant d’avoir testé une option simple." },
+  { id: "securite", label: "Sécurité & confidentialité", helper: "Comptes, données, sources, images privées." },
+  { id: "code-agents", label: "Code & agents", helper: "Agents, copilotes, automatisations, tests et limites." },
+  { id: "business", label: "PME / business", helper: "Choisir une stack, réduire les coûts et former une équipe." },
+];
+
+const DEFAULT_NEWSLETTER_PREFS = ["debutants", "outils", "gratuit", "securite"];
+
+export const newsletterPreferences = {
+  async list(): Promise<string[]> {
+    try {
+      const raw = await AsyncStorage.getItem(NEWSLETTER_PREFS_KEY);
+      return raw ? JSON.parse(raw) : DEFAULT_NEWSLETTER_PREFS;
+    } catch {
+      return DEFAULT_NEWSLETTER_PREFS;
+    }
+  },
+  async set(ids: string[]) {
+    const valid = ids.filter((id) => NEWSLETTER_PREFERENCES.some((pref) => pref.id === id));
+    await AsyncStorage.setItem(NEWSLETTER_PREFS_KEY, JSON.stringify(valid));
+    return valid;
+  },
+  async toggle(id: string): Promise<string[]> {
+    const list = await newsletterPreferences.list();
+    const next = list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
+    return newsletterPreferences.set(next);
+  },
+};
 
 // Builder history
 export type BuilderHistoryItem = {

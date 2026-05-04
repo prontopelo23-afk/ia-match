@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness, GitCompare, GraduationCap, Network } from "lucide-react-native";
+import { ArrowRight, Newspaper, Layers3, Sparkles, Wand2, BookOpen, Radar, Mail, BriefcaseBusiness, GitCompare, GraduationCap, Network, Send, CheckCircle2 } from "lucide-react-native";
 import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { useI18n } from "../../src/i18n";
@@ -10,6 +10,9 @@ import { api, BenchmarkRow, NewsItem, Tool } from "../../src/api";
 import ToolCard from "../../src/components/ToolCard";
 import { GENERAL_MODELS } from "../../src/utils/generalRanking";
 import { CONTENT_FAMILIES } from "../../src/utils/contentArchitecture";
+import { RADAR_TRENDS } from "../../src/data/radarContent";
+import { openNewsletterSignup } from "../../src/utils/contactLinks";
+import { shareApp } from "../../src/utils/shareLinks";
 
 export default function Accueil() {
   const router = useRouter();
@@ -68,15 +71,26 @@ export default function Accueil() {
           <QuickCard icon={<BriefcaseBusiness size={20} color={colors.coral} />} title={t("home.quickBusinessTitle")} text={t("home.quickBusiness")} onPress={() => router.push("/business")} />
         </View>
 
+        <MiniRadar onOpen={() => router.push("/(tabs)/actue")} />
 
-        <View style={[styles.monetizeCard, { backgroundColor: colors.darkCard }]}>
-          <Text style={styles.monetizeLabel}>{t("home.subscribeLabel")}</Text>
-          <Text style={styles.monetizeTitle}>{t("home.subscribeTitle")}</Text>
-          <Text style={styles.monetizeText}>{t("home.subscribeText")}</Text>
-          <TouchableOpacity style={styles.monetizeCta} onPress={() => router.push("/newsletter")}>
-            <Text style={styles.monetizeCtaText}>{t("home.newsletterCta")}</Text>
-            <ArrowRight size={15} color="#fff" strokeWidth={2.5} />
-          </TouchableOpacity>
+        <View style={[styles.retentionCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
+          <View style={styles.retentionIconRow}>
+            <View style={[styles.retentionIcon, { backgroundColor: theme.coralSoft }]}><Mail size={18} color={theme.coral} strokeWidth={2.5} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.retentionLabel, { color: theme.coral }]}>DIGEST UTILE · DISCRET</Text>
+              <Text style={[styles.retentionTitle, { color: theme.textPrimary }]}>3 IA utiles, 1 piège à éviter, 1 prompt prêt à copier.</Text>
+            </View>
+          </View>
+          <Text style={[styles.retentionText, { color: theme.textSecondary }]}>La newsletter quitte le centre de l’accueil : elle devient un rappel compact et personnalisable dans Profil → Préférences de veille.</Text>
+          <View style={styles.retentionActions}>
+            <TouchableOpacity style={[styles.retentionCta, { backgroundColor: theme.coral }]} onPress={() => openNewsletterSignup("Digest compact IA Match") }>
+              <Text style={styles.retentionCtaText}>Recevoir le digest</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.retentionGhost, { borderColor: theme.borderSubtle }]} onPress={() => shareApp("Tu connais quelqu’un perdu avec l’IA ?") }>
+              <Send size={14} color={theme.coral} strokeWidth={2.5} />
+              <Text style={[styles.retentionGhostText, { color: theme.coral }]}>Partager</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={[styles.hubCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}> 
@@ -113,6 +127,35 @@ export default function Accueil() {
         <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+
+function MiniRadar({ onOpen }: { onOpen: () => void }) {
+  const { colors } = useTheme();
+  const preview = RADAR_TRENDS.slice(0, 4);
+  return (
+    <TouchableOpacity activeOpacity={0.9} onPress={onOpen} style={[styles.radarMini, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+      <View style={styles.radarMiniHead}>
+        <View style={[styles.radarOrb, { backgroundColor: colors.coralSoft }]}><Radar size={18} color={colors.coral} strokeWidth={2.5} /></View>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.radarMiniLabel, { color: colors.coral }]}>RADAR IA MATCH · CETTE SEMAINE</Text>
+          <Text style={[styles.radarMiniTitle, { color: colors.textPrimary }]}>Tester, surveiller, éviter, apprendre — en 4 repères.</Text>
+        </View>
+      </View>
+      <View style={styles.radarMiniGrid}>
+        {preview.map((trend) => (
+          <View key={trend.id} style={[styles.radarMiniPill, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+            <CheckCircle2 size={13} color={colors.coral} strokeWidth={2.5} />
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.radarMiniPillLabel, { color: colors.coral }]}>{trend.label}</Text>
+              <Text style={[styles.radarMiniPillText, { color: colors.textPrimary }]} numberOfLines={2}>{trend.title}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+      <Text style={[styles.radarMiniOpen, { color: colors.coral }]}>Voir le radar complet →</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -175,4 +218,25 @@ const styles = StyleSheet.create({
   monetizeText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 20, color: "rgba(253,251,247,0.76)", marginTop: 8 },
   monetizeCta: { flexDirection: "row", alignItems: "center", gap: 8, alignSelf: "flex-start", backgroundColor: colors.coral, borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 11, marginTop: spacing.md },
   monetizeCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
+  radarMini: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginTop: spacing.md, ...shadow.soft },
+  radarMiniHead: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: spacing.sm },
+  radarOrb: { width: 42, height: 42, borderRadius: 16, alignItems: "center", justifyContent: "center" },
+  radarMiniLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.5 },
+  radarMiniTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25, marginTop: 2 },
+  radarMiniGrid: { gap: 7 },
+  radarMiniPill: { flexDirection: "row", alignItems: "flex-start", gap: 7, borderWidth: 1, borderRadius: radius.md, padding: 9 },
+  radarMiniPillLabel: { fontFamily: fonts.bodyBold, fontSize: 9, letterSpacing: 0.8, textTransform: "uppercase" },
+  radarMiniPillText: { fontFamily: fonts.bodySemi, fontSize: 12, lineHeight: 16, marginTop: 1 },
+  radarMiniOpen: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: spacing.sm },
+  retentionCard: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginTop: spacing.md },
+  retentionIconRow: { flexDirection: "row", alignItems: "flex-start", gap: 10 },
+  retentionIcon: { width: 40, height: 40, borderRadius: 15, alignItems: "center", justifyContent: "center" },
+  retentionLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.4 },
+  retentionTitle: { fontFamily: fonts.serif, fontSize: 22, lineHeight: 26, marginTop: 2 },
+  retentionText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18, marginTop: spacing.sm },
+  retentionActions: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: spacing.md },
+  retentionCta: { borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 11 },
+  retentionCtaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 12 },
+  retentionGhost: { flexDirection: "row", alignItems: "center", gap: 6, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: spacing.md, paddingVertical: 10 },
+  retentionGhostText: { fontFamily: fonts.bodyBold, fontSize: 12 },
 });

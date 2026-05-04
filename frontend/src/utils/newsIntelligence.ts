@@ -65,11 +65,11 @@ export function getNewsIntel(item: NewsItem): NewsIntel {
             ? { label: "Impact fort", tone: "strong", why: "Peut changer le bon choix d’outil dans IA Match." }
             : { label: "À surveiller", tone: "watch", why: "Signal à garder en tête, pas forcément urgent." };
 
-  const quickSummary = [
+  const quickSummary = Array.from(new Set([
     item.highlight || item.summary,
     impact.why,
     item.decisionHint || (filter === "Image" ? "À relier aux outils de création visuelle." : filter === "Agents" ? "À relier aux outils d’automatisation et agents." : "À relier au choix du bon outil selon ton usage."),
-  ];
+  ].filter(Boolean))).slice(0, 3);
 
   const changes = [
     `Catégorie IA Match : ${filter}.`,

@@ -542,14 +542,33 @@ def build_editorial_feed(static_news: List[Dict], dynamic_news: List[Dict] | Non
 
 def get_editorial_highlights(feed: List[Dict]) -> Dict:
     items = feed[:]
+    by_id = {a.get("id"): a for a in items}
+    radar_plan = [
+        ("ed-agents-orchestration-codex-symphony", "À surveiller", "Agents IA contrôlés", "Tester seulement avec une petite tâche, des tests et une revue humaine.", "Tâche → agent → tests → revue → décision", 86),
+        ("ed-openai-securite-compte-2026", "À faire maintenant", "Comptes IA sensibles", "Activer 2FA, séparer perso/pro et éviter les secrets dans les conversations.", "Compte → fichiers → historique → accès → protection", 92),
+        ("ed-google-ai-mode-chrome", "À apprendre", "Réflexe sources", "Ouvrir deux sources primaires avant de prendre une décision importante.", "Question → résumé → sources → comparaison → décision", 88),
+        ("ed-modeles-generalistes-2026", "À tester", "Assistant généraliste d’abord", "Faire un Match avec ton vrai besoin avant de payer un outil niche.", "Besoin → assistant → prompt → résultat → amélioration", 84),
+        ("ed-gemini-images-personnalisees", "À tester prudemment", "Images personnelles", "Tester avec une image neutre avant d’envoyer une photo privée.", "Image → données → outil → création → contrôle", 78),
+    ]
+    radar = []
+    for article_id, label, title, action, schema, score in radar_plan:
+        article = by_id.get(article_id, {})
+        radar.append({
+            "label": label,
+            "title": title,
+            "action": action,
+            "category": article.get("editorialCategory"),
+            "impactLabel": article.get("impactLabel"),
+            "id": article_id,
+            "schema": schema,
+            "score": score,
+            "why": article.get("decisionHint") or article.get("summary"),
+        })
     return {
         "generatedAt": _today_iso(),
         "mode": "semi-live-curated",
         "headline": items[0] if items else None,
-        "radar": [
-            {"label": a.get("radarStatus"), "title": a.get("title"), "action": a.get("action"), "category": a.get("editorialCategory"), "impactLabel": a.get("impactLabel"), "id": a.get("id")}
-            for a in items[:6]
-        ],
+        "radar": radar,
         "methodology": "Sources officielles ou outils reconnus, curation IA Match, date de vérification, impact et conseil actionnable. Le live brut n’est pas publié sans revue.",
     }
 

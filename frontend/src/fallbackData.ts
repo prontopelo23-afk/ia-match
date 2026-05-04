@@ -92,7 +92,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B35",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -164,7 +164,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 55,
         "eu_hosted": false,
@@ -221,7 +221,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 75,
         "eu_hosted": false,
@@ -571,7 +571,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 75,
         "eu_hosted": false,
@@ -638,7 +638,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 65,
         "eu_hosted": false,
@@ -983,7 +983,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/elevenlabs.io",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1253,7 +1253,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/midjourney.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1311,7 +1311,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F0F0F",
       "image": "https://logo.clearbit.com/cursor.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1369,7 +1369,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1607,7 +1607,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F2B46",
       "image": "https://logo.clearbit.com/deepl.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1663,7 +1663,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#111827",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1719,7 +1719,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4D6BFE",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1883,7 +1883,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/blackforestlabs.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1935,7 +1935,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#181717",
       "image": "https://logo.clearbit.com/github.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -1994,7 +1994,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0866FF",
       "image": "https://logo.clearbit.com/llama.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2047,7 +2047,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2220,7 +2220,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/gemini.google.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 50,
         "eu_hosted": false,
@@ -2282,7 +2282,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#10A37F",
       "image": "https://logo.clearbit.com/openai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2346,7 +2346,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#615CED",
       "image": "https://logo.clearbit.com/qwen.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 50,
         "eu_hosted": false,
@@ -2397,7 +2397,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/deepmind.google",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2460,7 +2460,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#CC785C",
       "image": "https://logo.clearbit.com/claude.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -2680,7 +2680,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#20B8CD",
       "image": "https://logo.clearbit.com/perplexity.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 65,
         "eu_hosted": false,
@@ -2739,7 +2739,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/kimi.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 40,
         "eu_hosted": false,
@@ -2798,7 +2798,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 95,
         "eu_hosted": true,
@@ -3012,7 +3012,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4D6BFE",
       "image": "https://logo.clearbit.com/deepseek.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 35,
         "eu_hosted": false,
@@ -3064,7 +3064,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#09B6A2",
       "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3118,7 +3118,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/sora.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3171,7 +3171,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F55036",
       "image": "https://logo.clearbit.com/groq.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3222,7 +3222,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/magnific.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3276,7 +3276,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cartesia.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3331,7 +3331,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1A53E0",
       "image": "https://logo.clearbit.com/assemblyai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3809,7 +3809,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA520F",
       "image": "https://logo.clearbit.com/mistral.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 95,
         "eu_hosted": true,
@@ -3867,7 +3867,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4F00",
       "image": "https://logo.clearbit.com/zapier.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3923,7 +3923,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF1744",
       "image": "https://logo.clearbit.com/photoroom.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -3982,7 +3982,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#32A8E8",
       "image": "https://logo.clearbit.com/synthesia.io",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4036,7 +4036,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#13EF93",
       "image": "https://logo.clearbit.com/deepgram.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4094,7 +4094,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4463,7 +4463,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/vercel.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4521,7 +4521,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/heygen.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4575,7 +4575,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#15C39A",
       "image": "https://logo.clearbit.com/grammarly.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4629,7 +4629,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/gamma.app",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4681,7 +4681,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#EA4B71",
       "image": "https://logo.clearbit.com/n8n.io",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4738,7 +4738,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/julius.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4797,7 +4797,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#39594D",
       "image": "https://logo.clearbit.com/cohere.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4850,7 +4850,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FA0F00",
       "image": "https://logo.clearbit.com/adobe.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4902,7 +4902,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6B00",
       "image": "https://logo.clearbit.com/topazlabs.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -4951,7 +4951,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/supermaven.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5008,7 +5008,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#4285F4",
       "image": "https://logo.clearbit.com/workspace.google.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5057,7 +5057,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/consensus.app",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5109,7 +5109,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#5A45FF",
       "image": "https://logo.clearbit.com/hex.tech",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5518,7 +5518,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/recraft.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5570,7 +5570,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#01FF61",
       "image": "https://logo.clearbit.com/runwayml.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5625,7 +5625,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#76B900",
       "image": "https://logo.clearbit.com/nvidia.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5679,7 +5679,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F6FFF",
       "image": "https://logo.clearbit.com/together.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5731,7 +5731,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/lovable.dev",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5783,7 +5783,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/phind.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -5834,7 +5834,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6043,7 +6043,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4F8B",
       "image": "https://logo.clearbit.com/ideogram.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6096,7 +6096,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1389FD",
       "image": "https://logo.clearbit.com/stackblitz.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6151,7 +6151,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1A1A1A",
       "image": "https://logo.clearbit.com/suno.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6209,7 +6209,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/notion.so",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6262,7 +6262,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#6D00CC",
       "image": "https://logo.clearbit.com/make.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6313,7 +6313,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/klingai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6364,7 +6364,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/01.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6421,7 +6421,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/reka.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6475,7 +6475,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5722",
       "image": "https://logo.clearbit.com/fireworks.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6523,7 +6523,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/reve.art",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6578,7 +6578,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF5500",
       "image": "https://logo.clearbit.com/remove.bg",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6629,7 +6629,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4444",
       "image": "https://logo.clearbit.com/hailuoai.video",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6686,7 +6686,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#39EBA9",
       "image": "https://logo.clearbit.com/play.ht",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6739,7 +6739,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#272727",
       "image": "https://logo.clearbit.com/resemble.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6789,7 +6789,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/aider.chat",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6838,7 +6838,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#09B6A2",
       "image": "https://logo.clearbit.com/codeium.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6890,7 +6890,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/granola.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6939,7 +6939,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/elicit.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -6991,7 +6991,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lindy.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7457,7 +7457,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#A855F7",
       "image": "https://logo.clearbit.com/leonardo.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7508,7 +7508,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/lumalabs.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7565,7 +7565,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F0463A",
       "image": "https://logo.clearbit.com/fireflies.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7619,7 +7619,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0066CC",
       "image": "https://logo.clearbit.com/zhipuai.cn",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7669,7 +7669,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#6E40C9",
       "image": "https://logo.clearbit.com/tabnine.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7720,7 +7720,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/cognition.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7770,7 +7770,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF6E47",
       "image": "https://logo.clearbit.com/relevanceai.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7878,7 +7878,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/x.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7928,7 +7928,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -7980,7 +7980,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#F26207",
       "image": "https://logo.clearbit.com/replit.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8031,7 +8031,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0F62FE",
       "image": "https://logo.clearbit.com/scribehow.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8085,7 +8085,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#0078D4",
       "image": "https://logo.clearbit.com/microsoft.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8140,7 +8140,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7CB7FF",
       "image": "https://logo.clearbit.com/ai21.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8190,7 +8190,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/ltx.studio",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8238,7 +8238,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#1F1F1F",
       "image": "https://logo.clearbit.com/scite.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8450,7 +8450,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/udio.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8510,7 +8510,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#00C4CC",
       "image": "https://logo.clearbit.com/canva.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8563,7 +8563,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF4500",
       "image": "https://logo.clearbit.com/krea.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8614,7 +8614,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/pixverse.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8668,7 +8668,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#FF7C00",
       "image": "https://logo.clearbit.com/d-id.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8717,7 +8717,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B61FF",
       "image": "https://logo.clearbit.com/stability.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8765,7 +8765,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/continue.dev",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8817,7 +8817,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/mem.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8871,7 +8871,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7C3AED",
       "image": "https://logo.clearbit.com/you.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8925,7 +8925,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3B82F6",
       "image": "https://logo.clearbit.com/otter.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -8979,7 +8979,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#3F51B5",
       "image": "https://logo.clearbit.com/rows.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9031,7 +9031,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tldraw.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9079,7 +9079,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/multion.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9335,7 +9335,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/tome.app",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9384,7 +9384,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/genmo.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9435,7 +9435,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/softgen.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9487,7 +9487,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/spell.so",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9538,7 +9538,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/pika.art",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9694,7 +9694,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#7B5BFF",
       "image": "https://logo.clearbit.com/decktopus.com",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -9744,7 +9744,7 @@ export const FALLBACK_DATA = {
       },
       "color": "#000000",
       "image": "https://logo.clearbit.com/agentgpt.reworkd.ai",
-      "lastUpdated": "2026-05-04T01:12:22.746025+00:00",
+      "lastUpdated": "2026-05-04T01:39:02.527352+00:00",
       "privacy": {
         "privacy_score": 60,
         "eu_hosted": false,
@@ -10517,7 +10517,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10541,7 +10541,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10565,7 +10565,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10589,7 +10589,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -10613,7 +10613,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11290,7 +11290,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Tu hésites entre Claude, DeepSeek et Mistral pour ton entreprise ? Au-delà du benchmark, ces modèles incarnent **trois cultures** différentes de l'IA. Voici comment ça change ton expérience.",
       "body": "## Le modèle américain : la performance brute\n\n**Acteurs phares** : OpenAI (GPT), Anthropic (Claude), Google (Gemini), Meta (Llama).\n\n**Philosophie** : pousser la frontière le plus vite possible, monétiser via abonnements premium, capter les créateurs et les développeurs.\n\n**Forces** :\n- Capacités générales très étendues.\n- Écosystème de plugins, d'agents, de marketplaces.\n- Documentation et communauté massives.\n\n**Limites** :\n- Données entraînées majoritairement en anglais.\n- Sensibilité culturelle parfois étrangère aux usages européens.\n- Contraintes RGPD à gérer activement.\n\n## Le modèle chinois : l'efficacité pragmatique\n\n**Acteurs phares** : DeepSeek, Qwen (Alibaba), Kling (Kuaishou), Yi (01.AI).\n\n**Philosophie** : optimisation maximale du rapport coût/performance. Les modèles chinois sont souvent **open-weight** (tu peux les télécharger) et beaucoup moins chers à utiliser.\n\n**Forces** :\n- Coût de tokens jusqu'à 10× inférieur aux modèles US équivalents.\n- Excellents en math, code, raisonnement chiffré.\n- Open-source réel, pas du marketing.\n\n**Limites** :\n- Filtres de contenu différents (sujets politiques sensibles).\n- Moins de support multilingue européen pointu.\n- Hébergement à choisir avec attention pour les données sensibles.\n\n## Le modèle européen : la souveraineté et la confiance\n\n**Acteurs phares** : Mistral (France), Aleph Alpha (Allemagne), Silo AI (Finlande).\n\n**Philosophie** : aligner les modèles sur le cadre RGPD, héberger en Europe, offrir des contrats clairs pour les entreprises et les administrations.\n\n**Forces** :\n- Excellence en langues européennes (français, allemand, italien, espagnol).\n- Conformité RGPD native, hébergement Europe possible.\n- Modèles open-weight (ex. Mistral 8x7B) déployables sur ton infrastructure.\n\n**Limites** :\n- Capacités générales légèrement en retrait sur les tout meilleurs benchmarks américains.\n- Écosystème plus jeune, moins d'apps tierces.\n\n## Comment choisir ?\n\n- **Tu fais du code, du raisonnement complexe, multilingue large** : modèle américain (Claude ou GPT).\n- **Tu as un volume API massif et un budget serré** : modèle chinois (DeepSeek).\n- **Tu travailles avec des données sensibles, en Europe, dans une langue européenne** : modèle européen (Mistral).\n\n## L'angle français\n\nMistral n'est pas 'un Claude moins bon'. C'est un modèle qui parle **un excellent français**, qui peut tourner sur tes serveurs, et qui accepte un contrat français pour tes données. Pour beaucoup d'entreprises et d'administrations, c'est le bon choix par défaut. Le réflexe 'on prend GPT par défaut' n'est plus optimal.\n\n## Verdict\n\nL'IA générative n'est pas neutre. Elle a une géographie, une culture, une économie. Choisir un modèle, c'est choisir une **philosophie de la donnée**. Prends le temps d'aligner ton choix avec tes valeurs et tes contraintes.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11314,7 +11314,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "En 18 mois, une startup parisienne est devenue le 4e acteur mondial de l'IA générative. Mistral n'est pas qu'une fierté symbolique : c'est une preuve concrète que l'Europe peut jouer dans la cour des grands. Voici pourquoi ça compte vraiment, sans cocorico.",
       "body": "## L'histoire en 3 dates\n\n- **Avril 2023** : trois chercheurs (ex-Meta, DeepMind) lancent Mistral à Paris. Pari risqué : créer un modèle européen open-weight qui rivalise avec les géants américains.\n- **Septembre 2023** : sortie de Mistral 7B, modèle open-weight qui bat des modèles 5× plus gros. La communauté découvre un nouveau standard d'efficacité.\n- **Avril 2026** : levée d'1Md€, Le Chat Pro adopté par 40% des administrations françaises et plus de 200 grandes entreprises européennes.\n\n## Pourquoi ça compte vraiment\n\n### 1) Souveraineté technologique\nQuand l'IA devient l'infrastructure invisible de demain (santé, justice, finance, éducation), dépendre uniquement d'acteurs étrangers est un risque stratégique majeur. Mistral nous donne une carte que personne n'avait en Europe depuis trente ans dans le logiciel grand public.\n\n### 2) Excellence en français\nLes modèles US sont entraînés à 90% sur de l'anglais, puis traduisent au runtime. Mistral pondère l'entraînement avec un corpus francophone massif (presse, littérature, code). Résultat : ton français est plus naturel, idiomatique, sans tournures bizarres ni anglicismes parasites. Pour un cabinet d'avocats, un service public ou un éditeur, la différence est nette.\n\n### 3) Open-weight véritable\nMistral 7B, Mixtral 8x7B, Mistral Small 3 : tu peux les télécharger gratuitement, les héberger sur tes propres serveurs, les modifier, les fine-tuner sur tes données. Cette ouverture redonne du pouvoir aux développeurs et aux entreprises qui refusent de dépendre d'une API tierce dont les conditions changent.\n\n## Ce qui rend l'équipe singulière\n\n- **Une obsession produit** : sorties régulières et tenues, sans hype superflue.\n- **Une philosophie 'européenne' assumée** : RGPD by design, contrats français, hébergement Paris.\n- **Une attention au coût opérationnel** : leurs modèles sont taillés pour la production massive, pas seulement pour briller sur les benchmarks académiques.\n\n## Le réflexe à adopter\n\nQuand tu choisis ton IA, ne demande plus 'quel est le meilleur modèle ?' mais 'quel est le meilleur modèle **pour mon contexte** ?'. Si ton contexte est européen, francophone, sensible au respect des données, Mistral est dans ta short-list par défaut. Pour une équipe juridique, comptable ou administrative, c'est même la première option à tester.\n\n## Verdict\n\nIl n'y a pas eu de champion européen du logiciel grand public pendant 30 ans. On en a un sur l'IA, qui est l'infrastructure des 30 prochaines années. Soutenir Mistral en l'utilisant, en en parlant à tes équipes, en l'évaluant face aux options US, c'est concret. Et c'est le moment.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11338,7 +11338,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "L'IA, ce n'est pas que des slides en réunion. C'est aussi une boîte à magie créative. On t'a sélectionné 5 expériences gratuites à tester ce week-end. Promis, tu vas sourire.",
       "body": "## 1) Highfield : un univers qui se génère sous tes yeux\n\nHighfield est une expérience interactive où tu écris une scène et l'univers se peuple en temps réel autour de ton avatar. Les personnages parlent avec leur propre voix, l'environnement réagit à tes actions. C'est la première fois qu'un 'jeu' n'a aucun script écrit à l'avance.\n\n**Pourquoi tester** : voir à quoi ressemble un loisir IA-natif.\n\n## 2) Suno : une chanson en 30 secondes\n\nÉcris 'une ballade folk sur Paris en automne, voix grave, guitare acoustique'. Reçois une vraie chanson de 2 minutes. Avec voix. Avec mélodie. Avec instruments.\n\n**Pourquoi tester** : tu vas envoyer la première à ta mère. Tu vas pleurer.\n\n## 3) Krea : design en temps réel\n\nDessine un croquis grossier au stylet. Tape 'rendu photoréaliste, néon, ambiance cyberpunk'. Le design final apparaît instantanément à côté du croquis et se met à jour à chaque trait.\n\n**Pourquoi tester** : tu redécouvres le plaisir du dessin sans avoir à savoir dessiner.\n\n## 4) NotebookLM Audio : ton podcast personnalisé\n\nUploade un PDF (un cours, un article, un livre). NotebookLM génère un podcast audio de 8 minutes avec deux animateurs IA qui discutent du contenu. Tu écoutes en marchant.\n\n**Pourquoi tester** : tu retiens 3× plus en écoutant qu'en lisant.\n\n## 5) Claude Artifacts : code une mini-app en posant une question\n\nDans Claude, demande 'crée-moi un mini-jeu de calcul mental pour mes enfants'. L'app apparaît dans l'interface, jouable, en 30 secondes. Tu peux itérer 'rends-le plus difficile', 'ajoute des sons'.\n\n**Pourquoi tester** : tu sens enfin ce que les développeurs vivent.\n\n## La règle du week-end\n\nNe cherche pas à 'optimiser ton temps'. Ces 5 outils sont là pour t'émerveiller, pas pour ta to-do. Joue. Étonne-toi. Reviens lundi avec une intuition concrète de ce qu'est devenue l'IA en 2026.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11362,7 +11362,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "On lit partout 'l'IA va trop vite, c'est inquiétant'. Et si on regardait ce que cette vitesse débloque concrètement pour les gens normaux ?",
       "body": "## La courbe en chiffres\n\n- **2022** : générer une page de texte coûtait 0,02€. Les images étaient floues. Pas de vidéo.\n- **2024** : 0,002€ la page. Images photoréalistes. Premières vidéos courtes.\n- **2026** : 0,0002€ la page. Images parfaites. Vidéos cinématographiques. Voix indiscernables d'un humain.\n\nDivisé par 100 en 4 ans. Divisé par 1000 dans 4 ans probablement.\n\n## Ce que ça libère\n\n### 1) L'éducation devient gratuite\nN'importe quel élève peut avoir un tuteur personnel patient, disponible 24/7, dans sa langue, à son niveau. Hier ça coûtait 50€/h. Demain c'est inclus dans un abonnement à 10€/mois.\n\n### 2) La médecine de campagne se démocratise\nUn médecin généraliste à 200km du CHU peut soumettre un cas complexe à un assistant IA spécialisé en cardiologie ou en oncologie. Le diagnostic différentiel devient bien plus juste.\n\n### 3) Les indépendants explosent\nUn freelance graphiste peut produire 5× plus de variantes pour ses clients. Un copywriter peut couvrir 5× plus de marques. La compétence reste humaine, l'exécution est démultipliée.\n\n### 4) Les langues fusionnent\nUn entrepreneur français peut négocier en mandarin avec un fournisseur, en temps réel, avec un anglais nuancé pour son investisseur américain. La barrière linguistique disparaît silencieusement.\n\n### 5) L'accès à la culture\nUn enfant peut faire un projet d'histoire en interrogeant un assistant qui connaît tout, dans son contexte, dans sa langue. Le savoir n'est plus payant.\n\n## Ce que ça implique pour toi\n\nTu n'es pas en retard. Tu es exactement à l'heure. La vraie compétence en 2026, ce n'est pas 'savoir prompter' (tout le monde sait taper du texte). C'est :\n\n1. **Savoir poser la bonne question** (compétence éternelle).\n2. **Savoir vérifier la réponse** (esprit critique).\n3. **Savoir choisir l'IA adaptée** (ce qu'IA Match t'aide à faire).\n4. **Savoir mettre la main à la pâte** quand l'IA se trompe (ton expertise reste centrale).\n\n## Verdict\n\nLa vitesse de l'IA n'est pas une menace. C'est un escalier qui monte vers un plateau plus large, où plus de gens peuvent faire plus de choses, dans plus de langues, à un coût ridiculement bas. Le travail humain ne disparaît pas : il devient **plus créatif et moins répétitif**.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "image-video",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11386,7 +11386,7 @@ export const FALLBACK_DATA = {
       "author": "Rédaction IA Match",
       "intro": "Quand Mistral a lancé Le Chat en 2024, c'était un produit minimaliste. Deux ans plus tard, Le Chat Pro 2026 rivalise sérieusement avec ChatGPT Plus, avec un avantage décisif : il vit en France.",
       "body": "## Trois nouveautés qui changent tout pour les entreprises\n\n### 1) Mistral Agent intégré\nLe Chat Pro embarque désormais un agent autonome. Tu lui dis 'compile-moi un rapport de veille sur les tendances cyber en Europe'. Il fait sa recherche, croise les sources, te livre un rapport sourcé en 4 minutes. L'agent peut aussi se connecter à ton Outlook, ton Drive, ton CRM (avec les bons droits).\n\n### 2) Hébergement Paris ou Francfort, au choix\nPour les administrations et les entreprises sous RGPD strict, Mistral propose un hébergement 100% européen avec contrat français. Aucun transit par les États-Unis. C'est juridiquement un argument décisif pour les RFP du secteur public.\n\n### 3) Mode 'Confidentialité maximale'\nTu peux activer un mode où aucune de tes conversations n'est utilisée pour entraîner les futurs modèles, même de manière anonymisée. Garantie contractuelle, pas juste paramètre coché.\n\n## La preuve par les chiffres\n\n- **40%** : part de Mistral dans les appels d'offres IA des administrations françaises (avril 2026).\n- **60%** : croissance trimestrielle de Le Chat Pro.\n- **9** : nouveaux pays européens couverts officiellement.\n- **<200ms** : latence moyenne en France métropolitaine.\n\n## Le réflexe à adopter\n\nSi ton entreprise est française ou européenne, **mets Mistral dans ta short-list par défaut**. Ce n'est plus un choix patriotique : c'est un choix opérationnel. Pour le code, l'écriture en français, la conformité RGPD, le rapport qualité/prix, Mistral est désormais à parité ou supérieur sur de nombreux usages.\n\n## Verdict\n\nLe Chat Pro 2026 confirme la trajectoire : Mistral est devenu un acteur sérieux. Tu peux y aller les yeux fermés pour 80% des usages bureau, et tu fais un choix industriellement responsable pour ton entreprise.",
-      "created_at": "2026-05-04T01:12:22.746025+00:00",
+      "created_at": "2026-05-04T01:39:02.527352+00:00",
       "editorialCategory": "code-agents",
       "impactLabel": "À surveiller",
       "impactLevel": "faible",
@@ -11558,51 +11558,58 @@ export const FALLBACK_DATA = {
     "radar": [
       {
         "label": "À surveiller",
-        "title": "Agents de code orchestrés : la prochaine étape après le simple copilote",
-        "action": "Créer une tâche courte et vérifiable avant de tester un agent de code.",
+        "title": "Agents IA contrôlés",
+        "action": "Tester seulement avec une petite tâche, des tests et une revue humaine.",
         "category": "code-agents",
         "impactLabel": "Workflow utile",
-        "id": "ed-agents-orchestration-codex-symphony"
+        "id": "ed-agents-orchestration-codex-symphony",
+        "schema": "Tâche → agent → tests → revue → décision",
+        "score": 86,
+        "why": "Plus l’agent agit, plus les tests et la revue deviennent importants."
       },
       {
         "label": "À faire maintenant",
-        "title": "Sécurité des comptes IA : pourquoi les connexions fortes deviennent indispensables",
-        "action": "Vérifier les paramètres sécurité de ton assistant principal.",
+        "title": "Comptes IA sensibles",
+        "action": "Activer 2FA, séparer perso/pro et éviter les secrets dans les conversations.",
         "category": "confiance",
         "impactLabel": "Impact fort",
-        "id": "ed-openai-securite-compte-2026"
+        "id": "ed-openai-securite-compte-2026",
+        "schema": "Compte → fichiers → historique → accès → protection",
+        "score": 92,
+        "why": "Si tu stockes des documents ou habitudes dans un assistant, sécurise le compte avant d’automatiser."
       },
       {
-        "label": "À tester maintenant",
-        "title": "Les assistants généralistes restent le meilleur point de départ",
-        "action": "Lancer un Match avec ton besoin réel avant de choisir un abonnement.",
-        "category": "modeles",
-        "impactLabel": "Impact fort",
-        "id": "ed-modeles-generalistes-2026"
-      },
-      {
-        "label": "À surveiller",
-        "title": "Agents de code : puissant, mais seulement avec tests et revue humaine",
-        "action": "Comparer les assistants de code puis ajouter une règle tests/revue.",
-        "category": "code-agents",
-        "impactLabel": "Workflow utile",
-        "id": "ed-code-agents-prudence"
-      },
-      {
-        "label": "À intégrer partout",
-        "title": "La confiance devient une fonctionnalité produit",
-        "action": "Lire les badges de confiance avant de suivre une recommandation.",
-        "category": "confiance",
-        "impactLabel": "Impact fort",
-        "id": "ed-confiance-sources"
-      },
-      {
-        "label": "À surveiller",
-        "title": "L’IA arrive dans le navigateur : bonne nouvelle, mais garde le réflexe source",
-        "action": "Tester une recherche IA puis ouvrir deux sources primaires.",
+        "label": "À apprendre",
+        "title": "Réflexe sources",
+        "action": "Ouvrir deux sources primaires avant de prendre une décision importante.",
         "category": "outils",
         "impactLabel": "Workflow utile",
-        "id": "ed-google-ai-mode-chrome"
+        "id": "ed-google-ai-mode-chrome",
+        "schema": "Question → résumé → sources → comparaison → décision",
+        "score": 88,
+        "why": "Un navigateur augmenté aide à explorer ; la source reste ton filet de sécurité."
+      },
+      {
+        "label": "À tester",
+        "title": "Assistant généraliste d’abord",
+        "action": "Faire un Match avec ton vrai besoin avant de payer un outil niche.",
+        "category": "modeles",
+        "impactLabel": "Impact fort",
+        "id": "ed-modeles-generalistes-2026",
+        "schema": "Besoin → assistant → prompt → résultat → amélioration",
+        "score": 84,
+        "why": "Si tu débutes, choisis un assistant généraliste puis fais un Match seulement quand ton usage devient précis."
+      },
+      {
+        "label": "À tester prudemment",
+        "title": "Images personnelles",
+        "action": "Tester avec une image neutre avant d’envoyer une photo privée.",
+        "category": "image-video",
+        "impactLabel": "À surveiller",
+        "id": "ed-gemini-images-personnalisees",
+        "schema": "Image → données → outil → création → contrôle",
+        "score": 78,
+        "why": "Le bon outil image dépend aussi des données que tu acceptes d’envoyer."
       }
     ],
     "methodology": "Sources officielles ou outils reconnus, curation IA Match, date de vérification, impact et conseil actionnable. Le live brut n’est pas publié sans revue."
