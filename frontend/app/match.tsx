@@ -38,6 +38,7 @@ const NEEDS = [
   { value: "faire du marketing", label: "Marketing", hint: "contenu, pub, stratégie" },
   { value: "créer une voix", label: "Voix", hint: "voice-over, podcast, audio" },
   { value: "analyser un document", label: "Analyser", hint: "PDF, contrat, tableau" },
+  { value: "découvrir l'IA", label: "Je ne sais pas", hint: "guide-moi avec des exemples" },
 ];
 
 const LEVELS: { value: Level; label: string; hint: string }[] = [
@@ -97,10 +98,12 @@ export default function MatchWizard() {
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showAlternatives, setShowAlternatives] = useState(false);
+  const [showAllNeeds, setShowAllNeeds] = useState(false);
 
   useEffect(() => { matchUsageStore.get().then(setUsedMatches); }, []);
 
   const selectedTask = customNeed.trim() || task;
+  const visibleNeeds = showAllNeeds ? NEEDS : NEEDS.slice(0, 5);
   const remainingMatches = Math.max(0, FREE_MATCH_LIMIT - usedMatches);
 
   const submit = async (chosenBudget = budget, chosenPriority = priority) => {
@@ -204,7 +207,7 @@ export default function MatchWizard() {
 
               <Text style={styles.sectionMiniTitle}>Ou choisis un raccourci</Text>
               <View style={styles.grid}>
-                {NEEDS.map((item) => {
+                {visibleNeeds.map((item) => {
                   const active = task === item.value && !customNeed.trim();
                   return (
                     <TouchableOpacity
@@ -224,6 +227,11 @@ export default function MatchWizard() {
                   );
                 })}
               </View>
+              {NEEDS.length > visibleNeeds.length || showAllNeeds ? (
+                <TouchableOpacity onPress={() => setShowAllNeeds((v) => !v)} style={styles.showMoreNeeds}>
+                  <Text style={styles.showMoreNeedsText}>{showAllNeeds ? "Réduire les raccourcis" : "Voir plus de besoins"}</Text>
+                </TouchableOpacity>
+              ) : null}
             </View>
           )}
 
@@ -441,6 +449,8 @@ const styles = StyleSheet.create({
   choiceTitle: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.textPrimary },
   choiceTitleActive: { color: colors.coral },
   choiceHint: { fontFamily: fonts.body, fontSize: 12, color: colors.textSecondary, lineHeight: 17, marginTop: 4 },
+  showMoreNeeds: { alignSelf: "center", borderRadius: radius.pill, borderWidth: 1, borderColor: colors.borderSubtle, paddingHorizontal: 14, paddingVertical: 9, marginTop: spacing.sm },
+  showMoreNeedsText: { fontFamily: fonts.bodyBold, fontSize: 12, color: colors.coral },
   list: { gap: spacing.sm, marginTop: spacing.lg },
   sectionMiniTitle: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.2, color: colors.coral, marginTop: spacing.lg, marginBottom: -spacing.sm, textTransform: "uppercase" },
   rowChoice: { flexDirection: "row", alignItems: "center", gap: spacing.sm, backgroundColor: colors.surface, borderColor: colors.borderSubtle, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },

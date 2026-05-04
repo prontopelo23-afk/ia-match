@@ -70,6 +70,8 @@ export default function BuilderScreen() {
   const [showGuides, setShowGuides] = useState(false);
   const [showAdvancedFields, setShowAdvancedFields] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [showModelChoice, setShowModelChoice] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -266,36 +268,40 @@ export default function BuilderScreen() {
             </>
           ) : null}
 
-          <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>1. Pour quel assistant tu veux optimiser ?</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
-            {TARGET_MODELS.map((m) => (
-              <TouchableOpacity key={m.key} onPress={() => setTargetModel(m)} style={[styles.exampleChip, { backgroundColor: targetModel.key === m.key ? colors.coral : colors.coralSoft, borderColor: colors.coral }] }>
-                <Text style={[styles.exampleText, { color: targetModel.key === m.key ? "#fff" : colors.coral }]}>{m.label}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-          <Text style={[styles.modelTip, { color: colors.textSecondary }]}>{targetModel.tip}</Text>
-
-          <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>2. Ou pars d’un exemple</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
-            {EXAMPLES.map((ex) => (
-              <TouchableOpacity key={ex.title} onPress={() => { setValues(ex.values); setOutput(null); setError(null); }} style={[styles.exampleChip, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
-                <Text style={[styles.exampleText, { color: colors.coral }]}>{ex.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-
-          {presets.length > 0 ? (
+          <ToggleCard title={`Assistant cible · ${targetModel.label}`} subtitle="Optionnel : ChatGPT par défaut, change seulement si tu sais où tu vas coller le prompt" open={showModelChoice} onPress={() => setShowModelChoice((v) => !v)} />
+          {showModelChoice ? (
             <>
-              <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>3. Ou choisis un modèle de travail guidé</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
-                {presets.map((preset) => (
-                  <TouchableOpacity key={preset.id} onPress={() => applyPreset(preset)} style={[styles.presetChip, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} testID={`builder-preset-${preset.id}`}>
-                    <Text style={[styles.presetTitle, { color: colors.textPrimary }]} numberOfLines={2}>{preset.title}</Text>
-                    <Text style={[styles.presetMeta, { color: colors.textSecondary }]}>{preset.premium_level === "premium" || preset.premium ? "Premium" : "Guidé"}</Text>
+                {TARGET_MODELS.map((m) => (
+                  <TouchableOpacity key={m.key} onPress={() => setTargetModel(m)} style={[styles.exampleChip, { backgroundColor: targetModel.key === m.key ? colors.coral : colors.coralSoft, borderColor: colors.coral }] }>
+                    <Text style={[styles.exampleText, { color: targetModel.key === m.key ? "#fff" : colors.coral }]}>{m.label}</Text>
                   </TouchableOpacity>
                 ))}
               </ScrollView>
+              <Text style={[styles.modelTip, { color: colors.textSecondary }]}>{targetModel.tip}</Text>
+            </>
+          ) : null}
+
+          <ToggleCard title="Exemples et modèles guidés" subtitle="À ouvrir seulement si tu veux partir d’un modèle prêt" open={showTemplates} onPress={() => setShowTemplates((v) => !v)} />
+          {showTemplates ? (
+            <>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
+                {EXAMPLES.map((ex) => (
+                  <TouchableOpacity key={ex.title} onPress={() => { setValues(ex.values); setOutput(null); setError(null); }} style={[styles.exampleChip, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
+                    <Text style={[styles.exampleText, { color: colors.coral }]}>{ex.title}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+              {presets.length > 0 ? (
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.exampleRow}>
+                  {presets.map((preset) => (
+                    <TouchableOpacity key={preset.id} onPress={() => applyPreset(preset)} style={[styles.presetChip, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} testID={`builder-preset-${preset.id}`}>
+                      <Text style={[styles.presetTitle, { color: colors.textPrimary }]} numberOfLines={2}>{preset.title}</Text>
+                      <Text style={[styles.presetMeta, { color: colors.textSecondary }]}>{preset.premium_level === "premium" || preset.premium ? "Premium" : "Guidé"}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              ) : null}
             </>
           ) : null}
 
@@ -311,13 +317,13 @@ export default function BuilderScreen() {
             <View style={[styles.progressFill, { backgroundColor: colors.coral, width: `${(filled / FIELDS.length) * 100}%` }]} />
           </View>
           <Text style={[styles.progressText, { color: colors.textSecondary }]}>
-            {filled} / {FIELDS.length} blocs renseignés
+            {filled ? `${filled} champ(s) déjà utiles` : "Commence par une demande simple : les détails sont optionnels."}
           </Text>
 
-          <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>4. Remplis l’essentiel</Text>
+          <Text style={[styles.miniTitle, { color: colors.textPrimary }]}>Remplis l’essentiel</Text>
           {essentialFields.map((f) => <PromptField key={f.key} field={f} value={values[f.key] || ""} onChange={(v) => setValues((state) => ({ ...state, [f.key]: v }))} />)}
 
-          <ToggleCard title="Options avancées" subtitle="Rôle, public, contraintes et critère de réussite" open={showAdvancedFields} onPress={() => setShowAdvancedFields((v) => !v)} />
+          <ToggleCard title="Options avancées" subtitle="Rôle, public, contraintes et critère de réussite — optionnel" open={showAdvancedFields} onPress={() => setShowAdvancedFields((v) => !v)} />
           {showAdvancedFields ? advancedFields.map((f) => <PromptField key={f.key} field={f} value={values[f.key] || ""} onChange={(v) => setValues((state) => ({ ...state, [f.key]: v }))} />) : null}
 
           <View style={[styles.previewBlock, { backgroundColor: colors.surface, borderColor: colors.coral }]}>

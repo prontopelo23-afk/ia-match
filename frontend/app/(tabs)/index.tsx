@@ -7,7 +7,6 @@ import { colors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { useI18n } from "../../src/i18n";
 import { api, BenchmarkRow, NewsItem, Tool } from "../../src/api";
-import ToolCard from "../../src/components/ToolCard";
 import { GENERAL_MODELS } from "../../src/utils/generalRanking";
 import { CONTENT_FAMILIES } from "../../src/utils/contentArchitecture";
 import { RADAR_TRENDS } from "../../src/data/radarContent";
@@ -58,16 +57,16 @@ export default function Accueil() {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.quickGrid}>
-          <QuickCard icon={<Layers3 size={20} color={colors.coral} />} title={t("home.quickCatalogTitle")} text={t("home.quickCatalog")} onPress={() => router.push("/(tabs)/categories")} />
-          <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title={t("home.quickAcademyTitle")} text={t("home.quickAcademy")} onPress={() => router.push("/(tabs)/academy")} />
-          <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title={t("home.quickPromptTitle")} text={t("home.quickPrompt")} onPress={() => router.push("/(tabs)/builder")} />
-          <QuickCard icon={<Newspaper size={20} color={colors.coral} />} title="Actu" text="Radar IA, sources et conseils actionnables." onPress={() => router.push("/(tabs)/actue")} />
+        <View style={styles.primaryActions}>
+          <QuickCard icon={<Layers3 size={20} color={colors.coral} />} title="Trouver une IA" text="Explore par usage si tu sais déjà ce que tu veux faire." onPress={() => router.push("/(tabs)/categories")} />
+          <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title="Créer un prompt" text="Transforme une idée vague en consigne claire pour l’IA." onPress={() => router.push("/(tabs)/builder")} />
+          <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title="Apprendre" text="Comprends l’IA par petits pas, sans jargon." onPress={() => router.push("/(tabs)/academy")} />
         </View>
 
         <View style={[styles.moreCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
           <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Autres raccourcis utiles</Text>
           <View style={styles.moreGrid}>
+            <CompactLink icon={<Newspaper size={15} color={theme.coral} />} title="Actu" onPress={() => router.push("/(tabs)/actue")} />
             <CompactLink icon={<Sparkles size={15} color={theme.coral} />} title={t("home.quickRankingsTitle")} onPress={() => router.push("/(tabs)/benchmarks")} />
             <CompactLink icon={<GitCompare size={15} color={theme.coral} />} title="Comparer" onPress={() => router.push("/(tabs)/compare")} />
             <CompactLink icon={<GraduationCap size={15} color={theme.coral} />} title="Apprendre" onPress={() => router.push("/learn")} />
@@ -130,7 +129,7 @@ export default function Accueil() {
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{t("home.topStart")}</Text>
           <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>{t("common.fullTop")}</Text></TouchableOpacity>
         </View>
-        {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : generalTools.map((t, index) => <ToolCard key={t.slug} tool={t} rank={index + 1} />)}
+        {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : generalTools.map((tool, index) => <CompactToolRow key={tool.slug} tool={tool} rank={index + 1} onPress={() => router.push(`/tool/${tool.slug}`)} />)}
         <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>
@@ -180,6 +179,20 @@ function buildGeneralToolCards(allTools: Tool[], benchmarkRows: BenchmarkRow[]):
   }).filter((tool): tool is Tool => Boolean(tool));
 }
 
+function CompactToolRow({ tool, rank, onPress }: { tool: Tool; rank: number; onPress: () => void }) {
+  const { colors } = useTheme();
+  return (
+    <TouchableOpacity onPress={onPress} style={[styles.toolRow, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.84}>
+      <Text style={[styles.toolRank, { color: colors.coral }]}>#{rank}</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.toolRowName, { color: colors.textPrimary }]}>{tool.name}</Text>
+        <Text style={[styles.toolRowText, { color: colors.textSecondary }]} numberOfLines={1}>{tool.tagline}</Text>
+      </View>
+      <Text style={[styles.toolRowScore, { color: colors.coral }]}>{tool.score}</Text>
+    </TouchableOpacity>
+  );
+}
+
 function QuickCard({ icon, title, text, onPress }: { icon: React.ReactNode; title: string; text: string; onPress: () => void }) {
   const { colors } = useTheme();
   return <TouchableOpacity onPress={onPress} style={[styles.quickCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><View style={[styles.quickIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.quickTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.quickText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
@@ -205,8 +218,8 @@ const styles = StyleSheet.create({
   heroSub: { fontFamily: fonts.body, fontSize: 14, lineHeight: 20, color: "rgba(253,251,247,0.72)", marginTop: spacing.sm, marginBottom: spacing.md },
   cta: { flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: colors.coral, paddingHorizontal: spacing.md, paddingVertical: 12, borderRadius: radius.pill, alignSelf: "flex-start" },
   ctaText: { color: "#fff", fontFamily: fonts.bodyBold, fontSize: 14 },
-  quickGrid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.md },
-  quickCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 118 },
+  primaryActions: { gap: spacing.sm, marginTop: spacing.md },
+  quickCard: { width: "100%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 92 },
   quickIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   quickTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
   quickText: { fontFamily: fonts.body, fontSize: 13, lineHeight: 19, marginTop: 4 },
@@ -229,6 +242,11 @@ const styles = StyleSheet.create({
   sectionHead: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", marginTop: spacing.lg, marginBottom: spacing.sm },
   sectionTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 30 },
   sectionLink: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  toolRow: { flexDirection: "row", alignItems: "center", gap: 10, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: 8 },
+  toolRank: { fontFamily: fonts.bodyBold, fontSize: 12, width: 28 },
+  toolRowName: { fontFamily: fonts.bodyBold, fontSize: 14 },
+  toolRowText: { fontFamily: fonts.body, fontSize: 12, marginTop: 2 },
+  toolRowScore: { fontFamily: fonts.bodyBold, fontSize: 14 },
   monetizeCard: { borderRadius: radius.lg, padding: spacing.md, marginTop: spacing.md },
   monetizeLabel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.8, color: colors.coral, marginBottom: 6 },
   monetizeTitle: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 29, color: colors.textInverse },

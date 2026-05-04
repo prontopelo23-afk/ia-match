@@ -78,6 +78,7 @@ export default function CategoriesScreen() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<string>("ALL");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [showAllCategories, setShowAllCategories] = useState(false);
 
   useEffect(() => {
     Promise.all([api.listCategories(), api.listTools({ sort: "score" })])
@@ -104,7 +105,9 @@ export default function CategoriesScreen() {
     };
   }), [cats, tools, colors.coral, t]);
 
-  const visibleBlocks = selected === "ALL" ? blocks : blocks.filter((block) => block.slug === selected);
+  const selectedBlocks = selected === "ALL" ? blocks : blocks.filter((block) => block.slug === selected);
+  const visibleBlocks = selected === "ALL" && !showAllCategories ? selectedBlocks.slice(0, 6) : selectedBlocks;
+  const hasHiddenCategories = selected === "ALL" && selectedBlocks.length > visibleBlocks.length;
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
@@ -119,6 +122,13 @@ export default function CategoriesScreen() {
         </ScrollView>
 
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.xl }} /> : null}
+
+        {!loading ? (
+          <View style={[styles.guideBox, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
+            <Text style={[styles.guideTitle, { color: colors.coral }]}>Choisis d’abord un usage</Text>
+            <Text style={[styles.guideText, { color: colors.textSecondary }]}>Chaque famille montre trois repères simples : le plus simple, le meilleur résultat, puis une alternative gratuite quand elle existe.</Text>
+          </View>
+        ) : null}
 
         {!loading && visibleBlocks.map((cat) => (
           <View key={cat.slug} style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
@@ -172,7 +182,7 @@ export default function CategoriesScreen() {
             <View style={styles.topTools}>
               {(selected === cat.slug || expanded[cat.slug] ? cat.tools : cat.tools.slice(0, 3)).map((tool, index) => (
                 <TouchableOpacity key={tool.slug} onPress={() => router.push(`/tool/${tool.slug}`)} style={[styles.toolMini, { borderColor: colors.borderSubtle }]}>
-                  <Text style={[styles.rank, { color: colors.coral }]}>#{index + 1}</Text>
+                  <Text style={[styles.rank, { color: colors.coral }]}>{recommendationLabel(index, tool)}</Text>
                   <LogoTile uri={tool.image} name={tool.name} bg={tool.color} size={34} rounded={10} domain={tool.domain} />
                   <View style={{ flex: 1 }}>
                     <Text style={[styles.toolName, { color: colors.textPrimary }]} numberOfLines={1}>{tool.name}</Text>
@@ -184,10 +194,23 @@ export default function CategoriesScreen() {
           </View>
         ))}
 
+        {hasHiddenCategories || showAllCategories ? (
+          <TouchableOpacity onPress={() => setShowAllCategories((v) => !v)} style={[styles.moreBtn, { borderColor: colors.borderSubtle }]}>
+            <Text style={[styles.moreBtnText, { color: colors.coral }]}>{showAllCategories ? "Réduire les familles" : "Voir toutes les familles"}</Text>
+          </TouchableOpacity>
+        ) : null}
+
         <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function recommendationLabel(index: number, tool: Tool) {
+  if (index === 0) return "Simple";
+  if (index === 1) return "Résultat";
+  if (tool.freeTier) return "Gratuit";
+  return "Alternative";
 }
 
 function FilterChip({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
@@ -208,6 +231,9 @@ const styles = StyleSheet.create({
   filterRow: { gap: 8, paddingBottom: spacing.md },
   filterChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
   filterChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
+  guideBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
+  guideTitle: { fontFamily: fonts.bodyBold, fontSize: 13, marginBottom: 4 },
+  guideText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18 },
   card: { borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginBottom: spacing.md },
   cardHead: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   iconBox: { width: 44, height: 44, borderRadius: 16, alignItems: "center", justifyContent: "center" },
@@ -219,7 +245,9 @@ const styles = StyleSheet.create({
   listToggle: { fontFamily: fonts.bodyBold, fontSize: 12 },
   topTools: { marginTop: spacing.sm, gap: 8 },
   toolMini: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: radius.lg, padding: 10 },
-  rank: { width: 24, fontFamily: fonts.bodyBold, fontSize: 12 },
+  rank: { width: 62, fontFamily: fonts.bodyBold, fontSize: 11 },
   toolName: { fontFamily: fonts.bodyBold, fontSize: 13 },
   toolMeta: { fontFamily: fonts.body, fontSize: 11, marginTop: 1 },
+  moreBtn: { alignSelf: "center", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 16, paddingVertical: 10, marginTop: spacing.sm },
+  moreBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
 });

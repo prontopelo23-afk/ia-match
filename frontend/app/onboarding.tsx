@@ -19,14 +19,10 @@ import ToolCard from "../src/components/ToolCard";
 const Q1 = [
   { value: "écrire", label: "Écrire", emoji: "✍️", hint: "emails, articles, posts, CV" },
   { value: "créer une image", label: "Créer une image", emoji: "🎨", hint: "visuels, illustrations, design" },
-  { value: "faire une vidéo", label: "Faire une vidéo", emoji: "🎬", hint: "clips, montage, animation" },
-  { value: "coder", label: "Coder", emoji: "💻", hint: "scripts, debug, apps" },
-  { value: "créer une app", label: "Créer une app", emoji: "📱", hint: "prototype, MVP, interface" },
-  { value: "automatiser", label: "Automatiser", emoji: "⚙️", hint: "workflows, tâches répétitives" },
-  { value: "apprendre", label: "Apprendre", emoji: "🎓", hint: "cours, explications, quiz" },
-  { value: "faire du marketing", label: "Marketing", emoji: "📣", hint: "ads, landing pages, contenus" },
-  { value: "créer une voix", label: "Créer une voix", emoji: "🎙️", hint: "voix-off, doublage, audio" },
-  { value: "analyser un document", label: "Analyser un document", emoji: "📄", hint: "PDF, synthèse, extraction" },
+  { value: "travailler plus vite", label: "Productivité", emoji: "⚡", hint: "résumer, organiser, gagner du temps" },
+  { value: "apprendre", label: "Apprendre", emoji: "🎓", hint: "comprendre, réviser, pratiquer" },
+  { value: "coder ou créer une app", label: "Coder / app", emoji: "💻", hint: "scripts, debug, prototype" },
+  { value: "découvrir l'IA", label: "Je ne sais pas encore", emoji: "🧭", hint: "guide-moi avec des exemples simples" },
 ];
 
 const Q2 = [

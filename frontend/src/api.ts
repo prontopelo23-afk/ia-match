@@ -514,7 +514,8 @@ const BOOKMARK_NEWS_KEY = "ia_match_bm_news_v1";
 const NEWSLETTER_PREFS_KEY = "ia_match_newsletter_prefs_v1";
 const BUILDER_HISTORY_KEY = "ia_match_builder_v1";
 const ONBOARD_KEY = "ia_match_onboarded_v1";
-
+const BETA_ACCESS_KEY = "ia_match_beta_access_v1";
+const BETA_ACCESS_CODES = ["IAMATCHBETA", "IAMATCH-TEST", "BETA2026", "IAMATCHTEST"];
 const ANALYTICS_EVENTS_KEY = "ia_match_beta_events_v1";
 const MATCH_USAGE_KEY = "ia_match_free_match_usage_v1";
 export const FREE_MATCH_LIMIT = 7;
@@ -693,6 +694,28 @@ export const onboardingStore = {
   },
   async reset() {
     await AsyncStorage.removeItem(ONBOARD_KEY);
+  },
+};
+
+
+// Barrière d'accès bêta publique : simple garde côté client pour filtrer les testeurs sur la démo statique.
+// Ce n'est pas une sécurité serveur ; la vraie bêta privée devra utiliser une auth/backend.
+export const betaAccessStore = {
+  async isAllowed(): Promise<boolean> {
+    try {
+      return (await AsyncStorage.getItem(BETA_ACCESS_KEY)) === "1";
+    } catch {
+      return false;
+    }
+  },
+  async submit(code: string): Promise<boolean> {
+    const normalized = code.trim().toUpperCase().replace(/\s+/g, "");
+    const ok = BETA_ACCESS_CODES.includes(normalized);
+    if (ok) await AsyncStorage.setItem(BETA_ACCESS_KEY, "1");
+    return ok;
+  },
+  async reset() {
+    await AsyncStorage.removeItem(BETA_ACCESS_KEY);
   },
 };
 

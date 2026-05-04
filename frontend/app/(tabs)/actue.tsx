@@ -118,14 +118,9 @@ function FeaturedNews({ item, tools, bookmarked, onBookmark, pulseStyle }: { ite
           </Animated.View>
         </View>
         <Text style={[styles.featuredTitle, { color: colors.textPrimary }]}>{item.title}</Text>
-        <Text style={[styles.featuredSummary, { color: colors.textSecondary }]}>{item.summary}</Text>
-  {item.confidence ? <Text style={[styles.confidenceText, { color: colors.textSecondary }]}>Confiance {item.confidence} · vérifié {formatDate(item.lastVerifiedAt || item.publishedAt)}</Text> : null}
-        <View style={[styles.intelBox, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
-          <Text style={[styles.intelTitle, { color: colors.coral }]}>À retenir</Text>
-          {intel.quickSummary.map((line) => <Text key={line} style={[styles.intelLine, { color: colors.textPrimary }]}>• {line}</Text>)}
-        </View>
-        {related.length ? <RelatedMiniTools tools={related} /> : null}
-        <View style={styles.readLink}><Text style={[styles.readLinkText, { color: colors.coral }]}>Pourquoi ça compte ?</Text><ArrowUpRight size={16} color={colors.coral} strokeWidth={2.5} /></View>
+        <Text style={[styles.featuredSummary, { color: colors.textSecondary }]} numberOfLines={2}>{item.summary}</Text>
+        <Text style={[styles.featuredAction, { color: colors.coral }]}>{intel.action}</Text>
+        <View style={styles.readLink}><Text style={[styles.readLinkText, { color: colors.coral }]}>Lire le détail</Text><ArrowUpRight size={16} color={colors.coral} strokeWidth={2.5} /></View>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -148,8 +143,7 @@ function NewsRow({ item, tools, bookmarked, onBookmark, index }: { item: NewsIte
         </View>
         <Text style={[styles.rowTitle, { color: colors.textPrimary }]}>{item.title}</Text>
         <Text style={[styles.rowSummary, { color: colors.textSecondary }]} numberOfLines={2}>{item.summary}</Text>
-        <Text style={[styles.rowAction, { color: colors.coral }]}>{intel.action}</Text>
-        {related.length ? <RelatedMiniTools tools={related} compact /> : null}
+        <Text style={[styles.rowAction, { color: colors.coral }]} numberOfLines={1}>{intel.action}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -266,6 +260,7 @@ const styles = StyleSheet.create({
   bmBtn: { padding: 5 },
   featuredTitle: { fontFamily: fonts.serif, fontSize: 28, lineHeight: 34, letterSpacing: -0.5, marginBottom: spacing.sm },
   featuredSummary: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: spacing.sm },
+  featuredAction: { fontFamily: fonts.bodyBold, fontSize: 14, lineHeight: 20, marginBottom: spacing.sm },
   confidenceText: { fontFamily: fonts.bodySemi, fontSize: 13, marginBottom: spacing.md },
   intelBox: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, marginBottom: spacing.md },
   intelTitle: { fontFamily: fonts.bodyBold, fontSize: 13, letterSpacing: 1, marginBottom: 6 },

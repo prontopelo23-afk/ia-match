@@ -24,6 +24,7 @@ export default function BenchmarksScreen() {
   const [generalRows, setGeneralRows] = useState<BenchmarkRow[]>([]);
   const [allRows, setAllRows] = useState<BenchmarkRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAdvancedTop, setShowAdvancedTop] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -63,7 +64,12 @@ export default function BenchmarksScreen() {
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Top · {activeSort.label}</Text>
           <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Tri : {activeSort.helper}</Text>
         </View>
-        {loading ? <ActivityIndicator color={colors.coral} /> : generalRows.map((row, index) => <RankCard key={row.slug} row={row} rank={index + 1} onPress={() => router.push(`/tool/${row.slug}`)} />)}
+        {loading ? <ActivityIndicator color={colors.coral} /> : generalRows.slice(0, showAdvancedTop ? generalRows.length : 4).map((row, index) => <RankCard key={row.slug} row={row} rank={index + 1} compact={!showAdvancedTop} onPress={() => router.push(`/tool/${row.slug}`)} />)}
+        {!loading && generalRows.length > 4 ? (
+          <TouchableOpacity onPress={() => setShowAdvancedTop((v) => !v)} style={[styles.advancedBtn, { borderColor: colors.borderSubtle }]}>
+            <Text style={[styles.advancedBtnText, { color: colors.coral }]}>{showAdvancedTop ? "Revenir au classement simple" : "Voir le classement avancé"}</Text>
+          </TouchableOpacity>
+        ) : null}
 
         <View style={styles.sectionHead}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Choisir selon ton besoin</Text>
@@ -88,7 +94,7 @@ export default function BenchmarksScreen() {
   );
 }
 
-function RankCard({ row, rank, onPress }: { row: BenchmarkRow; rank: number; onPress: () => void }) {
+function RankCard({ row, rank, compact, onPress }: { row: BenchmarkRow; rank: number; compact?: boolean; onPress: () => void }) {
   const { colors } = useTheme();
   const context = GENERAL_MODEL_BY_SLUG[row.slug];
   const bestFor = row.bestFor ?? context?.bestFor ?? "usage général";
@@ -110,8 +116,8 @@ function RankCard({ row, rank, onPress }: { row: BenchmarkRow; rank: number; onP
       </View>
       <Text style={[styles.pill, { color: colors.coral }]}><Sparkles size={12} color={colors.coral} /> Meilleur pour : {bestFor}</Text>
       <Text style={[styles.cardLine, { color: colors.textSecondary }]}><Text style={{ fontFamily: fonts.bodyBold }}>Pourquoi ici : </Text>{whyRanked}</Text>
-      <Text style={[styles.cardLine, { color: colors.textSecondary }]}><Text style={{ fontFamily: fonts.bodyBold }}>Limite : </Text>{limitation}</Text>
-      {confidence === "haute" ? <Text style={[styles.confidence, { color: colors.textSecondary }]}>Confiance élevée</Text> : null}
+      {!compact ? <Text style={[styles.cardLine, { color: colors.textSecondary }]}><Text style={{ fontFamily: fonts.bodyBold }}>Limite : </Text>{limitation}</Text> : null}
+      {!compact && confidence === "haute" ? <Text style={[styles.confidence, { color: colors.textSecondary }]}>Confiance élevée</Text> : null}
     </TouchableOpacity>
   );
 }
@@ -143,6 +149,8 @@ const styles = StyleSheet.create({
   pill: { fontFamily: fonts.bodyBold, fontSize: 12, lineHeight: 18, marginBottom: 6 },
   cardLine: { fontFamily: fonts.body, fontSize: 12, lineHeight: 18, marginTop: 3 },
   confidence: { fontFamily: fonts.bodyBold, fontSize: 10, marginTop: 8, textTransform: "uppercase", letterSpacing: 0.5 },
+  advancedBtn: { alignSelf: "center", borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 16, paddingVertical: 10, marginTop: spacing.sm },
+  advancedBtnText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   familyList: { gap: spacing.sm },
   familyCard: { flexDirection: "row", alignItems: "center", gap: spacing.sm, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
   familyIcon: { width: 40, height: 40, borderRadius: 15, alignItems: "center", justifyContent: "center" },
