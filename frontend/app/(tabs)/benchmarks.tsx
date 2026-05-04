@@ -8,6 +8,7 @@ import { useTheme } from "../../src/theme-context";
 import { api, BenchmarkRow } from "../../src/api";
 import { GENERAL_MODEL_BY_SLUG } from "../../src/utils/generalRanking";
 import { CONTENT_FAMILIES, rowMatchesFamily } from "../../src/utils/contentArchitecture";
+import { ConceptCard, ScoreGauge, ToolBattleStrip } from "../../src/components/VisualExplainers";
 
 type SortKey = "score" | "speed" | "accuracy" | "price";
 const SORTS: { key: SortKey; label: string; helper: string }[] = [
@@ -50,6 +51,10 @@ export default function BenchmarksScreen() {
           <BookOpen size={18} color={colors.coral} />
           <Text style={[styles.helpText, { color: colors.textSecondary }]}>Pour choisir vite : regarde “meilleur pour”, “pourquoi ici” et la limite à connaître.</Text>
         </View>
+
+        {!loading && generalRows.length ? <ToolBattleStrip items={generalRows.slice(0, 3).map((row) => ({ name: row.name, role: row.bestFor ?? GENERAL_MODEL_BY_SLUG[row.slug]?.bestFor ?? "usage général", score: row.score }))} /> : null}
+        <ScoreGauge label="Lecture du score" value={87} helper="Ce n’est pas un benchmark scientifique brut : c’est un indice éditorial pour décider plus vite selon un usage." />
+        <ConceptCard icon="spark" title="Une carte plutôt qu’un tableau" text="Les classements doivent montrer le contexte : quand utiliser l’outil, pourquoi il est haut, et quand l’éviter." bullets={["Top général pour démarrer", "Top par usage pour choisir finement"]} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.sorts}>
           {SORTS.map((item) => (

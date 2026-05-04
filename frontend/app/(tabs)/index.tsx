@@ -12,6 +12,7 @@ import { CONTENT_FAMILIES } from "../../src/utils/contentArchitecture";
 import { RADAR_TRENDS } from "../../src/data/radarContent";
 import { openNewsletterSignup } from "../../src/utils/contactLinks";
 import { shareApp } from "../../src/utils/shareLinks";
+import { ConceptCard, ToolBattleStrip, WorkflowMap } from "../../src/components/VisualExplainers";
 
 export default function Accueil() {
   const router = useRouter();
@@ -57,11 +58,15 @@ export default function Accueil() {
           </TouchableOpacity>
         </View>
 
+        <WorkflowMap title="Ton parcours visuel" steps={["Décris ton besoin", "Compare 3 options", "Copie le prompt", "Teste l’outil"]} />
+
         <View style={styles.primaryActions}>
           <QuickCard icon={<Layers3 size={20} color={colors.coral} />} title="Trouver une IA" text="Explore par usage si tu sais déjà ce que tu veux faire." onPress={() => router.push("/(tabs)/categories")} />
           <QuickCard icon={<Wand2 size={20} color={colors.coral} />} title="Créer un prompt" text="Transforme une idée vague en consigne claire pour l’IA." onPress={() => router.push("/(tabs)/builder")} />
           <QuickCard icon={<BookOpen size={20} color={colors.coral} />} title="Apprendre" text="Comprends l’IA par petits pas, sans jargon." onPress={() => router.push("/(tabs)/academy")} />
         </View>
+
+        <ConceptCard icon="layers" title="Lis moins, décide mieux" text="Chaque écran doit te montrer une carte mentale : usage, score, limite, prochaine action." bullets={["Pas un annuaire de pavés", "Des repères visuels pour débuter", "Un prompt prêt à tester"]} />
 
         <View style={[styles.moreCard, { backgroundColor: theme.surface, borderColor: theme.borderSubtle }]}>
           <Text style={[styles.moreTitle, { color: theme.textPrimary }]}>Autres raccourcis utiles</Text>
@@ -129,7 +134,12 @@ export default function Accueil() {
           <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{t("home.topStart")}</Text>
           <TouchableOpacity onPress={() => router.push("/(tabs)/benchmarks")}><Text style={[styles.sectionLink, { color: theme.coral }]}>{t("common.fullTop")}</Text></TouchableOpacity>
         </View>
-        {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : generalTools.map((tool, index) => <CompactToolRow key={tool.slug} tool={tool} rank={index + 1} onPress={() => router.push(`/tool/${tool.slug}`)} />)}
+        {loading ? <ActivityIndicator color={colors.coral} style={{ marginTop: spacing.lg }} /> : (
+          <>
+            <ToolBattleStrip items={generalTools.map((tool) => ({ name: tool.name, role: tool.tagline, score: tool.score })).slice(0, 3)} />
+            {generalTools.map((tool, index) => <CompactToolRow key={tool.slug} tool={tool} rank={index + 1} onPress={() => router.push(`/tool/${tool.slug}`)} />)}
+          </>
+        )}
         <View style={{ height: 90 }} />
       </ScrollView>
     </SafeAreaView>

@@ -22,6 +22,7 @@ import { useI18n } from "../src/i18n";
 import PremiumGate from "../src/components/PremiumGate";
 import ToolCard from "../src/components/ToolCard";
 import { editorialTrustFor } from "../src/utils/editorialTrust";
+import { ScoreGauge, ToolBattleStrip, WorkflowMap } from "../src/components/VisualExplainers";
 
 type Level = "beginner" | "intermediate" | "pro";
 type Budget = "free" | "low" | "best";
@@ -313,6 +314,7 @@ export default function MatchWizard() {
               <Text style={styles.stepLabel}>RÉSULTATS</Text>
               <Text style={styles.stepTitle}>{best ? `Je te recommande ${best.tool.name}.` : "Voici les IA les plus adaptées."}</Text>
               <Text style={styles.stepSub}>Besoin : {selectedTask}</Text>
+              {results.length ? <ToolBattleStrip items={results.slice(0, 3).map((result) => ({ name: result.tool.name, role: result.reasons?.[0] ?? "Option pertinente pour ton besoin", score: Math.round(result.matchScore) }))} /> : null}
 
               {best ? (
                 <View style={styles.resultHero}>
@@ -323,15 +325,11 @@ export default function MatchWizard() {
                     <View style={styles.decisionPill}><Text style={styles.decisionPillText}>{best.tool.freeTier ? "Gratuit dispo" : `${best.tool.monthlyPrice}€/mois env.`}</Text></View>
                     <View style={styles.decisionPill}><Text style={styles.decisionPillText}>{level === "beginner" ? "Simple" : "Puissant"}</Text></View>
                   </View>
+                  <ScoreGauge label="Confiance du Match" value={Math.round(best.matchScore)} helper="Ce repère combine ton besoin, ton budget, ta priorité et les limites connues de l’outil." />
                   <View style={styles.reasonsBox}>
                     <Text style={styles.resultSummaryTitle}>Pourquoi ce choix ?</Text>
                     {best.reasons.slice(0, 3).map((reason) => <Text key={reason} style={styles.reasonText}>• {reason}</Text>)}
-                    <View style={styles.nextStepBox}>
-                      <Text style={styles.nextStepTitle}>Ce que tu fais maintenant</Text>
-                      <Text style={styles.reasonText}>1. Copie le prompt ci-dessous.</Text>
-                      <Text style={styles.reasonText}>2. Ouvre {best.tool.name}.</Text>
-                      <Text style={styles.reasonText}>3. Colle, teste, puis ajuste avec ton contexte.</Text>
-                    </View>
+                    <WorkflowMap title="Ce que tu fais maintenant" steps={["Copie le prompt", `Ouvre ${best.tool.name}`, "Colle et teste", "Ajuste avec ton contexte"]} />
                     <TouchableOpacity onPress={() => setShowDetails((v) => !v)} style={styles.detailsToggle}>
                       <Text style={styles.detailsToggleText}>Pourquoi ce classement ?</Text>
                       {showDetails ? <ChevronUp size={16} color={colors.coral} /> : <ChevronDown size={16} color={colors.coral} />}
