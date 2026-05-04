@@ -10,6 +10,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Linking,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -17,6 +18,8 @@ import { ArrowLeft, Mail, Lock, User as UserIcon, Eye, EyeOff, Check } from "luc
 import { fonts, radius, spacing } from "../src/theme";
 import { useTheme } from "../src/theme-context";
 import { auth } from "../src/auth";
+
+const appLogo = require("../assets/brand/ia-match-logo.png");
 
 export default function AuthScreen() {
   const router = useRouter();
@@ -62,6 +65,10 @@ export default function AuthScreen() {
         </View>
 
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          <View style={styles.authLogoBlock}>
+            <Image source={appLogo} style={styles.authLogo} resizeMode="contain" />
+            <Text style={[styles.authBrand, { color: colors.textPrimary }]}>IA MATCH</Text>
+          </View>
           <Text style={[styles.eyebrow, { color: colors.coral }]}>
             {mode === "login" ? "CONNEXION" : "CRÉER UN COMPTE"}
           </Text>
@@ -251,6 +258,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   scroll: { padding: spacing.lg, paddingBottom: spacing.xxl },
+  authLogoBlock: { alignItems: "center", marginBottom: spacing.lg },
+  authLogo: { width: 72, height: 72, borderRadius: 20, marginBottom: 10 },
+  authBrand: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 4 },
   eyebrow: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 2, marginBottom: spacing.sm },
   title: { fontFamily: fonts.serif, fontSize: 36, lineHeight: 42, letterSpacing: -1 },
   titleAccent: { fontStyle: "italic" },

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View, ActivityIndicator, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, ActivityIndicator, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import {
   useFonts,
   PlayfairDisplay_700Bold,
@@ -19,6 +19,8 @@ import { I18nProvider } from "../src/i18n";
 import { betaAccessStore, onboardingStore } from "../src/api";
 import CookieConsent from "../src/components/CookieConsent";
 import { ToastProvider } from "../src/components/Toast";
+
+const appLogo = require("../assets/brand/ia-match-logo.png");
 
 function StackContent() {
   const { colors, mode } = useTheme();
@@ -87,15 +89,22 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => void }) {
     <View style={[betaStyles.wrap, { backgroundColor: colors.bg }]}>
       <StatusBar style={mode === "light" ? "dark" : "light"} />
       <View style={[betaStyles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
-        <Text style={[betaStyles.kicker, { color: colors.coral }]}>BÊTA PRIVÉE</Text>
-        <Text style={[betaStyles.title, { color: colors.textPrimary }]}>IA Match est en test.</Text>
-        <Text style={[betaStyles.text, { color: colors.textSecondary }]}>Entre le code d’accès reçu pour ouvrir la bêta. Ça évite que tout le monde tombe dessus avant la version publique.</Text>
+        <View style={betaStyles.logoRow}>
+          <Image source={appLogo} style={betaStyles.logo} resizeMode="contain" />
+          <View style={{ flex: 1 }}>
+            <Text style={[betaStyles.brand, { color: colors.textPrimary }]}>IA MATCH</Text>
+            <Text style={[betaStyles.kicker, { color: colors.coral }]}>BÊTA PRIVÉE</Text>
+          </View>
+        </View>
+        <Text style={[betaStyles.title, { color: colors.textPrimary }]}>Connexion à IA Match.</Text>
+        <Text style={[betaStyles.text, { color: colors.textSecondary }]}>Écran d’authentification bêta : entre ton code d’accès pour ouvrir l’app. Le vrai compte utilisateur reste disponible ensuite depuis le profil.</Text>
+        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Code d’accès</Text>
         <TextInput
           value={code}
           onChangeText={(v) => { setCode(v); setError(""); }}
           autoCapitalize="characters"
           autoCorrect={false}
-          placeholder="Code d’accès"
+          placeholder="Ton code bêta"
           placeholderTextColor={colors.textSecondary}
           style={[betaStyles.input, { color: colors.textPrimary, borderColor: error ? colors.error : colors.borderSubtle, backgroundColor: colors.bg }]}
           onSubmitEditing={submit}
@@ -103,8 +112,9 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => void }) {
         />
         {error ? <Text style={[betaStyles.error, { color: colors.error }]}>{error}</Text> : null}
         <TouchableOpacity disabled={!code.trim() || loading} onPress={submit} style={[betaStyles.button, { backgroundColor: colors.coral }, (!code.trim() || loading) && { opacity: 0.45 }]} testID="beta-access-submit">
-          {loading ? <ActivityIndicator color="#fff" /> : <Text style={betaStyles.buttonText}>Entrer dans la bêta</Text>}
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={betaStyles.buttonText}>Se connecter</Text>}
         </TouchableOpacity>
+        <Text style={[betaStyles.note, { color: colors.textSecondary }]}>Tant que le code n’est pas validé, l’accès à l’app reste bloqué.</Text>
       </View>
     </View>
   );
@@ -113,9 +123,13 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => void }) {
 const betaStyles = StyleSheet.create({
   wrap: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   card: { width: "100%", maxWidth: 460, borderWidth: 1, borderRadius: 28, padding: 24 },
-  kicker: { fontFamily: "Inter_700Bold", fontSize: 12, letterSpacing: 2, marginBottom: 10 },
+  logoRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 18 },
+  logo: { width: 54, height: 54, borderRadius: 16 },
+  brand: { fontFamily: "Inter_700Bold", fontSize: 13, letterSpacing: 4 },
+  kicker: { fontFamily: "Inter_700Bold", fontSize: 11, letterSpacing: 2, marginTop: 3 },
   title: { fontFamily: "PlayfairDisplay_700Bold", fontSize: 36, lineHeight: 40, marginBottom: 10 },
   text: { fontFamily: "Inter_400Regular", fontSize: 15, lineHeight: 22, marginBottom: 18 },
+  fieldLabel: { fontFamily: "Inter_700Bold", fontSize: 12, letterSpacing: 0.8, marginBottom: 8 },
   input: { borderWidth: 1, borderRadius: 18, paddingHorizontal: 16, paddingVertical: 14, fontFamily: "Inter_600SemiBold", fontSize: 16, letterSpacing: 1.2, outlineWidth: 0 } as any,
   error: { fontFamily: "Inter_600SemiBold", fontSize: 12, marginTop: 8 },
   button: { marginTop: 14, borderRadius: 999, paddingVertical: 15, alignItems: "center", justifyContent: "center" },
