@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { Award, BookOpen, ChevronRight, FileText, Layers3, Library, Route, Sparkles } from "lucide-react-native";
+import { Award, BookOpen, ChevronRight, ClipboardList, FileText, Layers3, Library, Route, Sparkles } from "lucide-react-native";
 import { colors as baseColors, fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme, usePremium } from "../../src/theme-context";
 import { api, AcademyBadge, AcademyPath, Lesson, Resource, Template } from "../../src/api";
@@ -73,7 +73,7 @@ export default function AcademyScreen() {
         <PremiumGate
           feature="Academy"
           description="Débloque le parcours complet IA Match : leçons guidées, quiz, badges, templates copiables et ressources triées. Le contenu reste complet, mais il est organisé en sous-pages pour éviter le scroll infini."
-          benefits={["80 leçons progressives organisées en 10 parcours", "240 quiz courts liés aux leçons", "200 templates prêts à copier", "Ressources et badges de progression"]}
+          benefits={["120 leçons progressives organisées en 10 parcours", "240 quiz courts liés aux leçons", "465 templates prêts à copier", "Ressources, exercices et badges de progression"]}
         />
       </SafeAreaView>
     );
@@ -97,17 +97,12 @@ export default function AcademyScreen() {
 
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
           <>
-            <View style={styles.statsRow}>
-              <StatCard value={String(visibleLessons.length)} label="leçons" />
-              <StatCard value={String(visiblePaths.length)} label="parcours" />
-              <StatCard value={String(state.templates.length)} label="templates" />
-              <StatCard value={`${Math.max(1, Math.round(minutesTotal / 60))}h`} label="contenu" />
-            </View>
-            <View style={styles.statsRow}>
-              <StatCard value={String(state.exercises.length)} label="exercices" />
-              <StatCard value={String(state.badExamples.length)} label="avant/après" />
-              <StatCard value={String(state.beginnerTerms.length)} label="termes" />
-              <StatCard value={String(state.badges.length)} label="badges" />
+            <View style={[styles.librarySummary, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
+              <View style={[styles.summaryIcon, { backgroundColor: colors.coralSoft }]}><Library size={18} color={colors.coral} /></View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.summaryTitle, { color: colors.textPrimary }]}>Tout le contenu est gardé, mais rangé.</Text>
+                <Text style={[styles.summaryText, { color: colors.textSecondary }]}>{visiblePaths.length} parcours · {visibleLessons.length} leçons · {state.templates.length} templates · {state.exercises.length} exercices · {state.badges.length} badges · environ {Math.max(1, Math.round(minutesTotal / 60))}h</Text>
+              </View>
             </View>
 
             {firstLesson ? (
@@ -119,9 +114,15 @@ export default function AcademyScreen() {
               </TouchableOpacity>
             ) : null}
 
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
+            <View style={styles.sectionHeaderRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>{level === "ALL" ? "Parcours recommandés" : `Parcours ${LEVEL_FILTERS.find((f) => f.key === level)?.label.toLowerCase()}`}</Text>
+                <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>3 aperçus seulement ici. La liste complète reste dans “Parcours”.</Text>
+              </View>
+              <TouchableOpacity onPress={() => router.push("/academy/paths")} style={[styles.smallLink, { borderColor: colors.borderSubtle }]}><Text style={[styles.smallLinkText, { color: colors.coral }]}>Tout voir</Text></TouchableOpacity>
+            </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pathRow}>
-              {visiblePaths.map((path) => (
+              {visiblePaths.slice(0, 3).map((path) => (
                 <TouchableOpacity key={path.id} onPress={() => router.push(`/academy/path/${path.id}`)} style={[styles.pathCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}>
                   <Route size={16} color={colors.coral} strokeWidth={2.5} />
                   <Text style={[styles.pathLevel, { color: colors.coral }]}>{levelLabel(path.level)}</Text>
@@ -131,11 +132,13 @@ export default function AcademyScreen() {
               ))}
             </ScrollView>
 
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque complète</Text>
+            <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Quatre portes d’entrée, pas une grille infinie. Tous les cours, quiz, exercices et templates restent accessibles dedans.</Text>
             <View style={styles.grid}>
-              <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours guidés" text={`${visiblePaths.length} parcours dans le niveau sélectionné`} onPress={() => router.push("/academy/paths")} />
+              <HubCard icon={<BookOpen size={19} color={colors.coral} />} title="Parcours" text={`${visiblePaths.length} chemins guidés par niveau`} onPress={() => router.push("/academy/paths")} />
               <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text={`${state.templates.length} prompts triés par famille`} onPress={() => router.push("/academy/templates")} />
-              <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text={`${state.resources.length} sources et outils vérifiés`} onPress={() => router.push("/academy/resources")} />
-              <HubCard icon={<Sparkles size={19} color={colors.coral} />} title="Quiz" text="Quiz par leçon, révélés au bon moment" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <HubCard icon={<ClipboardList size={19} color={colors.coral} />} title="Pratiquer" text={`${state.exercises.length} exercices · ${state.badExamples.length} avant/après`} onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text={`${state.resources.length} sources et repères vérifiés`} onPress={() => router.push("/academy/resources")} />
             </View>
 
             {state.badges.length > 0 ? (
@@ -152,10 +155,6 @@ export default function AcademyScreen() {
   );
 }
 
-function StatCard({ value, label }: { value: string; label: string }) {
-  const { colors } = useTheme();
-  return <View style={[styles.statCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}><Text style={[styles.statValue, { color: colors.coral }]}>{value}</Text><Text style={[styles.statLabel, { color: colors.textSecondary }]}>{label}</Text></View>;
-}
 function HubCard({ icon, title, text, onPress }: { icon: React.ReactNode; title: string; text: string; onPress: () => void }) {
   const { colors } = useTheme();
   return <TouchableOpacity onPress={onPress} style={[styles.hubCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}><View style={[styles.hubIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.hubTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.hubText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
@@ -171,22 +170,26 @@ const styles = StyleSheet.create({
   levelRow: { gap: 8, paddingBottom: spacing.md },
   levelChip: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 14, paddingVertical: 9 },
   levelChipText: { fontFamily: fonts.bodyBold, fontSize: 12 },
-  statsRow: { flexDirection: "row", gap: 8, marginBottom: spacing.md },
-  statCard: { flex: 1, borderWidth: 1, borderRadius: radius.lg, paddingVertical: spacing.sm, alignItems: "center" },
-  statValue: { fontFamily: fonts.serif, fontSize: 22, lineHeight: 26 },
-  statLabel: { fontFamily: fonts.bodyBold, fontSize: 10, textTransform: "uppercase", letterSpacing: 0.7 },
+  librarySummary: { flexDirection: "row", alignItems: "center", gap: spacing.sm, borderWidth: 1, borderRadius: radius.xl, padding: spacing.md, marginBottom: spacing.md },
+  summaryIcon: { width: 42, height: 42, borderRadius: 16, alignItems: "center", justifyContent: "center" },
+  summaryTitle: { fontFamily: fonts.bodyBold, fontSize: 14, marginBottom: 3 },
+  summaryText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
   continueCard: { borderRadius: radius.xl, padding: spacing.lg, marginBottom: spacing.lg, ...shadow.dark },
   continueLabel: { fontFamily: fonts.bodyBold, color: baseColors.coral, fontSize: 10, letterSpacing: 1.7 },
   continueTitle: { fontFamily: fonts.serif, color: "#fff", fontSize: 25, lineHeight: 30, marginTop: 6 },
   continueText: { fontFamily: fonts.body, color: "rgba(255,255,255,0.72)", fontSize: 12, marginTop: 6 },
-  sectionTitle: { fontFamily: fonts.serif, fontSize: 24, marginBottom: spacing.sm },
+  sectionHeaderRow: { flexDirection: "row", alignItems: "flex-start", gap: spacing.sm, marginTop: spacing.sm },
+  sectionTitle: { fontFamily: fonts.serif, fontSize: 24, marginBottom: spacing.xs },
+  sectionHint: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginBottom: spacing.sm },
+  smallLink: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8, marginTop: 2 },
+  smallLinkText: { fontFamily: fonts.bodyBold, fontSize: 12 },
   pathRow: { gap: 10, paddingBottom: spacing.md },
   pathCard: { width: 190, minHeight: 124, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
   pathLevel: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 1.2, textTransform: "uppercase", marginTop: 8 },
   pathTitle: { fontFamily: fonts.serif, fontSize: 17, lineHeight: 21, marginTop: 5 },
   pathMeta: { fontFamily: fonts.bodyBold, fontSize: 10, marginTop: 7, textTransform: "uppercase" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.sm },
-  hubCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 130 },
+  hubCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 120 },
   hubIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },
   hubTitle: { fontFamily: fonts.serif, fontSize: 19, lineHeight: 23 },
   hubText: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, marginTop: 4 },
