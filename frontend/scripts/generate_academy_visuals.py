@@ -56,8 +56,8 @@ def font(size: int, mono: bool = False) -> ImageFont.FreeTypeFont:
 F_LOGO = font(38)
 F_LOGO_SMALL = font(23)
 F_KICKER = font(25)
-F_TITLE = font(62)
-F_SUBTITLE = font(31)
+F_TITLE = font(56)
+F_SUBTITLE = font(30)
 F_CARD_NUM = font(28)
 F_CARD_TITLE = font(34)
 F_CARD_BODY = font(27)
@@ -189,12 +189,12 @@ def generate(course: dict, filename: str):
     draw.text((W - margin - 63, 107), chip, font=F_MONO, fill=COLORS["muted"], anchor="mm")
 
     title = course["title"]
-    title_lines = wrap(draw, title, F_TITLE, W - margin * 2, 3)
+    title_lines = wrap(draw, title, F_TITLE, W - margin * 2, 2)
     y = 230
-    y = draw_text_lines(draw, (margin, y), title_lines, F_TITLE, COLORS["ink"], 76)
-    y += 24
+    y = draw_text_lines(draw, (margin, y), title_lines, F_TITLE, COLORS["ink"], 68)
+    y += 22
     subtitle = "Un repère visuel simple pour appliquer la bonne méthode, sans jargon."
-    y = draw_text_lines(draw, (margin, y), wrap(draw, subtitle, F_SUBTITLE, W - margin * 2, 2), F_SUBTITLE, COLORS["muted"], 43)
+    y = draw_text_lines(draw, (margin, y), wrap(draw, subtitle, F_SUBTITLE, W - margin * 2, 2), F_SUBTITLE, COLORS["muted"], 40)
 
     # Hero device / schema area.
     hero_y = 500
