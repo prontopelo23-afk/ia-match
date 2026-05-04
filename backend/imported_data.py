@@ -103,6 +103,145 @@ def _normalise_categories(raw: Iterable[str]) -> List[str]:
             cats.append(mapped)
     return cats or ["texte"]
 
+def _normalise_academy_level(level: str) -> str:
+    raw = _slugify(str(level or "debutant"))
+    if "avanc" in raw or "advance" in raw:
+        return "AVANCÉ"
+    if "inter" in raw:
+        return "INTERMÉDIAIRE"
+    return "DÉBUTANT"
+
+
+def _human_topic(title: str) -> str:
+    topic = (title or "utiliser l’IA").strip()
+    return topic[:1].lower() + topic[1:]
+
+
+def _course_angle(title: str) -> Dict[str, Any]:
+    text = _slugify(title)
+    if any(k in text for k in ["source", "recherche", "verifier", "hallucination", "citation"]):
+        return {
+            "family": "vérification",
+            "schema": "Question → sources primaires → synthèse → vérification → décision",
+            "check": ["date de la source", "auteur ou organisme", "chiffre recoupé", "limite clairement indiquée"],
+            "bad": "Je demande une réponse récente et je la copie sans ouvrir les liens.",
+            "good": "Je demande une synthèse sourcée, puis je vérifie les chiffres sensibles dans les sources officielles.",
+        }
+    if any(k in text for k in ["image", "video", "visuel", "design", "creative", "audio", "voix"]):
+        return {
+            "family": "création",
+            "schema": "Intention → référence → contraintes → génération → retouche → publication",
+            "check": ["format final", "style visuel", "texte exact", "droits d’usage", "retouche nécessaire"],
+            "bad": "Je demande “fais une belle image” sans format, style ni usage final.",
+            "good": "Je précise le livrable, le style, le format, le texte visible et les éléments à éviter.",
+        }
+    if any(k in text for k in ["code", "agent", "automatis", "workflow", "json", "api", "builder"]):
+        return {
+            "family": "construction",
+            "schema": "Objectif → étapes → outils → garde-fous → test → itération",
+            "check": ["objectif mesurable", "données d’entrée", "critère d’arrêt", "test à lancer", "validation humaine"],
+            "bad": "Je demande à l’agent de tout faire sans test ni limite.",
+            "good": "Je donne une petite tâche, les fichiers concernés, la commande de test et je relis le diff.",
+        }
+    if any(k in text for k in ["business", "vente", "marketing", "client", "strategie", "offre"]):
+        return {
+            "family": "business",
+            "schema": "Audience → problème → promesse → preuve → offre → action",
+            "check": ["client visé", "problème concret", "preuve disponible", "ton adapté", "CTA clair"],
+            "bad": "Je demande un texte marketing générique pour tout le monde.",
+            "good": "Je décris le client, son problème, la preuve et l’action que je veux obtenir.",
+        }
+    if any(k in text for k in ["document", "pdf", "resume", "synthese", "cours", "apprendre"]):
+        return {
+            "family": "apprentissage",
+            "schema": "Document → objectif → résumé → questions → exercice → mémorisation",
+            "check": ["niveau de départ", "objectif d’apprentissage", "exemples", "quiz", "application réelle"],
+            "bad": "Je demande un résumé sans dire ce que je veux retenir ou décider.",
+            "good": "Je demande un résumé adapté à mon niveau, puis un quiz et un exercice d’application.",
+        }
+    return {
+        "family": "prompt",
+        "schema": "Besoin → contexte → contraintes → format → vérification → amélioration",
+        "check": ["objectif", "contexte utile", "contraintes", "format", "critères de qualité"],
+        "bad": "Je pose une question vague et j’espère que l’IA devine mon besoin.",
+        "good": "Je transforme mon besoin en mini-brief avec objectif, contexte, contraintes et format.",
+    }
+
+
+def _enriched_course_body(course: Dict[str, Any], objectives: List[str], chapters: List[Dict[str, Any]]) -> str:
+    title = course.get("title") or "utiliser l’IA"
+    topic = _human_topic(title)
+    angle = _course_angle(title)
+    chapter_lines = []
+    for ch in chapters[:4]:
+        ch_title = ch.get("title") or "Étape"
+        lesson = ch.get("simple_lesson") or ch.get("content") or ""
+        action = ch.get("action_to_try") or "Tester sur un cas réel court."
+        chapter_lines.append(f"- **{ch_title}** : {lesson} À essayer : {action}")
+    if not chapter_lines:
+        chapter_lines = [f"- **Comprendre** : définis ce que signifie “{topic}” dans ton cas réel.", f"- **Appliquer** : écris une demande courte, puis ajoute contexte, contraintes et format.", "- **Vérifier** : relis la réponse avec un critère simple avant de l’utiliser."]
+    objectives_lines = [f"- {o}" for o in (objectives[:4] or [f"Comprendre {topic}", "Savoir formuler une demande claire", "Vérifier le résultat avant usage"])]
+    checks = "\n".join(f"- {c}" for c in angle["check"])
+    return "\n\n".join([
+        f"## En clair\nCe cours sert à apprendre à {topic} sans jargon. L’objectif n’est pas de connaître tous les modèles : c’est de savoir quoi demander, pourquoi, et comment vérifier le résultat.",
+        f"## Schéma simple\n`{angle['schema']}`\n\nGarde ce schéma comme une carte mentale : si une étape manque, la réponse de l’IA devient plus fragile.",
+        "## Ce que tu dois savoir faire à la fin\n" + "\n".join(objectives_lines),
+        "## Méthode pas à pas\n" + "\n".join(chapter_lines),
+        "## Checklist de qualité\n" + checks,
+        f"## Exercice rapide\nPrends une situation réelle de ta semaine. Écris une première demande sur “{topic}”, puis améliore-la avec : objectif, contexte, contrainte, format et critère de vérification.",
+        "## À retenir\nUne bonne utilisation de l’IA n’est pas une phrase magique. C’est une boucle courte : demander, lire, vérifier, corriger.",
+    ])
+
+
+def _build_course_quizzes(courses: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    quizzes: List[Dict[str, Any]] = []
+    for course in courses:
+        cid = course.get("id") or "course"
+        title = course.get("title") or "ce cours"
+        topic = _human_topic(title)
+        level = _normalise_academy_level(course.get("level"))
+        angle = _course_angle(title)
+        base = len(quizzes) + 1
+        questions = [
+            (
+                f"Pour {topic}, quelle première étape rend l’IA vraiment utile ?",
+                "Clarifier l’objectif et le résultat attendu",
+                "Choisir l’outil au hasard parce qu’il est populaire",
+                "Demander une réponse très longue sans contexte",
+                "Une IA répond mieux quand elle comprend le but et le livrable attendu.",
+            ),
+            (
+                f"Pour {topic}, dans le schéma “{angle['schema']}”, pourquoi l’étape de vérification est-elle importante ?",
+                "Parce qu’une réponse IA peut être incomplète, datée ou trop générale",
+                "Parce que l’IA ne doit jamais proposer d’idées",
+                "Parce que vérifier remplace le besoin de donner du contexte",
+                "La vérification transforme une réponse plausible en résultat utilisable avec confiance.",
+            ),
+            (
+                f"Quel exemple est le plus pédagogique pour {topic} ?",
+                angle["good"],
+                angle["bad"],
+                "Je copie la première réponse et je passe tout de suite à autre chose.",
+                "Le bon choix donne un contexte, une contrainte et une manière de contrôler la sortie.",
+            ),
+        ]
+        for idx, (question, good, bad1, bad2, explanation) in enumerate(questions, start=1):
+            quizzes.append({
+                "id": f"quiz_{base + idx - 1:03d}",
+                "course_id": cid,
+                "difficulty": level.lower(),
+                "question": question,
+                "answers": [
+                    {"id": "a1", "text": good, "is_correct": True},
+                    {"id": "a2", "text": bad1, "is_correct": False},
+                    {"id": "a3", "text": bad2, "is_correct": False},
+                ],
+                "explanation": explanation,
+                "learning_goal": f"Vérifier que l’apprenant sait appliquer la logique du cours “{title}”.",
+                "frustration_level": "low",
+            })
+    return quizzes
+
 
 def _entity_to_tool(entity: Dict[str, Any]) -> Dict[str, Any]:
     provider = entity.get("provider") or "IA"
@@ -150,32 +289,33 @@ def _entity_to_tool(entity: Dict[str, Any]) -> Dict[str, Any]:
 
 def _academy_course_to_lesson(course: Dict[str, Any], order: int) -> Dict[str, Any]:
     chapters = course.get("chapters") or []
-    steps: List[str] = []
-    body_parts: List[str] = []
-    for ch in chapters:
-        title = ch.get("title") or f"Étape {ch.get('order', len(steps) + 1)}"
-        lesson = ch.get("simple_lesson") or ch.get("content") or ""
-        action = ch.get("action_to_try")
-        if lesson:
-            body_parts.append(f"{title} — {lesson}")
-        if action:
-            steps.append(action)
-        elif title:
-            steps.append(title)
     objectives = course.get("learning_objectives") or course.get("learning_goals") or []
-    if not steps:
-        steps = objectives[:5] or ["Lire la leçon", "Tester dans le Prompt Builder", "Vérifier le résultat"]
+    title = course.get("title") or f"Cours {order}"
+    angle = _course_angle(title)
+    steps: List[str] = []
+    for ch in chapters:
+        action = ch.get("action_to_try")
+        ch_title = ch.get("title") or f"Étape {ch.get('order', len(steps) + 1)}"
+        if action and action not in steps:
+            steps.append(action)
+        elif ch_title and ch_title not in steps:
+            steps.append(ch_title)
+    for item in ["Définir le résultat attendu", "Ajouter le contexte utile", "Imposer un format", "Vérifier avant d’utiliser"]:
+        if len(steps) >= 6:
+            break
+        if item not in steps:
+            steps.append(item)
     mistakes = course.get("common_mistakes") or []
-    before = mistakes[0].get("simple_explanation") if mistakes else "Demande vague, peu de contexte, résultat difficile à utiliser."
-    after = (course.get("plain_language_summary") or (objectives[0] if objectives else course.get("title", "")))
+    before = mistakes[0].get("simple_explanation") if mistakes else angle["bad"]
+    after = angle["good"]
     return {
         "id": course.get("id") or f"premium_course_{order}",
         "order": order,
-        "level": str(course.get("level") or "DÉBUTANT").upper().replace("DEBUTANT", "DÉBUTANT"),
+        "level": _normalise_academy_level(course.get("level")),
         "minutes": int(course.get("estimated_duration_minutes") or course.get("duration_minutes") or 10),
-        "title": course.get("title") or f"Cours {order}",
-        "intro": course.get("plain_language_summary") or (objectives[0] if objectives else "Cours IA Match Academy."),
-        "body": "\n\n".join(body_parts) or course.get("plain_language_summary") or "Leçon pratique IA Match.",
+        "title": title,
+        "intro": course.get("plain_language_summary") or (objectives[0] if objectives else f"Un cours pratique pour apprendre à {_human_topic(title)} avec méthode."),
+        "body": _enriched_course_body(course, objectives, chapters),
         "framework": "OBJECTIF · CONTEXTE · CONTRAINTES · FORMAT · VÉRIFICATION",
         "steps": steps[:6],
         "before": before,
@@ -258,7 +398,7 @@ def augment_cached_data(cache: Dict[str, Any], base_path: Path) -> Dict[str, Any
     # Simple knowledge/config collections for API use.
     cache["academy_paths"] = academy.get("learning_paths", [])
     cache["academy_badges"] = academy.get("academy_badges", [])
-    cache["academy_quizzes_premium"] = academy.get("academy_quizzes", [])
+    cache["academy_quizzes_premium"] = _build_course_quizzes(academy.get("academy_courses") or [])
     cache["academy_exercises"] = academy.get("academy_exercises", [])
     cache["academy_bad_to_good_examples"] = academy.get("bad_to_good_examples", [])
     cache["beginner_friendly_terms"] = academy.get("beginner_friendly_terms", [])
