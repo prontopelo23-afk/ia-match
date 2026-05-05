@@ -57,7 +57,7 @@ export default function BenchmarksScreen() {
 
         <View style={styles.sectionHead}>
           <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Top · {activeSort.label}</Text>
-          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Tri : {activeSort.helper}</Text>
+          <Text style={[styles.sectionMeta, { color: colors.textSecondary }]}>Priorité : {activeSort.helper}</Text>
         </View>
         {loading ? <ActivityIndicator color={colors.coral} /> : generalRows.slice(0, showAdvancedTop ? generalRows.length : 4).map((row, index) => <RankCard key={row.slug} row={row} rank={index + 1} compact={!showAdvancedTop} onPress={() => router.push(`/tool/${row.slug}`)} />)}
         {!loading && generalRows.length > 4 ? (
@@ -77,7 +77,7 @@ export default function BenchmarksScreen() {
               <View style={{ flex: 1 }}>
                 <Text style={[styles.familyTitle, { color: colors.textPrimary }]}>{family.label}</Text>
                 <Text style={[styles.familyDesc, { color: colors.textSecondary }]} numberOfLines={2}>{family.description}</Text>
-                <Text style={[styles.familyMeta, { color: colors.coral }]}>{count || "—"} outils app · top adapté à cet usage</Text>
+                <Text style={[styles.familyMeta, { color: colors.coral }]}>{count || "—"} outils repérés · classement adapté</Text>
               </View>
               <ChevronRight size={18} color={colors.coral} />
             </TouchableOpacity>

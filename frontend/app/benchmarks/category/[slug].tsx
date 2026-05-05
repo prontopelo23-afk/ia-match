@@ -77,7 +77,7 @@ export default function BenchmarkFamilyDetail() {
               <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Meilleurs modèles pour cet usage</Text>
             </View>
             {visibleModels.map((m: any, i: number) => (
-              <Text key={`${m.model ?? m.name}-${i}`} style={[styles.modelLine, { color: colors.textPrimary }]}>#{i + 1} {m.model ?? m.name} · {m.score ?? m.overall_score ?? "—"}/100</Text>
+              <Text key={`${m.model ?? m.name}-${i}`} style={[styles.modelLine, { color: colors.textPrimary }]}>#{i + 1} {displayModelName(m)} · {m.score ?? m.overall_score ?? "—"}/100</Text>
             ))}
             {specialized.length > 3 ? (
               <TouchableOpacity onPress={() => setShowAllModels((v) => !v)} style={styles.moreBtn}>
@@ -120,12 +120,20 @@ function usageForFamily(family: ContentFamily) {
 }
 
 function publicNameKey(name: string) {
-  return name
+  const normalized = name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[\u0300-\u036f]/g, "");
+  if (normalized.includes("chatgpt image") || normalized.includes("gpt image") || normalized.includes("dall")) return "openai-chatgpt-image";
+  if (normalized.includes("nano banana")) return "google-nano-banana";
+  if (normalized.includes("midjourney")) return "midjourney";
+  if (normalized.includes("seedream")) return "bytedance-seedream";
+  if (normalized.includes("imagen")) return "google-imagen";
+  if (normalized.includes("flux")) return "black-forest-flux";
+  if (normalized.includes("stable diffusion") || normalized.includes("sdxl")) return "stability-stable-diffusion";
+  return normalized
     .replace(/openai\s+/g, "")
-    .replace(/\b(v\d+|\d+(\.\d+)?|preview|pro|max|high|turbo)\b/g, "")
+    .replace(/\b(v\d+|\d+(\.\d+)?|preview|pro|max|high|turbo|flash)\b/g, "")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
@@ -152,8 +160,51 @@ function extractSpecialized(rankings: ModelRankings, familySlug: string) {
     "business-productivity": ["writing_content", "documents_pdf_office"],
   };
   const keys = aliases[familySlug] ?? [];
-  if (Array.isArray(cats)) return cats.filter((c: any) => keys.includes(c.id ?? c.slug));
-  return keys.flatMap((k) => Array.isArray(cats[k]) ? cats[k] : []);
+  if (Array.isArray(cats)) return dedupeModelRows(cats.filter((c: any) => keys.includes(c.id ?? c.slug)));
+  return dedupeModelRows(keys.flatMap((k) => Array.isArray(cats[k]) ? cats[k] : []));
+}
+
+function modelFamilyKey(value: string) {
+  const name = value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  if (name.includes("chatgpt image") || name.includes("gpt image") || name.includes("dall")) return "openai-chatgpt-image";
+  if (name.includes("nano banana")) return "google-nano-banana";
+  if (name.includes("midjourney")) return "midjourney";
+  if (name.includes("seedream")) return "bytedance-seedream";
+  if (name.includes("imagen")) return "google-imagen";
+  if (name.includes("flux")) return "black-forest-flux";
+  if (name.includes("stable diffusion") || name.includes("sdxl")) return "stability-stable-diffusion";
+  return name
+    .replace(/openai\s+/g, "")
+    .replace(/\b(v\d+|\d+(\.\d+)?|preview|pro|max|high|turbo|flash)\b/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function displayModelName(model: any) {
+  const raw = String(model.model ?? model.name ?? "Modèle IA");
+  const names: Record<string, string> = {
+    "openai-chatgpt-image": "ChatGPT Image",
+    "google-nano-banana": "Nano Banana",
+    midjourney: "Midjourney",
+    "bytedance-seedream": "Seedream",
+    "google-imagen": "Google Imagen",
+    "black-forest-flux": "FLUX",
+    "stability-stable-diffusion": "Stable Diffusion",
+  };
+  return names[modelFamilyKey(raw)] ?? raw;
+}
+
+function dedupeModelRows(models: any[]) {
+  const seen = new Set<string>();
+  return models.filter((model) => {
+    const key = modelFamilyKey(String(model.model ?? model.name ?? ""));
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 const styles = StyleSheet.create({
