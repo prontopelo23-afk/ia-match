@@ -90,16 +90,19 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => Promise<void> | void
   const [loading, setLoading] = useState(false);
 
   const isRegister = authMode === "register";
-  const canSubmit = Boolean(email.trim() && password.trim() && code.trim() && (!isRegister || accept));
+  const normalizedPassword = password.trim().toUpperCase().replace(/\s+/g, "");
+  const passwordLooksLikeBetaCode = !isRegister && ["IAMATCHBETA", "IAMATCH-TEST", "BETA2026", "IAMATCHTEST"].includes(normalizedPassword);
+  const accessCode = code.trim() || (passwordLooksLikeBetaCode ? password : "");
+  const canSubmit = Boolean(email.trim() && password.trim() && accessCode.trim() && (!isRegister || accept));
 
   const submit = async () => {
     if (!canSubmit || loading) return;
     setError("");
     setLoading(true);
     try {
-      const ok = await betaAccessStore.submit(code);
+      const ok = await betaAccessStore.submit(accessCode);
       if (!ok) {
-        setError("Code incorrect. Vérifie le code bêta transmis par IA Match.");
+        setError("Code incorrect. Mets le code bêta dans le champ du bas, ou utilise IAMATCHBETA comme mot de passe en mode connexion.");
         return;
       }
       if (isRegister) {
@@ -183,19 +186,19 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => Promise<void> | void
           secureTextEntry
           autoCapitalize="none"
           autoComplete={isRegister ? "new-password" : "current-password"}
-          placeholder={isRegister ? "Minimum 10 caractères" : "Ton mot de passe"}
+          placeholder={isRegister ? "Minimum 10 caractères" : "Ton mot de passe ou IAMATCHBETA"}
           placeholderTextColor={colors.textSecondary}
           style={[betaStyles.input, { color: colors.textPrimary, borderColor: colors.borderSubtle, backgroundColor: colors.bg }]}
           testID="beta-auth-password"
         />
 
-        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Code d’accès bêta</Text>
+        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>{isRegister ? "Code d’accès bêta" : "Code d’accès bêta (optionnel si IAMATCHBETA est dans le mot de passe)"}</Text>
         <TextInput
           value={code}
           onChangeText={(v) => { setCode(v); setError(""); }}
           autoCapitalize="characters"
           autoCorrect={false}
-          placeholder="Code reçu par IA Match"
+          placeholder={isRegister ? "Code reçu par IA Match" : "Laisse vide si ton mot de passe est IAMATCHBETA"}
           placeholderTextColor={colors.textSecondary}
           style={[betaStyles.input, { color: colors.textPrimary, borderColor: error ? colors.error : colors.borderSubtle, backgroundColor: colors.bg }]}
           onSubmitEditing={submit}
@@ -216,7 +219,7 @@ function BetaAccessGate({ onUnlocked }: { onUnlocked: () => Promise<void> | void
         <TouchableOpacity disabled={!canSubmit || loading} onPress={submit} style={[betaStyles.button, { backgroundColor: colors.coral }, (!canSubmit || loading) && { opacity: 0.45 }]} testID="beta-access-submit">
           {loading ? <ActivityIndicator color="#fff" /> : <Text style={betaStyles.buttonText}>{isRegister ? "Créer mon compte et entrer" : "Se connecter et entrer"}</Text>}
         </TouchableOpacity>
-        <Text style={[betaStyles.note, { color: colors.textSecondary }]}>Premier contact = compte utilisateur. Sans compte + code bêta valide, l’app reste verrouillée.</Text>
+        <Text style={[betaStyles.note, { color: colors.textSecondary }]}>En mode connexion bêta, tu peux laisser le code du bas vide si tu as mis IAMATCHBETA comme mot de passe.</Text>
       </View>
     </ScrollView>
   );
@@ -271,4 +274,5 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
+
 
