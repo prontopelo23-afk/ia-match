@@ -47,11 +47,11 @@ export default function NewsDetail() {
             <Text style={[styles.impact, { backgroundColor: colors.coralSoft, color: colors.coral }]}>{intel.impact.label}</Text>
             <Text style={[styles.meta, { color: colors.textSecondary }]}>{formatDate(item.publishedAt)} · {item.readMinutes} min</Text>
           </View>
-          <Text style={[styles.title, { color: colors.textPrimary }]}>{item.title}</Text>
-          {item.author ? <Text style={[styles.author, { color: colors.textSecondary }]}>Par {item.author}</Text> : null}
+          <Text style={[styles.title, { color: colors.textPrimary }]}>{shortenNewsTitle(item.title)}</Text>
+          {item.author ? <Text style={[styles.author, { color: colors.textSecondary }]}>{formatAuthor(item.author)}</Text> : <Text style={[styles.author, { color: colors.textSecondary }]}>Analyse IA Match</Text>}
           <View style={[styles.trustRow, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
             <ShieldCheck size={15} color={colors.coral} strokeWidth={2.5} />
-            <Text style={[styles.trustText, { color: colors.textSecondary }]}>Confiance {item.confidence ?? "moyenne"} · {item.verificationStatus ? "source/curation vérifiée" : "signal éditorial"} · vérifié {formatDate(item.lastVerifiedAt || item.publishedAt)}</Text>
+            <Text style={[styles.trustText, { color: colors.textSecondary }]}>{item.verificationStatus ? "Source vérifiée" : "Signal éditorial"} · Confiance {item.confidence ?? "moyenne"} · {formatDate(item.lastVerifiedAt || item.publishedAt)}</Text>
           </View>
           {item.intro ? <Text style={[styles.intro, { color: colors.textPrimary }]}>{item.intro}</Text> : null}
         </Animated.View>
@@ -141,6 +141,19 @@ function SchemaBlock({ steps, colors }: { steps: string[]; colors: any }) {
 
 function renderInline(text: string): React.ReactNode {
   return text.split(/(\*\*[^*]+\*\*)/g).map((p, i) => p.startsWith("**") && p.endsWith("**") ? <Text key={i} style={{ fontFamily: fonts.bodyBold }}>{p.slice(2, -2)}</Text> : p);
+}
+
+function formatAuthor(author?: string) {
+  const raw = String(author || "").trim();
+  if (!raw) return "Analyse IA Match";
+  if (/ia\s*action/i.test(raw)) return "Analyse IA Match";
+  if (/ia\s*match/i.test(raw)) return "Analyse IA Match";
+  return `Par ${raw}`;
+}
+
+function shortenNewsTitle(title: string) {
+  if (title === "Agents de code orchestrés : la prochaine étape après le simple copilote") return "Agents de code : après le simple copilote";
+  return title;
 }
 
 function formatDate(iso: string) {

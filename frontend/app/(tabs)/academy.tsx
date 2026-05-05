@@ -76,8 +76,8 @@ export default function AcademyScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Text style={[styles.eyebrow, { color: colors.coral }]}>ACADEMY</Text>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Apprends l’IA par petits pas.</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Une entrée calme pour comprendre, pratiquer et garder les bons réflexes sans tout lire d’un coup.</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Apprendre l’IA simplement</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Des leçons courtes pour comprendre, tester et progresser sans jargon.</Text>
 
         {loading ? <ActivityIndicator color={colors.coral} style={{ marginVertical: spacing.xl }} /> : (
           <>
@@ -92,11 +92,11 @@ export default function AcademyScreen() {
               </TouchableOpacity>
             ) : null}
 
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Choisis ton chemin</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Trois façons d’apprendre</Text>
             <View style={styles.doorGrid}>
-              <DoorCard title="Comprendre" cta="Leçons" text="Bases simples et quiz courts." steps={["Base", "Exemple", "Quiz"]} icon="1" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
-              <DoorCard title="Utiliser" cta="Templates" text="Prompts prêts à adapter." steps={["Prompt", "Essai", "Corrige"]} icon="2" onPress={() => router.push("/academy/templates")} />
-              <DoorCard title="Progresser" cta="Ressources" text="Parcours et sources fiables." steps={["Sources", "Parcours", "Usage"]} icon="3" onPress={() => router.push("/academy/resources")} />
+              <DoorCard title="Comprendre les bases" cta="Première leçon" text="Les notions essentielles, expliquées simplement." icon="1" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
+              <DoorCard title="Créer de meilleurs prompts" cta="Templates" text="Des exemples prêts à adapter à ton cas." icon="2" onPress={() => router.push("/academy/templates")} />
+              <DoorCard title="Utiliser l’IA au quotidien" cta="Ressources" text="Des parcours et repères fiables pour progresser." icon="3" onPress={() => router.push("/academy/resources")} />
             </View>
 
             <View style={styles.sectionHeaderRow}>
@@ -124,17 +124,6 @@ export default function AcademyScreen() {
               ))}
             </ScrollView>
 
-            <View style={[styles.visualLoop, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
-              <View style={styles.visualLoopHead}>
-                <View style={[styles.visualIcon, { backgroundColor: colors.coralSoft }]}><Sparkles size={17} color={colors.coral} strokeWidth={2.5} /></View>
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.visualTitle, { color: colors.textPrimary }]}>Le réflexe Academy</Text>
-                  <Text style={[styles.visualText, { color: colors.textSecondary }]}>Comprendre, tester, vérifier. Le schéma reste là comme repère, sans bloquer le début.</Text>
-                </View>
-              </View>
-              <LearningDiagram />
-            </View>
-
             <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Bibliothèque</Text>
             <Text style={[styles.sectionHint, { color: colors.textSecondary }]}>Les parcours, exercices, templates et ressources sont séparés pour éviter les gros pavés.</Text>
             <View style={styles.grid}>
@@ -142,6 +131,17 @@ export default function AcademyScreen() {
               <HubCard icon={<FileText size={19} color={colors.coral} />} title="Templates" text="Prompts prêts à adapter" onPress={() => router.push("/academy/templates")} />
               <HubCard icon={<ClipboardList size={19} color={colors.coral} />} title="Pratiquer" text="Exercices courts et avant/après" onPress={() => firstLesson && router.push(`/academy/lesson/${firstLesson.id}`)} />
               <HubCard icon={<Library size={19} color={colors.coral} />} title="Ressources" text="Repères fiables pour progresser" onPress={() => router.push("/academy/resources")} />
+            </View>
+
+            <View style={[styles.visualLoop, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
+              <View style={styles.visualLoopHead}>
+                <View style={[styles.visualIcon, { backgroundColor: colors.coralSoft }]}><Sparkles size={17} color={colors.coral} strokeWidth={2.5} /></View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.visualTitle, { color: colors.textPrimary }]}>Le réflexe Academy</Text>
+                  <Text style={[styles.visualText, { color: colors.textSecondary }]}>Comprendre → tester → vérifier : un repère simple quand tu utilises l’IA.</Text>
+                </View>
+              </View>
+              <LearningDiagram />
             </View>
           </>
         )}
@@ -156,7 +156,7 @@ function HubCard({ icon, title, text, onPress }: { icon: React.ReactNode; title:
   return <TouchableOpacity onPress={onPress} style={[styles.hubCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}><View style={[styles.hubIcon, { backgroundColor: colors.coralSoft }]}>{icon}</View><Text style={[styles.hubTitle, { color: colors.textPrimary }]}>{title}</Text><Text style={[styles.hubText, { color: colors.textSecondary }]}>{text}</Text></TouchableOpacity>;
 }
 
-function DoorCard({ title, cta, text, steps, icon, onPress }: { title: string; cta: string; text: string; steps: string[]; icon: string; onPress: () => void }) {
+function DoorCard({ title, cta, text, icon, onPress }: { title: string; cta: string; text: string; icon: string; onPress: () => void }) {
   const { colors } = useTheme();
   return (
     <TouchableOpacity onPress={onPress} style={[styles.doorCard, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]} activeOpacity={0.86}>
@@ -166,7 +166,6 @@ function DoorCard({ title, cta, text, steps, icon, onPress }: { title: string; c
       </View>
       <Text style={[styles.doorTitle, { color: colors.textPrimary }]}>{title}</Text>
       <Text style={[styles.doorText, { color: colors.textSecondary }]}>{text}</Text>
-      <MiniWorkflow steps={steps} compact />
     </TouchableOpacity>
   );
 }
@@ -194,11 +193,6 @@ function LearningDiagram() {
   );
 }
 
-function MiniWorkflow({ steps, compact = false }: { steps: string[]; compact?: boolean }) {
-  const { colors } = useTheme();
-  return <View style={[styles.workflowRow, compact && styles.workflowCompact]}>{steps.map((step, index) => <React.Fragment key={`${step}-${index}`}><View style={[styles.workflowDot, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}><Text style={[styles.workflowDotText, { color: colors.coral }]}>{index + 1}</Text></View><Text style={[styles.workflowStep, { color: colors.textPrimary }]} numberOfLines={1}>{step}</Text>{index < steps.length - 1 ? <View style={[styles.workflowLine, { backgroundColor: colors.borderSubtle }]} /> : null}</React.Fragment>)}</View>;
-}
-
 const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.xxl },
@@ -222,12 +216,6 @@ const styles = StyleSheet.create({
   visualIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   visualTitle: { fontFamily: fonts.serif, fontSize: 21, lineHeight: 25 },
   visualText: { fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginTop: 2 },
-  workflowRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 4 },
-  workflowCompact: { marginTop: spacing.sm },
-  workflowDot: { width: 24, height: 24, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  workflowDotText: { fontFamily: fonts.bodyBold, fontSize: 11 },
-  workflowStep: { fontFamily: fonts.bodySemi, fontSize: 13, maxWidth: 86 },
-  workflowLine: { width: 16, height: 2, borderRadius: 2 },
   diagramWrap: { gap: 8, marginTop: spacing.sm },
   diagramCard: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 88 },
   diagramEmoji: { fontSize: 24, marginBottom: 5 },
@@ -248,7 +236,7 @@ const styles = StyleSheet.create({
   pathCard: { width: 190, minHeight: 124, borderWidth: 1, borderRadius: radius.lg, padding: spacing.md },
   pathLevel: { fontFamily: fonts.bodyBold, fontSize: 12, letterSpacing: 1.1, textTransform: "uppercase", marginTop: 8 },
   pathTitle: { fontFamily: fonts.serif, fontSize: 17, lineHeight: 21, marginTop: 5 },
-  pathMeta: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: 7, textTransform: "uppercase" },
+  pathMeta: { fontFamily: fonts.bodyBold, fontSize: 12, marginTop: 7 },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.sm },
   hubCard: { width: "48%", borderWidth: 1, borderRadius: radius.lg, padding: spacing.md, minHeight: 120 },
   hubIcon: { width: 38, height: 38, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: spacing.sm },

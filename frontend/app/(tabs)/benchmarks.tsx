@@ -2,17 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { BookOpen, ChevronRight, Layers3, Sparkles } from "lucide-react-native";
+import { ChevronRight, Layers3, Sparkles } from "lucide-react-native";
 import { fonts, radius, shadow, spacing } from "../../src/theme";
 import { useTheme } from "../../src/theme-context";
 import { api, BenchmarkRow } from "../../src/api";
 import { GENERAL_MODEL_BY_SLUG } from "../../src/utils/generalRanking";
 import { CONTENT_FAMILIES, rowMatchesFamily } from "../../src/utils/contentArchitecture";
-import { ConceptCard, ScoreGauge, ToolBattleStrip } from "../../src/components/VisualExplainers";
 
 type SortKey = "score" | "speed" | "accuracy" | "price";
 const SORTS: { key: SortKey; label: string; helper: string }[] = [
-  { key: "score", label: "Commencer", helper: "simple et polyvalent" },
+  { key: "score", label: "Polyvalent", helper: "pour démarrer" },
   { key: "accuracy", label: "Résultat", helper: "qualité d’abord" },
   { key: "speed", label: "Rapide", helper: "répond vite" },
   { key: "price", label: "Budget", helper: "coût réduit" },
@@ -44,17 +43,8 @@ export default function BenchmarksScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.bg }]} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Text style={[styles.eyebrow, { color: colors.coral }]}>CLASSEMENTS</Text>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Quel outil choisir selon ton besoin ?</Text>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Des cartes simples : meilleur usage, raison principale, limite à connaître.</Text>
-
-        <View style={[styles.helpCard, { backgroundColor: colors.coralSoft, borderColor: colors.coral }]}>
-          <BookOpen size={18} color={colors.coral} />
-          <Text style={[styles.helpText, { color: colors.textSecondary }]}>Pour choisir vite : regarde “meilleur pour”, “pourquoi ici” et la limite à connaître.</Text>
-        </View>
-
-        {!loading && generalRows.length ? <ToolBattleStrip items={generalRows.slice(0, 3).map((row) => ({ name: row.name, role: row.bestFor ?? GENERAL_MODEL_BY_SLUG[row.slug]?.bestFor ?? "usage général", score: row.score }))} /> : null}
-        <ScoreGauge label="Lecture du score" value={87} helper="Ce n’est pas un benchmark scientifique brut : c’est un indice éditorial pour décider plus vite selon un usage." />
-        <ConceptCard icon="spark" title="Une carte plutôt qu’un tableau" text="Les classements doivent montrer le contexte : quand utiliser l’outil, pourquoi il est haut, et quand l’éviter." bullets={["Top général pour démarrer", "Top par usage pour choisir finement"]} />
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Classements IA</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Compare les outils par usage, qualité, vitesse ou budget. Commence par le top simple, puis affine selon ton besoin.</Text>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.sorts}>
           {SORTS.map((item) => (

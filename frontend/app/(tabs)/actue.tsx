@@ -59,8 +59,8 @@ export default function ActueScreen() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeInDown.duration(450)} style={[styles.hero, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }] }>
           <Text style={[styles.eyebrow, { color: colors.coral }]}>ACTU IA</Text>
-          <Text style={[styles.title, { color: colors.textPrimary }]}>Ce qu’il faut retenir, pas tout le bruit.</Text>
-          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Chaque actu doit t’aider à décider : tester, surveiller, comparer ou ignorer.</Text>
+          <Text style={[styles.title, { color: colors.textPrimary }]}>L’actu IA utile</Text>
+          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>Ce qui mérite d’être testé, surveillé ou ignoré.</Text>
 
         </Animated.View>
 
@@ -117,7 +117,7 @@ function FeaturedNews({ item, tools, bookmarked, onBookmark, pulseStyle }: { ite
             </TouchableOpacity>
           </Animated.View>
         </View>
-        <Text style={[styles.featuredTitle, { color: colors.textPrimary }]}>{item.title}</Text>
+        <Text style={[styles.featuredTitle, { color: colors.textPrimary }]}>{shortenNewsTitle(item.title)}</Text>
         <Text style={[styles.featuredSummary, { color: colors.textSecondary }]} numberOfLines={2}>{item.summary}</Text>
         <Text style={[styles.featuredAction, { color: colors.coral }]}>{intel.action}</Text>
         <View style={styles.readLink}><Text style={[styles.readLinkText, { color: colors.coral }]}>Lire le détail</Text><ArrowUpRight size={16} color={colors.coral} strokeWidth={2.5} /></View>
@@ -141,7 +141,7 @@ function NewsRow({ item, tools, bookmarked, onBookmark, index }: { item: NewsIte
             <Bookmark size={14} color={bookmarked ? colors.coral : colors.textSecondary} fill={bookmarked ? colors.coral : "transparent"} strokeWidth={2} />
           </TouchableOpacity>
         </View>
-        <Text style={[styles.rowTitle, { color: colors.textPrimary }]}>{item.title}</Text>
+        <Text style={[styles.rowTitle, { color: colors.textPrimary }]}>{shortenNewsTitle(item.title)}</Text>
         <Text style={[styles.rowSummary, { color: colors.textSecondary }]} numberOfLines={2}>{item.summary}</Text>
         <Text style={[styles.rowAction, { color: colors.coral }]} numberOfLines={1}>{intel.action}</Text>
       </TouchableOpacity>
@@ -235,6 +235,12 @@ function RelatedMiniTools({ tools, compact = false }: { tools: Tool[]; compact?:
 function ImpactBadge({ label, compact = false }: { label: string; compact?: boolean }) {
   const { colors } = useTheme();
   return <Text style={[styles.impactBadge, { backgroundColor: colors.coralSoft, color: colors.coral }, compact && styles.impactCompact]}>{label}</Text>;
+}
+
+function shortenNewsTitle(title: string) {
+  if (title === "Claude Code, Cline, Roo, Aider : les assistants IA de dev ne se valent pas") return "Claude Code, Cline, Roo, Aider : lequel choisir ?";
+  if (title === "Agents de code orchestrés : la prochaine étape après le simple copilote") return "Agents de code : après le simple copilote";
+  return title;
 }
 
 function formatDate(iso: string) {
