@@ -363,6 +363,8 @@ def _category_family_key(tool: dict, category: str) -> str:
             return "black-forest-flux"
         if slug.startswith("stable-diffusion") or "stable diffusion" in name:
             return "stability-stable-diffusion"
+        if slug.startswith("midjourney") or "midjourney" in name:
+            return "midjourney"
     if category == "texte":
         if slug in {"chatgpt", "o3"} or vendor == "openai":
             return f"openai-{slug}" if slug == "o3" else "openai-chatgpt"

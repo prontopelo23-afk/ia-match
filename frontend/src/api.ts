@@ -403,6 +403,21 @@ function fallbackMatchFamilyKey(tool: Tool, categories: string[]): string {
   return slug || name;
 }
 
+function normalizeFallbackMatchTool(tool: Tool, categories: string[]): Tool {
+  const family = fallbackMatchFamilyKey(tool, categories);
+  if (family === "openai-chatgpt-image") {
+    return {
+      ...tool,
+      name: "ChatGPT Image",
+      vendor: "OpenAI",
+      color: "#10A37F",
+      tagline: "Créer des images avec ChatGPT/OpenAI",
+      description: "Famille image d’OpenAI dans ChatGPT : génération, retouche par conversation et visuels marketing. IA Match masque les variantes techniques pour garder un choix lisible.",
+    };
+  }
+  return tool;
+}
+
 function fallbackMatch(need: string, priority: string, freeOnly: boolean): MatchResult[] {
   const q = need.toLowerCase();
   const categories = inferFallbackCategories(q);
@@ -450,19 +465,22 @@ function fallbackMatch(need: string, priority: string, freeOnly: boolean): Match
     return true;
   });
 
-  return dedupedTools.slice(0, 8).map((tool, index) => ({
-    tool,
-    matchScore: Math.max(72, Math.min(98, Math.round(scoreFor(tool) - index * 1.5))),
-    reasons: [
-      `Aligné avec la famille “${categoryLabels[categories[0]] ?? categories[0]}” détectée dans ton besoin`,
-      priority === "price" && tool.freeTier ? "Plan gratuit disponible pour tester sans risque" : `Indice éditorial IA Match ${tool.score}/100`,
-      tool.useCases?.[0] ?? tool.tagline ?? "Bon choix pour démarrer simplement",
-    ],
-    recommendationType: index === 0 ? "best" : tool.freeTier ? "free_alternative" : "premium",
-    scoreExplanation: "Recommandation locale basée sur les catégories détectées, le budget, les prix publics, la vitesse, la qualité estimée et l’indice éditorial IA Match embarqué.",
-    avoidIf: !tool.freeTier ? ["À éviter si tu veux absolument rester gratuit."] : [],
-    readyPrompt: `Aide-moi pour : ${userTask.replace(/[.!?]+$/g, "")}. Pose-moi jusqu’à 3 questions si une information essentielle manque, puis propose une réponse claire, concrète et directement actionnable.`,
-  }));
+  return dedupedTools.slice(0, 8).map((rawTool, index) => {
+    const tool = normalizeFallbackMatchTool(rawTool, categories);
+    return {
+      tool,
+      matchScore: Math.max(72, Math.min(98, Math.round(scoreFor(rawTool) - index * 1.5))),
+      reasons: [
+        `Aligné avec la famille “${categoryLabels[categories[0]] ?? categories[0]}” détectée dans ton besoin`,
+        priority === "price" && rawTool.freeTier ? "Plan gratuit disponible pour tester sans risque" : `Indice éditorial IA Match ${rawTool.score}/100`,
+        rawTool.useCases?.[0] ?? rawTool.tagline ?? "Bon choix pour démarrer simplement",
+      ],
+      recommendationType: index === 0 ? "best" : rawTool.freeTier ? "free_alternative" : "premium",
+      scoreExplanation: "Recommandation locale basée sur les catégories détectées, le budget, les prix publics, la vitesse, la qualité estimée et l’indice éditorial IA Match embarqué.",
+      avoidIf: !rawTool.freeTier ? ["À éviter si tu veux absolument rester gratuit."] : [],
+      readyPrompt: `Aide-moi pour : ${userTask.replace(/[.!?]+$/g, "")}. Pose-moi jusqu’à 3 questions si une information essentielle manque, puis propose une réponse claire, concrète et directement actionnable.`,
+    };
+  });
 }
 
 export const api = {

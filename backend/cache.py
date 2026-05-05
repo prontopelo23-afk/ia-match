@@ -48,7 +48,7 @@ IMAGE_RANKING_OVERRIDES = {
     # IA Match treats this as the current OpenAI/ChatGPT image product.
     # It should be the default pro recommendation for broad image generation.
     "dalle": {
-        "name": "ChatGPT Image 2.0",
+        "name": "ChatGPT Image",
         "tagline": "Le meilleur choix polyvalent pour créer des images pro dans ChatGPT",
         "description": "Génération et édition d’images OpenAI intégrées à ChatGPT : très bon suivi de consigne, texte lisible, retouche conversationnelle et usage marketing/pro.",
         "accuracyPct": 97,

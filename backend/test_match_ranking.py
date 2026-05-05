@@ -22,7 +22,7 @@ def test_image_professional_match_prefers_chatgpt_image_before_topaz_or_nano_ban
         "Je veux créer une image professionnelle premium pour une campagne marketing, niveau pro, meilleur outil possible même payant"
     )
     names = _names(items)
-    assert names[0] == "ChatGPT Image 2.0", names
+    assert names[0] == "ChatGPT Image", names
     for competitor in ["Nano Banana", "Topaz"]:
         competitor_ranks = [i for i, name in enumerate(names) if competitor in name]
         if competitor_ranks:
@@ -40,4 +40,4 @@ def test_tools_image_category_ranks_chatgpt_image_first_for_score_sort():
     response = client.get("/api/tools", params={"category": "image", "sort": "score"})
     assert response.status_code == 200
     names = _names([{"tool": t} for t in response.json()])
-    assert names[0] == "ChatGPT Image 2.0", names[:8]
+    assert names[0] == "ChatGPT Image", names[:8]
