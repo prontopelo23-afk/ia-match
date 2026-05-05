@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View, ActivityIndicator, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, ActivityIndicator, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
 import {
   useFonts,
   PlayfairDisplay_700Bold,
@@ -17,6 +17,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider, PremiumProvider, useTheme } from "../src/theme-context";
 import { I18nProvider } from "../src/i18n";
 import { betaAccessStore, onboardingStore } from "../src/api";
+import { auth } from "../src/auth";
 import CookieConsent from "../src/components/CookieConsent";
 import { ToastProvider } from "../src/components/Toast";
 
@@ -51,7 +52,11 @@ function StackContent() {
   }
 
   if (!betaAllowed) {
-    return <BetaAccessGate onUnlocked={() => setBetaAllowed(true)} />;
+    return <BetaAccessGate onUnlocked={async () => {
+      setBetaAllowed(true);
+      const done = await onboardingStore.isDone();
+      if (!done) router.replace("/onboarding");
+    }} />;
   }
 
   return (
@@ -73,64 +78,169 @@ function StackContent() {
 }
 
 
-function BetaAccessGate({ onUnlocked }: { onUnlocked: () => void }) {
+function BetaAccessGate({ onUnlocked }: { onUnlocked: () => Promise<void> | void }) {
   const { colors, mode } = useTheme();
+  const [authMode, setAuthMode] = useState<"login" | "register">("register");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
+  const [accept, setAccept] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isRegister = authMode === "register";
+  const canSubmit = Boolean(email.trim() && password.trim() && code.trim() && (!isRegister || accept));
+
   const submit = async () => {
+    if (!canSubmit || loading) return;
+    setError("");
     setLoading(true);
-    const ok = await betaAccessStore.submit(code);
-    setLoading(false);
-    if (ok) onUnlocked();
-    else setError("Code incorrect. Vérifie le code bêta transmis par IA Match.");
+    try {
+      const ok = await betaAccessStore.submit(code);
+      if (!ok) {
+        setError("Code incorrect. Vérifie le code bêta transmis par IA Match.");
+        return;
+      }
+      if (isRegister) {
+        await auth.register(email.trim(), password, name.trim() || email.split("@")[0], true);
+      } else {
+        await auth.login(email.trim(), password);
+      }
+      await onUnlocked();
+    } catch (e: any) {
+      setError(e?.message || "Impossible de continuer pour le moment.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <View style={[betaStyles.wrap, { backgroundColor: colors.bg }]}>
+    <ScrollView style={[betaStyles.wrap, { backgroundColor: colors.bg }]} contentContainerStyle={betaStyles.scrollContent} keyboardShouldPersistTaps="handled">
       <StatusBar style={mode === "light" ? "dark" : "light"} />
       <View style={[betaStyles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}>
         <View style={betaStyles.logoRow}>
           <Image source={appLogo} style={betaStyles.logo} resizeMode="contain" />
           <View style={{ flex: 1 }}>
             <Text style={[betaStyles.brand, { color: colors.textPrimary }]}>IA MATCH</Text>
-            <Text style={[betaStyles.kicker, { color: colors.coral }]}>BÊTA PRIVÉE</Text>
+            <Text style={[betaStyles.kicker, { color: colors.coral }]}>ACCÈS BÊTA PRIVÉE</Text>
           </View>
         </View>
-        <Text style={[betaStyles.title, { color: colors.textPrimary }]}>Connexion à IA Match.</Text>
-        <Text style={[betaStyles.text, { color: colors.textSecondary }]}>Écran d’authentification bêta : entre ton code d’accès pour ouvrir l’app. Le vrai compte utilisateur reste disponible ensuite depuis le profil.</Text>
-        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Code d’accès</Text>
+
+        <Text style={[betaStyles.title, { color: colors.textPrimary }]}>Ton compte IA Match.</Text>
+        <Text style={[betaStyles.text, { color: colors.textSecondary }]}>
+          Crée ton compte ou connecte-toi avant d’entrer dans l’app. Le code bêta sert uniquement à réserver l’accès aux testeurs invités.
+        </Text>
+
+        <View style={[betaStyles.modeSwitch, { backgroundColor: colors.bg, borderColor: colors.borderSubtle }]}>
+          <TouchableOpacity
+            onPress={() => { setAuthMode("register"); setError(""); }}
+            style={[betaStyles.modeButton, isRegister && { backgroundColor: colors.coral }]}
+          >
+            <Text style={[betaStyles.modeText, { color: isRegister ? "#fff" : colors.textSecondary }]}>Créer un compte</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => { setAuthMode("login"); setError(""); }}
+            style={[betaStyles.modeButton, !isRegister && { backgroundColor: colors.coral }]}
+          >
+            <Text style={[betaStyles.modeText, { color: !isRegister ? "#fff" : colors.textSecondary }]}>Se connecter</Text>
+          </TouchableOpacity>
+        </View>
+
+        {isRegister ? (
+          <>
+            <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Prénom</Text>
+            <TextInput
+              value={name}
+              onChangeText={setName}
+              placeholder="Ton prénom"
+              placeholderTextColor={colors.textSecondary}
+              style={[betaStyles.input, { color: colors.textPrimary, borderColor: colors.borderSubtle, backgroundColor: colors.bg }]}
+              autoCapitalize="words"
+              testID="beta-auth-name"
+            />
+          </>
+        ) : null}
+
+        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Email</Text>
+        <TextInput
+          value={email}
+          onChangeText={(v) => { setEmail(v); setError(""); }}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          autoComplete="email"
+          placeholder="toi@email.com"
+          placeholderTextColor={colors.textSecondary}
+          style={[betaStyles.input, { color: colors.textPrimary, borderColor: colors.borderSubtle, backgroundColor: colors.bg }]}
+          testID="beta-auth-email"
+        />
+
+        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Mot de passe</Text>
+        <TextInput
+          value={password}
+          onChangeText={(v) => { setPassword(v); setError(""); }}
+          secureTextEntry
+          autoCapitalize="none"
+          autoComplete={isRegister ? "new-password" : "current-password"}
+          placeholder={isRegister ? "Minimum 10 caractères" : "Ton mot de passe"}
+          placeholderTextColor={colors.textSecondary}
+          style={[betaStyles.input, { color: colors.textPrimary, borderColor: colors.borderSubtle, backgroundColor: colors.bg }]}
+          testID="beta-auth-password"
+        />
+
+        <Text style={[betaStyles.fieldLabel, { color: colors.textPrimary }]}>Code d’accès bêta</Text>
         <TextInput
           value={code}
           onChangeText={(v) => { setCode(v); setError(""); }}
           autoCapitalize="characters"
           autoCorrect={false}
-          placeholder="Ton code bêta"
+          placeholder="Code reçu par IA Match"
           placeholderTextColor={colors.textSecondary}
           style={[betaStyles.input, { color: colors.textPrimary, borderColor: error ? colors.error : colors.borderSubtle, backgroundColor: colors.bg }]}
           onSubmitEditing={submit}
           testID="beta-access-code"
         />
+
+        {isRegister ? (
+          <TouchableOpacity onPress={() => setAccept((v) => !v)} style={betaStyles.consentRow} testID="beta-auth-consent">
+            <View style={[betaStyles.checkbox, { borderColor: accept ? colors.coral : colors.borderSubtle, backgroundColor: accept ? colors.coral : "transparent" }]}>
+              {accept ? <Text style={betaStyles.check}>✓</Text> : null}
+            </View>
+            <Text style={[betaStyles.consentText, { color: colors.textSecondary }]}>J’accepte les CGU et la Politique de confidentialité.</Text>
+          </TouchableOpacity>
+        ) : null}
+
         {error ? <Text style={[betaStyles.error, { color: colors.error }]}>{error}</Text> : null}
-        <TouchableOpacity disabled={!code.trim() || loading} onPress={submit} style={[betaStyles.button, { backgroundColor: colors.coral }, (!code.trim() || loading) && { opacity: 0.45 }]} testID="beta-access-submit">
-          {loading ? <ActivityIndicator color="#fff" /> : <Text style={betaStyles.buttonText}>Se connecter</Text>}
+
+        <TouchableOpacity disabled={!canSubmit || loading} onPress={submit} style={[betaStyles.button, { backgroundColor: colors.coral }, (!canSubmit || loading) && { opacity: 0.45 }]} testID="beta-access-submit">
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={betaStyles.buttonText}>{isRegister ? "Créer mon compte et entrer" : "Se connecter et entrer"}</Text>}
         </TouchableOpacity>
-        <Text style={[betaStyles.note, { color: colors.textSecondary }]}>Tant que le code n’est pas validé, l’accès à l’app reste bloqué.</Text>
+        <Text style={[betaStyles.note, { color: colors.textSecondary }]}>Premier contact = compte utilisateur. Sans compte + code bêta valide, l’app reste verrouillée.</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const betaStyles = StyleSheet.create({
-  wrap: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
+  wrap: { flex: 1 },
+  scrollContent: { flexGrow: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   card: { width: "100%", maxWidth: 460, borderWidth: 1, borderRadius: 28, padding: 24 },
   logoRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 18 },
   logo: { width: 54, height: 54, borderRadius: 16 },
   brand: { fontFamily: "Inter_700Bold", fontSize: 13, letterSpacing: 4 },
   kicker: { fontFamily: "Inter_700Bold", fontSize: 11, letterSpacing: 2, marginTop: 3 },
-  title: { fontFamily: "PlayfairDisplay_700Bold", fontSize: 36, lineHeight: 40, marginBottom: 10 },
+  title: { fontFamily: "PlayfairDisplay_700Bold", fontSize: 34, lineHeight: 38, marginBottom: 10 },
   text: { fontFamily: "Inter_400Regular", fontSize: 15, lineHeight: 22, marginBottom: 18 },
-  fieldLabel: { fontFamily: "Inter_700Bold", fontSize: 12, letterSpacing: 0.8, marginBottom: 8 },
-  input: { borderWidth: 1, borderRadius: 18, paddingHorizontal: 16, paddingVertical: 14, fontFamily: "Inter_600SemiBold", fontSize: 16, letterSpacing: 1.2, outlineWidth: 0 } as any,
+  modeSwitch: { flexDirection: "row", borderWidth: 1, borderRadius: 999, padding: 4, marginBottom: 18 },
+  modeButton: { flex: 1, alignItems: "center", justifyContent: "center", borderRadius: 999, paddingVertical: 10, paddingHorizontal: 10 },
+  modeText: { fontFamily: "Inter_700Bold", fontSize: 12 },
+  fieldLabel: { fontFamily: "Inter_700Bold", fontSize: 12, letterSpacing: 0.8, marginBottom: 8, marginTop: 10 },
+  input: { borderWidth: 1, borderRadius: 18, paddingHorizontal: 16, paddingVertical: 14, fontFamily: "Inter_600SemiBold", fontSize: 15, outlineWidth: 0 } as any,
+  consentRow: { flexDirection: "row", alignItems: "flex-start", gap: 10, marginTop: 14 },
+  checkbox: { width: 20, height: 20, borderRadius: 7, borderWidth: 1, alignItems: "center", justifyContent: "center", marginTop: 1 },
+  check: { color: "#fff", fontFamily: "Inter_700Bold", fontSize: 13, lineHeight: 16 },
+  consentText: { flex: 1, fontFamily: "Inter_400Regular", fontSize: 12, lineHeight: 18 },
   error: { fontFamily: "Inter_600SemiBold", fontSize: 12, marginTop: 8 },
   button: { marginTop: 14, borderRadius: 999, paddingVertical: 15, alignItems: "center", justifyContent: "center" },
   buttonText: { color: "#fff", fontFamily: "Inter_700Bold", fontSize: 15 },
@@ -161,3 +271,4 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
+
