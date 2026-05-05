@@ -1,6 +1,6 @@
 {
-  "installCommand": "cd frontend && npm ci",
-  "buildCommand": "cd frontend && EXPO_PUBLIC_BACKEND_URL= EXPO_USE_FAST_RESOLVER=0 npx expo export --platform web --clear",
+  "installCommand": "cd frontend && npm ci --no-audit --no-fund",
+  "buildCommand": "cd frontend && CI=1 EXPO_NO_TELEMETRY=1 EXPO_NO_PROGRESS=1 EXPO_PUBLIC_BACKEND_URL= EXPO_USE_FAST_RESOLVER=0 npx expo export --platform web",
   "outputDirectory": "frontend/dist",
   "rewrites": [
     { "source": "/((?!api/.*).*)", "destination": "/index.html" }
