@@ -95,7 +95,7 @@ export default function BenchmarkFamilyDetail() {
               <Text style={[styles.rankText, { color: index === 0 ? "#fff" : colors.coral }]}>#{index + 1}</Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={[styles.rowName, { color: colors.textPrimary }]}>{row.name}</Text>
+              <Text style={[styles.rowName, { color: colors.textPrimary }]}>{displayToolName(row)}</Text>
               <Text style={[styles.rowMeta, { color: colors.textSecondary }]} numberOfLines={1}>{row.bestFor ?? row.vendor}</Text>
             </View>
             <View style={styles.scoreWrap}>
@@ -141,11 +141,24 @@ function publicNameKey(name: string) {
 function dedupeBenchmarkRows(rows: BenchmarkRow[]) {
   const seen = new Set<string>();
   return rows.filter((row) => {
-    const key = publicNameKey(row.name);
+    const key = publicNameKey(`${row.slug} ${row.name} ${row.vendor}`);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
+}
+
+function displayToolName(row: BenchmarkRow) {
+  const names: Record<string, string> = {
+    "openai-chatgpt-image": "ChatGPT Image",
+    "google-nano-banana": "Nano Banana",
+    midjourney: "Midjourney",
+    "bytedance-seedream": "Seedream",
+    "google-imagen": "Google Imagen",
+    "black-forest-flux": "FLUX",
+    "stability-stable-diffusion": "Stable Diffusion",
+  };
+  return names[publicNameKey(`${row.slug} ${row.name} ${row.vendor}`)] ?? row.name;
 }
 
 function extractSpecialized(rankings: ModelRankings, familySlug: string) {
