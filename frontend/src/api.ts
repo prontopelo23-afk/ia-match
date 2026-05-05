@@ -388,6 +388,21 @@ function inferFallbackCategories(q: string): string[] {
   return found.length ? found : ["texte"];
 }
 
+function fallbackMatchFamilyKey(tool: Tool, categories: string[]): string {
+  const slug = tool.slug || "";
+  const name = `${tool.name} ${tool.vendor}`.toLowerCase();
+  if (categories.includes("image")) {
+    if (["dalle", "gpt-image-2", "gpt-image-2-high", "gpt-image-15", "gpt-image-1-5-high"].includes(slug) || name.includes("gpt image") || name.includes("chatgpt image") || name.includes("dall")) return "openai-chatgpt-image";
+    if (slug.startsWith("nano-banana") || name.includes("nano banana")) return "google-nano-banana";
+    if (slug.startsWith("seedream") || name.includes("seedream")) return "bytedance-seedream";
+    if (slug.startsWith("imagen") || name.includes("imagen")) return "google-imagen";
+    if (slug.startsWith("flux") || name.includes("flux")) return "black-forest-flux";
+    if (slug.startsWith("stable-diffusion") || name.includes("stable diffusion") || name.includes("sdxl")) return "stability-stable-diffusion";
+    if (slug.startsWith("midjourney") || name.includes("midjourney")) return "midjourney";
+  }
+  return slug || name;
+}
+
 function fallbackMatch(need: string, priority: string, freeOnly: boolean): MatchResult[] {
   const q = need.toLowerCase();
   const categories = inferFallbackCategories(q);
@@ -427,7 +442,15 @@ function fallbackMatch(need: string, priority: string, freeOnly: boolean): Match
 
   tools.sort((a, b) => scoreFor(b) - scoreFor(a) || b.score - a.score || a.monthlyPrice - b.monthlyPrice);
 
-  return tools.slice(0, 8).map((tool, index) => ({
+  const seenFamilies = new Set<string>();
+  const dedupedTools = tools.filter((tool) => {
+    const key = fallbackMatchFamilyKey(tool, categories);
+    if (seenFamilies.has(key)) return false;
+    seenFamilies.add(key);
+    return true;
+  });
+
+  return dedupedTools.slice(0, 8).map((tool, index) => ({
     tool,
     matchScore: Math.max(72, Math.min(98, Math.round(scoreFor(tool) - index * 1.5))),
     reasons: [
